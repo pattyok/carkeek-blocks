@@ -2,10 +2,10 @@ import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { TextControl } from "@wordpress/components";
 
-registerBlockType("mytheme-blocks/meta", {
-    title: __(" Meta Block ", "mytheme-blocks"),
+registerBlockType("carkeek-blocks/meta", {
+    title: __(" Meta Block ", "carkeek-blocks"),
 
-    description: __("Block for editing meta field", "mytheme-blocks"),
+    description: __("Block for editing meta field", "carkeek-blocks"),
 
     icon: "admin-tools",
 
@@ -26,7 +26,7 @@ registerBlockType("mytheme-blocks/meta", {
         return (
             <div>
                 <TextControl
-                    label={__("Post Subtitle", "mytheme-blocks")}
+                    label={__("Post Subtitle", "carkeek-blocks")}
                     value={attributes.post_subtitle}
                     onChange={onChange}
                 />

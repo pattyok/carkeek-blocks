@@ -37,7 +37,7 @@ const attributes = {
         type: "array",
         default: [],
         source: "query",
-        selector: ".wp-block-mytheme-blocks-team-member__social ul li",
+        selector: ".wp-block-carkeek-blocks-team-member__social ul li",
         query: {
             icon: {
                 source: "attribute",
@@ -52,14 +52,14 @@ const attributes = {
     }
 };
 
-registerBlockType("mytheme-blocks/team-member", {
-    title: __("Team Member", "mytheme-blocks"),
+registerBlockType("carkeek-blocks/team-member", {
+    title: __("Team Member", "carkeek-blocks"),
 
-    description: __(" Block showing a Team Member. ", "mytheme-blocks"),
+    description: __(" Block showing a Team Member. ", "carkeek-blocks"),
 
     icon: "admin-users",
 
-    parent: ["mytheme-blocks/team-members"],
+    parent: ["carkeek-blocks/team-members"],
 
     supports: {
         reusable: false,
@@ -69,9 +69,9 @@ registerBlockType("mytheme-blocks/team-member", {
     category: "mytheme-category",
 
     keywords: [
-        __("team", "mytheme-blocks"),
-        __("member", "mytheme-blocks"),
-        __("person", "mytheme-blocks")
+        __("team", "carkeek-blocks"),
+        __("member", "carkeek-blocks"),
+        __("person", "carkeek-blocks")
     ],
 
     attributes,
@@ -89,14 +89,14 @@ registerBlockType("mytheme-blocks/team-member", {
                 )}
                 {title && (
                     <RichText.Content
-                        className={"wp-block-mytheme-blocks-team-member__title"}
+                        className={"wp-block-carkeek-blocks-team-member__title"}
                         tagName="h4"
                         value={title}
                     />
                 )}
                 {info && (
                     <RichText.Content
-                        className={"wp-block-mytheme-blocks-team-member__info"}
+                        className={"wp-block-carkeek-blocks-team-member__info"}
                         tagName="p"
                         value={info}
                     />
@@ -105,7 +105,7 @@ registerBlockType("mytheme-blocks/team-member", {
                 {social.length > 0 && (
                     <div
                         className={
-                            "wp-block-mytheme-blocks-team-member__social"
+                            "wp-block-carkeek-blocks-team-member__social"
                         }
                     >
                         <ul>

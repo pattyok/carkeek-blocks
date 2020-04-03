@@ -14,16 +14,16 @@ let TodoCount = props => {
 
 TodoCount = withSelect(select => {
     return {
-        total: select("mytheme-blocks/todo").getToDosNumber(),
-        todo: select("mytheme-blocks/todo").getUnDoneToDosNumber(),
-        done: select("mytheme-blocks/todo").getDoneToDosNumber()
+        total: select("carkeek-blocks/todo").getToDosNumber(),
+        todo: select("carkeek-blocks/todo").getUnDoneToDosNumber(),
+        done: select("carkeek-blocks/todo").getDoneToDosNumber()
     };
 })(TodoCount);
 
-registerBlockType("mytheme-blocks/todo-list-count", {
-    title: __("Redux Todo Count", "mytheme-blocks"),
+registerBlockType("carkeek-blocks/todo-list-count", {
+    title: __("Redux Todo Count", "carkeek-blocks"),
 
-    description: __("Redux Todo Count", "mytheme-blocks"),
+    description: __("Redux Todo Count", "carkeek-blocks"),
 
     icon: "editor-ul",
 

@@ -56,16 +56,16 @@ class ReduxTodoEdit extends Component {
 export default compose([
     withSelect(select => {
         return {
-            todos: select("mytheme-blocks/todo").getTodos()
+            todos: select("carkeek-blocks/todo").getTodos()
         };
     }),
     withDispatch(dispatch => {
         return {
             addToDo: item => {
-                dispatch("mytheme-blocks/todo").addToDo(item);
+                dispatch("carkeek-blocks/todo").addToDo(item);
             },
             toggleToDo: (todo, index) => {
-                dispatch("mytheme-blocks/todo").toggleToDo(todo, index);
+                dispatch("carkeek-blocks/todo").toggleToDo(todo, index);
             }
         };
     })

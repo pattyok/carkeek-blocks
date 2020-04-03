@@ -2,12 +2,12 @@ var registerBlockType = wp.blocks.registerBlockType;
 var __ = wp.i18n.__;
 var el = wp.element.createElement;
 
-registerBlockType("mytheme-blocks/firstblock", {
-    title: __("First Block", "mytheme-blocks"),
-    description: __("Our first block", "mytheme-blocks"),
+registerBlockType("carkeek-blocks/firstblock", {
+    title: __("First Block", "carkeek-blocks"),
+    description: __("Our first block", "carkeek-blocks"),
     category: "layout",
     icon: "admin-network",
-    keywords: [__("photo", "mytheme-blocks"), __("image", "mytheme-blocks")],
+    keywords: [__("photo", "carkeek-blocks"), __("image", "carkeek-blocks")],
     edit: function() {
         return el("p", null, "Editor");
     },

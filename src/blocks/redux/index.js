@@ -2,10 +2,10 @@ import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import edit from "./edit";
 
-registerBlockType("mytheme-blocks/redux", {
-    title: __("Redux Test", "mytheme-blocks"),
+registerBlockType("carkeek-blocks/redux", {
+    title: __("Redux Test", "carkeek-blocks"),
 
-    description: __("redux test blocks.", "mytheme-blocks"),
+    description: __("redux test blocks.", "carkeek-blocks"),
 
     icon: (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">

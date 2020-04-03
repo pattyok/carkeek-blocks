@@ -47,10 +47,10 @@ class Edit extends Component {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__("Setting", "mytheme-blocks")}>
+                    <PanelBody title={__("Setting", "carkeek-blocks")}>
                         {shadow && (
                             <RangeControl
-                                label={__("Shadow Opacity", "mytheme-blocks")}
+                                label={__("Shadow Opacity", "carkeek-blocks")}
                                 value={shadowOpacity}
                                 onChange={this.onChangeShadowOpacity}
                                 min={0.1}
@@ -60,17 +60,17 @@ class Edit extends Component {
                         )}
                     </PanelBody>
                     <PanelColorSettings
-                        title={__("Panel", "mytheme-blocks")}
+                        title={__("Panel", "carkeek-blocks")}
                         colorSettings={[
                             {
                                 value: backgroundColor.color,
                                 onChange: setBackgroundColor,
-                                label: __("Backgorund Colour", "mytheme-blocks")
+                                label: __("Backgorund Colour", "carkeek-blocks")
                             },
                             {
                                 value: textColor.color,
                                 onChange: setTextColor,
-                                label: __("Text Colour", "mytheme-blocks")
+                                label: __("Text Colour", "carkeek-blocks")
                             }
                         ]}
                     >
@@ -84,7 +84,7 @@ class Edit extends Component {
                     controls={[
                         {
                             icon: "wordpress",
-                            title: __("Shadow", "mytheme-blocks"),
+                            title: __("Shadow", "carkeek-blocks"),
                             onClick: this.toggleShadow,
                             isActive: shadow
                         }

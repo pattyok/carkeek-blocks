@@ -2,19 +2,19 @@
     list-style: none;
 }
 
-.wp-block-mytheme-blocks-team-members {
+.wp-block-carkeek-blocks-team-members {
     display: flex;
     flex-wrap: wrap;
     margin-left: -10px;
     margin-right: -10px;
     @for $i from 1 through 6 {
         &.has-#{$i}-columns {
-            .wp-block-mytheme-blocks-team-member {
+            .wp-block-carkeek-blocks-team-member {
                 width: calc(100% /#{$i} - 20px);
             }
         }
     }
-    .wp-block-mytheme-blocks-team-member {
+    .wp-block-carkeek-blocks-team-member {
         margin: 10px;
         &__title {
             color: #222;

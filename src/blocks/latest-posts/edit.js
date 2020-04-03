@@ -18,10 +18,10 @@ class LatestPostsEdit extends Component {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__("Posts Settings", "mytheme-blocks")}>
+                    <PanelBody title={__("Posts Settings", "carkeek-blocks")}>
                         <SelectControl
                             multiple
-                            label={__("categories", "mytheme-blocks")}
+                            label={__("categories", "carkeek-blocks")}
                             onChange={this.onChangeCategories}
                             options={
                                 categories &&
@@ -33,7 +33,7 @@ class LatestPostsEdit extends Component {
                             value={postCategories && postCategories.split(",")}
                         />
                         <RangeControl
-                            label={__("Number of Posts", "mytheme-blocks")}
+                            label={__("Number of Posts", "carkeek-blocks")}
                             value={numberOfPosts}
                             onChange={this.onChangeNumberOfPosts}
                             min={1}
@@ -59,8 +59,8 @@ class LatestPostsEdit extends Component {
                     <div>
                         {" "}
                         {posts
-                            ? __("No Posts Found", "mytheme-blocks")
-                            : __("Loading...", "mytheme-blocks")}{" "}
+                            ? __("No Posts Found", "carkeek-blocks")
+                            : __("Loading...", "carkeek-blocks")}{" "}
                     </div>
                 )}
             </>

@@ -182,13 +182,13 @@ class TeamMemberEdit extends Component {
                     {isSelected && (
                         <li
                             className={
-                                "wp-block-mytheme-blocks-team-member__addIconLI"
+                                "wp-block-carkeek-blocks-team-member__addIconLI"
                             }
                         >
-                            <Tooltip text={__("Add Item", "mytheme-blocks")}>
+                            <Tooltip text={__("Add Item", "carkeek-blocks")}>
                                 <button
                                     className={
-                                        "wp-block-mytheme-blocks-team-member__addIcon"
+                                        "wp-block-carkeek-blocks-team-member__addIcon"
                                     }
                                     onClick={this.addNewLink}
                                 >
@@ -203,12 +203,12 @@ class TeamMemberEdit extends Component {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__("Image Settings", "mytheme-blocks")}>
+                    <PanelBody title={__("Image Settings", "carkeek-blocks")}>
                         {url && !isBlobURL(url) && (
                             <TextareaControl
                                 label={__(
                                     "Alt Text (Alternative Text)",
-                                    "mytheme-blocks"
+                                    "carkeek-blocks"
                                 )}
                                 value={alt}
                                 onChange={this.updateAlt}
@@ -219,7 +219,7 @@ class TeamMemberEdit extends Component {
                         )}
                         {id && (
                             <SelectControl
-                                label={__("Image Size", "mytheme-blocks")}
+                                label={__("Image Size", "carkeek-blocks")}
                                 options={this.getImageSizes()}
                                 onChange={this.onImageSizeChange}
                                 value={url}
@@ -242,7 +242,7 @@ class TeamMemberEdit extends Component {
                                                     className="components-icon-button components-toolbar__control"
                                                     label={__(
                                                         "Edit Image",
-                                                        "mytheme-blocks"
+                                                        "carkeek-blocks"
                                                     )}
                                                     onClick={open}
                                                     icon="edit"
@@ -254,7 +254,7 @@ class TeamMemberEdit extends Component {
                             )}
                             <IconButton
                                 className="components-icon-button components-toolbar__control"
-                                label={__("Remove Image", "mytheme-blocks")}
+                                label={__("Remove Image", "carkeek-blocks")}
                                 onClick={this.removeImage}
                                 icon="trash"
                             />
@@ -279,24 +279,24 @@ class TeamMemberEdit extends Component {
                         />
                     )}
                     <RichText
-                        className={"wp-block-mytheme-blocks-team-member__title"}
+                        className={"wp-block-carkeek-blocks-team-member__title"}
                         tagName="h4"
                         onChange={this.onChangeTitle}
                         value={title}
-                        placeholder={__("Member Name", "mytheme-blocks")}
+                        placeholder={__("Member Name", "carkeek-blocks")}
                         formatingControls={[]}
                     />
                     <RichText
-                        className={"wp-block-mytheme-blocks-team-member__info"}
+                        className={"wp-block-carkeek-blocks-team-member__info"}
                         tagName="p"
                         onChange={this.onChangeInfo}
                         value={info}
-                        placeholder={__("Member Info", "mytheme-blocks")}
+                        placeholder={__("Member Info", "carkeek-blocks")}
                         formatingControls={[]}
                     />
                     <div
                         className={
-                            "wp-block-mytheme-blocks-team-member__social"
+                            "wp-block-carkeek-blocks-team-member__social"
                         }
                     >
                         <SortableList
@@ -330,15 +330,15 @@ class TeamMemberEdit extends Component {
                             {isSelected && (
                                 <li
                                     className={
-                                        "wp-block-mytheme-blocks-team-member__addIconLI"
+                                        "wp-block-carkeek-blocks-team-member__addIconLI"
                                     }
                                 >
                                     <Tooltip
-                                        text={__("Add Item", "mytheme-blocks")}
+                                        text={__("Add Item", "carkeek-blocks")}
                                     >
                                         <button
                                             className={
-                                                "wp-block-mytheme-blocks-team-member__addIcon"
+                                                "wp-block-carkeek-blocks-team-member__addIcon"
                                             }
                                             onClick={this.addNewLink}
                                         >
@@ -352,28 +352,28 @@ class TeamMemberEdit extends Component {
                     {this.state.selectedLink !== null && (
                         <div
                             className={
-                                "wp-block-mytheme-blocks-team-member__linkForm"
+                                "wp-block-carkeek-blocks-team-member__linkForm"
                             }
                         >
                             <TextControl
-                                label={__("Icon", "mytheme-blocks")}
+                                label={__("Icon", "carkeek-blocks")}
                                 value={social[this.state.selectedLink].icon}
                                 onChange={icon =>
                                     this.updateSocialItem("icon", icon)
                                 }
                             />
                             <URLInput
-                                label={__("URL", "mytheme-blocks")}
+                                label={__("URL", "carkeek-blocks")}
                                 value={social[this.state.selectedLink].link}
                                 onChange={url =>
                                     this.updateSocialItem("link", url)
                                 }
                             />
                             <a
-                                className="wp-block-mytheme-blocks-team-member__removeLink"
+                                className="wp-block-carkeek-blocks-team-member__removeLink"
                                 onClick={this.removeLink}
                             >
-                                {__("Remove Link", "mytheme-blocks")}
+                                {__("Remove Link", "carkeek-blocks")}
                             </a>
                         </div>
                     )}

@@ -10,10 +10,10 @@ const attributes = {
     }
 };
 
-registerBlockType("mytheme-blocks/team-members", {
-    title: __("Team Members", "mytheme-blocks"),
+registerBlockType("carkeek-blocks/team-members", {
+    title: __("Team Members", "carkeek-blocks"),
 
-    description: __("Block showing a Team Members.", "mytheme-blocks"),
+    description: __("Block showing a Team Members.", "carkeek-blocks"),
 
     icon: "grid-view",
 
@@ -31,14 +31,14 @@ registerBlockType("mytheme-blocks/team-members", {
                 blocks: ["core/gallery"],
                 transform: ({ columns, images }) => {
                     let inner = images.map(({ alt, id, url }) =>
-                        createBlock("mytheme-blocks/team-member", {
+                        createBlock("carkeek-blocks/team-member", {
                             alt,
                             id,
                             url
                         })
                     );
                     return createBlock(
-                        "mytheme-blocks/team-members",
+                        "carkeek-blocks/team-members",
                         {
                             columns: columns
                         },
@@ -52,14 +52,14 @@ registerBlockType("mytheme-blocks/team-members", {
                 isMultiBlock: true,
                 transform: attributes => {
                     let inner = attributes.map(({ alt, id, url }) =>
-                        createBlock("mytheme-blocks/team-member", {
+                        createBlock("carkeek-blocks/team-member", {
                             alt,
                             id,
                             url
                         })
                     );
                     return createBlock(
-                        "mytheme-blocks/team-members",
+                        "carkeek-blocks/team-members",
                         {
                             columns: 3
                         },
@@ -71,9 +71,9 @@ registerBlockType("mytheme-blocks/team-members", {
     },
 
     keywords: [
-        __("team", "mytheme-blocks"),
-        __("member", "mytheme-blocks"),
-        __("person", "mytheme-blocks")
+        __("team", "carkeek-blocks"),
+        __("member", "carkeek-blocks"),
+        __("person", "carkeek-blocks")
     ],
 
     attributes,
@@ -85,7 +85,7 @@ registerBlockType("mytheme-blocks/team-members", {
                 <InspectorControls>
                     <panelBody>
                         <RangeControl
-                            label={__("column", "mytheme-blocks")}
+                            label={__("column", "carkeek-blocks")}
                             value={columns}
                             onChange={columns => setAttributes({ columns })}
                             min={1}
@@ -94,10 +94,10 @@ registerBlockType("mytheme-blocks/team-members", {
                     </panelBody>
                 </InspectorControls>
                 <InnerBlocks
-                    allowedBlocks={["mytheme-blocks/team-member"]}
+                    allowedBlocks={["carkeek-blocks/team-member"]}
                     template={[
-                        ["mytheme-blocks/team-member"],
-                        ["mytheme-blocks/team-member"]
+                        ["carkeek-blocks/team-member"],
+                        ["carkeek-blocks/team-member"]
                     ]}
                 />
             </div>
