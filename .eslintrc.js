@@ -4,12 +4,13 @@ module.exports = {
         es6: true,
         node: true
     },
-    extends: "eslint:recommended",
+    extends: ["eslint:recommended", "prettier", "plugin:react/recommended"],
     globals: {
         Atomics: "readonly",
         SharedArrayBuffer: "readonly",
         wp: "readonly"
     },
+    parser: "babel-eslint",
     parserOptions: {
         ecmaFeatures: {
             jsx: true
@@ -19,6 +20,9 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
-        "no-console": "off"
+        "no-console": "error",
+        "react/react-in-jsx-scope": "off",
+        "react/display-name": "off",
+        "react/prop-types": "off"
     }
 };

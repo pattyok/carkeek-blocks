@@ -14,7 +14,7 @@ function bundle() {
             "!webpack.config.js",
             "!.gitignore"
         ])
-        .pipe(zip("mytheme-blocks.zip"))
+        .pipe(zip("carkeek-blocks.zip"))
         .pipe(gulp.dest("bundled"));
 }
 

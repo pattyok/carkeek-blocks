@@ -11,7 +11,8 @@ module.exports = (env, argv) => {
     var config = {
         entry: {
             editor: "./src/editor.js",
-            script: "./src/script.js"
+            script: "./src/script.js",
+            editor_script: "./src/editor_script.js"
         },
         output: {
             filename: "[name].js"
@@ -52,6 +53,9 @@ module.exports = (env, argv) => {
                         {
                             loader: "babel-loader",
                             options: {
+                                plugins: [
+                                    "@babel/plugin-proposal-class-properties"
+                                ],
                                 presets: [
                                     "@babel/preset-env",
                                     [
@@ -86,8 +90,20 @@ module.exports = (env, argv) => {
         },
         externals: {
             jquery: "jQuery",
+            lodash: "lodash",
             "@wordpress/blocks": ["wp", "blocks"],
-            "@wordpress/i18n": ["wp", "i18n"]
+            "@wordpress/i18n": ["wp", "i18n"],
+            "@wordpress/editor": ["wp", "editor"],
+            "@wordpress/block-editor": ["wp", "blockEditor"],
+            "@wordpress/components": ["wp", "components"],
+            "@wordpress/element": ["wp", "element"],
+            "@wordpress/blob": ["wp", "blob"],
+            "@wordpress/data": ["wp", "data"],
+            "@wordpress/html-entities": ["wp", "htmlEntities"],
+            "@wordpress/compose": ["wp", "compose"],
+            "@wordpress/plugins": ["wp", "plugins"],
+            "@wordpress/edit-post": ["wp", "editPost"],
+            "@wordpress/icons": ["wp", "icons"]
         }
     };
     return config;
