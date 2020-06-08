@@ -66,7 +66,7 @@ registerBlockType("carkeek-blocks/team-member", {
         html: false
     },
 
-    category: "mytheme-category",
+    category: "carkeek-category",
 
     keywords: [
         __("team", "carkeek-blocks"),

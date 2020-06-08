@@ -4,152 +4,218 @@
 * Plugin URI: https://carkeekstudios.com/
 * Description: Series of blocks designed to work with the Carkeek Theme
 * Author: pattyok
+* Version: 1.0
 * Author URI https://carkeekstudios.com/
+* Text Domain: carkeek-blocks
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once 'src/metabox.php';
+if ( ! class_exists( 'CarkeekBlocks' ) ) :
+	/**
+	 * Main CarkeekBlocks Class.
+	 *
+	 * @since 1.0
+	 */
 
-function carkeek_blocks_categories( $categories, $post ) {
-	return array_merge(
-		$categories,
-		array(
-			array(
-				'slug'  => 'carkeek-category',
-				'title' => __( 'Carkeek Blocks', 'carkeek-blocks' ),
-				'icon'  => 'wordpress',
-			),
-		)
-	);
-}
-add_filter( 'block_categories', 'carkeek_blocks_categories', 10, 2 );
+	final class CarkeekBlocks {
+		/**
+		 * The plugin's instance
+		 *
+		 * @var CarkeekBlocks the main var
+		 * @since 1.0
+		 */
 
-function carkeek_blocks_register_block_type( $block, $options = array() ) {
-	register_block_type(
-		'carkeek-blocks/' . $block,
-		array_merge(
-			array(
-				'editor_script' => 'carkeek-blocks-editor-script',
-				'editor_style'  => 'carkeek-blocks-editor-style',
-				'script'        => 'carkeek-blocks-script',
-				'style'         => 'carkeek-blocks-style',
-			),
-			$options
-		)
-	);
-}
+		private static $instance;
 
-function carkeek_blocks_enqueue_assets() {
-	wp_enqueue_script(
-		'carkeek-blocks-editor-js',
-		plugins_url( 'dist/editor_script.js', __FILE__ ),
-		array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n' )
-	);
-}
+		/**
+		 * Main CarkeekBlocks instance
+		 *
+		 * insures only one instance exists. Also prevents needing to define globals all around.
+		 *
+		 * @since 1.0.0
+		 * @static
+		 * @return object|CarkeekBlocks
+		 */
 
-add_action( 'enqueue_block_editor_assets', 'carkeek_blocks_enqueue_assets' );
-
-function carkeek_blocks_register() {
-
-	wp_register_script(
-		'carkeek-blocks-editor-script',
-		plugins_url( 'dist/editor.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-components', 'lodash', 'wp-blob', 'wp-data', 'wp-html-entities', 'wp-compose' )
-	);
-
-	wp_register_script(
-		'carkeek-blocks-script',
-		plugins_url( 'dist/script.js', __FILE__ ),
-		array( 'jquery' )
-	);
-
-	wp_register_style(
-		'carkeek-blocks-editor-style',
-		plugins_url( 'dist/editor.css', __FILE__ ),
-		array( 'wp-edit-blocks' )
-	);
-
-	wp_register_style(
-		'carkeek-blocks-style',
-		plugins_url( 'dist/style.css', __FILE__ )
-	);
-
-	carkeek_blocks_register_block_type( 'firstblock' );
-	carkeek_blocks_register_block_type( 'secondblock' );
-	carkeek_blocks_register_block_type( 'team-member' );
-	carkeek_blocks_register_block_type( 'team-members' );
-	carkeek_blocks_register_block_type(
-		'latest-posts',
-		array(
-			'render_callback' => 'carkeek_blocks_render_latest_posts_block',
-			'attributes'      => array(
-				'numberOfPosts'  => array(
-					'type'    => 'number',
-					'default' => 5,
-				),
-				'postCategories' => array(
-					'type' => 'string',
-				),
-			),
-		)
-	);
-	carkeek_blocks_register_block_type( 'redux' );
-	carkeek_blocks_register_block_type( 'todo-list' );
-	carkeek_blocks_register_block_type( 'todo-list-count' );
-	carkeek_blocks_register_block_type( 'meta' );
-}
-
-add_action( 'init', 'carkeek_blocks_register' );
-
-function carkeek_blocks_render_latest_posts_block( $attributes ) {
-	$args = array(
-		'posts_per_page' => $attributes['numberOfPosts'],
-	);
-	if ( $attributes['postCategories'] ) {
-		$args['cat'] = $attributes['postCategories'];
-	}
-	$query = new WP_Query( $args );
-	$posts = '';
-
-	if ( $query->have_posts() ) {
-		$posts .= '<ul class="wp-block-carkeek-blocks-latest-posts">';
-		while ( $query->have_posts() ) {
-			$query->the_post();
-			$posts .= '<li><a href="' . esc_url( get_the_permalink() ) . '">'
-			. get_the_title() . '</a></li>';
+		public static function instance() {
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof CarkeekBLocks ) ) {
+				self::$instance = new CarkeekBlocks();
+				self::$instance->init();
+				self::$instance->setup_constants();
+				self::$instance->asset_suffix();
+				self::$instance->includes();
+			}
+			return self::$instance;
 		}
-		$posts .= '</ul>';
-		wp_reset_postdata();
-		return $posts;
-	} else {
-		return '<div>' . __( 'No Posts Found', 'carkeek-blocks' ) . '</div>';
+
+		/**
+		 * Throw error on object clone.
+		 *
+		 * The whole idea of the singleton design pattern is that there is a single
+		 * object therefore, we don't want the object to be cloned.
+		 *
+		 * @since 1.0.0
+		 * @access protected
+		 * @return void
+		 */
+		public function __clone() {
+			// Cloning instances of the class is forbidden.
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating huh?', 'carkeek-blocks' ), '1.0' );
+		}
+
+		/**
+		 * Disable unserializing of the class.
+		 *
+		 * @since 1.0.0
+		 * @access protected
+		 * @return void
+		 */
+		public function __wakeup() {
+			// Unserializing instances of the class is forbidden.
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheating huh?', 'carkeek-blocks' ), '1.0' );
+		}
+
+		/**
+		 * Setup plugin constants.
+		 *
+		 * @access private
+		 * @since 1.0.0
+		 * @return void
+		 */
+		private function setup_constants() {
+
+			$this->define( 'CARKEEKBLOCKS_DEBUG', true );
+			$this->define( 'CARKEEKBLOCKS_VERSION', '1.0' );
+			$this->define( 'CARKEEKBLOCKS_HAS_PRO', false );
+			$this->define( 'CARKEEKBLOCKS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			$this->define( 'CARKEEKBLOCKS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+			$this->define( 'CARKEEKBLOCKS_PLUGIN_FILE', __FILE__ );
+			$this->define( 'CARKEEKBLOCKS_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+		}
+
+		/**
+		 * Define constant if not already set.
+		 *
+		 * @param  string|string $name Name of the definition.
+		 * @param  string|bool   $value Default value.
+		 */
+		private function define( $name, $value ) {
+			if ( ! defined( $name ) ) {
+				define( $name, $value );
+			}
+		}
+
+		/**
+		 * Include required files.
+		 *
+		 * @access private
+		 * @since 4.1
+		 * @return void
+		 */
+		private function includes() {
+
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-assets.php';
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custom-post.php';
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-post-meta.php';
+
+		}
+
+		/**
+		 * Load actions
+		 *
+		 * @return void
+		 */
+		private function init() {
+			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 99 );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'block_localization' ) );
+		}
+
+		/**
+		 * Change the plugin's minified or src file name, based on debug mode.
+		 *
+		 * @since 1.0.0
+		 */
+		public function asset_suffix() {
+			if ( true === CARKEEKBLOCKS_DEBUG ) {
+				define( 'CARKEEKBLOCKS_ASSET_SUFFIX', null );
+			} else {
+				define( 'CARKEEKBLOCKS_ASSET_SUFFIX', '.min' );
+			}
+		}
+
+		/**
+		 * If debug is on, serve unminified source assets.
+		 *
+		 * @since 1.0.0
+		 * @param string|string $type The type of resource.
+		 * @param string|string $directory Any extra directories needed.
+		 */
+		public function asset_source( $type = 'js', $directory = null ) {
+			if ( 'js' !== $type ) {
+				return CARKEEKBLOCKS_PLUGIN_URL . 'build/css/' . $directory;
+			}
+
+			if ( true === CARKEEKBLOCKS_DEBUG ) {
+				return CARKEEKBLOCKS_PLUGIN_URL . 'src/' . $type . '/' . $directory;
+			}
+
+			return CARKEEKBLOCKS_PLUGIN_URL . 'build/' . $type . '/' . $directory;
+		}
+
+		/**
+		 * Loads the plugin language files.
+		 *
+		 * @access public
+		 * @since 1.0.0
+		 * @return void
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( 'block-options', false, dirname( plugin_basename( CARKEEKBLOCKS_PLUGIN_DIR ) ) . '/languages/' );
+		}
+
+		/**
+		 * Enqueue localization data for our blocks.
+		 *
+		 * @access public
+		 */
+		public function block_localization() {
+			if ( function_exists( 'wp_set_script_translations' ) ) {
+				wp_set_script_translations( 'carkeekblocks-editor', 'carkeekblocks' );
+			}
+		}
+
+
+
 	}
+
+endif;
+
+
+/**
+ * The main function for that returns the main class
+ *
+ * The main function responsible for returning the one true version
+ * Instance to functions everywhere.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ * Example: <?php $blockopts = CarkeekBlocks(); ?>
+ *
+ * @since 1.0
+ * @return object|CarkeekBlocks The one true EditorsKit Instance.
+ */
+function carkeekblocks() {
+	return CarkeekBlocks::instance();
 }
 
-function carkeek_blocks_register_post_template() {
-	$post_type_object           = get_post_type_object( 'post' );
-	$post_type_object->template = array(
-		array( 'carkeek-blocks/meta' ),
-		array(
-			'core/paragraph',
-			array(
-				'content' => 'cljljlj',
-			),
-		),
-		array(
-			'carkeek-blocks/team-members',
-			array(
-				'columns' => 2,
-			),
-			array(
-				array( 'carkeek-blocks/team-member', array( 'title' => 'ljljljl;j' ) ),
-				array( 'carkeek-blocks/team-member' ),
-			),
-		),
-	);
+// Get Plugin Running.
+if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+	// Get Plugin Running. Load on plugins_loaded action to avoid issue on multisite.
+	add_action( 'plugins_loaded', 'carkeekblocks' );
+} else {
+	carkeekblocks();
 }
-
-add_action( 'init', 'carkeek_blocks_register_post_template' );

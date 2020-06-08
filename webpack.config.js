@@ -94,6 +94,7 @@ module.exports = (env, argv) => {
             "@wordpress/blocks": ["wp", "blocks"],
             "@wordpress/i18n": ["wp", "i18n"],
             "@wordpress/editor": ["wp", "editor"],
+            "@wordpress/block-editor": ["wp", "blockEditor"],
             "@wordpress/components": ["wp", "components"],
             "@wordpress/element": ["wp", "element"],
             "@wordpress/blob": ["wp", "blob"],
@@ -101,7 +102,8 @@ module.exports = (env, argv) => {
             "@wordpress/html-entities": ["wp", "htmlEntities"],
             "@wordpress/compose": ["wp", "compose"],
             "@wordpress/plugins": ["wp", "plugins"],
-            "@wordpress/edit-post": ["wp", "editPost"]
+            "@wordpress/edit-post": ["wp", "editPost"],
+            "@wordpress/icons": ["wp", "icons"]
         }
     };
     return config;

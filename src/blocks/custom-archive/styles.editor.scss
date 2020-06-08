@@ -1,0 +1,10 @@
+@import "style";
+
+.editor-styles-wrapper {
+    .wp-block-ck-custom_posttype__list {
+        > ul {
+            list-style: none;
+            padding-left: 0;
+        }
+    }
+}
