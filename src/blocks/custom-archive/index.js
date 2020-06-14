@@ -36,7 +36,7 @@ registerBlockType("carkeek-blocks/custom-archive", {
         "carkeek-blocks"
     ),
     icon: "book-alt",
-    category: "carkeek-category",
+    category: "widgets",
     edit: edit,
     attributes: attributes,
     supports: {

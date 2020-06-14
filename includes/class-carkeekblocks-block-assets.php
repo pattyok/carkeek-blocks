@@ -105,11 +105,14 @@ class CarkeekBlocks_Block_Assets {
 
 		wp_register_style(
 			$this->slug . '-style',
-			$this->url . '/dist/style.css'
+			$this->url . '/dist/style.css',
+			array(),
+			$this->version
 		);
 
 		$blocks = array(
 			'team-member',
+			'link-tile',
 		);
 
 		foreach ( $blocks as $block ) {
@@ -121,30 +124,30 @@ class CarkeekBlocks_Block_Assets {
 			array(
 				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_posttype_archive' ),
 				'attributes'      => array(
-					'numberOfPosts'        => array(
+					'numberOfPosts'           => array(
 						'type'    => 'number',
 						'default' => 3,
 					),
-					'displayFeaturedImage' => array(
+					'displayFeaturedImage'    => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'displayPostTitle'     => array(
+					'displayPostTitle'        => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'postLayout'     => array(
+					'postLayout'              => array(
 						'type'    => 'string',
 						'default' => 'grid',
 					),
-					'displayPostContent' => array(
+					'displayPostContent'      => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),
 					'displayPostContentRadio' => array(
 						'type'    => 'string',
 						'default' => 'excerpt',
-					)
+					),
 				),
 			)
 		);

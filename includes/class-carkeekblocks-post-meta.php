@@ -24,6 +24,7 @@ class CarkeekBlocks_Post_Meta {
 	 */
 	public function __construct() {
 		add_filter( 'init', array( $this, 'register_meta' ) );
+		add_filter( 'body_class', array( $this, 'set_body_classes' ) );
 	}
 
 	/**
@@ -56,6 +57,21 @@ class CarkeekBlocks_Post_Meta {
 			)
 		);
 
+	}
+
+	public function set_body_classes( $classes ) {
+
+		global $post;
+
+		if ( is_page() || is_single() ) {
+			if ( true == get_post_meta( $post->ID, '_carkeekblocks_featuredimage_hidden', true ) ) {
+				$classes[] = 'carkeek-blocks-featured-image-hidden';
+			}
+			if ( true == get_post_meta( $post->ID, '_carkeekblocks_title_hidden', true ) ) {
+				$classes[] = 'carkeek-blocks-title-hidden';
+			}
+		}
+		return $classes;
 	}
 
 }

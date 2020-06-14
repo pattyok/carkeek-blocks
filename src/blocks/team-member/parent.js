@@ -17,7 +17,7 @@ registerBlockType("carkeek-blocks/team-members", {
 
     icon: "grid-view",
 
-    category: "carkeek-category",
+    category: "widgets",
 
     supports: {
         html: false,
