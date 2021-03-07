@@ -1,7 +1,9 @@
 const autoprefixer = require("autoprefixer");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const CleanPlugin = require("clean-webpack-plugin");
 
 module.exports = (env, argv) => {
@@ -41,7 +43,15 @@ module.exports = (env, argv) => {
                         ? "style.css"
                         : "[name].css";
                 }
-            })
+            }),
+            new BrowserSyncPlugin({
+              // browse to http://localhost:3000/ during development,
+              // ./public directory is being served
+              host: 'localhost',
+              port: 3000,
+              proxy: 'http://carkeek-theme.local'
+            }),
+            new StylelintPlugin()
         ],
         devtool: isDevelopment() ? "cheap-module-source-map" : "source-map",
         module: {
@@ -68,12 +78,20 @@ module.exports = (env, argv) => {
                                     ]
                                 ]
                             }
-                        },
-                        "eslint-loader"
+                        }
                     ]
                 },
                 {
-                    test: /\.(sa|sc|c)ss$/,
+                    test: /\.css$/,
+                    use: [
+                        MiniCSSExtractPlugin.loader,
+                        "style-loader",
+                        "css-loader",
+                        "postcss-loader"
+                    ]
+                },
+                {
+                    test: /\.(sa|sc)ss$/,
                     use: [
                         MiniCSSExtractPlugin.loader,
                         "css-loader",

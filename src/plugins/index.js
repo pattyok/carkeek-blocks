@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import "./styles.editor.scss";
+import "./styles.global.editor.css";
 import PageHeaderSettings from "./settings";
 
 /**

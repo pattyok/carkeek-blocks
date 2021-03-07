@@ -1,0 +1,13 @@
+
+:root {
+	--icon-font-family: "carkeek-blocks";
+	--icon-expand: "\e808";
+	--icon-collapse: "\e809";
+
+	--color-appender-text: #007daa;
+	--color-appender-hover: #007daa;
+	--color-appender-hover-text: #fff;
+
+	--color-accordion-header-bg: #007daa;
+	--color-accordion-header-text: #fff;
+}

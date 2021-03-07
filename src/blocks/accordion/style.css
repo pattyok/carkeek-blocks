@@ -1,0 +1,44 @@
+
+.wp-block-carkeek-blocks-accordion {
+
+	& .ck-accordion-panel {
+		display: none;
+		padding: 1rem 0 2rem;
+	}
+
+	& .ck-accordion-header {
+		cursor: pointer;
+
+		& button {
+			border: 1px solid var(--color-accordion-header-bg);
+			background-color: var(--color-accordion-header-bg);
+			width: 100%;
+			color: var(--color-accordion-header-text);
+			display: flex;
+			justify-content: space-between;
+
+			&::after {
+				font-family: var(--icon-font-family);
+				content: var(--accordion-icon-expand);
+				font-size: 80%;
+				padding-left: 5px;
+			}
+
+			&[aria-expanded="false"] {
+				margin-bottom: 10px;
+			}
+		}
+
+	}
+
+	& .open {
+
+		& .ck-accordion-header {
+
+			&::after {
+				content: var(--accordion-icon-expand);
+			}
+		}
+
+	}
+}

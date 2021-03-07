@@ -1,3 +1,7 @@
-import "./blocks/team-member";
-import "./blocks/custom-archive";
-import "./plugins";
+import "./resources/global.css";
+//import "./blocks/team-member";
+//import "./blocks/custom-archive";
+import "./blocks/modal-item";
+import "./blocks/fixed-image";
+import "./blocks/accordion";
+//import "./plugins";
