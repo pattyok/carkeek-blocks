@@ -4,7 +4,7 @@
 * Plugin URI: https://github.com/pattyok/carkeek-blocks
 * Description: Series of blocks designed to work with this site's custom Theme
 * Author: Patty O'Hara
-* Version: 1.0.0
+* Version: 1.0.2
 * Author URI https://carkeekstudios.com/
 * Text Domain: carkeek-blocks
 */

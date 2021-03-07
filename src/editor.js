@@ -4,4 +4,6 @@ import "./resources/global.css";
 import "./blocks/modal-item";
 import "./blocks/fixed-image";
 import "./blocks/accordion";
+import "./blocks/icon";
+import "./blocks/landing-page-links";
 //import "./plugins";
