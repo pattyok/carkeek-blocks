@@ -4,7 +4,7 @@
 * Plugin URI: https://github.com/pattyok/carkeek-blocks
 * Description: Series of blocks designed to work with this site's custom Theme
 * Author: Patty O'Hara
-* Version: 1.0.2
+* Version: 1.0.3
 * Author URI https://carkeekstudios.com/
 * Text Domain: carkeek-blocks
 */
@@ -131,16 +131,7 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 		private function init() {
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 99 );
 			add_action( 'enqueue_block_editor_assets', array( $this, 'block_localization' ) );
-
-			/** Update via GitHub */
-			if( ! class_exists( 'Carkeek_Blocks_Updater' ) ){
-				include_once( plugin_dir_path( __FILE__ ) . 'includes/class-carkeekblocks-updater.php' );
-			}
-			$updater = new Carkeek_Blocks_Updater( __FILE__ ); // instantiate our class
-			$updater->set_username( 'pattyok' ); // set username
-			$updater->set_repository( 'carkeek-blocks' ); // set repo
-			$updater->authorize( '08a7b3d1e53c8ab3b8f5ece9f2878cb7e7ddccfd' );
-			$updater->initialize(); // initialize the updater
+			add_action( 'init', array( $this, 'init_updater' ) );
 		}
 
 		/**
@@ -197,7 +188,17 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 			}
 		}
 
-
+		public function init_updater() {
+			/** Update via GitHub */
+			if ( ! class_exists( 'Carkeek_Blocks_Updater' ) ) {
+				include_once plugin_dir_path( __FILE__ ) . 'includes/class-carkeekblocks-updater.php';
+			}
+			$updater = new Carkeek_Blocks_Updater( __FILE__ ); // instantiate our class.
+			$updater->set_username( 'pattyok' ); // set username.
+			$updater->set_repository( 'carkeek-blocks' ); // set repo.
+			$updater->authorize( '08a7b3d1e53c8ab3b8f5ece9f2878cb7e7ddccfd' );
+			$updater->initialize(); // initialize the updater.
+		}
 
 	}
 
