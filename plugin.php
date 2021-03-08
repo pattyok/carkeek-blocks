@@ -4,7 +4,7 @@
 * Plugin URI: https://github.com/pattyok/carkeek-blocks
 * Description: Series of blocks designed to work with this site's custom Theme
 * Author: Patty O'Hara
-* Version: 1.0.3
+* Version: 1.0.4
 * Author URI https://carkeekstudios.com/
 * Text Domain: carkeek-blocks
 */
@@ -118,8 +118,10 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 		private function includes() {
 
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-assets.php';
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-register.php';
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custom-post.php';
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-post-meta.php';
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-template-loader.php';
 
 		}
 

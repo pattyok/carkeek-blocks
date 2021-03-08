@@ -114,6 +114,7 @@ class Carkeek_Blocks_Updater {
 
 	public function plugin_popup( $result, $action, $args ) {
 		error_log(print_r($args, true));
+		error_log($this->basename);
 		if ( ! empty( $args->slug ) ) { // If there is a slug
 
 			if ( $args->slug == current( explode( '/', $this->basename ) ) ) { // And it's our slug

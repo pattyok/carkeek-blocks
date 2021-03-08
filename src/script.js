@@ -6,3 +6,4 @@ import "./blocks/fixed-image/script";
 import "./blocks/accordion/script";
 import "./blocks/icon/script";
 import "./blocks/landing-page-links/script";
+import "./blocks/custom-archive/script";

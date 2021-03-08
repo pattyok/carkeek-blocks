@@ -6,4 +6,5 @@ import "./blocks/fixed-image";
 import "./blocks/accordion";
 import "./blocks/icon";
 import "./blocks/landing-page-links";
+import "./blocks/custom-archive";
 //import "./plugins";

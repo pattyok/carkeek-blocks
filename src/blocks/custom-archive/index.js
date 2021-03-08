@@ -1,5 +1,7 @@
-import "./styles.editor.scss";
+import "./styles.editor.css";
 import edit from "./edit";
+import icons from '../../resources/icons';
+
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 
@@ -11,32 +13,64 @@ const attributes = {
     postTypeSelected: {
         type: "string"
     },
-    displayFeaturedImage: {
+    displayPostExcerpt: {
         type: "boolean",
-        default: true
-    },
-    displayPostTitle: {
-        type: "boolean",
-        default: true
+        default: true,
     },
     postLayout: {
         type: "string",
         default: "grid"
     },
+    sortBy: {
+        type: "string",
+        default: "date"
+    },
+    order: {
+        type: "string",
+        default: "ASC"
+    },
     excerptLength: {
         type: "number",
         default: 25
+    },
+    filterByTaxonomy: {
+        type: "boolean",
+        default: false
+    },
+    taxonomySelected: {
+        type: "string"
+    },
+    taxTermsSelected: {
+        type: "string"
+    },
+    hideIfEmpty: {
+        type: "boolean",
+        default: true
+    },
+    emptyMessage: {
+        type: "string"
+    },
+    headline: {
+        type: "string"
+    },
+    headlineLevel: {
+        type: "number",
+        default: '2'
+    },
+    blockId: {
+        type: "string"
     }
 };
 
 registerBlockType("carkeek-blocks/custom-archive", {
+    apiVersion: 2,
     title: __("Custom Post Type Archive", "carkeek-blocks"),
     description: __(
-        "BLock showing the latest custom post type items.",
+        "Block showing the latest items by post type.",
         "carkeek-blocks"
     ),
-    icon: "book-alt",
-    category: "carkeek-category",
+    icon: icons.layout,
+    category: "widgets",
     edit: edit,
     attributes: attributes,
     supports: {

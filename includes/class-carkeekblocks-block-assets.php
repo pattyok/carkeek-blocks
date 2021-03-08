@@ -66,12 +66,9 @@ class CarkeekBlocks_Block_Assets {
 		$this->url     = untrailingslashit( plugins_url( '/', dirname( __FILE__ ) ) );
 		$this->dir     = plugin_dir_path( dirname( __FILE__ ) );
 
-		// add_action( 'enqueue_block_assets', array( $this, 'block_assets' ) );
-		add_action( 'init', array( $this, 'carkeek_blocks_register' ), 9999 );
-
 		add_action( 'enqueue_block_editor_assets', array( $this, 'carkeek_blocks_enqueue_assets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'carkeek_blocks_enqueue_frontend_assets' ) );
-		add_filter( 'block_categories', array( $this, 'carkeek_blocks_categories' ), 10, 2 );
+
 	}
 
 	/**
@@ -135,82 +132,6 @@ class CarkeekBlocks_Block_Assets {
 			filemtime( $this->dir . $style_path ),
 		);
 
-	}
-
-	public function carkeek_blocks_register() {
-
-		$blocks = array(
-			'team-member',
-			'modal-item',
-			'fixed-image',
-			'accordion',
-		);
-
-		foreach ( $blocks as $block ) {
-			$this->carkeek_blocks_register_block( $block );
-		}
-
-		$this->carkeek_blocks_register_block(
-			'custom-archive',
-			array(
-				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_posttype_archive' ),
-				'attributes'      => array(
-					'numberOfPosts'           => array(
-						'type'    => 'number',
-						'default' => 3,
-					),
-					'displayFeaturedImage'    => array(
-						'type'    => 'boolean',
-						'default' => true,
-					),
-					'displayPostTitle'        => array(
-						'type'    => 'boolean',
-						'default' => true,
-					),
-					'postLayout'              => array(
-						'type'    => 'string',
-						'default' => 'grid',
-					),
-					'displayPostContent'      => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'displayPostContentRadio' => array(
-						'type'    => 'string',
-						'default' => 'excerpt',
-					),
-				),
-			)
-		);
-
-	}
-
-	function carkeek_blocks_register_block( $block, $options = array() ) {
-		register_block_type(
-			'carkeek-blocks/' . $block,
-			array_merge(
-				array(
-					'editor_script' => $this->slug . '-editor-script',
-					'editor_style'  => $this->slug . '-editor-style',
-					'script'        => $this->slug . '-script',
-					'style'         => $this->slug . '-style',
-				),
-				$options
-			)
-		);
-	}
-
-	function carkeek_blocks_categories( $categories, $post ) {
-		return array_merge(
-			$categories,
-			array(
-				array(
-					'slug'  => 'carkeek-category',
-					'title' => __( 'Carkeek Blocks', 'carkeek-blocks' ),
-					'icon'  => 'wordpress',
-				),
-			)
-		);
 	}
 
 }
