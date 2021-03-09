@@ -1,4 +1,3 @@
-
 import "./resources/global.css";
 import "./blocks/custom-link-list/script";
 import "./blocks/modal-item/script";
@@ -10,3 +9,4 @@ import "./blocks/custom-archive/script";
 import "./blocks/widget-row/script";
 import "./blocks/quick-link/script";
 import "./blocks/contextual-highlight/script";
+import "./blocks/carkeek-slider/script";

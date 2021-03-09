@@ -3,6 +3,7 @@ import "./style.editor.css";
 import edit from "./edit";
 
 import classnames from "classnames";
+
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
@@ -43,8 +44,9 @@ registerBlockType("carkeek-blocks/widget-row", {
     category: "carkeek-category",
 
     supports: {
+        anchor: true,
         html: false,
-        align: ["wide", "full"]
+        align: ["wide", "full", "left", "center", "right"]
     },
     attributes,
 

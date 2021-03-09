@@ -99,7 +99,14 @@ registerBlockType("carkeek-blocks/fixed-image", {
     icon: icons.image,
 
     supports: {
-        html: false
+        html: false,
+        align: ['wide', 'full'],
+        fontSize: true,
+        color: {
+            background:true,
+            gradients: false,
+            text: true
+        }
     },
 
     category: "widgets",

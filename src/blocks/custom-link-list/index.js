@@ -53,7 +53,8 @@ registerBlockType("carkeek-blocks/custom-link-list", {
     edit: edit,
     attributes: attributes,
     supports: {
-        align: ["wide", "full"]
+        anchor: true,
+        html: false
     },
     keywords: [
         __("mini-accordion", "carkeek-blocks"),

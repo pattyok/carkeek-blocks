@@ -7,13 +7,14 @@ module.exports = {
     entry: {
         editor: "./src/editor.js",
         script: "./src/script.js",
-        editor_script: "./src/editor_script.js"
+        plugins_editor: "./src/plugins_editor.js"
     },
     module: {
         rules: [
             loaders.JSLoader,
             loaders.CSSLoader,
-            loaders.FileLoader
+            loaders.FileLoader,
+            loaders.FontLoader
         ]
     },
     output: {

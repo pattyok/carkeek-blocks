@@ -1,4 +1,3 @@
-import "./resources/global.css";
 //import "./blocks/team-member";
 import "./blocks/custom-link-list";
 import "./blocks/modal-item";
@@ -10,4 +9,5 @@ import "./blocks/custom-archive";
 import "./blocks/widget-row";
 import "./blocks/quick-link";
 import "./blocks/contextual-highlight";
+import "./blocks/carkeek-slider";
 //import "./plugins";

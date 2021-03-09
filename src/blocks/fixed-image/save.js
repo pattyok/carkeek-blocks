@@ -55,7 +55,7 @@ export default function save( { attributes } ) {
 		<>
 			{ href ? (
 				<a
-					className={ linkClass }
+					className={ `'ck-fixed-image-wrap' ${linkClass}` }
 					href={ href }
 					target={ linkTarget }
 					rel={ newRel }
@@ -63,7 +63,9 @@ export default function save( { attributes } ) {
 					{ image }
 				</a>
 			) : (
-				image
+				<div className={'ck-fixed-image-wrap'}>
+				{ image }
+				</div>
 			) }
             { ( useCaption && ! RichText.isEmpty( caption ) ) && (
 				<RichText.Content tagName="figcaption" value={ caption } />

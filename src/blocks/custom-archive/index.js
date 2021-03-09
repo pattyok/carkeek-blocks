@@ -86,7 +86,8 @@ registerBlockType("carkeek-blocks/custom-archive", {
     edit: edit,
     attributes: attributes,
     supports: {
-        align: ["wide", "full"]
+        align: ["wide", "full"],
+        anchor: true
     },
     save() {
         return null;

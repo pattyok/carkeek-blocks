@@ -75,12 +75,19 @@ class CarkeekBlocks_Block_Assets {
 	 * Enqueue block back end only editor JS & CSS
 	 */
 	function carkeek_blocks_enqueue_assets() {
-		// wp_enqueue_script(
-		// 	$this->slug . '-editor-only-js',
-		// 	$this->url . '/dist/editor.js',
-		// 	array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
-		// 	$this->version
-		// );
+		wp_enqueue_script(
+			$this->slug . '-plugins-editor-script',
+			$this->url . '/dist/plugins_editor.js',
+			array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
+			$this->version
+		);
+
+		wp_enqueue_style(
+			$this->slug . '-plugins-editor-style',
+			$this->url . '/dist/plugins_editor.css',
+			array(),
+			$this->version
+		);
 
 		wp_register_script(
 			$this->slug . '-editor-script',
@@ -107,6 +114,8 @@ class CarkeekBlocks_Block_Assets {
 		// wp_enqueue_script( 'jquery-ui-slider' );
 		// wp_enqueue_style( 'jquery-ui' );
 		// Register frontend styles. Include block style file in editor if you want backend styles.
+
+		// TODO Only load if using and only get the part we need
 		wp_enqueue_script(
 			'bootstrap-js',
 			$this->url . '/vendor/bootstrap.bundle.min.js',
@@ -114,6 +123,20 @@ class CarkeekBlocks_Block_Assets {
 			$this->version,
 			true
 		);
+
+		// Only load slider js when using the slider block
+		if ( is_singular() ) {
+			$id = get_the_ID();
+			if ( has_block( 'carkeek-blocks/carkeek-slider', $id ) ) {
+				wp_enqueue_script(
+					'ck-slick',
+					$this->url . '/vendor/slick.js',
+					array( 'jquery' ),
+					$this->version,
+					true
+				);
+			}
+		}
 
 		// Register frontend scripts.
 		wp_enqueue_script(

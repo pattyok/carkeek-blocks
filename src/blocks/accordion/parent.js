@@ -32,7 +32,8 @@ registerBlockType("carkeek-blocks/accordion", {
 
     supports: {
         html: false,
-        align: ["wide", "full"]
+        align: ["wide", "full"],
+        anchor: true
     },
     attributes,
 

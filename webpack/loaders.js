@@ -8,7 +8,8 @@ const FileLoader = {
         loader: 'file-loader',
         options: {
           outputPath: 'images',
-          publicPath: path.resolve(__dirname, 'dist/')
+          publicPath: 'images/',
+          name: '[name].[ext]',
         },
       },
     ],
@@ -66,8 +67,24 @@ const JSLoader = {
     "eslint-loader"
     ]
 };
+
+const FontLoader ={
+  test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        outputPath: 'fonts',
+          publicPath: 'fonts/',
+          name: '[name].[ext]',
+      }
+    }
+  ]
+};
+
 module.exports = {
     CSSLoader: CSSLoader,
     JSLoader: JSLoader,
     FileLoader: FileLoader,
+    FontLoader: FontLoader
 };

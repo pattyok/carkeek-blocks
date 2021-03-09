@@ -25,8 +25,15 @@ registerBlockType("carkeek-blocks/contextual-highlight-text", {
 
     parent: ["carkeek-blocks/contextual-highlight"],
     supports: {
-        reusable: false,
-        html: false
+        color: {
+            background: true,
+            text: true,
+        },
+        fontSize: true,
+        inserter: false,
+        spacing: {
+            padding: true
+        }
     },
 
     category: "widgets",

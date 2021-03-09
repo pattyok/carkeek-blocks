@@ -335,7 +335,9 @@ export default function Image( {
 	return (
 		<>
 			{ controls }
+			<div className="ck-fixed-image-wrap">
 			{ img }
+			</div>
 			{ useCaption && ( ! RichText.isEmpty( caption ) || isSelected ) && (
 				<RichText
 					ref={ captionRef }
