@@ -3,7 +3,7 @@
 * Plugin Name: Carkeek Blocks
 * Plugin URI: https://github.com/pattyok/carkeek-blocks
 * GitHub Plugin URI: pattyok/carkeek-blocks
-* Requires PHP: 7.4
+* Requires PHP: 7.0
 * Requires at least: 5.6
 * Release Asset: true
 * Primary Branch: main
