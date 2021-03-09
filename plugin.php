@@ -3,9 +3,13 @@
 * Plugin Name: Carkeek Blocks
 * Plugin URI: https://github.com/pattyok/carkeek-blocks
 * GitHub Plugin URI: pattyok/carkeek-blocks
+* Requires PHP: 7.4
+* Requires at least: 5.6
+* Release Asset: true
+* Primary Branch: main
 * Description: Series of blocks designed to work with this site's custom Theme
 * Author: Patty O'Hara
-* Version: 1.0.6
+* Version: 1.0.8
 * Author URI https://carkeekstudios.com/
 * Text Domain: carkeek-blocks
 */
