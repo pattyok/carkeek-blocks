@@ -3,6 +3,7 @@ import { get } from "lodash";
 import icons from '../../resources/icons';
 import PostsInspector from './inspector';
 import { ServerSideRender } from "@wordpress/editor";
+import { Toolbar, ToolbarButton } from '@wordpress/components';
 
 import { withSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
@@ -10,7 +11,7 @@ import {
     Spinner,
     Placeholder,
 } from "@wordpress/components";
-import { RichText, useBlockProps } from "@wordpress/block-editor";
+import { RichText, useBlockProps,  BlockControls } from "@wordpress/block-editor";
 
 function customArchiveEdit( props ) {
 
@@ -77,6 +78,24 @@ function customArchiveEdit( props ) {
                         "is-list": postLayout === "list",
                     }) }
             >
+
+                <BlockControls>
+                    <Toolbar label="Layout Options">
+                        <ToolbarButton
+                            icon={ icons.grid }
+                            label="Grid Layout"
+                            onClick={ () => setAttributes({ postLayout: "grid" })  }
+                            isPrimary={postLayout === "grid" ? true : false}
+                        />
+                        <ToolbarButton
+                            icon={ icons.listLayout }
+                            label="List Layout"
+                            onClick={ () => setAttributes({ postLayout: "list" })  }
+                            isPrimary={postLayout === "list" ? true : false}
+                        />
+                    </Toolbar>
+            </BlockControls>
+
                 { (isSelected || headline) && (
                 <RichText
                     tagName={ headlineStyle }
@@ -90,7 +109,6 @@ function customArchiveEdit( props ) {
                     block={name}
                     attributes={props.attributes}
                 />
-                <p style={{textAlign: 'center', fontSize: '10px'}}>(Showing Recent {postTypeSelected}: Layout may differ on the published page.)</p>
 
             </div>
         </>

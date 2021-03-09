@@ -23,7 +23,8 @@ export default function save( { attributes } ) {
 		sizeSlug,
 		title,
         caption,
-        useCaption
+        useCaption,
+		focalPoint
 	} = attributes;
 
 	const newRel = isEmpty( rel ) ? undefined : rel;
@@ -31,6 +32,12 @@ export default function save( { attributes } ) {
 	const classes = classnames( {
 		[ `size-${ sizeSlug }` ]: sizeSlug,
 	} );
+
+	let imageStyle = {};
+	if (focalPoint) {
+		imageStyle.objectPosition = `${focalPoint.x *
+			100}% ${focalPoint.y * 100}%`;
+	}
 
 	const image = (
 		<img
@@ -40,6 +47,7 @@ export default function save( { attributes } ) {
 			width={ width }
 			height={ height }
 			title={ title }
+			style={imageStyle}
 		/>
 	);
 

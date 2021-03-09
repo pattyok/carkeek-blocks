@@ -1,0 +1,23 @@
+:root {
+	--icon-font-family: "carkeek-blocks";
+	--icon-expand: "\e808";
+	--icon-collapse: "\e809";
+
+	--color-appender-text: #007daa;
+	--color-appender-hover: #007daa;
+	--color-appender-hover-text: #fff;
+
+	--color-accordion-header-bg: #007daa;
+	--color-accordion-header-text: #fff;
+
+	--ck-link-color: #007daa;
+
+	--ck-column-gap: 2rem;
+	--ck-column-gap-vert: 2rem;
+	--ck-archive-image-text-gap: 1rem;
+	--ck-archive-image-ratio: 66%;
+
+	--ck-modal-image-ratio: 100%;
+	--ck-fixed-image-ratio: 66%;
+
+}

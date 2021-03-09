@@ -2,37 +2,21 @@
 @import "_modal.css";
 
 
-.wp-block-carkeek-blocks-team-member {
+.wp-block-carkeek-blocks-modal-item {
 	cursor: pointer;
 
-	& .ck-team-member-name {
+	& .ck-modal-item-name {
 		font-size: 19px;
 		margin-bottom: 0;
 		font-weight: 900;
 	}
 
-	& .ck-team-member-title {
+	& .ck-modal-item-title {
 		margin-bottom: 5px;
 	}
 
-	& .ck-team-member-image {
+	& .ck-modal-item-image {
 		position: relative;
-
-		&::before {
-			content: "";
-			width: 1px;
-			margin-left: -1px;
-			float: left;
-			height: 0;
-			padding-top: 4px / 6px * 100%;
-			display: block;
-		}
-
-		&::after {
-			content: "";
-			display: table;
-			clear: both;
-		}
 	}
 
 	& img {
@@ -54,11 +38,11 @@
 
 	& .ck-team-member-additional {
 
-		& .ck-team-member-image {
+		& .ck-modal-item-image {
 			margin-bottom: 2rem;
 		}
 
-		& .ck-team-member-details {
+		& .ck-modal-item-details {
 			margin-top: 1rem;
 		}
 	}

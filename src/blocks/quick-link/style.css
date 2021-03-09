@@ -1,0 +1,40 @@
+.wp-block-carkeek-blocks-quick-link {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1.5rem;
+
+	& .ck-quick-link {
+		font-size: 18px;
+		text-decoration: none;
+
+		&.is-placeholder {
+			color: #b0b0b0;
+		}
+
+		&.is-link {
+			color: #007daa;
+		}
+	}
+}
+
+
+@media screen and (min-width: 768px) {
+
+	.wp-block-carkeek-blocks-quick-link {
+		flex-direction: column;
+		flex: 1 1 25%;
+		padding-left: 25px;
+		padding-right: 25px;
+		border-right: 1px dashed #696969;
+		text-align: center;
+
+		&:last-child {
+			border-right: none;
+		}
+
+		& .ck-quick-link {
+			font-size: 20px;
+
+		}
+	}
+}

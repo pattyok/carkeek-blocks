@@ -3,6 +3,8 @@ const _MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const _ESLintPlugin = require('eslint-webpack-plugin');
 const _StyleLintPlugin = require('stylelint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const _BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
     chunkFilename: "[id].css",
@@ -23,10 +25,19 @@ const StyleLintPlugin = new _StyleLintPlugin({
   files: '**/*.css',
 });
 
+const BrowserSyncPlugin = new _BrowserSyncPlugin({
+    // browse to http://localhost:3000/ during development,
+    // ./public directory is being served
+    host: 'localhost',
+    port: 3000,
+    proxy: 'https://carkeek-theme.local'
+  })
+
 
 module.exports = {
     MiniCssExtractPlugin: MiniCssExtractPlugin,
     StyleLintPlugin: StyleLintPlugin,
     ESLintPlugin: ESLintPlugin,
+    BrowserSyncPlugin: BrowserSyncPlugin,
     CleanWebpackPlugin: new CleanWebpackPlugin(),
 };

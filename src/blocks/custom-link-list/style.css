@@ -1,0 +1,62 @@
+.wp-block-carkeek-custom-link-list {
+
+	& a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	& .ck-custom-list-label {
+		font-weight: 900;
+	}
+
+	& .ck-custom-list-notes {
+		font-style: italic;
+	}
+
+	& h3,
+	& h4,
+	& h5,
+	& h6 {
+		font-size: 18px;
+		font-weight: 900;
+		color: #333;
+		margin-bottom: 10px;
+	}
+}
+
+.carkeek-blocks-accordion.mini {
+
+	& .ck-accordion-header button {
+		background-color: transparent;
+		color: #007daa;
+		padding-left: 0;
+		padding-right: 0;
+
+		&:focus {
+			outline: none;
+			color: #00233e;
+			border-color: transparent;
+		}
+
+		&::before {
+			content: "\002B";
+			padding-right: 10px;
+		}
+
+		&[aria-expanded="true"] {
+
+			&::before {
+				content: "\2212";
+			}
+		}
+
+	}
+
+	& .ck-accordion-panel {
+		display: none;
+		padding-left: 21px;
+	}
+}

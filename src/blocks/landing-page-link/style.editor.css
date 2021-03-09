@@ -1,0 +1,23 @@
+@import "style";
+
+.editor-styles-wrapper {
+
+	& .wp-block-carkeek-blocks-page-link {
+
+		& .page-link.has-link {
+			color: var(--ck-link-color);
+		}
+
+		& .components-base-control {
+			width: 100%;
+
+		}
+
+		& .components-base-control__field {
+			text-align: left;
+			display: flex;
+			width: 100%;
+		}
+	}
+}
+

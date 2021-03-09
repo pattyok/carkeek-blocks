@@ -17,9 +17,21 @@ const attributes = {
         type: "boolean",
         default: true,
     },
+    displayFeaturedImage: {
+        type: "boolean",
+        default: true,
+    },
+    openAsModal: {
+        type: "boolean",
+        default: false,
+    },
     postLayout: {
         type: "string",
         default: "grid"
+    },
+    columns: {
+        type: "number",
+        default: 3
     },
     sortBy: {
         type: "string",

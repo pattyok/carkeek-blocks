@@ -1,0 +1,25 @@
+.wp-block-carkeek-blocks-contextual-highlight {
+	border: 1px solid #979797;
+
+	& .wp-block-carkeek-blocks-fixed-image {
+		margin: 0;
+		height: 200px;
+	}
+}
+
+.wp-block-carkeek-blocks-contextual-highlight-text {
+	padding: 2rem;
+
+	& .highlight-headline {
+		font-size: 24px;
+		font-weight: 700;
+		text-align: center;
+		line-height: 2;
+		color: #696969;
+
+		& a {
+			text-decoration: none;
+		}
+	}
+
+}

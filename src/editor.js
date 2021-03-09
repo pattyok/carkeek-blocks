@@ -1,10 +1,13 @@
 import "./resources/global.css";
 //import "./blocks/team-member";
-//import "./blocks/custom-archive";
+import "./blocks/custom-link-list";
 import "./blocks/modal-item";
 import "./blocks/fixed-image";
 import "./blocks/accordion";
 import "./blocks/icon";
-import "./blocks/landing-page-links";
+import "./blocks/landing-page-link";
 import "./blocks/custom-archive";
+import "./blocks/widget-row";
+import "./blocks/quick-link";
+import "./blocks/contextual-highlight";
 //import "./plugins";

@@ -41,10 +41,10 @@
 	--modal-title-line-height: var(--line-height-base);
 
 	--modal-content-bg: var(--white);
-	--modal-content-border-color: rgba(--black, 0.2);
+	--modal-content-border-color: rgba(0 0 0, 0.2);
 	--modal-content-border-width: var(--border-width);
-	--modal-content-box-shadow-xs: 0 0.25rem 0.5rem rgba(--black, 0.5);
-	--modal-content-box-shadow-sm-up: 0 0.5rem 1rem rgba(--black, 0.5);
+	--modal-content-box-shadow-xs: 0 0.25rem 0.5rem rgba(0 0 0, 0.5);
+	--modal-content-box-shadow-sm-up: 0 0.5rem 1rem rgba(0 0 0, 0.5);
 
 	--modal-backdrop-bg: var(--black);
 	--modal-backdrop-opacity: 0.5;
@@ -61,3 +61,4 @@
 	--modal-transition: transform 0.3s ease-out;
 
 }
+

@@ -31,7 +31,10 @@ function postsInspector( props ){
         emptyMessage,
         headlineLevel,
         sortBy,
-        order
+        order,
+        columns,
+        displayFeaturedImage,
+        openAsModal
     } = attributes;
 
     const postTypeSelect = (
@@ -158,6 +161,24 @@ function postsInspector( props ){
                     })
                 }
             />
+            {postLayout == 'grid' &&
+            <>
+                <RangeControl
+                    label={__("Number of Columns", "carkeek-blocks")}
+                    value={ columns }
+                    onChange={ ( columns ) => setAttributes( { columns } ) }
+                    min={1}
+                    max={6}
+                />
+                <ToggleControl
+                    label={__("Open Content as Modal")}
+                    checked={openAsModal}
+                    onChange={value =>
+                        setAttributes({ openAsModal: value })
+                    }
+                />
+            </>
+            }
             <RangeControl
                     label={__("Heading Size", "carkeek-blocks")}
                     value={headlineLevel}
@@ -168,6 +189,15 @@ function postsInspector( props ){
                     max={6}
                 />
 
+
+                <ToggleControl
+                    label={__("Include Featured Image")}
+                    checked={displayFeaturedImage}
+                    onChange={value =>
+                        setAttributes({ displayFeaturedImage: value })
+                    }
+                />
+
                 <ToggleControl
                     label={__("Include Excerpt")}
                     checked={displayPostExcerpt}
@@ -175,8 +205,6 @@ function postsInspector( props ){
                         setAttributes({ displayPostExcerpt: value })
                     }
                 />
-
-
                 {displayPostExcerpt && (
                         <RangeControl
                             label={__("Max number of words in excerpt")}

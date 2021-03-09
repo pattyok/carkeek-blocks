@@ -63,6 +63,7 @@ class CarkeekBlocks_CustomPost {
 	private function __construct() {
 		add_action( 'init', array( $this, 'carkeek_blocks_register_customlinks' ) );
 		add_filter( 'rest_post_collection_params', array( $this, 'ckb_prefix_add_rest_orderby_params' ), 10, 1 );
+		add_filter( 'acf/settings/load_json', array( $this, 'acf_json_load_point' ) );
 	}
 
 	/**
@@ -141,6 +142,18 @@ class CarkeekBlocks_CustomPost {
 	}
 
 	/**
+	 * ACF Json for any custom post types launched in this plugin
+	 */
+
+	function acf_json_load_point( $paths ) {
+
+		$paths[] = plugin_dir_path( __FILE__ ) . 'acf-json';
+
+		return $paths;
+
+	}
+
+	/**
 	 * Allow for random in the REST API
 	 *
 	 * * @param array $params Attributes passed to callback.
@@ -162,9 +175,9 @@ class CarkeekBlocks_CustomPost {
 		if ( empty( $attributes['postTypeSelected'] ) ) {
 			return;
 		}
-		$layout = $attributes['postLayout'];
+		$layout    = $attributes['postLayout'];
 		$post_type = $attributes['postTypeSelected'];
-		$args   = array(
+		$args      = array(
 			'posts_per_page' => $attributes['numberOfPosts'],
 			'post_type'      => $attributes['postTypeSelected'],
 			'order'          => $attributes['order'],
@@ -185,14 +198,18 @@ class CarkeekBlocks_CustomPost {
 		$query = new WP_Query( $args );
 		$posts = '';
 
-		$block_class         = 'wp-block-carkeek-blocks-custom-archive';
-		$inner_el_class = 'ck-custom-archive';
+		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
+		$inner_el_class    = 'ck-custom-archive';
 		$css_classes_outer = array(
 			$block_class,
 			'is-' . $layout,
 			'post-type-' . $post_type,
 			'align' . $attributes['align'],
+
 		);
+		if ( 'grid' === $layout ) {
+			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
+		}
 
 		$css_classes_outer = apply_filters( 'carkeek_block_custom_post_layout__css_classes_outer', $css_classes_outer, $attributes );
 		$block_start       = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
@@ -206,20 +223,33 @@ class CarkeekBlocks_CustomPost {
 				$inner_el_class . '__list',
 			);
 
+			if ( 'grid' === $layout ) {
+				$css_classes_list[] = 'ck-columns__wrap';
+			}
+
 			$css_classes_list = apply_filters( 'carkeek_block_custom_post_layout__css_classes_list', $css_classes_list, $attributes );
 			$posts           .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
 			$count            = 0;
-			$template = $post_type . '_item';
-			$template = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
+			$template         = $post_type . '_item';
+			$template         = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				global $post;
 
-				ob_start();
-				$ck_blocks_template_loader
-					->set_template_data( $attributes )
-					->get_template_part( 'custom-archive/' . $template );
-				$post_html = ob_get_clean();
+				if ( true == $attributes['openAsModal'] ) {
+					ob_start();
+					$ck_blocks_template_loader
+						->set_template_data( $attributes )
+						->get_template_part( 'custom-archive/modal_item' );
+					$post_html = ob_get_clean();
+
+				} else {
+					ob_start();
+					$ck_blocks_template_loader
+						->set_template_data( $attributes )
+						->get_template_part( 'custom-archive/' . $template );
+					$post_html = ob_get_clean();
+				}
 
 				if ( empty( $post_html ) ) {
 					ob_start();
@@ -268,7 +298,7 @@ class CarkeekBlocks_CustomPost {
 		$notes = get_field( 'cl_notes', $link->ID );
 
 		if ( ! empty( $notes ) ) {
-			$item .= '<div class="cll-notes">(' . $notes . ')</div>';
+			$item .= '<div class="ck-custom-list-notes">(' . $notes . ')</div>';
 		}
 		return '<li>' . $item . '</li>';
 
@@ -315,11 +345,11 @@ class CarkeekBlocks_CustomPost {
 
 		if ( ! empty( $attributes['headline'] ) ) {
 			$tag_name       = 'h' . $attributes['headlineLevel'];
-			$block_content .= '<' . $tag_name . ' class="cll-headline">' . $attributes['headline'] . '</' . $tag_name . '>';
+			$block_content .= '<' . $tag_name . ' class="ck-custom-headline">' . $attributes['headline'] . '</' . $tag_name . '>';
 		}
 
 		if ( ! empty( $links ) ) {
-			$block_content .= '<ul class="cll-list no-bullets">';
+			$block_content .= '<ul class="ck-custom-list no-bullets">';
 			foreach ( $links as $link ) {
 				$block_content .= self::make_custom_link( $link );
 			}
@@ -342,8 +372,8 @@ class CarkeekBlocks_CustomPost {
 					$list_id    = 'link_list_' . esc_attr( $attributes['listSelected'] ) . '_' . esc_attr( $term->term_id );
 					$list_label = 'link_list_label_' . esc_attr( $attributes['listSelected'] ) . '_' . esc_attr( $term->term_id );
 
-					$block_content .= '<div class="cll-label ckb-accordion-label" id="' . esc_attr( $list_label ) . '">' . $term->name . '</div>';
-					$block_content .= '<ul class="cll-list ckb-accordion-panel no-bullets" id="' . esc_attr( $list_id ) . '" aria-labellledby="' . esc_attr( $list_label ) . '">';
+					$block_content .= '<div class="ck-custom-list-label ck-accordion-header" id="' . esc_attr( $list_label ) . '">' . $term->name . '</div>';
+					$block_content .= '<ul class="ck-custom-list ck-accordion-panel no-bullets" id="' . esc_attr( $list_id ) . '" aria-labellledby="' . esc_attr( $list_label ) . '">';
 					foreach ( $sub_links as $sub ) {
 						$block_content .= self::make_custom_link( $sub );
 					}

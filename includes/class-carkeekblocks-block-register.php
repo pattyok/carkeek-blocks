@@ -59,20 +59,17 @@ class CarkeekBlocks_Block_Register {
 	public function carkeek_blocks_register_blocks() {
 		$blocks = array(
 			'team-member',
-			// 'link-tile',
-			// 'link-gallery',
-			// 'slider',
-			// 'image-slider',
 			'accordion',
 			'modal-item',
 			'fixed-image',
-			'accordion',
+			'widget-row',
+			'quick-link',
+			'page-link',
 		);
 
 		foreach ( $blocks as $block ) {
 			$this->carkeek_blocks_register_block( $block );
 		}
-
 		$this->carkeek_blocks_register_block(
 			'custom-archive',
 			array(
@@ -92,6 +89,10 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'string',
 						'default' => 'grid',
 					),
+					'columns'         => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
 					'taxTermsSelected'   => array(
 						'type' => 'string',
 					),
@@ -99,6 +100,14 @@ class CarkeekBlocks_Block_Register {
 						'type' => 'string',
 					),
 					'displayPostExcerpt' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'displayFeaturedImage' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'openAsModal' => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),

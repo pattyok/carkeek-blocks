@@ -1,0 +1,19 @@
+@import "./style.css";
+
+.editor-styles-wrapper {
+
+	& .wp-block-carkeek-blocks-quick-link {
+
+		& .components-base-control {
+			width: 100%;
+
+		}
+
+		& .components-base-control__field {
+			text-align: left;
+			display: flex;
+			width: 100%;
+		}
+
+	}
+}
