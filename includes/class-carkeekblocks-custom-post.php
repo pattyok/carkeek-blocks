@@ -170,7 +170,6 @@ class CarkeekBlocks_CustomPost {
 	 * @return string HTML of dynamic content.
 	 */
 	public function carkeek_blocks_render_custom_posttype_archive( $attributes ) {
-		error_log(print_r($attributes, true));
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
 
 		if ( empty( $attributes['postTypeSelected'] ) ) {

@@ -27,14 +27,14 @@ if ( ! empty( $featured_image ) ) {
 		</a>
 	<?php } ?>
 	<div class="ck-custom-archive__content-wrap">
-		<?php do_action( 'ck_custom_archive_layout__before_title' ); ?>
+		<?php do_action( 'ck_custom_archive_layout__before_title', $data ); ?>
 		<a class="ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
-		<?php do_action( 'ck_custom_archive_layout__after_title' ); ?>
+		<?php do_action( 'ck_custom_archive_layout__after_title', $data ); ?>
 		<?php
 		if ( ! empty( $excerpt ) ) {
 			?>
 			<div class="ck-custom-archive-excerpt"><?php echo wp_kses_post( $excerpt ); ?></div>
 		<?php } ?>
-		<?php do_action( 'ck_custom_archive_layout__after_excerpt' ); ?>
+		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 	</div>
 </div>

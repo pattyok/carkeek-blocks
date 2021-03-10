@@ -17,7 +17,7 @@ if ( ! empty( $image ) ) {
 			<?php echo wp_kses_post( $image ); ?>
 		</a>
 	<?php } ?>
-
+	<?php do_action( 'ck_custom_archive_layout__before_title', $data ); ?>
 	<a
 		class="ck-modal-item-name"
 		id="title-<?php echo esc_attr( $item_id ); ?>"
@@ -26,13 +26,13 @@ if ( ! empty( $image ) ) {
 	>
 		<?php the_title(); ?>
 	</a>
-	<!-- <p class="ck-team-member__title"><?php the_field( 'organizers_role' ); ?></p> -->
-	<?php do_action( 'ck_custom_archive_layout_modal_preview__after_title' ); ?>
+
+	<?php do_action( 'ck_custom_archive_layout__after_title', $data ); ?>
 	<div class="ck-modal-item-dialog modal fade" id="dialog-<?php echo esc_attr( $item_id ); ?>" tabIndex="-1" role="dialog" aria-labelledby="title-<?php echo esc_attr( $item_id ); ?>" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<?php do_action( 'ck_custom_archive_layout_modal_dialog__header' ); ?>
+					<?php do_action( 'ck_custom_archive_layout_modal_dialog__header' . $data ); ?>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -42,15 +42,18 @@ if ( ! empty( $image ) ) {
 						<?php echo wp_kses_post( $modal_body_image ); ?>
 					<?php } ?>
 					<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_image' ); ?>
+					<!-- Shows up on small and big item -->
+					<?php do_action( 'ck_custom_archive_layout__before_title', $data ); ?>
 					<p class="ck-modal-item-name"><?php the_title(); ?></p>
+					<?php do_action( 'ck_custom_archive_layout__after_title', $data ); ?>
 					<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_title' ); ?>
 					<div class="ck-modal-item-details">
 						<?php the_content(); ?>
 					</div>
-					<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_content' ); ?>
+					<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_content', $data ); ?>
 				</div>
 				<div class="modal-footer">
-					<?php do_action( 'ck_custom_archive_layout_modal_dialog__footer' ); ?>
+					<?php do_action( 'ck_custom_archive_layout_modal_dialog__footer', $data ); ?>
 					<a data-dismiss="modal">Close</a>
 				</div>
 			</div>
