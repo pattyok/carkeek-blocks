@@ -170,6 +170,7 @@ class CarkeekBlocks_CustomPost {
 	 * @return string HTML of dynamic content.
 	 */
 	public function carkeek_blocks_render_custom_posttype_archive( $attributes ) {
+		error_log(print_r($attributes, true));
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
 
 		if ( empty( $attributes['postTypeSelected'] ) ) {
@@ -213,10 +214,7 @@ class CarkeekBlocks_CustomPost {
 
 		$css_classes_outer = apply_filters( 'carkeek_block_custom_post_layout__css_classes_outer', $css_classes_outer, $attributes );
 		$block_start       = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
-		if ( ! empty( $attributes['headline'] ) ) {
-			$tag_name     = 'h' . $attributes['headlineLevel'];
-			$block_start .= '<' . $tag_name . ' class="' . $inner_el_class . '__headline">' . $attributes['headline'] . '</' . $tag_name . '>';
-		}
+
 		if ( $query->have_posts() ) {
 			$posts           .= $block_start;
 			$css_classes_list = array(
@@ -232,6 +230,7 @@ class CarkeekBlocks_CustomPost {
 			$count            = 0;
 			$template         = $post_type . '_item';
 			$template         = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
+
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				global $post;

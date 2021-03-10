@@ -11,7 +11,7 @@ import {
     Spinner,
     Placeholder,
 } from "@wordpress/components";
-import { RichText, useBlockProps,  BlockControls } from "@wordpress/block-editor";
+import {  useBlockProps,  BlockControls } from "@wordpress/block-editor";
 
 function customArchiveEdit( props ) {
 
@@ -19,7 +19,6 @@ function customArchiveEdit( props ) {
         posts,
         attributes,
         setAttributes,
-        isSelected,
         clientId,
         name
     } = props;
@@ -28,15 +27,12 @@ function customArchiveEdit( props ) {
         postTypeSelected,
         hideIfEmpty,
         emptyMessage,
-        headline,
-        headlineLevel,
         blockId,
     } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
-    const headlineStyle = 'h' + headlineLevel;
-
+    const blockProps = useBlockProps();
     const hasPosts = Array.isArray(posts) && posts.length;
 
     if (!hasPosts) {
@@ -45,40 +41,23 @@ function customArchiveEdit( props ) {
             typeof postTypeSelected !== "undefined"
                 ? message
                 : __("Select a Post Type from the Block Settings");
-        const showHeadline = isSelected || (headline && ! hideIfEmpty) ? true : false;
         return (
-            <>
+            <div
+            { ...blockProps } >
                 <PostsInspector { ...props } />
-                { showHeadline && (
-                <RichText
-                    tagName={ headlineStyle }
-                    value={ headline }
-                    onChange={ ( headline ) => setAttributes( { headline } ) }
-                    placeholder={ __('Heading...')}
-                    formattingControls={ [ ] }
-                />
-                ) }
-
-                <Placeholder icon={icons.layout} label={ headline ? headline : __("Latest Posts")}>
+                <Placeholder icon={icons.layout} label={ __("Latest Posts")}>
                     {!Array.isArray(posts) ? <Spinner /> : noPostMessage}
                 </Placeholder>
-            </>
+                </div>
         );
     }
 
-    const blockProps = useBlockProps();
+
 
     return (
-        <>
-            <PostsInspector { ...props } />
-            <div
-                { ...blockProps }
-                className={ classnames(blockProps.className, {
-                        "is-grid": postLayout === "grid",
-                        "is-list": postLayout === "list",
-                    }) }
-            >
 
+            <>
+                <PostsInspector { ...props } />
                 <BlockControls>
                     <Toolbar label="Layout Options">
                         <ToolbarButton
@@ -95,16 +74,13 @@ function customArchiveEdit( props ) {
                         />
                     </Toolbar>
             </BlockControls>
-
-                { (isSelected || headline) && (
-                <RichText
-                    tagName={ headlineStyle }
-                    value={ headline }
-                    onChange={ ( headline ) => setAttributes( { headline } ) }
-                    placeholder={ __('Heading...')}
-                    formattingControls={ [ ] }
-                />
-                ) }
+            <div
+                { ...blockProps }
+                className={ classnames(blockProps.className, {
+                        "is-grid": postLayout === "grid",
+                        "is-list": postLayout === "list",
+                    }) }
+            >
                 <ServerSideRender
                     block={name}
                     attributes={props.attributes}

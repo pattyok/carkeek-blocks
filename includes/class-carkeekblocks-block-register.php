@@ -109,7 +109,7 @@ class CarkeekBlocks_Block_Register {
 					),
 					'openAsModal' => array(
 						'type'    => 'boolean',
-						'default' => true,
+						'default' => false,
 					),
 					'filterByTaxonomy'   => array(
 						'type'    => 'boolean',
@@ -126,13 +126,6 @@ class CarkeekBlocks_Block_Register {
 					'sortBy'             => array(
 						'type'    => 'string',
 						'default' => 'date',
-					),
-					'headlineLevel'      => array(
-						'type'    => 'number',
-						'default' => 2,
-					),
-					'headline'           => array(
-						'type' => 'string',
 					),
 					'emptyMessage'       => array(
 						'type' => 'string',

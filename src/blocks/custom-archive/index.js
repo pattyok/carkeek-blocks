@@ -62,13 +62,6 @@ const attributes = {
     emptyMessage: {
         type: "string"
     },
-    headline: {
-        type: "string"
-    },
-    headlineLevel: {
-        type: "number",
-        default: '2'
-    },
     blockId: {
         type: "string"
     }
@@ -86,8 +79,10 @@ registerBlockType("carkeek-blocks/custom-archive", {
     edit: edit,
     attributes: attributes,
     supports: {
-        align: ["wide", "full"],
-        anchor: true
+        align: ["wide", "full", "left", "center", "right"],
+        alignWide: true,
+        anchor: true,
+        spacing: true
     },
     save() {
         return null;
