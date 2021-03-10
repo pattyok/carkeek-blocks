@@ -28,7 +28,7 @@ if ( ! empty( $featured_image ) ) {
 	<?php } ?>
 	<div class="ck-custom-archive__content-wrap">
 		<?php do_action( 'ck_custom_archive_layout__before_title' ); ?>
-		<a class="'ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
+		<a class="ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
 		<?php do_action( 'ck_custom_archive_layout__after_title' ); ?>
 		<?php
 		if ( ! empty( $excerpt ) ) {

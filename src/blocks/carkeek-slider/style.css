@@ -35,7 +35,7 @@
 		& .slide-single {
 			height: 100%;
 
-			> [class^="wp-block"] {
+			& > [class^="wp-block"] {
 				height: 100%;
 			}
 		}
