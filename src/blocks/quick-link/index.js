@@ -4,7 +4,7 @@ import icons from '../../resources/icons';
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import edit from "./edit";
-import { InnerBlocks } from "@wordpress/block-editor";
+import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
 
 const attributes = {
     linkTitle: {
@@ -43,14 +43,16 @@ registerBlockType("carkeek-blocks/quick-link", {
 
     attributes,
 
-    save: ({ attributes, className }) => {
+    save: ({ attributes }) => {
         const {
             linkTitle,
             linkUrl,
         } = attributes;
 
+        const blockProps = useBlockProps.save();
+
         return (
-            <div className={className}>
+            <div {...blockProps} >
                     <a
                         className={
                             "ck-quick-link-icon-link"
