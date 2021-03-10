@@ -32,7 +32,7 @@ if ( ! empty( $image ) ) {
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<?php do_action( 'ck_custom_archive_layout_modal_dialog__header' . $data ); ?>
+					<?php do_action( 'ck_custom_archive_layout_modal_dialog__header', $data ); ?>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
