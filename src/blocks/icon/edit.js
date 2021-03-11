@@ -29,7 +29,7 @@ class Edit extends Component {
 
             const rand = defaultIcons[ Math.floor( Math.random() * defaultIcons.length ) ];
 			this.props.setAttributes( { icon: rand } );
-            this.props.setAttributes( { variation: 'solid' } );
+            this.props.setAttributes( { variation: 'regular' } );
 		}
 	}
 

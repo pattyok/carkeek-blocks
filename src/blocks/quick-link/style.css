@@ -17,6 +17,10 @@
 	}
 }
 
+.ck-columns .ck-columns__wrap > .wp-block-carkeek-blocks-quick-link {
+	margin-right: 0;
+}
+
 
 @media screen and (min-width: 768px) {
 

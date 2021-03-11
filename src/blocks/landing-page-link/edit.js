@@ -43,7 +43,7 @@ export default function QuickLinkEdit( props ) {
                         <>
                                 <TextControl
                                     className={
-                                        "wp-block-carkeek-blocks-page-link__title_edit"
+                                        "ck-page-link-editor"
                                     }
                                     onChange={ ( linkTitle ) => setAttributes( { linkTitle } ) }
                                     value={linkTitle}
@@ -59,7 +59,7 @@ export default function QuickLinkEdit( props ) {
                                     label={__("Links To", "carkeek-blocks")}
                                 />
                                 <RichText
-                                    className={'page-link--description'}
+                                    className={'ck-page-link-description'}
                                     tagName="div"
                                     value={ pageIntro }
                                     allowedFormats={ [ 'core/bold', 'core/italic' ] }
@@ -71,7 +71,7 @@ export default function QuickLinkEdit( props ) {
                         <div className={ classnames('page-link', {
                             'has-link' : linkUrl
                         })}>{ linkTitle ? linkTitle : 'Click to Edit' }</div>
-                        <div className="page-link-description">{  pageIntro }</div>
+                        <div className="ck-page-link-description">{  pageIntro }</div>
                         </>
                         }
                     </>

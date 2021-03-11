@@ -37,7 +37,7 @@
 			margin-bottom: 1rem;
 		}
 
-		& .ck-page-link--description {
+		& .ck-page-link-description {
 			display: block;
 			line-height: 30px;
 		}

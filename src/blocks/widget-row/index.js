@@ -25,6 +25,10 @@ const attributes = {
     itemsPerRow: {
         type: 'number',
         default: 3
+    },
+    alignInnerBlocks: {
+        type: 'string',
+        default: 'left'
     }
 }
 
@@ -59,14 +63,15 @@ registerBlockType("carkeek-blocks/widget-row", {
     edit,
 
     save({ attributes } ) {
-        const { allowItemsWrap, itemsPerRow } = attributes
+        const { allowItemsWrap, itemsPerRow, alignInnerBlocks } = attributes
         const blockProps = useBlockProps.save();
         return (
             <div { ...blockProps }
             className={ classnames(blockProps.className, {
                     "ck-columns": 'true',
-                    "ck-columns-stretch": !allowItemsWrap,
-                    [`has-${itemsPerRow}-columns`]: allowItemsWrap,
+                    [`ck-columns-wrap-${allowItemsWrap}`]: true,
+                    [`ck-columns-align-${alignInnerBlocks}`]: true,
+                    [`has-${itemsPerRow}-columns`]: 'true',
                 }) }
                 >
                 <div className={ 'ck-columns__wrap' }>

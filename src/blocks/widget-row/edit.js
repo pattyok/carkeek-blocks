@@ -7,14 +7,14 @@ import {
     InnerBlocks,
     useBlockProps,
     InspectorAdvancedControls } from "@wordpress/block-editor";
-import { PanelBody, SelectControl, ToggleControl, RangeControl } from "@wordpress/components";
+import { PanelBody, SelectControl, ToggleControl, RangeControl, RadioControl } from "@wordpress/components";
 import { getBlockTypes, createBlock, getBlockType } from "@wordpress/blocks";
 import { dispatch, useSelect } from "@wordpress/data";
 
 
 export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow } = attributes;
+    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, alignInnerBlocks } = attributes;
 
     const availBlocks = getBlockTypes();
     let myAllowedBlocks = allowedBlocks;
@@ -73,6 +73,20 @@ export default function CollapseSectionEdit( props ) {
                         min={1}
                         max={6}
                     />
+                    <RadioControl
+                        label="Align inner blocks"
+                        selected={alignInnerBlocks}
+                        help={__('If the number of inner blocks does not complete a row, how should they be aligned?')}
+                        options={ [
+                            { label: 'Left', value: 'left' },
+                            { label: 'Right', value: 'right' },
+                            { label: 'Center', value: 'center' },
+                            { label: 'Stretch to fit', value: 'stretch' },
+                        ] }
+                        onChange={ (value) =>
+                            setAttributes({ alignInnerBlocks: value })
+                        }
+                    />
                 </PanelBody>
             </InspectorControls>
             <InspectorAdvancedControls>
@@ -89,23 +103,22 @@ export default function CollapseSectionEdit( props ) {
             { ...blockProps }
             className={ classnames( blockProps.className, {
                 "ck-columns": 'true',
-                "ck-columns-stretch": !allowItemsWrap,
-                [`has-${itemsPerRow}-columns`]: allowItemsWrap,
+                    [`ck-columns-wrap-${allowItemsWrap}`]: true,
+                    [`ck-columns-align-${alignInnerBlocks}`]: true,
+                    [`has-${itemsPerRow}-columns`]: 'true',
             })}
             >
-
-            {innerBlockType ?
-                <InnerBlocks
-                allowedBlocks = { myAllowedBlocks }
-                orientation="horizontal"
-                renderAppender={ () => appenderToUse() }
-            />
-            :
-                <InnerBlocks
-                orientation="horizontal"
+                {innerBlockType ?
+                    <InnerBlocks
+                    allowedBlocks = { myAllowedBlocks }
+                    orientation="horizontal"
+                    renderAppender={ () => appenderToUse() }
                 />
-            }
-
+                :
+                    <InnerBlocks
+                    orientation="horizontal"
+                    />
+                }
         </div>
         </>
     )

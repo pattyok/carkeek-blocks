@@ -13,19 +13,43 @@
 
 		& .ck-columns__wrap {
 			display: flex;
-			flex-wrap: wrap;
 
 			& > * {
+				flex: 0 1 auto;
 				margin-right: var(--ck-column-gap);
 			}
 		}
 
-		&.ck-columns-stretch {
+		&.ck-columns-align-stretch {
 
 			& .ck-columns__wrap {
 
 				& > * {
-					flex: 1 1 0;
+					flex-grow: 1;
+				}
+			}
+		}
+
+		&.ck-columns-align-right {
+
+			& .ck-columns__wrap {
+				justify-content: flex-end;
+			}
+		}
+
+		&.ck-columns-align-center {
+
+			& .ck-columns__wrap {
+				justify-content: center;
+			}
+		}
+
+		&.ck-columns-wrap-true {
+
+			& .ck-columns__wrap {
+				flex-wrap: wrap;
+
+				& > * {
 
 					&:last-child {
 						margin-right: 0;
@@ -37,7 +61,7 @@
 		&.has-2-columns {
 
 			& .ck-columns__wrap > * {
-				width: calc(( 100% - var(--ck-column-gap) ) / 2);
+				flex-basis: calc(( 100% - var(--ck-column-gap) ) / 2);
 
 				&:nth-child(2n+2) {
 					margin-right: 0;
@@ -48,7 +72,7 @@
 		&.has-3-columns {
 
 			& .ck-columns__wrap > * {
-				width: calc((100% - 2 * var(--ck-column-gap)) / 3);
+				flex-basis: calc((100% - 2 * var(--ck-column-gap)) / 3);
 
 				&:nth-child(3n+3) {
 					margin-right: 0;
@@ -59,7 +83,7 @@
 		&.has-4-columns {
 
 			& .ck-columns__wrap > * {
-				width: calc((100% - 3 * var(--ck-column-gap) ) / 4);
+				flex-basis: calc((100% - 3 * var(--ck-column-gap) ) / 4);
 
 				&:nth-child(4n+4) {
 					margin-right: 0;
@@ -70,7 +94,7 @@
 		&.has-5-columns {
 
 			& .ck-columns__wrap > * {
-				width: calc((100% - 4 * var(--ck-column-gap) ) / 5);
+				flex-basis: calc((100% - 4 * var(--ck-column-gap) ) / 5);
 
 				&:nth-child(5n+5) {
 					margin-right: 0;
@@ -81,7 +105,7 @@
 		&.has-6-columns {
 
 			& .ck-columns__wrap > * {
-				width: calc((100% - 5 * var(--ck-column-gap) ) / 6);
+				flex-basis: calc((100% - 5 * var(--ck-column-gap) ) / 6);
 
 				&:nth-child(6n+6) {
 					margin-right: 0;
