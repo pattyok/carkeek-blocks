@@ -11,7 +11,7 @@ body {
 	}
 }
 
-.editor-styles-wrapper button.custom-appender {
+.editor-styles-wrapper button.ck-custom-appender {
 	border: 2px solid var(--color-appender-text);
 	background-color: transparent;
 	color: var(--color-appender-text);

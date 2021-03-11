@@ -90,7 +90,7 @@ registerBlockType("carkeek-blocks/accordion", {
                     allowedBlocks={["carkeek-blocks/accordion-panel"]}
                     template={[['carkeek-blocks/accordion-panel']]}
                     renderAppender={ () => (
-                        <button className="custom-appender"onClick={() => {
+                        <button className="ck-custom-appender"onClick={() => {
 							dispatch('core/block-editor').insertBlocks(createBlock('carkeek-blocks/accordion-panel'), 9999, clientId);
 						}}>
 							{__('Add Accordion Section')}

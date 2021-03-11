@@ -22,4 +22,12 @@
 		}
 	}
 
+	&.has-background,
+	&.has-text-color {
+
+		& .highlight-headline {
+			color: inherit;
+		}
+	}
+
 }
