@@ -111,13 +111,13 @@ class CarkeekBlocks_CustomPost {
 			'menu_position'       => 5,
 			'menu_icon'           => 'dashicons-admin-links',
 			'show_in_admin_bar'   => false,
-			'show_in_nav_menus'   => true,
+			'show_in_nav_menus'   => false,
 			'can_export'          => true,
 			'has_archive'         => false,
 			'exclude_from_search' => true,
-			'publicly_queryable'  => true,
+			'publicly_queryable'  => false,
 			'capability_type'     => 'page',
-			'show_in_rest'        => true,
+			'show_in_rest'        => false,
 			'rest_base'           => 'custom-links',
 		);
 		register_post_type( 'custom_link', $args );
@@ -336,10 +336,20 @@ class CarkeekBlocks_CustomPost {
 
 		$links      = get_posts( $args );
 		$list_style = '';
+		$data_atts  = array(
+			'accordion' => '',
+			'header'    => '',
+			'panel'     => '',
+		);
 		if ( true == $attributes['makeCollapsible'] ) {
 			$list_style .= ' carkeek-blocks-accordion mini';
+			$data_atts   = array(
+				'accordion' => 'data-aria-accordion data-transition data-multi',
+				'header'    => 'data-aria-accordion-heading',
+				'panel'     => 'data-aria-accordion-panel',
+			);
 		}
-		$block_content = '<div class="wp-block-carkeek-custom-link-list' . esc_attr( $list_style ) . '">';
+		$block_content = '<div class="wp-block-carkeek-custom-link-list' . esc_attr( $list_style ) . '"><div ' . esc_attr( $data_atts['accordion'] ) . '>';
 
 		if ( ! empty( $attributes['headline'] ) ) {
 			$tag_name       = 'h' . $attributes['headlineLevel'];
@@ -367,20 +377,18 @@ class CarkeekBlocks_CustomPost {
 				$sub_links              = get_posts( $post_args );
 				if ( ! empty( $sub_links ) ) {
 					$list_style = '';
-					$list_id    = 'link_list_' . esc_attr( $attributes['listSelected'] ) . '_' . esc_attr( $term->term_id );
-					$list_label = 'link_list_label_' . esc_attr( $attributes['listSelected'] ) . '_' . esc_attr( $term->term_id );
 
-					$block_content .= '<div class="ck-custom-list-label ck-accordion-header" id="' . esc_attr( $list_label ) . '">' . $term->name . '</div>';
-					$block_content .= '<ul class="ck-custom-list ck-accordion-panel no-bullets" id="' . esc_attr( $list_id ) . '" aria-labellledby="' . esc_attr( $list_label ) . '">';
+					$block_content .= '<div class="ck-custom-list-label" ' . esc_attr( $data_atts['header'] ) . '>' . $term->name . '</div>';
+					$block_content .= '<div class="ck-custom-list" ' . esc_attr( $data_atts['panel'] ) . '><ul class="no-bullets">';
 					foreach ( $sub_links as $sub ) {
 						$block_content .= self::make_custom_link( $sub );
 					}
-					$block_content .= '</ul>';
+					$block_content .= '</ul></div>';
 				}
 			}
 		}
 
-		$block_content .= '</div>';
+		$block_content .= '</div></div>';
 		return $block_content;
 
 	}

@@ -38,11 +38,11 @@
 		border: 1px solid #ccc;
 		padding: 1rem;
 
-		& .cll-headline {
+		& .ck-custom-headline {
 			display: none;
 		}
 
-		&.carkeek-blocks-accordion .cll-label {
+		&.carkeek-blocks-accordion .ck-custom-list-label {
 
 			&::before {
 				content: "\002B";

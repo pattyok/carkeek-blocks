@@ -136,6 +136,15 @@ class CarkeekBlocks_Block_Assets {
 					true
 				);
 			}
+			if ( has_block( 'carkeek-blocks/accordion', $id ) || has_block( 'carkeek-blocks/custom-link-list', $id ) ) {
+				wp_enqueue_script(
+					'ck-accordion',
+					$this->url . '/vendor/aria.accordion.min.js',
+					array(),
+					$this->version,
+					true
+				);
+			}
 		}
 
 		// Register frontend scripts.
