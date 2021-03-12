@@ -69,7 +69,6 @@ export default function Image( {
 	isSelected,
 	insertBlocksAfter,
 	onSelectImage,
-	onSelectURL,
 	onUploadError,
 } ) {
 	const captionRef = useRef();
@@ -214,7 +213,6 @@ export default function Image( {
 						allowedTypes={ [ 'image' ] }
 						accept="image/*"
 						onSelect={ onSelectImage }
-						onSelectURL={ onSelectURL }
 						onError={ onUploadError }
 					/>
 				) }

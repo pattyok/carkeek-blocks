@@ -142,17 +142,6 @@ export function ImageEdit( {
 		} );
 	}
 
-	function onSelectURL( newURL ) {
-		if ( newURL !== url ) {
-			setAttributes( {
-				url: newURL,
-				id: undefined,
-				sizeSlug: 'large',
-			} );
-		}
-	}
-
-
 	const isTemp = isTemporaryImage( id, url );
 
 	// Upload a temporary image on mount.
@@ -229,7 +218,6 @@ export function ImageEdit( {
                 insertBlocksAfter={ insertBlocksAfter }
                 onReplace={ onReplace }
                 onSelectImage={ onSelectImage }
-                onSelectURL={ onSelectURL }
                 onUploadError={ onUploadError }
                 containerRef={ ref }
             />
@@ -238,7 +226,6 @@ export function ImageEdit( {
 			<MediaPlaceholder
 				icon="format-image"
 				onSelect={ onSelectImage }
-				onSelectURL={ onSelectURL }
 				notices={ noticeUI }
 				onError={ onUploadError }
 				allowedTypes={ [ 'image' ] }
