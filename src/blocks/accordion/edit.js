@@ -34,12 +34,13 @@ export default function CollapseSectionEdit( props ) {
                 onChange={ ( title ) => setAttributes( { title } ) }
                 placeholder={ __('Section Heading...')}
             />
-
+            <div className="ck-accordion-panel">
             <InnerBlocks
                 className={'ck-accordion-inner-blocks'}
                 allowedBlocks = { allowedBlocks }
                 template = { template }
             />
+            </div>
         </div>
     )
 }
