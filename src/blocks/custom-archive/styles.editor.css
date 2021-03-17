@@ -1,5 +1,9 @@
 @import "./style.css";
 
+.components-select-control__input[multiple] {
+	height: auto !important;
+}
+
 .editor-styles-wrapper {
 
 	& .wp-block-carkeek-blocks-custom-archive {

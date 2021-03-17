@@ -36,6 +36,13 @@
 		}
 	}
 
+	&.is-grid {
+
+		& .ck-columns__wrap {
+			flex-wrap: wrap;
+		}
+	}
+
 	&.is-list {
 
 		& .ck-custom-archive-item {
