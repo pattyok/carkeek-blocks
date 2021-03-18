@@ -3,24 +3,24 @@
 	--ck-icon-expand: "\e808";
 	--ck-icon-collapse: "\e809";
 
-	--color-appender-text: #007daa;
-	--color-appender-hover: #007daa;
+	--color-appender-text: #44673a;
+	--color-appender-hover: #44673a;
 	--color-appender-hover-text: #fff;
 
 	--ck-color-accordion-header-bg: #fff;
-	--ck-color-accordion-header-text: #007daa;
-	--ck-color-accordion-header-expanded-bg: #007daa;
+	--ck-color-accordion-header-text: var(--color-theme-primary);
+	--ck-color-accordion-header-expanded-bg: var(--color-theme-primary);
 	--ck-color-accordion-header-expanded-text: #fff;
-	--ck-color-accordion-header-focus-bg: #00233e;
+	--ck-color-accordion-header-focus-bg: var(--color-link-active);
 	--ck-color-accordion-header-focus-text: #fff;
-	--ck-accordion-panel-bg: rgba(169, 221, 242, 0.1);
+	--ck-accordion-panel-bg: #ededed;
 	--ck-accordion-panel-spacing: 10px;
 	--ck-accordion-borders: 1px solid #ccc;
 	--ck-accordion-header-padding: 1rem;
 	--ck-accordion-expand: "\F138";
 
 
-	--ck-link-color: #007daa;
+	--ck-link-color: var(--color-link);
 
 	--ck-column-gap: 2rem;
 	--ck-column-gap-vert: 2rem;

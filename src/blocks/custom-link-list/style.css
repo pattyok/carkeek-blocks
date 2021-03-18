@@ -34,11 +34,11 @@
 .carkeek-blocks-accordion.mini {
 
 	--ck-color-accordion-header-bg: #fff;
-	--ck-color-accordion-header-text: #007daa;
+	--ck-color-accordion-header-text: var(--color-link);
 	--ck-color-accordion-header-expanded-bg: #fff;
-	--ck-color-accordion-header-expanded-text: #007daa;
+	--ck-color-accordion-header-expanded-text: var(--color-link);
 	--ck-color-accordion-header-focus-bg: #fff;
-	--ck-color-accordion-header-focus-text: #00233e;
+	--ck-color-accordion-header-focus-text: var(--color-link-active);
 	--ck-accordion-panel-bg: transparent;
 	--ck-accordion-panel-spacing: 10px;
 	--ck-accordion-borders: none;
@@ -198,7 +198,7 @@
 	& .accordion__panel[aria-hidden="false"] {
 		max-height: 100vh;
 		overflow: auto;
-		padding: 1.25em;
+		padding: 0.5rem 1rem;
 		visibility: visible;
 	}
 

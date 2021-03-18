@@ -55,10 +55,10 @@ registerBlockType("carkeek-blocks/accordion-panel", {
         return (
             <>
                 <HeaderEl data-aria-accordion-heading className='ck-accordion-header'>
-                            {title}
+                    {title}
                 </HeaderEl>
                 <div data-aria-accordion-panel className='ck-accordion-panel'>
-                    <RichText.Content tagName="div" value={ content } />
+                    <RichText.Content value={ content } />
                     <InnerBlocks.Content />
                 </div>
             </>
