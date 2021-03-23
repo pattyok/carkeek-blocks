@@ -2,14 +2,16 @@
  * Internal dependencies
  */
 import "./styles.global.editor.css";
-import PageHeaderSettings from "./settings";
+//import PageHeaderSettings from "./settings";
 
-/**
- * WordPress dependencies
- */
-import { registerPlugin } from "@wordpress/plugins";
+// /**
+//  * WordPress dependencies
+//  */
+// import { registerPlugin } from "@wordpress/plugins";
 
-registerPlugin("carkeek-blocks-pageheader", {
-    icon: false,
-    render: PageHeaderSettings
-});
+//This was breaking Events when we turned off the block editor
+
+// registerPlugin("carkeek-blocks-pageheader", {
+//     icon: false,
+//     render: PageHeaderSettings
+// });

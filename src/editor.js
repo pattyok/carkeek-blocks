@@ -10,4 +10,5 @@ import "./blocks/widget-row";
 import "./blocks/quick-link";
 import "./blocks/contextual-highlight";
 import "./blocks/carkeek-slider";
-//import "./plugins";
+//import "./blocks/lightbox-gallery";
+

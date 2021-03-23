@@ -136,6 +136,21 @@ class CarkeekBlocks_Block_Assets {
 					true
 				);
 			}
+			if ( has_block( 'carkeek-blocks/lightbox-gallery', $id ) ) {
+				wp_enqueue_script(
+					'ck-fancybox',
+					$this->url . '/vendor/jquery.fancybox.js',
+					array( 'jquery' ),
+					$this->version,
+					true
+				);
+				wp_enqueue_style(
+					'ck-fancybox',
+					$this->url . '/vendor/jquery.fancybox.min.css',
+					array(),
+					filemtime( $this->dir . $style_path ),
+				);
+			}
 			if ( has_block( 'carkeek-blocks/accordion', $id ) || has_block( 'carkeek-blocks/custom-link-list', $id ) ) {
 				wp_enqueue_script(
 					'ck-accordion',
