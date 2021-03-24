@@ -8,7 +8,8 @@ export function defaultColumnsNumber( attributes ) {
 }
 
 export const pickRelevantMediaFiles = ( image, sizeSlug = 'large' ) => {
-	const imageProps = pick( image, [ 'alt', 'id', 'caption' ] );
+	const imageProps = pick( image, [ 'alt', 'id' , 'caption'] );
+	imageProps.id = parseInt(imageProps.id, 10);
 	imageProps.url =
 		get( image, [ 'sizes', sizeSlug, 'url' ] ) ||
 		get( image, [ 'media_details', 'sizes', sizeSlug, 'source_url' ] ) ||

@@ -30,6 +30,17 @@ const attributes = {
     hideTitle: {
         type: 'boolean',
         default: false
+    },
+    sizeSlug: {
+        type: 'string',
+        default: 'large'
+    },
+    ids: {
+        type: 'array',
+        items: {
+            type: 'number'
+        },
+        default: []
     }
 
 };

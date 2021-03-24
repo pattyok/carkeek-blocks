@@ -3,9 +3,10 @@ import { RichText, useBlockProps } from "@wordpress/block-editor";
 function LighboxGallerySave ({ attributes }) {
     const { title, subtitle, images, blockId, linkFirstImage, hideTitle } = attributes;
     const blockProps = useBlockProps.save();
+    const hasImages = !! images.length;
     return (
         <div { ...blockProps }>
-                {linkFirstImage &&
+                {hasImages && linkFirstImage &&
                 <a className="ck-lightbox-featured-image" data-title={title} data-fancybox-trigger={`gallery-${blockId}`} href='javascript:;'>
                     <img src={images[0].url}></img>
                 </a>

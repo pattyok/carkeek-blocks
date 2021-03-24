@@ -41,7 +41,7 @@ export const GalleryImage = ( props ) => {
 		'aria-label': ariaLabel,
 		onDeselect,
 		inlineEdit,
-
+		sizeSlug
 	} = props;
 
 	const [isEditing, setIsEditing] = useState( false );
@@ -60,7 +60,7 @@ export const GalleryImage = ( props ) => {
     }
 
 	function onSelectImageFromLibrary( media ) {
-		const { setAttributes, id, url, alt, caption, sizeSlug } = props;
+		//const { setAttributes, id, url, alt, caption, sizeSlug } = props;
 		if ( ! media || ! media.url ) {
 			return;
 		}
@@ -80,7 +80,6 @@ export const GalleryImage = ( props ) => {
 		if ( caption && ! get( mediaAttributes, [ 'caption' ] ) ) {
 			mediaAttributes = omit( mediaAttributes, [ 'caption' ] );
 		}
-
 		setAttributes( {
 			mediaAttributes,
 		} );

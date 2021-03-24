@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { filter } from 'lodash';
+import { filter, map, find } from 'lodash';
 
 
 /**
@@ -25,17 +25,43 @@ export const Gallery = ( props ) => {
 	const {
 		attributes,
 		className,
-		isSelected,
-		setAttributes,
-		attachmentCaptions,
+		isSelected
 	} = props;
 
 	const {
 		images,
-		sizeSlug
+		sizeSlug,
+        ids
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
+    const [ attachmentCaptions, setAttachmentCaptions ] = useState(images.map( ( newImage ) => ( {
+        id: parseInt( newImage.id, 10 ),
+        caption: newImage.caption,
+    } ) ));
+
+
+
+    function setAttributes( newAttrs ) {
+		if ( newAttrs.ids ) {
+			throw new Error(
+				'The "ids" attribute should not be changed directly. It is managed automatically when "images" attribute changes'
+			);
+		}
+
+		if ( newAttrs.images ) {
+			newAttrs = {
+				...newAttrs,
+				// Unlike images[ n ].id which is a string, always ensure the
+				// ids array contains numbers as per its attribute type.
+				ids: map( newAttrs.images, ( { id } ) => {
+                    return parseInt( id, 10 );
+                }),
+			};
+		}
+
+		props.setAttributes( newAttrs );
+	}
 
     function onMove( oldIndex, newIndex ) {
 		const newImages = [ ...images ];
@@ -78,10 +104,7 @@ export const Gallery = ( props ) => {
 
 
     function selectCaption( newImage, images, attachmentCaptions ) {
-        // The image id in both the images and attachmentCaptions arrays is a
-        // string, so ensure comparison works correctly by converting the
-        // newImage.id to a string.
-        const newImageId = toString( newImage.id );
+        const newImageId = parseInt( newImage.id, 10 );
         const currentImage = find( images, { id: newImageId } );
 
         const currentImageCaption = currentImage
@@ -103,11 +126,14 @@ export const Gallery = ( props ) => {
 
         return currentImageCaption;
     }
-    const imageIds = images.map( ( img ) => {
-        return parseInt(img.id, 10);
-    });
 
     function onSelectImages( newImages ) {
+        setAttachmentCaptions(
+			newImages.map( ( newImage ) => ( {
+                id: parseInt( newImage.id, 10 ),
+                caption: newImage.caption,
+            } ) )
+		);
         setAttributes( {
             images: newImages.map( ( newImage ) => ( {
                 ...pickRelevantMediaFiles( newImage, sizeSlug ),
@@ -116,12 +142,10 @@ export const Gallery = ( props ) => {
                     images,
                     attachmentCaptions
                 ),
-                // The id value is stored in a data attribute, so when the
-                // block is parsed it's converted to a string. Converting
-                // to a string here ensures it's type is consistent.
-                id: newImage.id,
+                id: parseInt( newImage.id ),
             } ) ),
         } );
+
     }
 
     function onUploadError( message ) {
@@ -229,7 +253,7 @@ export const Gallery = ( props ) => {
                     addToGallery={ hasImages }
                     multiple
                     gallery
-                    value={ imageIds }
+                    value={ ids }
                     render={ ( { open } ) => (
                         <Button className={'ck-custom-button'} onClick={ open }>
                             { __('Add to / Edit Gallery') }
