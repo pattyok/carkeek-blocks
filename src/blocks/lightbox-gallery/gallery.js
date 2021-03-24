@@ -2,17 +2,14 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
 import { filter } from 'lodash';
 
 
 /**
  * WordPress dependencies
  */
-import { RichText, MediaPlaceholder, MediaUpload } from '@wordpress/block-editor';
-import { VisuallyHidden, Button } from '@wordpress/components';
+import { MediaPlaceholder} from '@wordpress/block-editor';
 import { __, sprintf } from '@wordpress/i18n';
-import { createBlock } from '@wordpress/blocks';
 import { useState } from '@wordpress/element';
 
 
@@ -30,14 +27,10 @@ export const Gallery = ( props ) => {
 		isSelected,
 		setAttributes,
 		attachmentCaptions,
-		mediaPlaceholder,
-		onSetImageAttributes,
-		insertBlocksAfter,
 	} = props;
 
 	const {
 		images,
-		imageCrop,
 		sizeSlug
 	} = attributes;
 
@@ -71,12 +64,12 @@ export const Gallery = ( props ) => {
 
     function onRemoveImage( index ) {
         return () => {
-            const images = filter(
+            const newImages = filter(
                 images,
                 ( img, i ) => index !== i
             );
             setAttributes( {
-                images,
+                images: newImages,
                 selectedImage: null
             } );
         };
@@ -111,15 +104,7 @@ export const Gallery = ( props ) => {
     }
 
     function onSelectImages( newImages ) {
-		console.log(newImages);
-		console.log(newImages[0].id);
         setAttributes( {
-			// attachmentCaptions: newImages.map( ( newImage ) => ( {
-            //     // Store the attachmentCaption id as a string for consistency
-            //     // with the type of the id in the images attribute.
-            //     id: toString( newImage.id ),
-            //     caption: newImage.caption,
-            // } ) ),
             images: newImages.map( ( newImage ) => ( {
                 ...pickRelevantMediaFiles( newImage, sizeSlug ),
                 caption: selectCaption(
@@ -133,8 +118,6 @@ export const Gallery = ( props ) => {
                 id: newImage.id,
             } ) ),
         } );
-		console.log('onSelectImages end');
-		console.log(JSON.stringify(images));
     }
 
     function onUploadError( message ) {
@@ -143,27 +126,8 @@ export const Gallery = ( props ) => {
         noticeOperations.createErrorNotice( message );
     }
 
-    function setColumnsNumber( value ) {
-        setAttributes( { columns: value } );
-    }
-
-    // function toggleImageCrop() {
-    //     setAttributes( { imageCrop: ! imageCrop } );
-    // }
-
-    function getImageCropHelp( checked ) {
-        return checked
-            ? __( 'Thumbnails are cropped to align.' )
-            : __( 'Thumbnails are not cropped.' );
-    }
-
-    function onFocusGalleryCaption() {
-		setAttributes({selectedImage: null});
-    }
 
     function setImageAttributes( index, attributes ) {
-		console.log('setImageAttributes');
-		console.log(attributes);
         if ( ! images[ index ] ) {
             return;
         }
@@ -179,38 +143,6 @@ export const Gallery = ( props ) => {
         } );
     }
 
-   function getImagesSizeOptions() {
-        const { imageSizes, resizedImages } = props;
-        return map(
-            filter( imageSizes, ( { slug } ) =>
-                some( resizedImages, ( sizes ) => sizes[ slug ] )
-            ),
-            ( { name, slug } ) => ( { value: slug, label: name } )
-        );
-    }
-
-   function updateImagesSize( sizeSlug ) {
-        const {
-            attributes: { images },
-            resizedImages,
-        } = props;
-
-        const updatedImages = map( images, ( image ) => {
-            if ( ! image.id ) {
-                return image;
-            }
-            const url = get( resizedImages, [
-                parseInt( image.id, 10 ),
-                sizeSlug,
-            ] );
-            return {
-                ...image,
-                ...( url && { url } ),
-            };
-        } );
-
-        setAttributes( { images: updatedImages, sizeSlug } );
-    }
 
 	const hasImages = !! images.length;
 
@@ -243,6 +175,7 @@ export const Gallery = ( props ) => {
 								isSelected={
 									isSelected && imageSelected === index
 								}
+                                inlineEdit={ false }
 								onMoveForward={ onMoveForward( index ) }
 								onMoveBackward={ onMoveBackward( index ) }
 								onRemove={ onRemoveImage( index ) }
@@ -256,11 +189,6 @@ export const Gallery = ( props ) => {
 								aria-label={ ariaLabel }
 								sizeSlug={ sizeSlug }
 							/>
-					// 		<div className="gallery-item-container">
-                    //         <img className='gallery-item' src={img.url} key={ images.id } />
-                    //         <div className='remove-item' onClick={() => onRemoveImage(img)}><span className="dashicons dashicons-trash"></span></div>
-                    //         <div className='caption-text'>{img.caption[0]}</div>
-                    // </div>
 				}
 						</li>
 					);
@@ -271,10 +199,10 @@ export const Gallery = ( props ) => {
 				isAppender={ hasImages }
 				className={ className }
 				disableMediaButtons={ hasImages && ! isSelected }
-				icon={ ! hasImages && icons.image }
+				icon={ icons.gallery }
 				labels={ {
-					title: ! hasImages && __( 'Gallery Images' ),
-					instructions: ! hasImages && 'Select files from your library.',
+					title: hasImages ? __( 'Edit your gallery' ) : __( 'Gallery Images' ),
+					instructions: hasImages ? __( 'Click "Media Library" to edit your gallery' ) : __( 'Select files from your library.' ),
 				} }
 				onSelect={ onSelectImages }
 				accept="image/*"
@@ -283,8 +211,6 @@ export const Gallery = ( props ) => {
 				gallery
 				value={ images }
 				onError={ onUploadError }
-				//notices={ hasImages ? undefined : noticeUI }
-				//onFocus={ onFocus }
 			/>
 				}
 

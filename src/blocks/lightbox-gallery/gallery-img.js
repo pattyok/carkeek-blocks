@@ -10,20 +10,9 @@ import { get, omit, filter } from 'lodash';
 import { useState } from '@wordpress/element';
 import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { BACKSPACE, DELETE } from '@wordpress/keycodes';
-import { withSelect, withDispatch } from '@wordpress/data';
 import { RichText, MediaPlaceholder, InspectorControls, URLInputButton } from '@wordpress/block-editor';
 import { isBlobURL } from '@wordpress/blob';
-import { compose } from '@wordpress/compose';
-import icons from "../../resources/icons";
-import { Icon, check, chevronLeft, chevronRight } from '@wordpress/icons';
-// import {
-// 	closeSmall,
-// 	chevronLeft,
-// 	chevronRight,
-// 	edit,
-// 	image as imageIcon,
-// } from './icons';
+import icons from "./icons";
 
 /**
  * Internal dependencies
@@ -50,8 +39,8 @@ export const GalleryImage = ( props ) => {
 		onSelect,
 		setAttributes,
 		'aria-label': ariaLabel,
-		captionSelected,
 		onDeselect,
+		inlineEdit,
 
 	} = props;
 
@@ -69,23 +58,6 @@ export const GalleryImage = ( props ) => {
 			onDeselect();
         };
     }
-
-
-	// function onSelectCaption() {
-	// 	if ( ! captionSelected ) {
-	// 		this.setAttributes( {
-	// 			captionSelected: true,
-	// 		} );
-	// 	}
-
-	// 	if ( ! isSelected ) {
-	// 		onSelect();
-	// 	}
-	// }
-
-	function deselectOnBlur() {
-		onDeselect();
-	}
 
 	function onSelectImageFromLibrary( media ) {
 		const { setAttributes, id, url, alt, caption, sizeSlug } = props;
@@ -205,8 +177,9 @@ export const GalleryImage = ( props ) => {
 					disabled={ ! isSelected }
 				/>
 			</ButtonGroup>
-
+			{inlineEdit &&
 			<ButtonGroup className="block-library-gallery-item__inline-menu carkeek-edit is-right">
+
 				<URLInputButton
 					url={ linksto }
 					onChange={ onSetUrl }
@@ -217,6 +190,7 @@ export const GalleryImage = ( props ) => {
 					label={ __( 'Replace image' ) }
 					disabled={ ! isSelected }
 				/>
+
 				<Button
 					icon={ icons.closeSmall }
 					onClick={ onRemove }
@@ -225,6 +199,7 @@ export const GalleryImage = ( props ) => {
 				/>
 
 			</ButtonGroup>
+			}
 			{ ! isEditing && ( isSelected || caption ) && (
 				<RichText
 					tagName="figcaption"

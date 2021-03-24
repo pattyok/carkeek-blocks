@@ -1,39 +1,42 @@
-import { ImageSave } from "./image";
 import { RichText, useBlockProps } from "@wordpress/block-editor";
-import { __ } from "@wordpress/i18n";
 
-function ModalItemSave ({ attributes }) {
-    const { title, name, images, blockId } = attributes;
+function LighboxGallerySave ({ attributes }) {
+    const { title, subtitle, images, blockId, linkFirstImage, hideTitle } = attributes;
     const blockProps = useBlockProps.save();
     return (
         <div { ...blockProps }>
-                <a className="ck-lightbox-featured-image" data-fancybox-trigger={`gallery-${blockId}`} href='javascript:;'>
+                {linkFirstImage &&
+                <a className="ck-lightbox-featured-image" data-title={title} data-fancybox-trigger={`gallery-${blockId}`} href='javascript:;'>
                     <img src={images[0].url}></img>
                 </a>
+                }
 
-                <RichText.Content
-                    className={"ck-lightbox-title"}
-                    tagName="a"
-                    data-fancybox={`gallery-${blockId}`}
-                    href={ images[0].url }
-                />
-
-                {title && (
+                {!hideTitle &&
+                <>
                     <RichText.Content
-                        className={"ck-modal-item-title"}
-                        tagName="p"
+                        className={"ck-lightbox-title"}
+                        tagName="a"
+                        data-fancybox-trigger={`gallery-${blockId}`}
+                        href='javascript:;'
+                        data-title={title}
                         value={title}
                     />
-                )}
+
+                    {subtitle && (
+                        <RichText.Content
+                            className={"ck-lightbox-subtitle"}
+                            tagName="p"
+                            value={subtitle}
+                        />
+                    )}
+                </>
+                }
 
                 <div style={ { display: 'none' } }>
                 { images.map( ( img, index ) => {
-
-                    if (index > 0){
-                        return(
-                        <a href={img.url} key={index} data-fancybox={`gallery-${blockId}`} data-caption={img.caption}><img src={img.url} ></img></a>
-                        )
-                    }
+                    return(
+                    <a href={img.url} key={index} data-fancybox={`gallery-${blockId}`} data-caption={img.caption}><img src={img.url} ></img></a>
+                    )
                 }
                 ) }
               </div>
@@ -41,4 +44,4 @@ function ModalItemSave ({ attributes }) {
     )
 }
 
-export default ModalItemSave;
+export default LighboxGallerySave;

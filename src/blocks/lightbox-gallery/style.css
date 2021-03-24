@@ -1,54 +1,15 @@
-@import "_modal_vars.css";
-@import "_modal.css";
-
-
-.wp-block-carkeek-blocks-modal-item {
-	cursor: pointer;
-
-	& .ck-modal-item-name {
-		font-size: 19px;
-		margin-bottom: 0;
-		font-weight: 900;
-	}
-
-	& .ck-modal-item-title {
-		margin-bottom: 5px;
-	}
-
-	& .ck-modal-item-image {
-		position: relative;
-	}
-
-	& img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-	}
-
-	& .close {
-		font-size: 20px;
-		text-align: right;
-		display: block;
-	}
-
-	& .ck-team-member-additional {
-
-		& .ck-modal-item-image {
-			margin-bottom: 2rem;
-		}
-
-		& .ck-modal-item-details {
-			margin-top: 1rem;
-		}
-	}
+body.admin-bar .fancybox-container {
+	margin-top: 32px;
+	height: calc(100% - 32px);
 }
 
-& .ck-team-member-additional {
-	display: none;
+.fancybox-infobar {
+	display: flex;
 }
 
+.fancybox-gallery-title {
+	color: #fff;
+	opacity: 1;
+	margin-right: 10px;
+
+}

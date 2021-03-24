@@ -12,27 +12,24 @@ import { __ } from "@wordpress/i18n";
 const attributes = {
     title: {
         type: "string",
-        source: "html",
-        selector: ".ck-lightbox-title"
     },
     subtitle: {
         type: "string",
-        source: "html",
-        selector: ".ck-lightbox-subtitle"
     },
     images: {
         type: 'array',
         default: []
     },
-    attachmentCaptions: {
-        type: 'array',
-        default: [],
-    },
-    sizeSlug: {
-        type: 'string'
-    },
     blockId: {
         type: 'string'
+    },
+    linkFirstImage: {
+        type: 'boolean',
+        default: true
+    },
+    hideTitle: {
+        type: 'boolean',
+        default: false
     }
 
 };
@@ -43,9 +40,7 @@ registerBlockType("carkeek-blocks/lightbox-gallery", {
 
     description: __(" Block that opens additional in a lightbox gallery. ", "carkeek-blocks"),
 
-    icon: icons.modal,
-
-    // parent: ["carkeek-blocks/team-members"],
+    icon: icons.lightbox,
 
     supports: {
         reusable: false,
@@ -55,8 +50,8 @@ registerBlockType("carkeek-blocks/lightbox-gallery", {
     category: "widgets",
 
     keywords: [
-        __("modal", "carkeek-blocks"),
-        __("image and text", "carkeek-blocks"),
+        __("lightbox", "carkeek-blocks"),
+        __("gallery", "carkeek-blocks"),
     ],
 
     attributes,

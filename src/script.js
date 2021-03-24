@@ -10,4 +10,4 @@ import "./blocks/widget-row/script";
 import "./blocks/quick-link/script";
 import "./blocks/contextual-highlight/script";
 import "./blocks/carkeek-slider/script";
-//import "./blocks/lightbox-gallery/script";
+import "./blocks/lightbox-gallery/script";

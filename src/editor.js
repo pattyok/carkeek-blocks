@@ -10,5 +10,5 @@ import "./blocks/widget-row";
 import "./blocks/quick-link";
 import "./blocks/contextual-highlight";
 import "./blocks/carkeek-slider";
-//import "./blocks/lightbox-gallery";
+import "./blocks/lightbox-gallery";
 

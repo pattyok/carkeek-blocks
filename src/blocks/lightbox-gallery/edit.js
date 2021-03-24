@@ -1,23 +1,85 @@
 
 import {
     RichText,
-    useBlockProps
+    useBlockProps,
+    InspectorControls,
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
+import { PanelBody, CheckboxControl } from "@wordpress/components";
 import Gallery from './gallery';
 
 function LightboxGalleryEdit( props ) {
 
     //console.log(this.props);
     const { attributes, isSelected, clientId, setAttributes} = props;
-    const { title, subtitle, images, blockId } = attributes;
+    const { title, subtitle, images, blockId, linkFirstImage, hideTitle } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
     const blockProps = useBlockProps();
+
+    function changeFirstImage( value ) {
+        setAttributes({ linkFirstImage: value });
+        if (!value) {
+            setAttributes({ hideTitle: false });
+        }
+    }
+
+    function generateLink (title, blockId) {
+        return '<a href="javascript:;" data-title="' + title + '" data-fancybox-trigger="gallery-' + blockId + '" class="is-style-cta">Link to Gallery</a>';
+    }
+    const generatedLink = generateLink(title, blockId);
+
+    function generateImage(image) {
+        let imageStyle = {};
+        if (image.focalPoint) {
+            imageStyle.objectPosition = `${image.focalPoint.x *
+                100}% ${image.focalPoint.y * 100}%`;
+        }
+
+        let img = (
+            <>
+                <img
+                    src={ image.url }
+                    style = { imageStyle }
+                />
+            </>
+        );
+        return img;
+    }
+
+    const hasImages = !! images.length;
+
     return(
         <div {...blockProps} >
-            <div className="ck-lightbox-featured"><img src={ images[0].url }></img></div>
+            <InspectorControls>
+                <PanelBody>
+                    <CheckboxControl
+                        label="Link first image to Lightbox"
+                        checked={ linkFirstImage }
+                        onChange={ changeFirstImage }
+                    />
+                    <CheckboxControl
+                        label="Hide title"
+                        checked={ hideTitle }
+                        onChange={value =>
+                            setAttributes({ hideTitle: value })
+                        }
+                        disabled={ !linkFirstImage }
+                    />
+                    <div>Add a link to this gallery from elsewhere on the page. {generatedLink}</div>
+                </PanelBody>
+            </InspectorControls>
+            {hasImages && linkFirstImage &&
+                <div className="ck-lightbox-featured">{ generateImage(images[0]) }</div>
+            }
+            {isSelected &&
+            <>
+                <Gallery
+                    { ...props }
+                />
+            </>
+            }
             <RichText
                 className={"ck-lightbox-title"}
                 tagName="div"
@@ -36,13 +98,6 @@ function LightboxGalleryEdit( props ) {
                 formatingControls={[]}
             />
 
-            {isSelected &&
-            <>
-                <Gallery
-                    { ...props }
-                />
-            </>
-            }
         </div>
     )
 }
