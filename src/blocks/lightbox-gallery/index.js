@@ -33,7 +33,7 @@ const attributes = {
     },
     sizeSlug: {
         type: 'string',
-        default: 'large'
+        default: 'x-large'
     },
     ids: {
         type: 'array',
@@ -49,7 +49,7 @@ registerBlockType("carkeek-blocks/lightbox-gallery", {
     apiVersion: 2,
     title: __("Lightbox Gallery", "carkeek-blocks"),
 
-    description: __(" Block that opens additional in a lightbox gallery. ", "carkeek-blocks"),
+    description: __(" Block that opens additional images in a lightbox gallery. ", "carkeek-blocks"),
 
     icon: icons.lightbox,
 
