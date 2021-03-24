@@ -43,7 +43,7 @@ function LightboxGalleryEdit( props ) {
                     src={ image.url }
                     style = { imageStyle }
                 />
-            </>
+               </>
         );
         return img;
     }
@@ -70,7 +70,7 @@ function LightboxGalleryEdit( props ) {
                     <div>Add a link to this gallery from elsewhere on the page. {generatedLink}</div>
                 </PanelBody>
             </InspectorControls>
-            {hasImages && linkFirstImage &&
+            {hasImages && linkFirstImage && !isSelected &&
                 <div className="ck-lightbox-featured">{ generateImage(images[0]) }</div>
             }
             {isSelected &&

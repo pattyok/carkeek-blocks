@@ -1,4 +1,42 @@
 
-.my-test-style {
-	color: #000;
+.editor-styles-wrapper {
+
+	& .ck-blocks-gallery-grid {
+		list-style: none;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+
+		& .block-editor-rich-text__editable {
+			font-size: 13px;
+			font-family: sans-serif;
+		}
+
+		& .blocks-gallery-item {
+			width: 30%;
+			padding: 5px 10px;
+			min-width: 100px;
+			position: relative;
+		}
+
+		& figcaption {
+			position: relative;
+		}
+	}
+
+
+	& button.ck-custom-button {
+		border: 2px solid var(--color-appender-text);
+		background-color: #ccc;
+		color: var(--color-appender-text);
+		padding: 5px 10px;
+		cursor: pointer;
+		height: auto;
+
+		&:hover {
+			background-color: var(--color-appender-hover);
+			color: var(--color-appender-hover-text);
+		}
+	}
 }

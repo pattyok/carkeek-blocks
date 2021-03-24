@@ -8,7 +8,8 @@ import { filter } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { MediaPlaceholder} from '@wordpress/block-editor';
+import { MediaPlaceholder, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 
@@ -102,6 +103,9 @@ export const Gallery = ( props ) => {
 
         return currentImageCaption;
     }
+    const imageIds = images.map( ( img ) => {
+        return parseInt(img.id, 10);
+    });
 
     function onSelectImages( newImages ) {
         setAttributes( {
@@ -148,7 +152,7 @@ export const Gallery = ( props ) => {
 
 	return (
 		<>
-			<ul className="blocks-gallery-grid">
+			<ul className="ck-blocks-gallery-grid">
 				{ images.map( ( img, index ) => {
 					const ariaLabel = sprintf(
 						/* translators: 1: the order number of the image. 2: the total number of images. */
@@ -194,25 +198,46 @@ export const Gallery = ( props ) => {
 					);
 				} ) }
 			</ul>
-			{<MediaPlaceholder
-				addToGallery={ hasImages }
-				isAppender={ hasImages }
-				className={ className }
-				disableMediaButtons={ hasImages && ! isSelected }
-				icon={ icons.gallery }
-				labels={ {
-					title: hasImages ? __( 'Edit your gallery' ) : __( 'Gallery Images' ),
-					instructions: hasImages ? __( 'Click "Media Library" to edit your gallery' ) : __( 'Select files from your library.' ),
-				} }
-				onSelect={ onSelectImages }
-				accept="image/*"
-				allowedTypes={ [ 'image' ] }
-				multiple
-				gallery
-				value={ images }
-				onError={ onUploadError }
-			/>
+			{!hasImages &&
+                <MediaUploadCheck>
+                    <MediaPlaceholder
+                        addToGallery={ hasImages }
+                        isAppender={ hasImages }
+                        className={ className }
+                        disableMediaButtons={ hasImages && ! isSelected }
+                        icon={ icons.gallery }
+                        labels={ {
+                            title: hasImages ? __( 'Edit your gallery' ) : __( 'Gallery Images' ),
+                            instructions: hasImages ? __( 'Click "Media Library" to edit your gallery' ) : __( 'Select files from your library.' ),
+                        } }
+                        onSelect={ onSelectImages }
+                        accept="image/*"
+                        allowedTypes={ [ 'image' ] }
+                        multiple
+                        gallery
+                        value={ images }
+                        onError={ onUploadError }
+                    />
+                </MediaUploadCheck>
 				}
+                {hasImages &&
+                <MediaUploadCheck>
+                    <MediaUpload
+                    onSelect={ onSelectImages }
+                    allowedTypes={ [ 'image' ] }
+                    isAppender={ hasImages }
+                    addToGallery={ hasImages }
+                    multiple
+                    gallery
+                    value={ imageIds }
+                    render={ ( { open } ) => (
+                        <Button className={'ck-custom-button'} onClick={ open }>
+                            { __('Add to / Edit Gallery') }
+                        </Button>
+                    ) }
+                />
+                </MediaUploadCheck>
+                }
 
 		</>
 	);

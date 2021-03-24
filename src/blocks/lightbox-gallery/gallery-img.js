@@ -207,7 +207,7 @@ export const GalleryImage = ( props ) => {
 						isSelected ? __( 'Write caption…' ) : null
 					}
 					value={ caption }
-					//isSelected={ setAttributes( { captionSelected: true } ) }
+					//isSelected={ isSelected }
 					onChange={ ( newCaption ) =>
 						setAttributes( { caption: newCaption } )
 					}
