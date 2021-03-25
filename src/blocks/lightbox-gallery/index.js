@@ -9,6 +9,7 @@ import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 
 
+
 const attributes = {
     title: {
         type: "string",
@@ -19,9 +20,6 @@ const attributes = {
     images: {
         type: 'array',
         default: []
-    },
-    blockId: {
-        type: 'string'
     },
     linkFirstImage: {
         type: 'boolean',
@@ -34,6 +32,13 @@ const attributes = {
     sizeSlug: {
         type: 'string',
         default: 'x-large'
+    },
+    sizeSlugThumbs: {
+        type: 'string',
+        default: 'medium'
+    },
+    blockId: {
+        type: 'string',
     },
     ids: {
         type: 'array',

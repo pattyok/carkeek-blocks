@@ -13,7 +13,7 @@ body {
 
 .editor-styles-wrapper button.ck-custom-appender {
 	border: 2px solid var(--color-appender-text);
-	background-color: transparent;
+	background-color: #fff;
 	color: var(--color-appender-text);
 	padding: 5px 10px;
 	cursor: pointer;
