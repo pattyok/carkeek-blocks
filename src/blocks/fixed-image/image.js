@@ -56,7 +56,7 @@ export default function Image( {
 		id,
 		href,
 		rel,
-		linkClass,
+		linkStyle,
 		linkDestination,
 		title,
 		linkTarget,
@@ -201,7 +201,7 @@ export default function Image( {
 							mediaUrl={ ( image && image.source_url ) || url }
 							mediaLink={ image && image.link }
 							linkTarget={ linkTarget }
-							linkClass={ linkClass }
+							linkClass={ linkStyle }
 							rel={ rel }
 						/>
 						</ToolbarGroup>

@@ -2,6 +2,7 @@
 
 	& .ck-fixed-image-wrap {
 		position: relative;
+		display: block;
 
 		&::before {
 			content: "";

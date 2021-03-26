@@ -1,5 +1,7 @@
 import edit from "./edit";
 import save from "./save";
+import deprecated from './deprecated';
+
 import "./style.editor.css";
 import icons from "../../resources/icons";
 
@@ -72,8 +74,6 @@ const attributes = {
     linkClass: {
         type: "string",
         source: "attribute",
-        selector: "figure > a",
-        attribute: "class"
     },
     linkDestination: {
         type: "string"
@@ -115,6 +115,7 @@ registerBlockType("carkeek-blocks/fixed-image", {
 
     attributes,
 
+    deprecated,
     save,
     edit
 });

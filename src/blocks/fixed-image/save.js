@@ -15,7 +15,6 @@ export default function save( { attributes } ) {
 		alt,
 		href,
 		rel,
-		linkClass,
 		width,
 		height,
 		id,
@@ -24,7 +23,8 @@ export default function save( { attributes } ) {
 		title,
         caption,
         useCaption,
-		focalPoint
+		focalPoint,
+		linkStyle
 	} = attributes;
 
 	const newRel = isEmpty( rel ) ? undefined : rel;
@@ -38,6 +38,11 @@ export default function save( { attributes } ) {
 		imageStyle.objectPosition = `${focalPoint.x *
 			100}% ${focalPoint.y * 100}%`;
 	}
+
+	const linkClass = classnames( {
+		[ `${ linkStyle }` ]: linkStyle,
+		'ck-fixed-image-wrap': true,
+	} );
 
 	const image = (
 		<img
@@ -55,7 +60,7 @@ export default function save( { attributes } ) {
 		<>
 			{ href ? (
 				<a
-					className={ `'ck-fixed-image-wrap' ${linkClass}` }
+					className={ linkClass }
 					href={ href }
 					target={ linkTarget }
 					rel={ newRel }
