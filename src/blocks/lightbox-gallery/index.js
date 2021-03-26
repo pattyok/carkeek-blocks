@@ -31,7 +31,7 @@ const attributes = {
     },
     sizeSlug: {
         type: 'string',
-        default: 'x-large'
+        default: 'full'
     },
     sizeSlugThumbs: {
         type: 'string',
