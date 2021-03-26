@@ -2,17 +2,17 @@
 /**
  * External dependencies
  */
-import { filter, map, find } from 'lodash';
-
-
+import { filter, map, find, isEmpty, reduce, get } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { MediaPlaceholder, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { MediaPlaceholder, MediaUpload, MediaUploadCheck, InspectorControls } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-
+import { PanelBody, SelectControl } from "@wordpress/components";
+import { withSelect } from '@wordpress/data';
+import { useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -25,12 +25,15 @@ export const Gallery = ( props ) => {
 	const {
 		attributes,
 		className,
-		isSelected
+		isSelected,
+        imageSizes,
+		resizedImages,
 	} = props;
 
 	const {
 		images,
 		sizeSlug,
+        sizeSlugThumbs,
         ids
 	} = attributes;
 
@@ -136,7 +139,7 @@ export const Gallery = ( props ) => {
 		);
         setAttributes( {
             images: newImages.map( ( newImage ) => ( {
-                ...pickRelevantMediaFiles( newImage, sizeSlug ),
+                ...pickRelevantMediaFiles( newImage, sizeSlug, sizeSlugThumbs ),
                 caption: selectCaption(
                     newImage,
                     images,
@@ -174,8 +177,72 @@ export const Gallery = ( props ) => {
 
 	const hasImages = !! images.length;
 
+
+    function getImagesSizeOptions() {
+		return map(
+			imageSizes,
+			( { name, slug } ) => ( { value: slug, label: name } )
+		);
+	}
+
+    function updateImagesSize( newSizeSlug ) {
+		const updatedImages = map( images, ( image ) => {
+			if ( ! image.id ) {
+				return image;
+			}
+			const url = get( resizedImages, [
+				parseInt( image.id, 10 ),
+				newSizeSlug,
+			] );
+			return {
+				...image,
+				...( url && { url } ),
+			};
+		} );
+		setAttributes( { images: updatedImages, sizeSlug: newSizeSlug } );
+	}
+    function updateThumbsSize( newSizeSlug ) {
+		const updatedImages = map( images, ( image ) => {
+			if ( ! image.id ) {
+				return image;
+			}
+			const thumbUrl = get( resizedImages, [
+				parseInt( image.id, 10 ),
+				newSizeSlug,
+			] );
+			return {
+				...image,
+				...( thumbUrl && { thumbUrl } ),
+			};
+		} );
+		setAttributes( { images: updatedImages, sizeSlugThumbs: newSizeSlug } );
+	}
+
+    const imageSizeOptions = getImagesSizeOptions();
+	const shouldShowSizeOptions = hasImages && ! isEmpty( imageSizeOptions );
+
 	return (
 		<>
+            <InspectorControls>
+                <PanelBody>
+                { shouldShowSizeOptions && (
+                    <>
+						<SelectControl
+							label={ __( 'Thumbnail size' ) }
+							value={ sizeSlugThumbs }
+							options={ imageSizeOptions }
+							onChange={ updateThumbsSize }
+						/>
+                        <SelectControl
+							label={ __( 'Image size' ) }
+							value={ sizeSlug }
+							options={ imageSizeOptions }
+							onChange={ updateImagesSize }
+						/>
+                    </>
+					) }
+                </PanelBody>
+            </InspectorControls>
 			<ul className="ck-blocks-gallery-grid">
 				{ images.map( ( img, index ) => {
 					const ariaLabel = sprintf(
@@ -268,4 +335,55 @@ export const Gallery = ( props ) => {
 };
 
 
-export default Gallery;
+export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
+		const { getMedia } = select( 'core' );
+		const { getSettings } = select( 'core/block-editor' );
+		const { imageSizes } = getSettings();
+
+		const resizedImages = useMemo( () => {
+			if ( isSelected ) {
+				return reduce(
+					ids,
+					( currentResizedImages, id ) => {
+						if ( ! id ) {
+							return currentResizedImages;
+						}
+						const image = getMedia( id );
+						const sizes = reduce(
+							imageSizes,
+							( currentSizes, size ) => {
+								const defaultUrl = get( image, [
+									'sizes',
+									size.slug,
+									'url',
+								] );
+								const mediaDetailsUrl = get( image, [
+									'media_details',
+									'sizes',
+									size.slug,
+									'source_url',
+								] );
+								return {
+									...currentSizes,
+									[ size.slug ]:
+										defaultUrl || mediaDetailsUrl,
+								};
+							},
+							{}
+						);
+						return {
+							...currentResizedImages,
+							[ parseInt( id, 10 ) ]: sizes,
+						};
+					},
+					{}
+				);
+			}
+			return {};
+		}, [ isSelected, ids, imageSizes ] );
+
+		return {
+			imageSizes,
+			resizedImages,
+		};
+	} ) (Gallery);

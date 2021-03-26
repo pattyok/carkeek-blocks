@@ -24,9 +24,12 @@ export default function CollapseSectionEdit( props ) {
     template = [
         [ 'core/paragraph', { placeholder: 'Enter panel content...' } ],
     ];
+
     const blockProps = useBlockProps();
-    return(
-        <div {...blockProps} >
+        // Update the child block's attributes
+
+        return (
+            <div { ...blockProps}>
             <RichText
                 tagName = { inheritedHeaderStyle }
                 value={ title }

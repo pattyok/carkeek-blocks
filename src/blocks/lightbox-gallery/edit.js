@@ -6,6 +6,7 @@ import {
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import { PanelBody, CheckboxControl } from "@wordpress/components";
+import { cleanForSlug } from "@wordpress/editor";
 import Gallery from './gallery';
 
 function LightboxGalleryEdit( props ) {
@@ -17,6 +18,9 @@ function LightboxGalleryEdit( props ) {
         setAttributes( { blockId: clientId } );
     }
     const blockProps = useBlockProps();
+    const hasImages = !! images.length;
+
+
 
     function changeFirstImage( value ) {
         setAttributes({ linkFirstImage: value });
@@ -25,10 +29,13 @@ function LightboxGalleryEdit( props ) {
         }
     }
 
-    function generateLink (title, blockId) {
-        return '<a href="javascript:;" data-title="' + title + '" data-fancybox-trigger="gallery-' + blockId + '" class="is-style-cta">Link to Gallery</a>';
+    //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
+    const galleryId = title ? cleanForSlug(title) : blockId;
+
+    function generateLink (title, galleryId) {
+        return '<a href="javascript:;" data-title="' + title + '" data-fancybox-trigger="gallery-' + galleryId + '" class="is-style-cta">Link to Gallery</a>';
     }
-    const generatedLink = generateLink(title, blockId);
+    const generatedLink = generateLink(title, galleryId);
 
     function generateImage(image) {
         let imageStyle = {};
@@ -48,7 +55,7 @@ function LightboxGalleryEdit( props ) {
         return img;
     }
 
-    const hasImages = !! images.length;
+
 
     return(
         <div {...blockProps} >

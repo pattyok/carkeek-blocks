@@ -48,7 +48,7 @@ registerBlockType("carkeek-blocks/accordion", {
         __("collapse", "carkeek-blocks")
     ],
 
-    edit({ attributes, className, setAttributes, clientId }) {
+    edit({ attributes, setAttributes, clientId }) {
         const { headerStyle, openMultiple } = attributes;
 
         const updateHeaderStyle = function( value ) {
@@ -61,11 +61,11 @@ registerBlockType("carkeek-blocks/accordion", {
             });
         }
 
-
+        const blockProps = useBlockProps();
         // Update the child block's attributes
 
         return (
-            <div className={`${className}`}>
+            <div { ...blockProps}>
                 <InspectorControls>
                     <PanelBody>
                         <CheckboxControl
