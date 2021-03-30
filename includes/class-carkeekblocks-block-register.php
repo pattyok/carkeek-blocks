@@ -167,7 +167,7 @@ class CarkeekBlocks_Block_Register {
 						),
 						'displayPostExcerpt'   => array(
 							'type'    => 'boolean',
-							'default' => true,
+							'default' => false,
 						),
 						'displayFeaturedImage' => array(
 							'type'    => 'boolean',

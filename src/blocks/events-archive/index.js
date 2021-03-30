@@ -34,6 +34,10 @@ const attributes = {
         type: "number",
         default: 3
     },
+    displayPostExcerpt: {
+        type: "boolean",
+        default: false,
+    },
     excerptLength: {
         type: "number",
         default: 25
