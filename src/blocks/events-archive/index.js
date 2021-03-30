@@ -86,7 +86,7 @@ registerBlockType("carkeek-blocks/events-archive", {
     supports: {
         align: ["wide", "full", "left", "center", "right"],
         alignWide: true,
-        anchor: true,
+        anchor: false,
         spacing: true
     },
     save() {

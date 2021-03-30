@@ -211,6 +211,10 @@ class CarkeekBlocks_CustomPost {
 			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
 		}
 
+		if ( $attributes['className'] && ! empty( $attributes['className'] ) ) {
+			$css_classes_outer[] = $attributes['className'];
+		}
+
 		$css_classes_outer = apply_filters( 'carkeek_block_custom_post_layout__css_classes_outer', $css_classes_outer, $attributes );
 		$block_start       = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
 
@@ -466,9 +470,6 @@ class CarkeekBlocks_CustomPost {
 		$block_class    = 'wp-block-carkeek-blocks-custom-archive';
 		$inner_el_class = 'ck-custom-archive';
 
-		if ( $attributes['className'] && ! empty( $attributes['className'] ) ) {
-
-		}
 		$css_classes_outer = array(
 			$block_class,
 			'is-' . $layout,
