@@ -75,31 +75,31 @@ class CarkeekBlocks_Block_Register {
 			array(
 				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_posttype_archive' ),
 				'attributes'      => array(
-					'numberOfPosts'      => array(
+					'numberOfPosts'        => array(
 						'type'    => 'number',
 						'default' => 3,
 					),
-					'blockId'            => array(
+					'blockId'              => array(
 						'type' => 'string',
 					),
-					'postTypeSelected'   => array(
+					'postTypeSelected'     => array(
 						'type' => 'string',
 					),
-					'postLayout'         => array(
+					'postLayout'           => array(
 						'type'    => 'string',
 						'default' => 'grid',
 					),
-					'columns'         => array(
+					'columns'              => array(
 						'type'    => 'number',
 						'default' => 3,
 					),
-					'taxTermsSelected'   => array(
+					'taxTermsSelected'     => array(
 						'type' => 'string',
 					),
-					'taxonomySelected'   => array(
+					'taxonomySelected'     => array(
 						'type' => 'string',
 					),
-					'displayPostExcerpt' => array(
+					'displayPostExcerpt'   => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),
@@ -107,38 +107,122 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'openAsModal' => array(
+					'openAsModal'          => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),
-					'filterByTaxonomy'   => array(
+					'filterByTaxonomy'     => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),
-					'excerptLength'      => array(
+					'excerptLength'        => array(
 						'type'    => 'number',
 						'default' => 30,
 					),
-					'order'              => array(
+					'order'                => array(
 						'type'    => 'string',
 						'default' => 'ASC',
 					),
-					'sortBy'             => array(
+					'sortBy'               => array(
 						'type'    => 'string',
 						'default' => 'date',
 					),
-					'emptyMessage'       => array(
+					'emptyMessage'         => array(
 						'type' => 'string',
 					),
-					'hideIfEmpty'        => array(
+					'hideIfEmpty'          => array(
 						'type' => 'boolean',
 					),
-					'align'        => array(
+					'align'                => array(
 						'type' => 'string',
 					),
 				),
 			)
 		);
+
+		if ( post_type_exists( 'tribe_events' ) ) {
+
+			$this->carkeek_blocks_register_block(
+				'events-archive',
+				array(
+					'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_events_archive' ),
+					'attributes'      => array(
+						'numberOfPosts'        => array(
+							'type'    => 'number',
+							'default' => 3,
+						),
+						'postLayout'           => array(
+							'type'    => 'string',
+							'default' => 'grid',
+						),
+						'columns'              => array(
+							'type'    => 'number',
+							'default' => 3,
+						),
+						'catTermsSelected'     => array(
+							'type' => 'string',
+						),
+						'catTagsSelected'     => array(
+							'type' => 'string',
+						),
+						'displayPostExcerpt'   => array(
+							'type'    => 'boolean',
+							'default' => true,
+						),
+						'displayFeaturedImage' => array(
+							'type'    => 'boolean',
+							'default' => true,
+						),
+						'filterByCategory'     => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'filterByTag'     => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'excerptLength'        => array(
+							'type'    => 'number',
+							'default' => 30,
+						),
+						'order'                => array(
+							'type'    => 'string',
+							'default' => 'ASC',
+						),
+						'sortBy'               => array(
+							'type'    => 'string',
+							'default' => 'date',
+						),
+						'emptyMessage'         => array(
+							'type' => 'string',
+						),
+						'hideIfEmpty'          => array(
+							'type' => 'boolean',
+						),
+						'align' => array(
+							'type' => 'string',
+						),
+						'displayField1' => array(
+							'type' => 'string',
+						),
+						'displayField2' => array(
+							'type' => 'string',
+						),
+						'displayField3' => array(
+							'type' => 'string',
+						),
+						'displayField4' => array(
+							'type' => 'string',
+						),
+						'featuredEvents' => array(
+							'type' => 'boolean',
+							'default' => false,
+						),
+
+					),
+				),
+			);
+		}
 
 		$this->carkeek_blocks_register_block(
 			'custom-link-list',

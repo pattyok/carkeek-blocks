@@ -92,7 +92,7 @@ registerBlockType("carkeek-blocks/carkeek-slider", {
 
     save({ attributes } ) {
         const{ autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, transitionSpeed, sliderType, slidesToScroll } = attributes;
-        const blockProps = useBlockProps.save( )
+        const blockProps = useBlockProps.save()
         return (
             <div {...blockProps}>
                 <div className="ck-carkeek-slider__slide-wrapper"

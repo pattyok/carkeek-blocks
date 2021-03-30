@@ -393,6 +393,139 @@ class CarkeekBlocks_CustomPost {
 
 	}
 
+	/**
+	 * Render Custom Post Type Archive
+	 *
+	 * @param array $attributes Attributes passed to callback.
+	 * @return string HTML of dynamic content.
+	 */
+	public function carkeek_blocks_render_events_archive( $attributes ) {
+		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
+
+		$layout    = $attributes['postLayout'];
+		$post_type = 'tribe_events';
+		$args      = array(
+			'posts_per_page' => $attributes['numberOfPosts'],
+			'post_type'      => $post_type,
+			'meta_query'     => array(
+				array(
+					'key'     => '_EventStartDate',
+					'value'   => date( 'Y-m-d H:i' ),
+					'compare' => '>=',
+					'type'    => 'DATE',
+				),
+			),
+		);
+
+		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] )  ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'tribe_events_cat',
+					'field'    => 'term_id',
+					'terms'    => explode( ',', $attributes['catTermsSelected'] ),
+				),
+			);
+		}
+
+		if ( true === $attributes['filterByTag'] && ! empty( $attributes['catTagsSelected'] ) ) {
+			if ( isset( $args['tax_query'] ) && is_array( $args['tax_query'] ) ) {
+				$args['tax_query'][] = array(
+					'taxonomy' => 'post_tag',
+					'field'    => 'term_id',
+					'terms'    => explode( ',', $attributes['catTagsSelected'] ),
+				);
+			} else {
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'post_tag',
+						'field'    => 'term_id',
+						'terms'    => explode( ',', $attributes['catTagsSelected'] ),
+					),
+				);
+
+			}
+		}
+
+		if ( true === $attributes['featuredEvents'] ) {
+			$args['meta_query'][] = array(
+				'key'     => '_tribe_featured',
+				'value'   => true,
+				'compare' => '=',
+			);
+		}
+
+		$args  = apply_filters( 'carkeek_block_events_layout_query_args', $args, $attributes );
+		$query = new WP_Query( $args );
+
+		$posts = '';
+
+		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
+		$inner_el_class    = 'ck-custom-archive';
+		$css_classes_outer = array(
+			$block_class,
+			'is-' . $layout,
+			'post-type-' . $post_type,
+			'align' . $attributes['align'],
+
+		);
+		if ( 'grid' === $layout ) {
+			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
+		}
+
+		$block_start = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
+
+		if ( $query->have_posts() ) {
+			$posts           .= $block_start;
+			$css_classes_list = array(
+				$inner_el_class . '__list',
+			);
+
+			if ( 'grid' === $layout ) {
+				$css_classes_list[] = 'ck-columns__wrap';
+			}
+
+			$css_classes_list = apply_filters( 'carkeek_block_events_layout__css_classes_list', $css_classes_list, $attributes );
+			$posts           .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
+			$count            = 0;
+			$template         = $post_type . '_item';
+			$template         = apply_filters( 'carkeek_block_events_layout__template', $template, $attributes );
+
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				global $post;
+
+
+				ob_start();
+				$ck_blocks_template_loader
+					->set_template_data( $attributes )
+					->get_template_part( 'events/' . $template );
+				$post_html = ob_get_clean();
+
+
+				if ( empty( $post_html ) ) {
+					ob_start();
+					$ck_blocks_template_loader
+						->set_template_data( $attributes )
+						->get_template_part( 'events/default_item' );
+					$post_html = ob_get_clean();
+				}
+				$posts .= apply_filters( 'carkeek_block_events_layout', $post_html, $post, $attributes );
+				$count++;
+
+			}
+			$posts .= '</div></div>';
+			wp_reset_postdata();
+			return $posts;
+		} else {
+			if ( false === $attributes['hideIfEmpty'] ) {
+				$block_content = '<div class="' . $class_pre . '__list empty">' . $attributes['emptyMessage'] . '</div>';
+				return $block_start . $block_content . '</div>';
+			} else {
+				return;
+			}
+		}
+	}
+
 }
 
 CarkeekBlocks_CustomPost::register();

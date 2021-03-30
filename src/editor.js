@@ -6,6 +6,7 @@ import "./blocks/accordion";
 import "./blocks/icon";
 import "./blocks/landing-page-link";
 import "./blocks/custom-archive";
+import "./blocks/events-archive";
 import "./blocks/widget-row";
 import "./blocks/quick-link";
 import "./blocks/contextual-highlight";
