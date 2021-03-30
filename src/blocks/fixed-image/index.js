@@ -59,6 +59,11 @@ const attributes = {
         source: "html",
         selector: "figcaption"
     },
+    photoCredit: {
+        type: "string",
+        source: "html",
+        selector: ".ck-fixed-image-credit"
+    },
     href: {
         type: "string",
         source: "attribute",

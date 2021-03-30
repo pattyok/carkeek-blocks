@@ -24,7 +24,8 @@ export default function save( { attributes } ) {
         caption,
         useCaption,
 		focalPoint,
-		linkStyle
+		linkStyle,
+		photoCredit
 	} = attributes;
 
 	const newRel = isEmpty( rel ) ? undefined : rel;
@@ -45,15 +46,22 @@ export default function save( { attributes } ) {
 	} );
 
 	const image = (
-		<img
-			src={ url }
-			alt={ alt }
-			className={ id ? `wp-image-${ id }` : null }
-			width={ width }
-			height={ height }
-			title={ title }
-			style={imageStyle}
-		/>
+		<>
+			<img
+				src={ url }
+				alt={ alt }
+				className={ id ? `wp-image-${ id }` : null }
+				width={ width }
+				height={ height }
+				title={ title }
+				style={imageStyle}
+			/>
+			{photoCredit &&
+				<div className={'ck-fixed-image-credit'}>
+				{ photoCredit }
+				</div>
+			}
+		</>
 	);
 
 	const figure = (
@@ -66,6 +74,7 @@ export default function save( { attributes } ) {
 					rel={ newRel }
 				>
 					{ image }
+
 				</a>
 			) : (
 				<div className={'ck-fixed-image-wrap'}>
@@ -75,6 +84,7 @@ export default function save( { attributes } ) {
             { ( useCaption && ! RichText.isEmpty( caption ) ) && (
 				<RichText.Content tagName="figcaption" value={ caption } />
 			) }
+
 		</>
 	);
 

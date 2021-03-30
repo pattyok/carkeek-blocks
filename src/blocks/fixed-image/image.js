@@ -63,7 +63,8 @@ export default function Image( {
         focalPoint,
 		sizeSlug,
 		useCaption,
-		useLink
+		useLink,
+		photoCredit
 	},
 	setAttributes,
 	isSelected,
@@ -92,7 +93,7 @@ export default function Image( {
 					multiSelectedClientIds.length &&
 					multiSelectedClientIds.every(
 						( clientId ) =>
-							getBlockName( clientId ) === 'core/image'
+							getBlockName( clientId ) === 'carkeek-blocks/fixed-image'
 					),
 			};
 		},
@@ -238,6 +239,21 @@ export default function Image( {
 								</>
 							}
 						/>
+						<TextControl
+							label={ __( 'Photo Credit' ) }
+							value={ photoCredit || '' }
+							onChange={ value =>
+                                setAttributes({
+                                    photoCredit: value
+                                }) }
+							help={
+								<>
+									{ __(
+										'Optionally add a photo credit. This may display differently depending on the context of the image.'
+									) }
+								</>
+							}
+						/>
 						<SelectControl
 							label={__("Image Size", "carkeek-blocks")}
 							options={ imageSizeOptions }
@@ -329,12 +345,17 @@ export default function Image( {
 		</>
 	);
 
+	const credit = (
+		<div className="ck-fixed-image-credit">{ photoCredit }</div>
+	)
 
 	return (
 		<>
 			{ controls }
 			<div className="ck-fixed-image-wrap">
+			{ credit }
 			{ img }
+
 			</div>
 			{ useCaption && ( ! RichText.isEmpty( caption ) || isSelected ) && (
 				<RichText

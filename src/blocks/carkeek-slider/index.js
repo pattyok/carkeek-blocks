@@ -65,7 +65,7 @@ const attributes = {
 registerBlockType("carkeek-blocks/carkeek-slider", {
     apiVersion: 2,
 
-    title: __("Block Slider", "carkeek-blocks"),
+    title: __("Carkeek Slider", "carkeek-blocks"),
 
     description: __(
         "Make a slideshow of inner blocks",
