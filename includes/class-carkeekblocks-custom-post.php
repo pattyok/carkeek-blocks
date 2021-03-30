@@ -463,15 +463,22 @@ class CarkeekBlocks_CustomPost {
 
 		$posts = '';
 
-		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
-		$inner_el_class    = 'ck-custom-archive';
+		$block_class    = 'wp-block-carkeek-blocks-custom-archive';
+		$inner_el_class = 'ck-custom-archive';
+
+		if ( $attributes['className'] && ! empty( $attributes['className'] ) ) {
+
+		}
 		$css_classes_outer = array(
 			$block_class,
 			'is-' . $layout,
 			'post-type-' . $post_type,
 			'align' . $attributes['align'],
-
 		);
+
+		if ( $attributes['className'] && ! empty( $attributes['className'] ) ) {
+			$css_classes_outer[] = $attributes['className'];
+		}
 		if ( 'grid' === $layout ) {
 			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
 		}

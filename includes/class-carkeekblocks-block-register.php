@@ -202,6 +202,9 @@ class CarkeekBlocks_Block_Register {
 						'align' => array(
 							'type' => 'string',
 						),
+						'className' => array(
+							'type' => 'string',
+						),
 						'displayField1' => array(
 							'type' => 'string',
 						),
