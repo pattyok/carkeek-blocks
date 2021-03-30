@@ -407,6 +407,10 @@ class CarkeekBlocks_CustomPost {
 		$args      = array(
 			'posts_per_page' => $attributes['numberOfPosts'],
 			'post_type'      => $post_type,
+			'orderby'        => 'meta_value',
+			'meta_key'       => '_EventStartDate',
+			'order'          => 'ASC',
+			'post_status'    => array( 'publish' ),
 			'meta_query'     => array(
 				array(
 					'key'     => '_EventStartDate',
@@ -417,7 +421,7 @@ class CarkeekBlocks_CustomPost {
 			),
 		);
 
-		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] )  ) {
+		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] ) ) {
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'tribe_events_cat',
@@ -494,13 +498,11 @@ class CarkeekBlocks_CustomPost {
 				$query->the_post();
 				global $post;
 
-
 				ob_start();
 				$ck_blocks_template_loader
 					->set_template_data( $attributes )
 					->get_template_part( 'events/' . $template );
 				$post_html = ob_get_clean();
-
 
 				if ( empty( $post_html ) ) {
 					ob_start();
