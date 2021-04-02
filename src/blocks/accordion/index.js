@@ -2,6 +2,7 @@ import "./style.editor.css";
 import "./parent";
 import icons from "../../resources/icons";
 import edit from "./edit";
+import deprecated from "./deprecated";
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { InnerBlocks, RichText } from "@wordpress/block-editor";
@@ -48,6 +49,8 @@ registerBlockType("carkeek-blocks/accordion-panel", {
 
     edit,
 
+    deprecated,
+
     save({ attributes } ) {
         const{ title, content, inheritedHeaderStyle } = attributes;
 
@@ -55,7 +58,7 @@ registerBlockType("carkeek-blocks/accordion-panel", {
         return (
             <>
                 <HeaderEl data-aria-accordion-heading className='ck-accordion-header'>
-                    {title}
+                    <RichText.Content value={ title } />
                 </HeaderEl>
                 <div data-aria-accordion-panel className='ck-accordion-panel'>
                     <RichText.Content value={ content } />
