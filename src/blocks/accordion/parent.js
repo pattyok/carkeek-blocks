@@ -48,6 +48,19 @@ registerBlockType("carkeek-blocks/accordion", {
         __("collapse", "carkeek-blocks")
     ],
 
+    styles: [
+        {
+            name: 'default',
+            label: __( 'Standard Accordion' ),
+            isDefault: true
+        },
+        {
+            name: 'mini',
+            label: __( 'Mini Style' )
+        },
+
+    ],
+
     edit({ attributes, setAttributes, clientId }) {
         const { headerStyle, openMultiple } = attributes;
 

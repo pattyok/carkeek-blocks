@@ -31,7 +31,8 @@
 	}
 }
 
-.carkeek-blocks-accordion.mini {
+.carkeek-blocks-accordion.mini,
+.wp-block-carkeek-blocks-accordion.is-style-mini {
 
 	--ck-color-accordion-header-bg: #fff;
 	--ck-color-accordion-header-text: var(--color-link);
@@ -98,6 +99,10 @@
 
 		&::after {
 			content: "";
+		}
+
+		&:focus {
+			box-shadow: none;
 		}
 
 		&::before {

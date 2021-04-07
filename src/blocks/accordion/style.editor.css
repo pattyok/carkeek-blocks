@@ -15,3 +15,17 @@
 	}
 
 }
+
+.block-editor-block-styles__item-preview {
+
+	& .wp-block-carkeek-blocks-accordion.is-style-mini {
+
+		& .ck-accordion-button {
+			border: none;
+		}
+	}
+
+	& .ck-accordion-panel {
+		display: none;
+	}
+}
