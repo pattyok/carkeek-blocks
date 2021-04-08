@@ -35,7 +35,7 @@ function postsInspector( props ){
         columns,
         displayFeaturedImage,
         openAsModal,
-        useHeadingTitle,showPublishDate,publishDateLocation
+        useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType
     } = attributes;
 
     const postTypeSelect = (
@@ -83,6 +83,7 @@ function postsInspector( props ){
                     value={taxonomySelected}
                 />
                 {taxonomySelected && (
+                    <>
                     <SelectControl
                         multiple
                         label={__("Select Terms", "carkeek-blocks")}
@@ -96,6 +97,23 @@ function postsInspector( props ){
                         }
                         value={taxTermsSelected && taxTermsSelected.split(',')}
                     />
+                    {taxTermsSelected && (taxTermsSelected.split(',').length > 1) &&
+                        <RadioControl
+                            label={__("Taxonomy Query Type")}
+                            selected={taxQueryType}
+                            options={[
+                                { label: __("AND"), value: "AND"},
+                                { label: __("OR"), value: "OR"},
+
+                            ]}
+                            onChange={value =>
+                                setAttributes({
+                                    taxQueryType: value
+                                })
+                            }
+                        />
+                    }
+                    </>
                 )}
             </>
             )}
@@ -217,6 +235,13 @@ function postsInspector( props ){
                         max={6}
                     />
             }
+            <ToggleControl
+                label={__("Show Taxonomy Terms")}
+                checked={showTerms}
+                onChange={value =>
+                    setAttributes({ showTerms: value })
+                }
+            />
 
             <ToggleControl
                 label={__("Show Published Date")}

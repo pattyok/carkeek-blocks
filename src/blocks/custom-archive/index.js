@@ -55,6 +55,10 @@ const attributes = {
     taxTermsSelected: {
         type: "string"
     },
+    taxQueryType: {
+        type: "string",
+        default: "AND"
+    },
     hideIfEmpty: {
         type: "boolean",
         default: true
@@ -71,6 +75,10 @@ const attributes = {
         default: 2
     },
     showPublishDate: {
+        type: "boolean",
+        default: false,
+    },
+    showTerms: {
         type: "boolean",
         default: false,
     },

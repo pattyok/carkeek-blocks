@@ -151,6 +151,13 @@ class CarkeekBlocks_Block_Register {
 					'publishDateLocation'  => array(
 						'type' => 'string',
 					),
+					'showTerms'      => array(
+						'type' => 'boolean',
+					),
+					'taxQueryType'      => array(
+						'type' => 'string',
+						'default' => 'AND'
+					),
 				),
 			)
 		);

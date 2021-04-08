@@ -171,7 +171,6 @@ class CarkeekBlocks_CustomPost {
 	 */
 	public function carkeek_blocks_render_custom_posttype_archive( $attributes ) {
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
-
 		if ( empty( $attributes['postTypeSelected'] ) ) {
 			return;
 		}
@@ -185,16 +184,33 @@ class CarkeekBlocks_CustomPost {
 		);
 
 		if ( true === $attributes['filterByTaxonomy'] && ! empty( $attributes['taxonomySelected'] ) && ! empty( $attributes['taxTermsSelected'] ) ) {
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => $attributes['taxonomySelected'],
-					'field'    => 'term_id',
-					'terms'    => explode( ',', $attributes['taxTermsSelected'] ),
-				),
-			);
+			$tax_terms = explode( ',', $attributes['taxTermsSelected'] );
+			if ( count( $tax_terms ) > 1 && 'AND' === $attributes['taxQueryType'] ) {
+				$tax_query = array();
+				foreach ( $tax_terms as $tax_term ) {
+					$tax_query[] = array(
+						'taxonomy' => $attributes['taxonomySelected'],
+						'field'    => 'term_id',
+						'terms'    => $tax_term,
+					);
+				}
+				$args['tax_query'] = array(
+					'relation' => 'AND',
+					$tax_query,
+				);
+
+			} else {
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => $attributes['taxonomySelected'],
+						'field'    => 'term_id',
+						'terms'    => $tax_terms,
+					),
+				);
+			}
 		}
 
-		$args  = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
+		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
 		$query = new WP_Query( $args );
 		$posts = '';
 

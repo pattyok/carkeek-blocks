@@ -53,7 +53,7 @@ if ( ! empty( $featured_image ) ) {
 		<?php echo wp_kses_post( $link_title ); ?>
 		<?php echo wp_kses_post( $meta_after ); ?>
 		<?php
-		// deprecate this in favor of tilers.
+		// deprecate this in favor of filters.
 		do_action( 'ck_custom_archive_layout__after_title', $data );
 		?>
 		<?php
@@ -62,5 +62,10 @@ if ( ! empty( $featured_image ) ) {
 			<div class="ck-custom-archive-excerpt"><?php echo wp_kses_post( $excerpt ); ?></div>
 		<?php } ?>
 		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
+		<?php
+		if ($data->showTerms) {
+			echo get_the_term_list( $post->ID, $data->taxonomySelected, 'Posted In: ', ', ' );
+		}
+		?>
 	</div>
 </div>
