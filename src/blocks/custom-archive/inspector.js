@@ -34,7 +34,8 @@ function postsInspector( props ){
         order,
         columns,
         displayFeaturedImage,
-        openAsModal
+        openAsModal,
+        useHeadingTitle,showPublishDate,publishDateLocation
     } = attributes;
 
     const postTypeSelect = (
@@ -179,45 +180,7 @@ function postsInspector( props ){
                 />
             </>
             }
-            <RangeControl
-                    label={__("Heading Size", "carkeek-blocks")}
-                    value={headlineLevel}
-                    onChange={value =>
-                        setAttributes({ headlineLevel: value })
-                    }
-                    min={2}
-                    max={6}
-                />
-
-
-                <ToggleControl
-                    label={__("Include Featured Image")}
-                    checked={displayFeaturedImage}
-                    onChange={value =>
-                        setAttributes({ displayFeaturedImage: value })
-                    }
-                />
-
-                <ToggleControl
-                    label={__("Include Excerpt")}
-                    checked={displayPostExcerpt}
-                    onChange={value =>
-                        setAttributes({ displayPostExcerpt: value })
-                    }
-                />
-                {displayPostExcerpt && (
-                        <RangeControl
-                            label={__("Max number of words in excerpt")}
-                            value={excerptLength}
-                            onChange={value =>
-                                setAttributes({ excerptLength: value })
-                            }
-                            min={10}
-                            max={75}
-                        />
-                    )}
-
-                <ToggleControl
+            <ToggleControl
                     label={__("Hide Block if Empty")}
                     checked={hideIfEmpty}
                     onChange={value =>
@@ -235,6 +198,74 @@ function postsInspector( props ){
                 )}
 
             </PanelBody>
+            <PanelBody title={__("Item Style", "carkeek-blocks")}>
+            <ToggleControl
+                label={__("Use Heading tag for Titles")}
+                checked={useHeadingTitle}
+                onChange={value =>
+                    setAttributes({ useHeadingTitle: value })
+                }
+            />
+            {useHeadingTitle &&
+                <RangeControl
+                        label={__("Post Title Size", "carkeek-blocks")}
+                        value={headlineLevel}
+                        onChange={value =>
+                            setAttributes({ headlineLevel: value })
+                        }
+                        min={2}
+                        max={6}
+                    />
+            }
+
+            <ToggleControl
+                label={__("Show Published Date")}
+                checked={showPublishDate}
+                onChange={value =>
+                    setAttributes({ showPublishDate: value })
+                }
+            />
+            {showPublishDate &&
+                <RadioControl
+                label={__("Location of Date")}
+                selected={publishDateLocation}
+                options={ [
+                    { label: 'Before Title', value: 'before' },
+                    { label: 'After Title', value: 'after' },
+                ] }
+                onChange={value =>
+                    setAttributes({ publishDateLocation: value })
+                }
+                />
+            }
+            <ToggleControl
+                label={__("Include Featured Image")}
+                checked={displayFeaturedImage}
+                onChange={value =>
+                    setAttributes({ displayFeaturedImage: value })
+                }
+            />
+
+            <ToggleControl
+                label={__("Include Excerpt")}
+                checked={displayPostExcerpt}
+                onChange={value =>
+                    setAttributes({ displayPostExcerpt: value })
+                }
+            />
+            {displayPostExcerpt && (
+                <RangeControl
+                    label={__("Max number of words in excerpt")}
+                    value={excerptLength}
+                    onChange={value =>
+                        setAttributes({ excerptLength: value })
+                    }
+                    min={10}
+                    max={75}
+                />
+            )}
+            </PanelBody>
+
         </InspectorControls>
     );
 }

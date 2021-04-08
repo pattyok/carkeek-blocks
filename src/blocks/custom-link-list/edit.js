@@ -154,7 +154,6 @@ function CustomListArchiveEdit( props ) {
                     headline: headline,
                     order: order,
                     makeCollapsible: makeCollapsible,
-                    headlineLevel: headlineLevel,
                 }}
             />
             <div className="notes">List preview. To edit the content visit Custom Links in the admin dashboard.</div>

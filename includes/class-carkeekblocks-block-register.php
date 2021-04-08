@@ -136,7 +136,19 @@ class CarkeekBlocks_Block_Register {
 					'align'                => array(
 						'type' => 'string',
 					),
-					'className' => array(
+					'className'            => array(
+						'type' => 'string',
+					),
+					'headlineLevel'        => array(
+						'type' => 'number',
+					),
+					'useHeadingTitle'      => array(
+						'type' => 'boolean',
+					),
+					'showPublishDate'      => array(
+						'type' => 'boolean',
+					),
+					'publishDateLocation'  => array(
 						'type' => 'string',
 					),
 				),
@@ -165,7 +177,7 @@ class CarkeekBlocks_Block_Register {
 						'catTermsSelected'     => array(
 							'type' => 'string',
 						),
-						'catTagsSelected'     => array(
+						'catTagsSelected'      => array(
 							'type' => 'string',
 						),
 						'displayPostExcerpt'   => array(
@@ -180,7 +192,7 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'boolean',
 							'default' => false,
 						),
-						'filterByTag'     => array(
+						'filterByTag'          => array(
 							'type'    => 'boolean',
 							'default' => false,
 						),
@@ -202,26 +214,26 @@ class CarkeekBlocks_Block_Register {
 						'hideIfEmpty'          => array(
 							'type' => 'boolean',
 						),
-						'align' => array(
+						'align'                => array(
 							'type' => 'string',
 						),
-						'className' => array(
+						'className'            => array(
 							'type' => 'string',
 						),
-						'displayField1' => array(
+						'displayField1'        => array(
 							'type' => 'string',
 						),
-						'displayField2' => array(
+						'displayField2'        => array(
 							'type' => 'string',
 						),
-						'displayField3' => array(
+						'displayField3'        => array(
 							'type' => 'string',
 						),
-						'displayField4' => array(
+						'displayField4'        => array(
 							'type' => 'string',
 						),
-						'featuredEvents' => array(
-							'type' => 'boolean',
+						'featuredEvents'       => array(
+							'type'    => 'boolean',
 							'default' => false,
 						),
 

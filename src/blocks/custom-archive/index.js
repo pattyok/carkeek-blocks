@@ -62,6 +62,22 @@ const attributes = {
     emptyMessage: {
         type: "string"
     },
+    useHeadingTitle: {
+        type: "boolean",
+        default: false
+    },
+    headlineLevel: {
+        type: "number",
+        default: 2
+    },
+    showPublishDate: {
+        type: "boolean",
+        default: false,
+    },
+    publishDateLocation: {
+        type: "string",
+        default: "below",
+    },
     blockId: {
         type: "string"
     }
