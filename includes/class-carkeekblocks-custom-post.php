@@ -181,6 +181,7 @@ class CarkeekBlocks_CustomPost {
 			'post_type'      => $attributes['postTypeSelected'],
 			'order'          => $attributes['order'],
 			'orderby'        => $attributes['sortBy'],
+			'post__not_in'   => array( get_the_ID() ),
 		);
 
 		if ( true === $attributes['filterByTaxonomy'] && ! empty( $attributes['taxonomySelected'] ) && ! empty( $attributes['taxTermsSelected'] ) ) {
@@ -210,7 +211,7 @@ class CarkeekBlocks_CustomPost {
 			}
 		}
 
-		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
+		$args  = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
 		$query = new WP_Query( $args );
 		$posts = '';
 
