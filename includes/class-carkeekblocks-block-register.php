@@ -154,6 +154,10 @@ class CarkeekBlocks_Block_Register {
 					'showTerms'      => array(
 						'type' => 'boolean',
 					),
+					'showPagination'      => array(
+						'type' => 'boolean',
+						'default' => false,
+					),
 					'taxQueryType'      => array(
 						'type' => 'string',
 						'default' => 'AND'

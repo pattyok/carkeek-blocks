@@ -57,6 +57,30 @@
 	}
 }
 
+.ck_pagination {
+
+	& ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+
+		& li {
+
+			& a {
+				padding: 5px 10px;
+			}
+
+			& .current {
+				padding: 5px 10px;
+				background-color: var(--color-link);
+				color: #fff;
+			}
+
+		}
+	}
+}
+
 @media (--tablet-up) {
 
 	.wp-block-carkeek-blocks-custom-archive {
@@ -68,12 +92,13 @@
 			}
 
 			& .ck-custom-archive-image-link {
-				width: 33%;
+				flex: 1 1 33%;
 				margin-right: var(--ck-archive-image-text-gap);
 				margin-bottom: 0;
+				align-self: flex-start;
 			}
 
-			& .ck-custom-archive-content-wrap {
+			& .ck-custom-archive__content-wrap {
 				flex: 1 1 67%;
 			}
 		}

@@ -35,7 +35,7 @@ function postsInspector( props ){
         columns,
         displayFeaturedImage,
         openAsModal,
-        useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType
+        useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination
     } = attributes;
 
     const postTypeSelect = (
@@ -198,6 +198,13 @@ function postsInspector( props ){
                 />
             </>
             }
+            <ToggleControl
+                    label={__("Show Pagination")}
+                    checked={showPagination}
+                    onChange={value =>
+                        setAttributes({ showPagination: value })
+                    }
+                />
             <ToggleControl
                     label={__("Hide Block if Empty")}
                     checked={hideIfEmpty}

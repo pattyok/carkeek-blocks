@@ -78,6 +78,10 @@ const attributes = {
         type: "boolean",
         default: false,
     },
+    showPagination: {
+        type: "boolean",
+        default: false,
+    },
     showTerms: {
         type: "boolean",
         default: false,
