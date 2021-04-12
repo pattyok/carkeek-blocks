@@ -222,7 +222,7 @@
 	}
 
 	& .accordion__panel[aria-hidden="false"] {
-		max-height: 100vh;
+		max-height: none;
 		overflow: auto;
 		padding: 0.5rem 1rem;
 		visibility: visible;
