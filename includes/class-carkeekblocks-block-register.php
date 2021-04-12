@@ -280,6 +280,10 @@ class CarkeekBlocks_Block_Register {
 					'listSelected'    => array(
 						'type' => 'string',
 					),
+					'primaryContent'    => array(
+						'type' => 'string',
+						'default' => 'links',
+					),
 				),
 			)
 		);

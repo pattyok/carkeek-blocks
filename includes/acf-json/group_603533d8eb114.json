@@ -77,7 +77,7 @@
             "key": "field_6035341553205",
             "label": "Notes",
             "name": "cl_notes",
-            "type": "text",
+            "type": "wysiwyg",
             "instructions": "Optional - add notes that will display in the link lists",
             "required": 0,
             "conditional_logic": 0,
@@ -87,10 +87,10 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
         }
     ],
     "location": [

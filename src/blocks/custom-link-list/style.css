@@ -29,6 +29,27 @@
 		color: #333;
 		margin-bottom: 10px;
 	}
+
+	&.is-style-content {
+
+		& .ck-custom-list > ul > li {
+			margin-bottom: 10px;
+		}
+
+		& .ck-custom-list-notes {
+			font-style: normal;
+
+			& p {
+				margin-top: 0;
+				margin-bottom: 10px;
+			}
+		}
+
+		& .ck-custom-list-title {
+			font-weight: 900;
+		}
+
+	}
 }
 
 .carkeek-blocks-accordion.mini,

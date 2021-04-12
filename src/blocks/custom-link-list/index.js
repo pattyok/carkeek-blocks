@@ -37,6 +37,10 @@ const attributes = {
     headlineLevel: {
         type: "number",
         default: 2
+    },
+    primaryContent: {
+        type: "string",
+        default: "links"
     }
 };
 

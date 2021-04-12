@@ -29,7 +29,8 @@ function CustomListArchiveEdit( props ) {
         headlineLevel,
         sortBy,
         order,
-        makeCollapsible
+        makeCollapsible,
+        primaryContent
     } = attributes;
     const headlineStyle = 'h' + headlineLevel;
 
@@ -98,6 +99,21 @@ function CustomListArchiveEdit( props ) {
                     min={2}
                     max={6}
                 />
+                <RadioControl
+                label={__("Primary Content")}
+                selected={primaryContent}
+                help="Content lists add a litte more space between each item."
+                options={[
+                    { label: __("Links"), value: "links"},
+                    { label: __("List Content"), value: "content"},
+
+                ]}
+                onChange={value =>
+                    setAttributes({
+                        primaryContent: value
+                    })
+                }
+            />
                 <Text variant="label">Expand and Collapse</Text>
                 <ToggleControl
                     label={__("Make sub-topics expand and collapse", "carkeek-blocks")}

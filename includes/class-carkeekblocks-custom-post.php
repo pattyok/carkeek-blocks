@@ -285,16 +285,16 @@ class CarkeekBlocks_CustomPost {
 			}
 			$posts .= '</div>';
 			if ( true == $attributes['showPagination'] ) {
-				$big = 999999999; // need an unlikely integer
+				$big    = 999999999; // need an unlikely integer
 				$posts .= '<div class="ck_pagination">';
 				$posts .= paginate_links(
 					array(
-						'base'    => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-						'format'  => '?paged=%#%',
-						'current' => max( 1, get_query_var( 'paged' ) ),
-						'total'   => $query->max_num_pages,
+						'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+						'format'    => '?paged=%#%',
+						'current'   => max( 1, get_query_var( 'paged' ) ),
+						'total'     => $query->max_num_pages,
 						'prev_next' => false,
-						'type' => 'list',
+						'type'      => 'list',
 					)
 				);
 				$posts .= '</div>';
@@ -329,15 +329,15 @@ class CarkeekBlocks_CustomPost {
 			}
 		}
 		if ( empty( $href ) ) {
-			$item = $link->post_title;
+			$item = '<div class="ck-custom-list-title">' . $link->post_title . '</div>';
 		} else {
-			$item = '<a href="' . esc_url( $href ) . '">' . $link->post_title . '</a>';
+			$item = '<a class="ck-custom-list-title" href="' . esc_url( $href ) . '">' . $link->post_title . '</a>';
 		}
 
 		$notes = get_field( 'cl_notes', $link->ID );
 
 		if ( ! empty( $notes ) ) {
-			$item .= '<div class="ck-custom-list-notes">(' . $notes . ')</div>';
+			$item .= '<div class="ck-custom-list-notes">' . $notes . '</div>';
 		}
 		return '<li>' . $item . '</li>';
 
@@ -390,6 +390,11 @@ class CarkeekBlocks_CustomPost {
 				'panel'     => 'data-aria-accordion-panel',
 			);
 		}
+
+		if ( 'content' == $attributes['primaryContent'] ) {
+			$list_style .= ' is-style-content';
+		}
+
 		$block_content = '<div class="wp-block-carkeek-custom-link-list' . esc_attr( $list_style ) . '"><div ' . esc_attr( $data_atts['accordion'] ) . '>';
 
 		if ( ! empty( $attributes['headline'] ) ) {
