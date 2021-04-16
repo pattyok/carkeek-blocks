@@ -9,6 +9,7 @@ import "./blocks/custom-archive";
 import "./blocks/events-archive";
 import "./blocks/widget-row";
 import "./blocks/quick-link";
+import "./blocks/icon-text";
 import "./blocks/contextual-highlight";
 import "./blocks/carkeek-slider";
 import "./blocks/lightbox-gallery";
