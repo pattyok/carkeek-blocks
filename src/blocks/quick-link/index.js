@@ -59,11 +59,11 @@ registerBlockType("carkeek-blocks/quick-link", {
                 {linkUrl
                     ? <a className={"ck-quick-link"} href={linkUrl}>
                         <InnerBlocks.Content />
-                        <span className={"ck-quick-link"}>{linkTitle }</span>
+                        <span className={"ck-quick-link-title"}>{linkTitle }</span>
                         </a>
                     :  <>
                         <InnerBlocks.Content />
-                        <span className={"ck-quick-link"}>{linkTitle }</span>
+                        <span className={"ck-quick-link-title"}>{linkTitle }</span>
                         </>
                 }
             </div>
