@@ -90,6 +90,14 @@ const attributes = {
         type: "string",
         default: "below",
     },
+    showLearnMoreLink: {
+        type: "boolean",
+        default: false,
+    },
+    learnMoreLinkTitle: {
+        type: "string",
+        default: 'Learn More',
+    },
     blockId: {
         type: "string"
     }

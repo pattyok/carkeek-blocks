@@ -7,7 +7,7 @@ import { __ } from "@wordpress/i18n";
 const attributes = {
     sortBy: {
         type: "string",
-        default: "date"
+        default: "title"
     },
     order: {
         type: "string",

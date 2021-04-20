@@ -61,10 +61,21 @@ if ( ! empty( $featured_image ) ) {
 			?>
 			<div class="ck-custom-archive-excerpt"><?php echo wp_kses_post( $excerpt ); ?></div>
 		<?php } ?>
+
 		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 		<?php
-		if ($data->showTerms) {
-			echo get_the_term_list( $post->ID, $data->taxonomySelected, 'Posted In: ', ', ' );
+		if ( $data->showTerms ) {
+			$term_list = '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $data->taxonomySelected, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
+			$term_list = apply_filters( 'ck_custom_archive_layout__term_list', $term_list, $data );
+			echo wp_kses_post( $term_list );
+		}
+		?>
+		<?php
+		if ( $data->showLearnMoreLink ) {
+			$link_label = empty( $data->learnMoreLinkTitle ) ? __( 'Learn more', 'wp-rig' ) : $data->learnMoreLinkTitle;
+			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s">%2s<span class="screen-reader-text">%3s</span></a>', get_the_permalink(), $link_label, get_the_title() );
+			$more_link  = apply_filters( 'ck_custom_archive_layout__more_link', $more_link, $data );
+			echo wp_kses_post( $more_link );
 		}
 		?>
 	</div>

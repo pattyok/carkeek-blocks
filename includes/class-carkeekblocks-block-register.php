@@ -158,6 +158,13 @@ class CarkeekBlocks_Block_Register {
 						'type' => 'boolean',
 						'default' => false,
 					),
+					'showLearnMoreLink'      => array(
+						'type' => 'boolean',
+						'default' => false,
+					),
+					'learnMoreLinkTitle'      => array(
+						'type' => 'string'
+					),
 					'taxQueryType'      => array(
 						'type' => 'string',
 						'default' => 'AND'
@@ -271,7 +278,7 @@ class CarkeekBlocks_Block_Register {
 					),
 					'sortBy'          => array(
 						'type'    => 'string',
-						'default' => 'menu_order',
+						'default' => 'title',
 					),
 					'headlineLevel'   => array(
 						'type'    => 'number',

@@ -6,7 +6,8 @@ import {
     ToggleControl,
     RadioControl,
     SelectControl,
-    TextareaControl
+    TextareaControl,
+    TextControl
 } from "@wordpress/components";
 
 
@@ -35,7 +36,7 @@ function postsInspector( props ){
         columns,
         displayFeaturedImage,
         openAsModal,
-        useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination
+        useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink
     } = attributes;
 
     const postTypeSelect = (
@@ -205,6 +206,7 @@ function postsInspector( props ){
                         setAttributes({ showPagination: value })
                     }
                 />
+
             <ToggleControl
                     label={__("Hide Block if Empty")}
                     checked={hideIfEmpty}
@@ -296,6 +298,23 @@ function postsInspector( props ){
                     max={75}
                 />
             )}
+            <ToggleControl
+                    label={__("Show Read More Link")}
+                    checked={showLearnMoreLink}
+                    onChange={value =>
+                        setAttributes({ showLearnMoreLink: value })
+                    }
+                />
+                {showLearnMoreLink &&
+
+                    <TextControl
+                    label="Link Label"
+                    value={ learnMoreLinkTitle }
+                    onChange={value =>
+                        setAttributes({ learnMoreLinkTitle: value })
+                    }
+                    />
+                }
             </PanelBody>
 
         </InspectorControls>

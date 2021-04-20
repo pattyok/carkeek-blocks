@@ -55,6 +55,11 @@
 			width: 100%;
 		}
 	}
+
+	& .ck-custom-archive-more-link {
+		display: block;
+		margin-top: 1rem;
+	}
 }
 
 .ck_pagination {
