@@ -1,30 +1,17 @@
-.wp-block-carkeek-blocks-quick-link {
+.wp-block-carkeek-blocks-icon-text {
 	display: flex;
 	align-items: center;
 	margin-bottom: 1.5rem;
-
-	& .ck-quick-link {
-		font-size: 18px;
-		text-decoration: none;
-
-		&.is-placeholder {
-			color: #b0b0b0;
-		}
-
-		&.is-link {
-			color: #007daa;
-		}
-	}
 }
 
-.ck-columns .ck-columns__wrap > .wp-block-carkeek-blocks-quick-link {
+.ck-columns .ck-columns__wrap > .wp-block-carkeek-blocks-icon-text {
 	margin-right: 0;
 }
 
 
 @media screen and (min-width: 768px) {
 
-	.wp-block-carkeek-blocks-quick-link {
+	.wp-block-carkeek-blocks-icon-text {
 		flex-direction: column;
 		flex: 1 1 25%;
 		padding-left: 25px;
@@ -39,6 +26,16 @@
 		& .ck-quick-link {
 			font-size: 20px;
 
+		}
+
+		&.align-left {
+			align-items: flex-start;
+			text-align: left;
+		}
+
+		&.align-right {
+			align-items: flex-end;
+			text-align: right;
 		}
 	}
 }

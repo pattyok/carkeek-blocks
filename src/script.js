@@ -8,6 +8,7 @@ import "./blocks/landing-page-link/script";
 import "./blocks/custom-archive/script";
 import "./blocks/widget-row/script";
 import "./blocks/quick-link/script";
+import "./blocks/icon-text/script";
 import "./blocks/contextual-highlight/script";
 import "./blocks/carkeek-slider/script";
 import "./blocks/lightbox-gallery/script";

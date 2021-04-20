@@ -1,10 +1,12 @@
 import "./style.editor.css";
 import icons from '../../resources/icons';
+import classnames from 'classnames';
 
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import edit from "./edit";
 import { InnerBlocks, useBlockProps, RichText } from "@wordpress/block-editor";
+
 
 const attributes = {
     richText: {
@@ -15,6 +17,10 @@ const attributes = {
         source: "attribute",
         selector: "a",
         attribute: "href"
+    },
+    alignItems: {
+        type: "string",
+        default: "center",
     },
 };
 
@@ -29,8 +35,6 @@ registerBlockType("carkeek-blocks/icon-text", {
     ),
 
     icon: icons.landingPage,
-
-    parent: ["carkeek-blocks/quick-link"],
 
     supports: {
         reusable: false,
@@ -47,16 +51,23 @@ registerBlockType("carkeek-blocks/icon-text", {
         const {
             richText,
             linkUrl,
+            alignItems
         } = attributes;
 
-        const blockProps = useBlockProps.save();
+        const classes = classnames( {
+            [ `align-${ alignItems }` ]: alignItems,
+        } );
 
-        const iconEl = linkUrl ? <a className={"ck-quick-link-icon-link"} href={linkUrl}><InnerBlocks.Content /></a> : <InnerBlocks.Content />
+        const blockProps = useBlockProps.save( { className: classes } );
+
+        const iconEl = linkUrl ? <a className={"ck-icon-text-icon-link"} href={linkUrl}><InnerBlocks.Content /></a> : <InnerBlocks.Content />
 
         return (
             <div {...blockProps} >
                    {iconEl}
-                    <RichText.Content value={ richText } />
+                    <RichText.Content tagName = 'p'
+                    value={ richText }
+                    className={'ck-icon-link-text'} />
             </div>
         );
     },

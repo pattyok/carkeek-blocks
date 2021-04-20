@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {
     URLInput,
     InnerBlocks,
@@ -6,7 +7,7 @@ import {
     InspectorControls
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
-import { PanelBody } from "@wordpress/components";
+import { PanelBody, SelectControl } from "@wordpress/components";
 
 
 function QuickLinkEdit( props ) {
@@ -18,18 +19,35 @@ function QuickLinkEdit( props ) {
     const {
         linkUrl,
         richText,
+        alignItems,
     } = attributes;
 
-    const blockProps = useBlockProps();
+    const classes = classnames( {
+        [ `align-${ alignItems }` ]: alignItems,
+    } );
+
+    const blockProps = useBlockProps( { className: classes } );
 
     return (
             <div { ...blockProps }>
                  <InspectorControls>
                     <PanelBody>
+                    <SelectControl
+                        label="Align Items"
+                        value={ alignItems }
+                        options={ [
+                            { label: 'Left', value: 'left' },
+                            { label: 'Right', value: 'right' },
+                            { label: 'Center', value: 'center' },
+                        ] }
+                        onChange={ ( alignItems ) => {
+                            setAttributes( { alignItems } );
+                        } }
+                    />
                     <URLInput
                             value={linkUrl}
                             onChange={ ( linkUrl ) => setAttributes( { linkUrl } ) }
-                            label={__("Links To", "carkeek-blocks")}
+                            label={__("Link Icon To", "carkeek-blocks")}
                         />
                     </PanelBody>
                 </InspectorControls>
