@@ -42,7 +42,7 @@ function ModalItemEdit( props ) {
                 </PanelBody>
             </InspectorControls>
             <div className={className}>
-            {!hideImagePreview || isSelected &&
+            { (!hideImagePreview || isSelected) &&
                 <ImageEdit />
             }
                 <RichText
@@ -53,7 +53,7 @@ function ModalItemEdit( props ) {
                     placeholder={__("Member Name", "carkeek-blocks")}
                     formatingControls={[]}
                 />
-                {!hideTitlePreview || isSelected &&
+                { (!hideTitlePreview || isSelected) &&
                 <RichText
                     className={"ck-modal-title"}
                     tagName="div"
