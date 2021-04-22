@@ -14,7 +14,7 @@ import { dispatch, useSelect } from "@wordpress/data";
 
 export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, alignInnerBlocks } = attributes;
+    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, alignInnerBlocks, rowDirection } = attributes;
 
     const availBlocks = getBlockTypes();
     let myAllowedBlocks = allowedBlocks;
@@ -67,7 +67,7 @@ export default function CollapseSectionEdit( props ) {
                         }
                     />
                     <RangeControl
-                        label={__("Items per Row", "carkeek-blocks")}
+                        label={__("Columns", "carkeek-blocks")}
                         value={ itemsPerRow }
                         onChange={ ( itemsPerRow ) => setAttributes( { itemsPerRow } ) }
                         min={1}
@@ -85,6 +85,18 @@ export default function CollapseSectionEdit( props ) {
                         ] }
                         onChange={ (value) =>
                             setAttributes({ alignInnerBlocks: value })
+                        }
+                    />
+                    <RadioControl
+                        label="Widget Direction"
+                        selected={rowDirection}
+                        help={__('Set the direction to vertical to get a masonry layout')}
+                        options={ [
+                            { label: 'Horizontal', value: 'horizontal' },
+                            { label: 'Vertical', value: 'vertical' },
+                        ] }
+                        onChange={ (value) =>
+                            setAttributes({ rowDirection: value })
                         }
                     />
                 </PanelBody>

@@ -3,15 +3,16 @@ import { RichText, useBlockProps } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 
 function ModalItemSave ({ attributes }) {
-    const { title, name, details, blockId } = attributes;
+    const { title, name, details, blockId, hideImagePreview, hideTitlePreview } = attributes;
     const blockProps = useBlockProps.save();
     return (
         <div { ...blockProps }>
             <div className="ck-modal-item" data-id={blockId}>
+            { ! hideImagePreview &&
             <div className="ck-modal-item-image" data-toggle="modal" data-target={`#dialog-${blockId}`}>
                 <ImageSave />
             </div>
-
+            }
                 <RichText.Content
                     className={"ck-modal-item-name"}
                     tagName="a"
@@ -21,7 +22,7 @@ function ModalItemSave ({ attributes }) {
                     data-target={`#dialog-${blockId}`}
                 />
 
-                {title && (
+                {title && ! hideTitlePreview && (
                     <RichText.Content
                         className={"ck-modal-item-title"}
                         tagName="p"

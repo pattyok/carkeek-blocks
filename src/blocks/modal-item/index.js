@@ -2,6 +2,7 @@ import "./style.editor.css";
 
 import edit from "./edit";
 import save from "./save";
+import deprecated from "./deprecated";
 
 import icons from "../../resources/icons";
 
@@ -31,6 +32,14 @@ const attributes = {
         selector: '.ck-modal-item',
         attribute: 'data-id'
     },
+    hideImagePreview: {
+        type: 'boolean',
+        default: false
+    },
+    hideTitlePreview: {
+        type: 'boolean',
+        default: false
+    }
 };
 
 registerBlockType("carkeek-blocks/modal-item", {
@@ -58,5 +67,7 @@ registerBlockType("carkeek-blocks/modal-item", {
 
     save,
 
-    edit
+    edit,
+
+    deprecated
 });

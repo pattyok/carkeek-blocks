@@ -118,6 +118,7 @@ Top section of the modal w/ title and dismiss */
 	align-items: flex-start;
 	justify-content: space-between;
 	padding: var(--modal-header-padding);
+	z-index: 200;
 
 	& .close {
 		padding: var(--modal-header-padding);

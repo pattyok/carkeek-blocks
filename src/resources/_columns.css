@@ -58,6 +58,7 @@
 			}
 		}
 
+
 		&.has-2-columns {
 
 			& .ck-columns__wrap > * {
@@ -112,5 +113,64 @@
 				}
 			}
 		}
+
+		&.direction-vertical {
+
+			&.ck-columns-align-center {
+
+				& .ck-modal-item {
+					text-align: center;
+				}
+			}
+
+			& .ck-columns__wrap {
+				column-width: auto;
+				column-gap: var(--ck-column-gap);
+				display: block;
+			}
+
+			&.has-1-columns {
+
+				& .ck-columns__wrap {
+					column-count: 1;
+				}
+			}
+
+			&.has-2-columns {
+
+				& .ck-columns__wrap {
+					column-count: 2;
+				}
+			}
+
+			&.has-3-columns {
+
+				& .ck-columns__wrap {
+					column-count: 3;
+				}
+			}
+
+			&.has-4-columns {
+
+				& .ck-columns__wrap {
+					column-count: 4;
+				}
+			}
+
+			&.has-5-columns {
+
+				& .ck-columns__wrap {
+					column-count: 5;
+				}
+			}
+
+			&.has-6-columns {
+
+				& .ck-columns__wrap {
+					column-count: 5;
+				}
+			}
+		}
 	}
 }
+

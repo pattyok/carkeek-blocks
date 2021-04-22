@@ -1,6 +1,7 @@
 import icons from "../../resources/icons";
 import "./style.editor.css";
 import edit from "./edit";
+import deprecated from "./deprecated";
 
 import classnames from "classnames";
 
@@ -29,6 +30,10 @@ const attributes = {
     alignInnerBlocks: {
         type: 'string',
         default: 'left'
+    },
+    rowDirection: {
+        type: 'string',
+        default: 'horizontal'
     }
 }
 
@@ -62,8 +67,10 @@ registerBlockType("carkeek-blocks/widget-row", {
 
     edit,
 
+    deprecated,
+
     save({ attributes } ) {
-        const { allowItemsWrap, itemsPerRow, alignInnerBlocks } = attributes
+        const { allowItemsWrap, itemsPerRow, alignInnerBlocks,rowDirection } = attributes
         const blockProps = useBlockProps.save();
         return (
             <div { ...blockProps }
@@ -72,6 +79,7 @@ registerBlockType("carkeek-blocks/widget-row", {
                     [`ck-columns-wrap-${allowItemsWrap}`]: true,
                     [`ck-columns-align-${alignInnerBlocks}`]: true,
                     [`has-${itemsPerRow}-columns`]: 'true',
+                    [`direction-${rowDirection}`]: 'true',
                 }) }
                 >
                 <div className={ 'ck-columns__wrap' }>
