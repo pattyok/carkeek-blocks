@@ -459,10 +459,10 @@ class CarkeekBlocks_CustomPost {
 			'post_status'    => array( 'publish' ),
 			'meta_query'     => array(
 				array(
-					'key'     => '_EventStartDate',
-					'value'   => date( 'Y-m-d H:i' ),
+					'key'     => '_EventEndDateUTC',
+					'value'   => gmdate( 'Y-m-d H:i' ),
 					'compare' => '>=',
-					'type'    => 'DATE',
+					'type'    => 'DATETIME',
 				),
 			),
 		);
