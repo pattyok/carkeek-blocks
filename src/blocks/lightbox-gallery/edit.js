@@ -148,7 +148,6 @@ function LightboxGalleryEdit( props ) {
                         onChange={value =>
                             setAttributes({ hideTitle: value })
                         }
-                        disabled={ !linkFirstImage }
                     />
                     <div>Add a link to this gallery from elsewhere on the page. {generatedLink}</div>
                     </PanelBody>

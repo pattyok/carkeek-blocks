@@ -9,6 +9,17 @@
 		}
 	}
 
+	& .ck-blocks-gallery-grid-item {
+		margin-bottom: var(--ck-gallery-gutter);
+
+		&.ck-blocks-gallery-hidden {
+
+			& img {
+				opacity: 0.7;
+			}
+		}
+	}
+
 	& .ck-blocks-gallery-grid {
 		list-style: none;
 		margin: 0;
