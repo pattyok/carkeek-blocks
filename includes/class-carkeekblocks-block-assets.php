@@ -127,7 +127,7 @@ class CarkeekBlocks_Block_Assets {
 		// Only load slider js when using the slider block
 		if ( is_singular() ) {
 			$id = get_the_ID();
-			if ( has_block( 'carkeek-blocks/carkeek-slider', $id ) ) {
+			if ( has_block( 'carkeek-blocks/carkeek-slider', $id ) || has_block( 'carkeek-blocks/lightbox-gallery', $id ) ) {
 				wp_enqueue_script(
 					'ck-slick',
 					$this->url . '/vendor/slick.js',

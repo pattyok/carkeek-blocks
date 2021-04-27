@@ -12,10 +12,14 @@ import jQuery from 'jquery';
                 autoStart : true
                 },
                 beforeLoad : function( instance, slide ) {
-                    //gets the data-title attribute of the clicked item
+                    //gets the data-title attribute of the parent gallery
                     if (!titleAdded) {
-                        galleryTitle = slide.opts.$trigger.data('title');
+                        const gallery = slide.opts.fancybox;
+                        const $wrapper = $('#wrapper' + gallery);
+                        galleryTitle = $wrapper.data('title');
+                        if (typeof galleryTitle !== typeof undefined && galleryTitle !== false) {
                         $('.fancybox-infobar').prepend('<div class="fancybox-gallery-title">' + galleryTitle + '</div>');
+                        }
                         titleAdded = true;
                     }
                 },
@@ -24,5 +28,36 @@ import jQuery from 'jquery';
                 }
             })
         }
+
+        // setup
+        var sliderElem = $(".ck-blocks-gallery-grid"),
+        sliderBool = false,
+        sliderBreakpoint = 767,
+        sliderSettings = {
+            arrows: true,
+            mobileFirst: true,
+            responsive: [
+                {
+                    breakpoint: sliderBreakpoint,
+                    settings: "unslick"
+                }
+            ]
+        };
+        function sliderInit() {
+            if (window.innerWidth <= sliderBreakpoint) {
+                if (sliderBool == false) {
+                    sliderElem.slick(sliderSettings);
+                    sliderBool = true;
+                }
+            } else {
+                sliderBool = false;
+            }
+        }
+        sliderInit();
+        // resize
+        $(window).on('resize', function () {
+            sliderInit();
+        });
+
     });
 })(jQuery);

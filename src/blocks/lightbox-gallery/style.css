@@ -13,3 +13,153 @@ body.admin-bar .fancybox-container {
 	margin-right: 10px;
 
 }
+
+.ck-blocks-gallery-hidden {
+	display: none;
+}
+
+ul.ck-blocks-gallery-grid {
+	--gallery-image-ratio: 66%;
+	--slick-arrow-pos-mobile: -1.5rem;
+	--slick-arrow-bg-color: var(--color-link);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: none;
+
+	&.slick-slider {
+		display: block;
+	}
+
+	& .slick-slide > div {
+		width: 100%;
+	}
+
+	& .slick-next,
+	& .slick-prev {
+		position: absolute;
+		display: block;
+		width: 50px;
+		height: 100px;
+		line-height: 0;
+		font-size: 0;
+		cursor: pointer;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		transform: translateY(-50%);
+		padding: 0;
+		border: none;
+		z-index: 200;
+		background-color: var(--slick-arrow-bg-color);
+	}
+
+	& .slick-prev {
+		border-bottom-right-radius: 100px;
+		border-top-right-radius: 100px;
+		padding-right: 10px;
+	}
+
+	& .slick-next {
+		border-bottom-left-radius: 100px;
+		border-top-left-radius: 100px;
+		padding-left: 10px;
+	}
+
+	&.fixed-images-square {
+		--gallery-image-ratio: 100%;
+	}
+
+	&.fixed-images-portrait {
+		--gallery-image-ratio: 150%;
+	}
+
+	&.fixed-images {
+
+		& li.ck-blocks-gallery-grid-item a,
+		& li.ck-blocks-gallery-grid-item figure {
+			position: relative;
+			display: block;
+
+			&::after {
+				display: block;
+				width: 100%;
+				content: "";
+				padding-bottom: var(--gallery-image-ratio);
+			}
+
+			& img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: 50% 50%;
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+
+	:root {
+		--ck-gallery-gutter: 1rem;
+	}
+
+	ul.ck-blocks-gallery-grid {
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		margin: 0 calc(-1 * var(--ck-gallery-gutter) / 2);
+		padding: 0;
+
+		& > li {
+			padding-left: calc(var(--ck-gallery-gutter) / 2);
+			padding-right: calc(var(--ck-gallery-gutter) / 2);
+			margin-bottom: var(--ck-gallery-gutter);
+		}
+
+		&.columns-1 {
+
+			& > li {
+				flex-basis: 100%;
+			}
+		}
+
+		&.columns-2 {
+
+			& > li {
+				flex-basis: 50%;
+			}
+		}
+
+		&.columns-3 {
+
+			& > li {
+				flex-basis: 33.333%;
+			}
+		}
+
+		&.columns-4 {
+
+			& > li {
+				flex-basis: 25%;
+			}
+		}
+
+		&.columns-5 {
+
+			& > li {
+				flex-basis: 20%;
+			}
+		}
+
+		&.columns-6 {
+
+			& > li {
+				flex-basis: 16.67%;
+			}
+		}
+
+	}
+}

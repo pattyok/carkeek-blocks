@@ -3,6 +3,7 @@
  * External dependencies
  */
 import { filter, map, find, isEmpty, reduce, get } from 'lodash';
+import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
@@ -34,7 +35,13 @@ export const Gallery = ( props ) => {
 		images,
 		sizeSlug,
         sizeSlugThumbs,
-        ids
+        ids,
+		displayAs,
+		columns,
+		cropImages,
+		imageLayout,
+		limitView,
+		viewLimit
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
@@ -43,6 +50,14 @@ export const Gallery = ( props ) => {
         caption: newImage.caption,
     } ) ));
 
+	const isGallery = displayAs == 'gallery';
+
+	const galleryStyle = classnames({
+		'ck-blocks-gallery-grid': isGallery,
+		[ `columns-${ columns }` ]: isGallery,
+		'fixed-images': isGallery && cropImages,
+        [ `fixed-images-${ imageLayout }` ]: isGallery && cropImages,
+	})
 
 
     function setAttributes( newAttrs ) {
@@ -243,7 +258,7 @@ export const Gallery = ( props ) => {
 					) }
                 </PanelBody>
             </InspectorControls>
-			<ul className="ck-blocks-gallery-grid">
+			<ul className={ galleryStyle }>
 				{ images.map( ( img, index ) => {
 					const ariaLabel = sprintf(
 						/* translators: 1: the order number of the image. 2: the total number of images. */
@@ -252,9 +267,14 @@ export const Gallery = ( props ) => {
 						images.length
 					);
 
+					const itemStyle = classnames({
+                        'ck-blocks-gallery-grid-item': true,
+                        'ck-blocks-gallery-hidden': (limitView && index >= viewLimit)
+                    })
+
 					return (
 						<li
-							className="blocks-gallery-item"
+							className={itemStyle}
 							key={ img.id || img.url }
 						>
 							{ <GalleryImage

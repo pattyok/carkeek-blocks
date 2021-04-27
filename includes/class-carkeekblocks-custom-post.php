@@ -328,10 +328,11 @@ class CarkeekBlocks_CustomPost {
 				$link_type = 'page';
 			}
 		}
+		$target = ( $link_type == 'external' || $link_type == 'pdf' ) ? 'target="_blank"' : '';
 		if ( empty( $href ) ) {
 			$item = '<div class="ck-custom-list-title">' . $link->post_title . '</div>';
 		} else {
-			$item = '<a class="ck-custom-list-title" href="' . esc_url( $href ) . '">' . $link->post_title . '</a>';
+			$item = '<a class="ck-custom-list-title" href="' . esc_url( $href ) . '" ' . esc_attr( $target ) . '>' . $link->post_title . '</a>';
 		}
 
 		$notes = get_field( 'cl_notes', $link->ID );

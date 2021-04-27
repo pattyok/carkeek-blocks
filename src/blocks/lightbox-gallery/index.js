@@ -2,6 +2,7 @@ import "./style.editor.css";
 
 import edit from "./edit";
 import save from "./save";
+import deprecated from "./deprecated";
 
 import icons from "../../resources/icons";
 
@@ -20,6 +21,30 @@ const attributes = {
     images: {
         type: 'array',
         default: []
+    },
+    displayAs: {
+        type: "string",
+        default: "single"
+    },
+    columns: {
+        type: "number",
+        default: 4
+    },
+    cropImages: {
+        type: 'boolean',
+        default: true
+    },
+    imageLayout: {
+        type: 'string',
+        default: 'landscape'
+    },
+    limitView: {
+        type: 'boolean',
+        default: false
+    },
+    viewLimit: {
+        type: 'number',
+        default: 4
     },
     linkFirstImage: {
         type: 'boolean',
@@ -74,5 +99,7 @@ registerBlockType("carkeek-blocks/lightbox-gallery", {
 
     save,
 
-    edit
+    edit,
+
+    deprecated
 });
