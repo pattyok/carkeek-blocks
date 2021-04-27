@@ -19,7 +19,7 @@ body.admin-bar .fancybox-container {
 }
 
 ul.ck-blocks-gallery-grid {
-	--gallery-image-ratio: 66%;
+	--gallery-image-ratio: 74%;
 	--slick-arrow-pos-mobile: -1.5rem;
 	--slick-arrow-bg-color: var(--color-link);
 	list-style: none;
@@ -103,7 +103,7 @@ ul.ck-blocks-gallery-grid {
 @media screen and (min-width: 768px) {
 
 	:root {
-		--ck-gallery-gutter: 1rem;
+		--ck-gallery-gutter: 1.875rem;
 	}
 
 	ul.ck-blocks-gallery-grid {

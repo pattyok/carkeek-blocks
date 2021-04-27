@@ -85,7 +85,8 @@ registerBlockType("carkeek-blocks/lightbox-gallery", {
 
     supports: {
         reusable: false,
-        html: false
+        html: false,
+        align: ["wide", "full"],
     },
 
     category: "widgets",
