@@ -1,4 +1,6 @@
 import { ImageEdit } from "./image";
+import { hasSelectedInnerBlock } from "../../resources/shared";
+import classnames from 'classnames';
 
 import {
     RichText,
@@ -6,14 +8,14 @@ import {
     InspectorControls,
 } from "@wordpress/block-editor";
 
-import { PanelBody, ToggleControl } from "@wordpress/components";
+import { PanelBody, RadioControl, ToggleControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 function ModalItemEdit( props ) {
 
     //console.log(this.props);
-    const { className, attributes, isSelected, clientId, setAttributes } = props;
-    const { title, name, details, blockId, hideImagePreview, hideTitlePreview } = attributes;
+    const { attributes, isSelected, clientId, setAttributes } = props;
+    const { title, name, details, blockId, hideImagePreview, hideTitlePreview, modalLayout } = attributes;
 
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
@@ -21,7 +23,10 @@ function ModalItemEdit( props ) {
     const blockProps = useBlockProps();
 
     return(
-        <div {...blockProps} >
+        <div {...blockProps}
+        className={ classnames(blockProps.className, {
+            [ `pos-${ modalLayout }` ]: modalLayout,
+        }) }>
             <InspectorControls>
                 <PanelBody>
                 <ToggleControl
@@ -39,10 +44,22 @@ function ModalItemEdit( props ) {
                         setAttributes({ hideTitlePreview: value })
                     }
                 />
+                <RadioControl
+                    label="Modal Window Image Layout"
+                    help="Control the size of the image in the modal view"
+                    selected={ modalLayout }
+                    options={ [
+                        { label: 'Large', value: 'image-large' },
+                        { label: 'Small', value: 'image-small' },
+                    ] }
+                    onChange={value =>
+                        setAttributes({ modalLayout: value })
+                    }
+                />
                 </PanelBody>
             </InspectorControls>
-            <div className={className}>
-            { (!hideImagePreview || isSelected) &&
+
+            { (!hideImagePreview || isSelected || hasSelectedInnerBlock(props)) &&
                 <ImageEdit />
             }
                 <RichText
@@ -53,7 +70,7 @@ function ModalItemEdit( props ) {
                     placeholder={__("Member Name", "carkeek-blocks")}
                     formatingControls={[]}
                 />
-                { (!hideTitlePreview || isSelected) &&
+                { (!hideTitlePreview || isSelected || hasSelectedInnerBlock(props)) &&
                 <RichText
                     className={"ck-modal-title"}
                     tagName="div"
@@ -64,7 +81,7 @@ function ModalItemEdit( props ) {
                 />
                 }
 
-                {isSelected &&
+                { (isSelected || hasSelectedInnerBlock(props)) &&
                 <>
                     <RichText
                         className={"ck-modal-details"}
@@ -76,7 +93,6 @@ function ModalItemEdit( props ) {
                     />
                 </>
                 }
-            </div>
         </div>
     )
 }

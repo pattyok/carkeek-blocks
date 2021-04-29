@@ -1,12 +1,15 @@
 import { ImageSave } from "./image";
+import classnames from 'classnames';
 import { RichText, useBlockProps } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 
 function ModalItemSave ({ attributes }) {
-    const { title, name, details, blockId, hideImagePreview, hideTitlePreview } = attributes;
+    const { title, name, details, blockId, hideImagePreview, hideTitlePreview, modalLayout } = attributes;
     const blockProps = useBlockProps.save();
     return (
-        <div { ...blockProps }>
+        <div { ...blockProps } className={ classnames(blockProps.className, {
+            [ `pos-${ modalLayout }` ]: modalLayout,
+        }) }>
             <div className="ck-modal-item" data-id={blockId}>
             { ! hideImagePreview &&
             <div className="ck-modal-item-image" data-toggle="modal" data-target={`#dialog-${blockId}`}>

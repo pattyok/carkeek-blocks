@@ -32,6 +32,10 @@ const attributes = {
         selector: '.ck-modal-item',
         attribute: 'data-id'
     },
+    modalLayout: {
+        type: 'string',
+        default: 'image-large',
+    },
     hideImagePreview: {
         type: 'boolean',
         default: false

@@ -52,3 +52,22 @@
 	display: none;
 }
 
+@media screen and (min-width: 768px) {
+
+	.wp-block-carkeek-blocks-modal-item {
+
+		&.pos-image-small {
+
+			& .modal-body figure {
+				width: 50%;
+				float: left;
+				padding-right: 2rem;
+				margin-bottom: 2rem;
+			}
+
+			& .ck-modal-item-details {
+				clear: both;
+			}
+		}
+	}
+}

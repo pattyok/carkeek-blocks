@@ -1,4 +1,10 @@
+.editor-styles-wrapper {
 
-.my-test-style {
-	color: #000;
+	& .wp-block.pos-image-small {
+
+		& figure {
+			width: 50%;
+		}
+	}
+
 }
