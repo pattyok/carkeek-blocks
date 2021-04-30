@@ -39,28 +39,44 @@ function postsInspector( props ){
         useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink
     } = attributes;
 
+    let ptOptions = [];
+    if (postTypes) {
+        ptOptions = postTypes.map(type => ({
+            value: type.slug,
+            label: type.name
+        }));
+    }
+    if (!postTypeSelected) {
+        const selectAnItem = { value: null, label: 'Select a Post Type'};
+        ptOptions.unshift(selectAnItem);
+    }
+
+    let taxOptions = [];
+    if (taxonomies) {
+        taxOptions = taxonomies.map(type => ({
+            value: type.slug,
+            label: type.name
+        }));
+    }
+    if (!taxonomySelected) {
+        const selectAnItem = { value: null, label: 'Select a Taxonomy'};
+        taxOptions.unshift(selectAnItem);
+    }
     const postTypeSelect = (
         <SelectControl
             label={__("Post Type", "carkeek-blocks")}
             onChange={ ( postTypeSelected ) => setAttributes( { postTypeSelected } ) }
-            options={
-                postTypes &&
-                postTypes.map(type => ({
-                    value: type.slug,
-                    label: type.name
-                }))
-            }
+            options={ ptOptions }
             value={postTypeSelected}
         />
     );
 
     function handleTaxChange( value ){
         setAttributes( { filterByTaxonomy: value } );
-        if (Array.isArray(taxonomies) && taxonomies.length == 1) {
+        if (Array.isArray(taxonomies) && typeof taxonomies[0] === 'object' && taxonomies[0] !== null && taxonomies[0].slug !== undefined) {
             setAttributes({ taxonomySelected : taxonomies[0].slug});
         }
     }
-
 
     const taxonomySelect = (
         <>
@@ -71,21 +87,22 @@ function postsInspector( props ){
             />
             {filterByTaxonomy && (
             <>
+                { taxonomies && taxonomies.length > 0
+                ?
+                <>
                 <SelectControl
                     label={__("Select Taxonomy", "carkeek-blocks")}
                     onChange={ ( taxonomySelected ) => setAttributes( { taxonomySelected } ) }
-                    options={
-                        taxonomies &&
-                        taxonomies.map(type => ({
-                            value: type.slug,
-                            label: type.name
-                        }))
-                    }
+                    options={ taxOptions }
                     value={taxonomySelected}
                 />
+                </>
+                : <div className="ck-error">{__("There are no taxonomies assigned this post type.", "carkeek-blocks")}</div>
+                }
                 {taxonomySelected && (
                     <>
-                    <SelectControl
+                    { taxTerms && taxTerms.length > 0
+                    ? <SelectControl
                         multiple
                         label={__("Select Terms", "carkeek-blocks")}
                         onChange={ ( terms ) => setAttributes( { taxTermsSelected: terms.join(",") } ) }
@@ -97,7 +114,10 @@ function postsInspector( props ){
                             }))
                         }
                         value={taxTermsSelected && taxTermsSelected.split(',')}
+                        help={__("To select multiple [shift]-click", "carkeek-blocks")}
                     />
+                    : <div className="ck-error">{__("There are no terms assigned to this taxonomy.", "carkeek-blocks")}</div>
+                    }
                     {taxTermsSelected && (taxTermsSelected.split(',').length > 1) &&
                         <RadioControl
                             label={__("Taxonomy Query Type")}

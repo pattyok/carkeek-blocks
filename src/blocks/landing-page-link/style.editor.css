@@ -18,6 +18,11 @@
 			display: flex;
 			width: 100%;
 		}
+
+		& .block-editor-rich-text__editable {
+			border: 1px solid #bdbdbd;
+			padding: 5px;
+		}
 	}
 }
 

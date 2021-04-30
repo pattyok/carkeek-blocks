@@ -3,6 +3,7 @@ import { registerBlockType } from "@wordpress/blocks";
 import icons from "../../resources/icons";
 import { __ } from "@wordpress/i18n";
 import edit from "./edit";
+import deprecated from "./deprecated";
 import { InnerBlocks, RichText, useBlockProps } from "@wordpress/block-editor";
 
 const attributes = {
@@ -49,6 +50,8 @@ registerBlockType("carkeek-blocks/page-link", {
 
     attributes,
 
+    deprecated,
+
     save: ({ attributes }) => {
         const {
             linkTitle,
@@ -60,21 +63,17 @@ registerBlockType("carkeek-blocks/page-link", {
 
         return (
             <div { ...blockProps } >
-                    <a
-                        className={
-                            "ck-page-link-icon-link"
-                        }
-                        href={linkUrl}
-                    ><InnerBlocks.Content /></a>
-                    <a
-                        className={
-                            "ck-page-link"
-                        }
-                        href={linkUrl}
-                    >
-                            {linkTitle }
+                {linkUrl
+                ? <a className={"ck-page-link"} href={linkUrl}>
+                    <InnerBlocks.Content />
+                    <span className={"ck-page-link-title"}>{linkTitle }</span>
                     </a>
-                    <RichText.Content className="ck-page-link-description" tagName="div" value={ pageIntro } />
+                :  <>
+                    <InnerBlocks.Content />
+                    <span className={"ck-page-link-title"}>{linkTitle }</span>
+                    </>
+                }
+                <RichText.Content className="ck-page-link-description" tagName="div" value={ pageIntro } />
             </div>
         );
     },

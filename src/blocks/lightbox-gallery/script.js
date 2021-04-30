@@ -30,7 +30,7 @@ import jQuery from 'jquery';
         }
 
         // setup
-        var sliderElem = $(".ck-blocks-gallery-grid"),
+        var sliderElem = $(".ck-blocks-gallery-grid.mobile-scroll"),
         sliderBool = false,
         sliderBreakpoint = 767,
         sliderSettings = {
@@ -44,7 +44,7 @@ import jQuery from 'jquery';
             ]
         };
         function sliderInit() {
-            if (window.innerWidth <= sliderBreakpoint) {
+            if (window.innerWidth <= sliderBreakpoint && sliderElem.length > 0) {
                 if (sliderBool == false) {
                     sliderElem.slick(sliderSettings);
                     sliderBool = true;

@@ -46,6 +46,10 @@ const attributes = {
         type: 'number',
         default: 4
     },
+    mobileScroll: {
+        type: 'boolean',
+        default: false
+    },
     linkFirstImage: {
         type: 'boolean',
         default: true

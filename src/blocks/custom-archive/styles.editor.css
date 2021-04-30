@@ -4,6 +4,18 @@
 	height: auto !important;
 }
 
+.components-panel .ck-error {
+	margin-bottom: 16px;
+	color: rgb(211, 53, 53);
+}
+
+.components-select-control select[multiple] + .components-input-control__suffix {
+
+	& svg {
+		display: none;
+	}
+}
+
 .editor-styles-wrapper {
 
 	& .wp-block-carkeek-blocks-custom-archive {

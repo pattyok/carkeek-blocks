@@ -4,14 +4,18 @@
 	margin-bottom: 45px;
 	align-items: center;
 
-	& .ck-page-link-icon-link {
-		margin-right: 5px;
-	}
-
 	& .ck-page-link {
 		font-size: 20px;
 		font-weight: 700;
 		text-decoration: none;
+		display: flex;
+		align-items: center;
+	}
+
+	& .ck-page-link-title {
+		display: inline-block;
+		margin-left: 10px;
+		font-size: 20px;
 	}
 
 	& .ck-page-link-description {
@@ -26,15 +30,16 @@
 		flex-direction: column;
 		align-items: flex-start;
 
-
-		& .ck-page-link-icon-link {
-			margin-right: 0;
-			margin-bottom: 1rem;
-		}
-
 		& .ck-page-link {
 			font-size: 24px;
-			margin-bottom: 1rem;
+			margin-bottom: 0;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		& .ck-page-link-title {
+			margin-left: 0;
+			margin-top: 5px;
 		}
 
 		& .ck-page-link-description {

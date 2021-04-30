@@ -6,6 +6,8 @@
 	& .ck-quick-link {
 		font-size: 18px;
 		text-decoration: none;
+		display: flex;
+		align-items: center;
 
 		&.is-placeholder {
 			color: #b0b0b0;
@@ -16,10 +18,14 @@
 		}
 	}
 
+	& .ck-quick-link-title {
+		display: inline-block;
+		margin-left: 10px;
+	}
+
 	& .wp-block-carkeek-blocks-icon__inner {
 		margin-left: auto;
 		margin-right: auto;
-		margin-bottom: 10px;
 	}
 }
 
@@ -44,7 +50,13 @@
 
 		& .ck-quick-link {
 			font-size: 20px;
+			flex-direction: column;
+		}
 
+		& .ck-quick-link-title {
+			display: inline-block;
+			margin-left: 0;
+			margin-top: 5px;
 		}
 	}
 }
