@@ -9,9 +9,10 @@ if ( true == $data->displayPostExcerpt ) {
 	$excerpt = get_the_excerpt();
 	$limit   = $data->excerptLength;
 	if ( str_word_count( $excerpt, 0 ) > $limit ) {
-		$words   = str_word_count( $excerpt, 2 );
-		$pos     = array_keys( $words );
-		$excerpt = substr( $excerpt, 0, $pos[ $limit ] );
+		$words    = str_word_count( $excerpt, 2 );
+		$pos      = array_keys( $words );
+		$excerpt  = substr( $excerpt, 0, $pos[ $limit ] );
+		$excerpt .= '<span class="excerpt-ellipsis">&#8230;</span>';
 	}
 }
 
