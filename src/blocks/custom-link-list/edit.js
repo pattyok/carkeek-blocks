@@ -30,6 +30,7 @@ function CustomListArchiveEdit( props ) {
         sortBy,
         order,
         makeCollapsible,
+        makeTitlesCollapsible,
         primaryContent
     } = attributes;
     const headlineStyle = 'h' + headlineLevel;
@@ -120,6 +121,14 @@ function CustomListArchiveEdit( props ) {
                     checked={makeCollapsible}
                     onChange={value =>
                         setAttributes({ makeCollapsible: value })
+                    }
+                />
+                <ToggleControl
+                    label={__("Make item titles expand and collapse", "carkeek-blocks")}
+                    help={__("Can be used with content lists, will only be applied if the item is not linked to anything", "carkeek-blocks")}
+                    checked={makeTitlesCollapsible}
+                    onChange={value =>
+                        setAttributes({ makeTitlesCollapsible: value })
                     }
                 />
             </PanelBody>

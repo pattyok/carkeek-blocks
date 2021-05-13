@@ -151,23 +151,23 @@ class CarkeekBlocks_Block_Register {
 					'publishDateLocation'  => array(
 						'type' => 'string',
 					),
-					'showTerms'      => array(
+					'showTerms'            => array(
 						'type' => 'boolean',
 					),
-					'showPagination'      => array(
-						'type' => 'boolean',
+					'showPagination'       => array(
+						'type'    => 'boolean',
 						'default' => false,
 					),
-					'showLearnMoreLink'      => array(
-						'type' => 'boolean',
+					'showLearnMoreLink'    => array(
+						'type'    => 'boolean',
 						'default' => false,
 					),
-					'learnMoreLinkTitle'      => array(
-						'type' => 'string'
-					),
-					'taxQueryType'      => array(
+					'learnMoreLinkTitle'   => array(
 						'type' => 'string',
-						'default' => 'AND'
+					),
+					'taxQueryType'         => array(
+						'type'    => 'string',
+						'default' => 'AND',
 					),
 				),
 			)
@@ -265,30 +265,34 @@ class CarkeekBlocks_Block_Register {
 			array(
 				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_linklist' ),
 				'attributes'      => array(
-					'order'           => array(
+					'order'                 => array(
 						'type'    => 'string',
 						'default' => 'ASC',
 					),
-					'makeCollapsible' => array(
+					'makeCollapsible'       => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'headline'        => array(
+					'makeTitlesCollapsible' => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'headline'              => array(
 						'type' => 'string',
 					),
-					'sortBy'          => array(
+					'sortBy'                => array(
 						'type'    => 'string',
 						'default' => 'title',
 					),
-					'headlineLevel'   => array(
+					'headlineLevel'         => array(
 						'type'    => 'number',
 						'default' => 2,
 					),
-					'listSelected'    => array(
+					'listSelected'          => array(
 						'type' => 'string',
 					),
-					'primaryContent'    => array(
-						'type' => 'string',
+					'primaryContent'        => array(
+						'type'    => 'string',
 						'default' => 'links',
 					),
 				),

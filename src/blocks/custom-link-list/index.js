@@ -21,6 +21,10 @@ const attributes = {
         type: "boolean",
         default: true,
     },
+    makeTitlesCollapsible: {
+        type: "boolean",
+        default: false,
+    },
     listSelected: {
         type: "string"
     },
