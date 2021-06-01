@@ -4,6 +4,9 @@ if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, 'medium_large' );
 }
 
+$featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image', $featured_image, $post->ID, $data );
+
+
 $excerpt = '';
 if ( true == $data->displayPostExcerpt ) {
 	$excerpt = get_the_excerpt();
