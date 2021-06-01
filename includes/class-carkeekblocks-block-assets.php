@@ -127,7 +127,9 @@ class CarkeekBlocks_Block_Assets {
 		// Only load slider js when using the slider block
 		if ( is_singular() ) {
 			$id = get_the_ID();
+			error_log( $id );
 			if ( has_block( 'carkeek-blocks/carkeek-slider', $id ) || has_block( 'carkeek-blocks/lightbox-gallery', $id ) ) {
+				error_log( 'loading slick' );
 				wp_enqueue_script(
 					'ck-slick',
 					$this->url . '/vendor/slick.js',
@@ -137,6 +139,7 @@ class CarkeekBlocks_Block_Assets {
 				);
 			}
 			if ( has_block( 'carkeek-blocks/lightbox-gallery', $id ) ) {
+				error_log( 'loading fancybox' );
 				wp_enqueue_script(
 					'ck-fancybox',
 					$this->url . '/vendor/jquery.fancybox.js',

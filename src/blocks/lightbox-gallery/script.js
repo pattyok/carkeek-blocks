@@ -3,6 +3,7 @@ import "./style.css";
 import jQuery from 'jquery';
 
 (function($) {
+
     $(function(){
         if (typeof $().fancybox !== "undefined") {
             let titleAdded = false;
@@ -43,6 +44,7 @@ import jQuery from 'jquery';
                 }
             ]
         };
+
         function sliderInit() {
             if (window.innerWidth <= sliderBreakpoint && sliderElem.length > 0) {
                 if (sliderBool == false) {

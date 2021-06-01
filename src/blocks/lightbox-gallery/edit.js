@@ -13,7 +13,7 @@ function LightboxGalleryEdit( props ) {
 
     //console.log(this.props);
     const { attributes, isSelected, clientId, setAttributes} = props;
-    const { title, subtitle, images, blockId, linkFirstImage, hideTitle, displayAs, columns, cropImages, limitView, viewLimit, imageLayout, scrollMobile } = attributes;
+    const { title, subtitle, images, blockId, linkFirstImage, hideTitle, displayAs, columns, cropImages, limitView, viewLimit, imageLayout, mobileScroll } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
@@ -129,8 +129,8 @@ function LightboxGalleryEdit( props ) {
                             <ToggleControl
                                 label="Horizontal scroll on mobile"
                                 help={ "Scroll gallery items horizontally on mobile"}
-                                checked={ scrollMobile }
-                                onChange={ ( scrollMobile ) => setAttributes( { scrollMobile } ) }
+                                checked={ mobileScroll }
+                                onChange={ ( mobileScroll ) => setAttributes( { mobileScroll } ) }
                             />
                             </PanelBody>
                         </>

@@ -3,7 +3,7 @@ import { RichText, useBlockProps } from "@wordpress/block-editor";
 import { cleanForSlug } from "@wordpress/editor";
 
 function LighboxGallerySave ({ attributes }) {
-    const { title, subtitle, images, linkFirstImage, blockId, hideTitle, displayAs, viewLimit, cropImages, columns, limitView, imageLayout, scrollMobile} = attributes;
+    const { title, subtitle, images, linkFirstImage, blockId, hideTitle, displayAs, viewLimit, cropImages, columns, limitView, imageLayout, mobileScroll} = attributes;
     const blockProps = useBlockProps.save();
     const hasImages = !! images.length;
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
@@ -16,7 +16,7 @@ function LighboxGallerySave ({ attributes }) {
 		'fixed-images': isGallery && cropImages,
         'ck-blocks-gallery-hidden': !isGallery,
         [ `fixed-images-${ imageLayout }` ]: isGallery && cropImages,
-        'mobile-scroll': scrollMobile
+        'mobile-scroll': mobileScroll
 	})
 
 
