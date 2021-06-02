@@ -5,7 +5,6 @@ export default function ImageEdit() {
     const template = [['carkeek-blocks/fixed-image', { useCaption: false, useLink: false }]];
     return (
             <InnerBlocks
-                templateLock="all"
                 template={ template }
             />
     )
