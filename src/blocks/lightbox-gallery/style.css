@@ -14,6 +14,10 @@ body.admin-bar .fancybox-container {
 
 }
 
+:root {
+	--ck-gallery-gutter: 1.875rem;
+}
+
 .ck-blocks-gallery-hidden {
 	display: none;
 }
@@ -25,7 +29,17 @@ ul.ck-blocks-gallery-grid {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	display: none;
+
+	&.mobile-scroll {
+		display: none;
+	}
+
+	&:not(.mobile-scroll) {
+
+		& .ck-blocks-gallery-grid-item {
+			margin-bottom: var(--ck-gallery-gutter);
+		}
+	}
 
 	&.slick-slider {
 		display: block;
@@ -101,10 +115,6 @@ ul.ck-blocks-gallery-grid {
 }
 
 @media screen and (min-width: 768px) {
-
-	:root {
-		--ck-gallery-gutter: 1.875rem;
-	}
 
 	ul.ck-blocks-gallery-grid {
 		display: flex;
