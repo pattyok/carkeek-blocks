@@ -123,6 +123,10 @@ ul.ck-blocks-gallery-grid {
 		margin: 0 calc(-1 * var(--ck-gallery-gutter) / 2);
 		padding: 0;
 
+		&.mobile-scroll {
+			display: flex;
+		}
+
 		& > li {
 			padding-left: calc(var(--ck-gallery-gutter) / 2);
 			padding-right: calc(var(--ck-gallery-gutter) / 2);
