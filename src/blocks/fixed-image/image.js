@@ -16,7 +16,8 @@ import {
 	ToolbarGroup,
     FocalPointPicker,
 	SelectControl,
-	ToggleControl
+	ToggleControl,
+	IconButton
 } from '@wordpress/components';
 import { usePrevious } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
@@ -158,6 +159,12 @@ export default function Image( {
 			setCaptionFocused( false );
 		}
 	}
+	function onRemoveImage() {
+		setAttributes( {
+			url: undefined,
+			id: undefined,
+		} )
+	}
 
 	function updateAlt( newAlt ) {
 		setAttributes( { alt: newAlt } );
@@ -205,9 +212,11 @@ export default function Image( {
 							linkClass={ linkStyle }
 							rel={ rel }
 						/>
+
 						</ToolbarGroup>
 					) }
 				{ ! multiImageSelection && ! isEditingImage && (
+					<>
 					<MediaReplaceFlow
 						mediaId={ id }
 						mediaURL={ url }
@@ -216,6 +225,13 @@ export default function Image( {
 						onSelect={ onSelectImage }
 						onError={ onUploadError }
 					/>
+					<IconButton
+							className="components-icon-button components-toolbar__control"
+							label={__("Remove Image", "carkeek-blocks")}
+							onClick={onRemoveImage}
+							icon="trash"
+						/>
+					</>
 				) }
 			</BlockControls>
 			<InspectorControls>

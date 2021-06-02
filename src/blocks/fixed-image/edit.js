@@ -233,6 +233,7 @@ export function ImageEdit( {
 				mediaPreview={ mediaPreview }
 				disableMediaButtons={ url }
 			/>
+
 		</figure>
 	);
 }

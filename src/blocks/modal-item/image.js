@@ -6,6 +6,7 @@ export default function ImageEdit() {
     return (
             <InnerBlocks
                 template={ template }
+                templateLock="all"
             />
     )
 }

@@ -89,8 +89,13 @@ export default function save( { attributes } ) {
 	);
 
 	return (
+		<>
+		{url &&
 		<figure { ...useBlockProps.save( { className: classes } ) }>
 			{ figure }
 		</figure>
+		}
+		</>
 	);
+
 }

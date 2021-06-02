@@ -8,3 +8,7 @@
 		height: 100%;
 	}
 }
+
+.block-editor-block-toolbar__slot {
+	align-items: center;
+}
