@@ -10,7 +10,6 @@ $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected 
 $excerpt = '';
 if ( true == $data->displayPostExcerpt ) {
 	$excerpt = get_the_excerpt();
-	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 	$limit   = $data->excerptLength;
 	if ( str_word_count( $excerpt, 0 ) > $limit ) {
 		$words    = str_word_count( $excerpt, 2 );
@@ -18,6 +17,7 @@ if ( true == $data->displayPostExcerpt ) {
 		$excerpt  = substr( $excerpt, 0, $pos[ $limit ] );
 		$excerpt .= '<span class="excerpt-ellipsis">&#8230;</span>';
 	}
+	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
 
 $permalink  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
