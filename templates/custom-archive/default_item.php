@@ -20,8 +20,9 @@ if ( true == $data->displayPostExcerpt ) {
 	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
 
-$permalink  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
-$link_title = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s">%2s</a>', $permalink, get_the_title() );
+$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
+$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', '_self', $data );
+$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%3s">%2s</a>', $permalink, get_the_title(), $permalink_target );
 if ( $data->useHeadingTitle ) {
 	$start      = '<h' . $data->headlineLevel . '>';
 	$end        = '</h' . $data->headlineLevel . '>';
@@ -42,7 +43,7 @@ $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $met
 <?php
 if ( ! empty( $featured_image ) ) {
 	?>
-		<a class="ck-custom-archive-image-link" href="<?php echo esc_url( $permalink ); ?>">
+		<a class="ck-custom-archive-image-link" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 			<?php echo wp_kses_post( $featured_image ); ?>
 		</a>
 	<?php } ?>
