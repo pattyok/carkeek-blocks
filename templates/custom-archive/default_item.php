@@ -22,7 +22,7 @@ if ( true == $data->displayPostExcerpt ) {
 
 $permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
 $permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', '_self', $data );
-$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%3s">%2s</a>', $permalink, get_the_title(), $permalink_target );
+$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
 if ( $data->useHeadingTitle ) {
 	$start      = '<h' . $data->headlineLevel . '>';
 	$end        = '</h' . $data->headlineLevel . '>';
