@@ -8,8 +8,12 @@ foreach ( $meta_fields as $field ) {
 	switch ( $field ) {
 		case 'startdate':
 			// todo add a filter for format and entire date
-			$start       = tribe_get_start_date( $post->ID, false, 'F j' );
-			$meta_data[] = '<div class="ck-item-event_date">' . $start . '</div>';
+			$start = tribe_get_start_date( $post->ID, false, 'F j' );
+			$end   = '';
+			if ( tribe_event_is_multiday( $post ) ) {
+				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, 'l, F j' ) );
+			}
+			$meta_data[] = '<div class="ck-item-event_date">' . $start . $end . '</div>';
 			break;
 		case 'organizer':
 			$organizers = tribe_get_organizer_ids( $post->ID );
@@ -22,7 +26,7 @@ foreach ( $meta_fields as $field ) {
 			$meta_data[] = $organizer;
 			break;
 		case 'venue':
-			$venue = '<div class="ck-item-event_venue">' . tribe_get_venue( $post->ID ) . '</div>';
+			$venue       = '<div class="ck-item-event_venue">' . tribe_get_venue( $post->ID ) . '</div>';
 			$meta_data[] = $venue;
 			break;
 	}
