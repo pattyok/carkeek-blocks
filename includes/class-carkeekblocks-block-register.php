@@ -250,6 +250,18 @@ class CarkeekBlocks_Block_Register {
 						'displayField4'        => array(
 							'type' => 'string',
 						),
+						'dateFormat'           => array(
+							'type'    => 'string',
+							'default' => 'F j',
+						),
+						'timeFormat'           => array(
+							'type'    => 'string',
+							'default' => 'g:i a',
+						),
+						'showEndDate'           => array(
+							'type'    => 'string',
+							'default' => 'show_end_date',
+						),
 						'featuredEvents'       => array(
 							'type'    => 'boolean',
 							'default' => false,

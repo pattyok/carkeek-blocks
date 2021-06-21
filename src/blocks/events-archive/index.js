@@ -22,6 +22,18 @@ const attributes = {
     displayField4: {
         type: "string",
     },
+    dateFormat: {
+        type: "string",
+        default: 'F j'
+    },
+    timeFormat: {
+        type: "string",
+        default: 'g:i a'
+    },
+    showEndDate: {
+        type: "string",
+        default: 'show_end_date'
+    },
     displayFeaturedImage: {
         type: "boolean",
         default: true,

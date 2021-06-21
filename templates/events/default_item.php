@@ -7,11 +7,18 @@ $meta_data   = array();
 foreach ( $meta_fields as $field ) {
 	switch ( $field ) {
 		case 'startdate':
-			// todo add a filter for format and entire date
-			$start = tribe_get_start_date( $post->ID, false, 'F j' );
+			$date_format = !empty($data->dateFormat) ? $data->dateFormat : 'F j';
+			$show_time = false;
+			if (!empty($data->timeFormat)) {
+				$date_format .= ', ' . $data->timeFormat;
+				$show_time = true;
+			}
+			$start = tribe_get_start_date( $post->ID, false, $date_format );
 			$end   = '';
-			if ( tribe_event_is_multiday( $post ) ) {
-				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, 'l, F j' ) );
+			if ( tribe_event_is_multiday( $post ) && 'show_end_date' == $data->showEndDate ) {
+				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $date_format ) );
+			} elseif (true == $show_time && 'show_end_date' == $data->showEndDate) {
+				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $data->timeFormat ) );
 			}
 			$meta_data[] = '<div class="ck-item-event_date">' . $start . $end . '</div>';
 			break;
