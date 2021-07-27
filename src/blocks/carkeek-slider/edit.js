@@ -50,7 +50,8 @@ export default function SliderEdit( props ) {
     const { innerBlockType, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
 
     const blockOptions = [
-        { label: 'Image and Caption', value: 'carkeek-blocks/fixed-image'},
+        { label: 'Fixed Sized Image and Caption', value: 'carkeek-blocks/fixed-image'},
+        { label: 'Image and Caption', value: 'core/image'},
         { label: 'Cover Block', value: 'core/cover'},
         { label: 'Media Text', value: 'core/media-text'},
         { label: 'Group', value: 'core/group'},

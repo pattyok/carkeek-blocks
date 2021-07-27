@@ -62,6 +62,14 @@
 		--slick-arrow-color: #b0b0b0;
 		--slick-opacity-default: 0.8;
 
+		& .slide-carousel {
+			display: flex !important;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+			padding: 0 1rem;
+		}
+
 		& .slick-prev {
 			left: -40px;
 		}

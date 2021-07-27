@@ -1,17 +1,17 @@
 <?php
-/*
-* Plugin Name: Carkeek Blocks
-* Plugin URI: https://github.com/pattyok/carkeek-blocks
-* GitHub Plugin URI: pattyok/carkeek-blocks
-* Requires PHP: 7.0
-* Requires at least: 5.6
-* Primary Branch: main
-* Description: Series of blocks designed to work with this site's custom Theme
-* Author: Patty O'Hara
-* Version: 1.3.08
-* Author URI https://carkeekstudios.com/
-* Text Domain: carkeek-blocks
-*/
+/**
+ * Plugin Name: Carkeek Blocks
+ * Plugin URI: https://github.com/pattyok/carkeek-blocks
+ * GitHub Plugin URI: pattyok/carkeek-blocks
+ * Requires PHP: 7.0
+ * Requires at least: 5.6
+ * Primary Branch: main
+ * Description: Series of blocks designed to work with this site's custom Theme
+ * Author: Patty O'Hara
+ * Version: 1.3.09
+ * Author URI https://carkeekstudios.com/
+ * Text Domain: carkeek-blocks
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
