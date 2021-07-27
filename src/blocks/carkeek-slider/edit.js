@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import { __ } from "@wordpress/i18n";
 import {
     InspectorControls,
@@ -46,7 +47,7 @@ function AddABlock( props ) {
 
 export default function SliderEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, carousel } = attributes;
+    const { innerBlockType, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
 
     const blockOptions = [
         { label: 'Image and Caption', value: 'carkeek-blocks/fixed-image'},
@@ -55,12 +56,68 @@ export default function SliderEdit( props ) {
         { label: 'Group', value: 'core/group'},
     ];
 
-    let blockProps = useBlockProps();
+    const classes = classnames( {
+        [ `slider-${ sliderType }` ]: sliderType,
+        [ `show-slides-${ slidesToShow }` ]: slidesToShow,
+    } );
+
+    //const blockProps = useBlockProps.save( { className: classes } );
+
+    const blockProps = useBlockProps( { className: classes } );
 
     return(
         <>
         <InspectorControls>
                     <PanelBody>
+                    <RadioControl
+                            label="Slider Style"
+                            selected={ sliderType }
+                            options={ [
+                                { label: 'Single Slide', value: 'single' },
+                                { label: 'Carousel', value: 'carousel' },
+                            ] }
+                            onChange={ ( sliderType ) => { setAttributes( { sliderType } ) } }
+                        />
+                        {sliderType == 'carousel' &&
+                        <>
+                            <RangeControl
+                                label={__("Slides to Show", "carkeek-blocks")}
+                                value={slidesToShow}
+                                onChange={value =>
+                                    setAttributes({ slidesToShow: value })
+                                }
+                                min={2}
+                                max={6}
+                            />
+                            <RangeControl
+                                label={__("Slides to Scroll", "carkeek-blocks")}
+                                value={slidesToScroll}
+                                onChange={value =>
+                                    setAttributes({ slidesToScroll: value })
+                                }
+                                min={1}
+                                max={6}
+                            />
+                            <RangeControl
+                                label={__("Slides to Show Mobile", "carkeek-blocks")}
+                                value={slidesToShowMobile}
+                                onChange={value =>
+                                    setAttributes({ slidesToShowMobile: value })
+                                }
+                                min={1}
+                                max={6}
+                            />
+                            <RangeControl
+                                label={__("Slides to Scroll Mobile", "carkeek-blocks")}
+                                value={slidesToScrollMobile}
+                                onChange={value =>
+                                    setAttributes({ slidesToScrollMobile: value })
+                                }
+                                min={1}
+                                max={6}
+                            />
+                        </>
+                        }
                         <ToggleControl
                             label="Auto Play Slider"
                             checked={ autoPlay }
@@ -104,36 +161,7 @@ export default function SliderEdit( props ) {
                             min={1000}
                             max={10000}
                         />
-                        {/* code is ready, but need to do more styling if carousel is desired - its set to false by default so option is not displayed */}
-                        {carousel &&
-                        <RadioControl
-                            label="Slider type"
-                            selected={ sliderType }
-                            options={ [
-                                { label: 'Single Slides', value: 'single' },
-                                { label: 'Carousel', value: 'carousel' },
-                            ] }
-                            onChange={ ( sliderType ) => { setAttributes( { sliderType } ) } }
-                        />
-                        }
-                        {sliderType == 'carousel' &&
-                            <RangeControl
-                            label={__("Slides to Show", "carkeek-blocks")}
-                            value={slidesToShow}
-                            onChange={ ( slidesToShow ) => { setAttributes( { slidesToShow } ) } }
-                            min={2}
-                            max={6}
-                        />
-                        }
-                        {sliderType == 'carousel' &&
-                            <RangeControl
-                            label={__("Slides to Scroll", "carkeek-blocks")}
-                            value={slidesToScroll}
-                            onChange={ ( slidesToScroll ) => { setAttributes( { slidesToScroll } ) } }
-                            min={1}
-                            max={6}
-                        />
-                        }
+
                     </PanelBody>
                 </InspectorControls>
             <InspectorAdvancedControls>

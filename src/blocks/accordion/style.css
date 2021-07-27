@@ -85,7 +85,7 @@
 	} */
 
 	& .accordion__trigger:hover::after,
-	& .accordion__trigger:focus::after,
+	& .accordion__trigger:focus-visible::after,
 	& .accordion__trigger[aria-expanded="true"]::after {
 		border-top-color: #fff;
 	}
@@ -109,7 +109,7 @@
 	*/
 
 	& .accordion__trigger:hover,
-	& .accordion__trigger:focus {
+	& .accordion__trigger:focus-visible {
 		background-color: var(--ck-color-accordion-header-focus-bg);
 		color: var(--ck-color-accordion-header-focus-text);
 		outline: none;

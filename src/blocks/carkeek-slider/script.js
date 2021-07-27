@@ -9,7 +9,9 @@ import "./style.css";
             const speed = $(this).data("speed");
             const type = $(this).data("type");
             const slides = $(this).data("slides");
-            const scroll = $(this).data("slides");
+            const scroll = $(this).data("scroll");
+            const slidesMobile = $(this).data("slidesmobile");
+            const scrollMobile = $(this).data("scrollmobile");
             const fade = $(this).data("transition");
             const transSpeed = $(this).data("transitionspd");
             const dots = $(this).data("showdots");
@@ -24,6 +26,15 @@ import "./style.css";
             if (type == "carousel") {
                 options.slidesToShow = slides;
                 options.slidesToScroll = scroll;
+                if (slides > slidesMobile) {
+                    options.responsive = [{
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: slidesMobile,
+                            slidesToScroll: scrollMobile
+                        }
+                    }]
+                }
             }
 
             if (fade == 'fade') {

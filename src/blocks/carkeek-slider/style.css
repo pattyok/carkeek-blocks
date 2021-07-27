@@ -58,4 +58,17 @@
 		color: var(--global-font-color);
 	}
 
+	&.slider-carousel {
+		--slick-arrow-color: #b0b0b0;
+		--slick-opacity-default: 0.8;
+
+		& .slick-prev {
+			left: -40px;
+		}
+
+		& .slick-next {
+			right: -40px;
+		}
+	}
+
 }

@@ -1,5 +1,7 @@
 import "./style.editor.css";
+import classnames from "classnames";
 import edit from './edit';
+import deprecated from './deprecated';
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
@@ -25,6 +27,14 @@ const attributes = {
     slidesToScroll: {
         type: 'number',
         default: 3
+    },
+    slidesToShowMobile: {
+        type: 'number',
+        default: 1
+    },
+    slidesToScrollMobile: {
+        type: 'number',
+        default: 1
     },
     carousel: {
         type: 'boolean',
@@ -90,9 +100,14 @@ registerBlockType("carkeek-blocks/carkeek-slider", {
 
     edit,
 
+    deprecated,
+
     save({ attributes } ) {
-        const{ autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, transitionSpeed, sliderType, slidesToScroll } = attributes;
-        const blockProps = useBlockProps.save()
+        const{ autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
+        const classes = classnames( {
+            [ `slider-${ sliderType }` ]: sliderType
+        } );
+        const blockProps = useBlockProps.save({ className: classes })
         return (
             <div {...blockProps}>
                 <div className="ck-carkeek-slider__slide-wrapper"
@@ -100,9 +115,11 @@ registerBlockType("carkeek-blocks/carkeek-slider", {
                 data-speed={autoPlaySpeed}
                 data-type={sliderType}
                 data-slides={slidesToShow}
+                data-slidesmobile={slidesToShowMobile}
                 data-transition={transitionType}
                 data-transitionspd={transitionSpeed}
                 data-scroll={slidesToScroll}
+                data-scrollmobile={slidesToScrollMobile}
                 data-showdots={showDots}>
                 <InnerBlocks.Content />
                 </div>
