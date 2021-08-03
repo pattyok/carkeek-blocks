@@ -12,3 +12,4 @@ import "./blocks/icon-text/script";
 import "./blocks/contextual-highlight/script";
 import "./blocks/carkeek-slider/script";
 import "./blocks/lightbox-gallery/script";
+import "./blocks/extended-gallery/script";

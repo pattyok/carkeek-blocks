@@ -65,6 +65,7 @@ class CarkeekBlocks_Block_Register {
 			'widget-row',
 			'quick-link',
 			'page-link',
+			'extended-gallery',
 		);
 
 		foreach ( $blocks as $block ) {
@@ -258,7 +259,7 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'string',
 							'default' => 'g:i a',
 						),
-						'showEndDate'           => array(
+						'showEndDate'          => array(
 							'type'    => 'string',
 							'default' => 'show_end_date',
 						),

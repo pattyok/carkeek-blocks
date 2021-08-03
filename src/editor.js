@@ -13,4 +13,5 @@ import "./blocks/icon-text";
 import "./blocks/contextual-highlight";
 import "./blocks/carkeek-slider";
 import "./blocks/lightbox-gallery";
+import "./blocks/extended-gallery";
 

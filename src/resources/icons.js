@@ -124,6 +124,31 @@ viewBox="0 0 100 100"
 <path d="M65 82.5H85V85H65z"></path>
 </svg>
 
+icons.logogrid = <svg
+xmlns="http://www.w3.org/2000/svg"
+width="100"
+height="100"
+x="0"
+y="0"
+viewBox="0 0 16 16"
+>
+<path
+  style={{
+    WebkitTextIndent: "0",
+    textIndent: "0",
+    WebkitTextTransform: "none",
+    textTransform: "none",
+    blockProgression: "tb",
+  }}
+  d="M.5 1036.362a.52.52 0 00-.5.5v6c0 .262.238.5.5.5h6a.52.52 0 00.5-.5v-6a.52.52 0 00-.5-.5zm9 0a.52.52 0 00-.5.5v6c0 .262.238.5.5.5h6a.52.52 0 00.5-.5v-6a.52.52 0 00-.5-.5zm-8.5 1h5v5H1zm-.5 8a.52.52 0 00-.5.5v6c0 .262.238.5.5.5h6a.52.52 0 00.5-.5v-6a.52.52 0 00-.5-.5zm9 0a.52.52 0 00-.5.5v6c0 .262.238.5.5.5h6a.52.52 0 00.5-.5v-6a.52.52 0 00-.5-.5zm.5 1h5v5h-5z"
+  color="#000"
+  enableBackground="accumulate"
+  overflow="visible"
+  transform="translate(0 -1036.362)"
+></path>
+</svg>
+
+
 icons.listLayout = <svg
 xmlns="http://www.w3.org/2000/svg"
 width="30"

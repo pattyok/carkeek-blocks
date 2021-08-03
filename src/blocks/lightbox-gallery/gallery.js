@@ -189,9 +189,7 @@ export const Gallery = ( props ) => {
         } );
     }
 
-
 	const hasImages = !! images.length;
-
 
     function getImagesSizeOptions() {
 		return map(

@@ -3,7 +3,7 @@ import "./style.css";
 
 (function($) {
     $(function(){
-        $(".ck-carkeek-slider__slide-wrapper").each(function() {
+        $(".wp-block-carkeek-blocks-carkeek-slider .ck-carkeek-slider__slide-wrapper").each(function() {
             //collect slider settings
             const autoPlay = $(this).data("autoplay");
             const speed = $(this).data("speed");
