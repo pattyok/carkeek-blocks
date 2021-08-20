@@ -131,6 +131,9 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'string',
 						'default' => 'date',
 					),
+					'sortByMeta'               => array(
+						'type'    => 'string',
+					),
 					'emptyMessage'         => array(
 						'type' => 'string',
 					),

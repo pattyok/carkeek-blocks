@@ -32,6 +32,7 @@ function postsInspector( props ){
         emptyMessage,
         headlineLevel,
         sortBy,
+        sortByMeta,
         order,
         columns,
         displayFeaturedImage,
@@ -170,10 +171,20 @@ function postsInspector( props ){
                             { label: __("Publish Date"), value: "date"},
                             { label: __("Title (alpha)"), value: "title"},
                             { label: __("Menu Order"), value: "menu_order"},
+                            { label: __("Custom Field"), value: "meta_value"},
                             { label: __("Random"), value: "rand"}
                         ]}
                         value={sortBy}
                     />
+                {sortBy == 'meta_value' &&
+                    <TextControl
+                    label="Custom Field"
+                    value={ sortByMeta }
+                    onChange={value =>
+                        setAttributes({ sortByMeta: value })
+                    }
+                    />
+                }
                 <RadioControl
                     label={__("Order")}
                     selected={order}

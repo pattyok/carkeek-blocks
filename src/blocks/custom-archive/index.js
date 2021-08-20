@@ -41,6 +41,9 @@ const attributes = {
         type: "string",
         default: "date"
     },
+    sortByMeta: {
+        type: "string",
+    },
     order: {
         type: "string",
         default: "ASC"

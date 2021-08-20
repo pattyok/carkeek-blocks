@@ -186,6 +186,25 @@ class CarkeekBlocks_CustomPost {
 			'paged'          => $paged,
 		);
 
+		if ( 'meta_value' == $attributes['sortBy'] && ! empty( $attributes['sortByMeta'] ) ) {
+			$args['orderby']  = array(
+				$attributes['sortBy'] => $attributes['order'],
+				'title'               => $attributes['order'],
+			);
+			// pull back all items whether they have been assigned or not
+			$args['meta_query'] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => $attributes['sortByMeta'],
+					'compare' => 'EXISTS',
+				),
+				array(
+					'key'     => $attributes['sortByMeta'],
+					'compare' => 'NOT EXISTS',
+				),
+			);
+		}
+
 		if ( true === $attributes['filterByTaxonomy'] && ! empty( $attributes['taxonomySelected'] ) && ! empty( $attributes['taxTermsSelected'] ) ) {
 			$tax_terms = explode( ',', $attributes['taxTermsSelected'] );
 			if ( count( $tax_terms ) > 1 && 'AND' === $attributes['taxQueryType'] ) {
@@ -212,6 +231,7 @@ class CarkeekBlocks_CustomPost {
 				);
 			}
 		}
+		error_log( print_r( $args, true ) );
 
 		$args  = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
 		$query = new WP_Query( $args );
