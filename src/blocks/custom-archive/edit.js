@@ -89,7 +89,7 @@ export default withSelect((select, props) => {
 
 
     return {
-        postTypes: getPostTypes(),
+        postTypes: getPostTypes( { per_page: -1 } ),
         taxonomies: taxonomies,
         taxSelected:  Array.isArray(taxonomies) && taxonomies.length == 1 ? taxonomies[0] : taxonomySelected,
         taxTerms: taxTerms,
