@@ -7,7 +7,7 @@ import { get, omit } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { Component } from '@wordpress/element';
+ import { useState } from '@wordpress/element';
 import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { BACKSPACE, DELETE } from '@wordpress/keycodes';
@@ -16,14 +16,6 @@ import { RichText, MediaPlaceholder, InspectorControls, URLInputButton } from '@
 import { isBlobURL } from '@wordpress/blob';
 import { compose } from '@wordpress/compose';
 import icons from './icons';
-import { Icon, check, chevronLeft, chevronRight } from '@wordpress/icons';
-// import {
-// 	closeSmall,
-// 	chevronLeft,
-// 	chevronRight,
-// 	edit,
-// 	image as imageIcon,
-// } from './icons';
 
 /**
  * Internal dependencies
@@ -32,65 +24,65 @@ import { pickRelevantMediaFiles } from './shared';
 
 const isTemporaryImage = ( id, url ) => ! id && isBlobURL( url );
 
-class GalleryImage extends Component {
-	constructor() {
-		super( ...arguments );
+export const GalleryImage = ( props ) => {
+	const {
+		url,
+		alt,
+		id,
+		linksto,
+		focalPointX,
+		focalPointY,
+		isFirstItem,
+		isLastItem,
+		isSelected,
+		caption,
+		onRemove,
+		onMoveForward,
+		onMoveBackward,
+		setAttributes,
+		'aria-label': ariaLabel,
+	} = props;
 
-		this.onSelectImage = this.onSelectImage.bind( this );
-        this.onSelectCaption = this.onSelectCaption.bind( this );
-		this.onRemoveImage = this.onRemoveImage.bind( this );
-		this.bindContainer = this.bindContainer.bind( this );
-		this.onEdit = this.onEdit.bind( this );
-		this.onSelectImageFromLibrary = this.onSelectImageFromLibrary.bind(
-			this
-		);
-		this.onSetUrl = this.onSetUrl.bind( this );
-        this.onSetFocalPoint = this.onSetFocalPoint.bind( this );
-		this.state = {
-			captionSelected: false,
-			isEditing: false,
-		};
-	}
 
-	bindContainer( ref ) {
-		this.container = ref;
-	}
+	const [isEditing, setIsEditing] = useState( false );
 
-	onSelectCaption() {
-		if ( ! this.state.captionSelected ) {
-			this.setState( {
-				captionSelected: true,
-			} );
-		}
+	// onSelectCaption() {
+	// 	if ( ! this.state.captionSelected ) {
+	// 		this.setState( {
+	// 			captionSelected: true,
+	// 		} );
+	// 	}
 
-		if ( ! this.props.isSelected ) {
-			this.props.onSelect();
-		}
-	}
+	// 	if ( ! this.props.isSelected ) {
+	// 		this.props.onSelect();
+	// 	}
+	// }
 
-	onSelectImage() {
-		if ( ! this.props.isSelected ) {
-			this.props.onSelect();
-		}
+	// onSelectImage() {
+	// 	if ( ! this.props.isSelected ) {
+	// 		this.props.onSelect();
+	// 	}
 
-		if ( this.state.captionSelected ) {
-			this.setState( {
-				captionSelected: false,
-			} );
-		}
-	}
+	// 	if ( this.state.captionSelected ) {
+	// 		this.setState( {
+	// 			captionSelected: false,
+	// 		} );
+	// 	}
+	// }
 
-	onRemoveImage( event ) {
-		if (
-			this.container === document.activeElement &&
-			this.props.isSelected &&
-			[ BACKSPACE, DELETE ].indexOf( event.keyCode ) !== -1
-		) {
-			event.stopPropagation();
-			event.preventDefault();
-			this.props.onRemove();
-		}
-	}
+	function onRemoveImage( index ) {
+        return () => {
+            const images = filter(
+                images,
+                ( img, i ) => index !== i
+            );
+
+            setAttributes( {
+                images
+            } );
+			onDeselect();
+        };
+    }
 
 	onEdit() {
 		this.setState( {
@@ -174,23 +166,7 @@ class GalleryImage extends Component {
     }
 
 	render() {
-		const {
-			url,
-			alt,
-			id,
-            linksto,
-            focalPointX,
-            focalPointY,
-			isFirstItem,
-			isLastItem,
-			isSelected,
-			caption,
-			onRemove,
-			onMoveForward,
-			onMoveBackward,
-			setAttributes,
-			'aria-label': ariaLabel,
-		} = this.props;
+
 		const { isEditing } = this.state;
 
         const imageStyle = {

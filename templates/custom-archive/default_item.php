@@ -42,8 +42,9 @@ $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $met
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?>">
 <?php
 if ( ! empty( $featured_image ) ) {
+	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 	?>
-		<a class="ck-custom-archive-image-link" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
+		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 			<?php echo wp_kses_post( $featured_image ); ?>
 		</a>
 	<?php } ?>

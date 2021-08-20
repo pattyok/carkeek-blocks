@@ -21,6 +21,10 @@ const attributes = {
         type: "boolean",
         default: true,
     },
+    imageOrientation: {
+        type: "string",
+        default: 'landscape',
+    },
     openAsModal: {
         type: "boolean",
         default: false,

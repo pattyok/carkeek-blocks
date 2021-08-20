@@ -7,6 +7,22 @@
 
 
 	& .ck-custom-archive-image-link {
+
+		&.layout-square {
+			--ck-archive-image-ratio: 100%;
+		}
+
+		&.layout-portrait {
+			--ck-archive-image-ratio: 150%;
+		}
+
+		&.layout-portrait-43 {
+			--ck-archive-image-ratio: 133%;
+		}
+
+		&.layout-landscape-34 {
+			--ck-archive-image-ratio: 75%;
+		}
 		position: relative;
 		display: block;
 		margin-bottom: var(--ck-archive-image-text-gap);

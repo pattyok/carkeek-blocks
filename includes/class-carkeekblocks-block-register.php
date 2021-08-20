@@ -108,6 +108,9 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'boolean',
 						'default' => true,
 					),
+					'imageOrientation' => array(
+						'type'    => 'string',
+					),
 					'openAsModal'          => array(
 						'type'    => 'boolean',
 						'default' => false,

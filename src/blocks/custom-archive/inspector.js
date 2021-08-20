@@ -36,7 +36,9 @@ function postsInspector( props ){
         columns,
         displayFeaturedImage,
         openAsModal,
-        useHeadingTitle,showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink
+        useHeadingTitle,
+        imageOrientation,
+        showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink
     } = attributes;
 
     let ptOptions = [];
@@ -299,7 +301,24 @@ function postsInspector( props ){
                     setAttributes({ displayFeaturedImage: value })
                 }
             />
-
+            {displayFeaturedImage &&
+            <SelectControl
+                label={__("Image Orientation", "carkeek-blocks")}
+                onChange={value =>
+                    setAttributes({
+                        imageOrientation: value
+                    })
+                }
+                options={[
+                    { label: __("Landscape 2:3"), value: "landscape"},
+                    { label: __("Landscape 3:4"), value: "landscape-34"},
+                    { label: __("Portrait 3:2"), value: "portrait"},
+                    { label: __("Portrait 4:3"), value: "portrait-43"},
+                    { label: __("Square 1:1"), value: "square"},
+                ]}
+                value={imageOrientation}
+            />
+            }
             <ToggleControl
                 label={__("Include Excerpt")}
                 checked={displayPostExcerpt}

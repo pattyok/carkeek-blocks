@@ -8,37 +8,6 @@
 		list-style: none;
 	}
 
-	& .blocks-gallery-grid {
-
-		&.fixed-images {
-
-			& li.blocks-gallery-item a,
-			& li.blocks-gallery-item:not(.has-link) figure {
-				position: relative;
-				display: block;
-				height: 100%;
-
-				&::after {
-					display: block;
-					width: 100%;
-					content: "";
-					padding-bottom: var(--gallery-image-ratio);
-				}
-
-				& img {
-					position: absolute;
-					left: 0;
-					top: 0;
-					width: 100%;
-					height: 100%;
-					object-fit: cover;
-					object-position: 50% 50%;
-				}
-			}
-		}
-
-	}
-
 	& ul.slick-slider {
 		list-style: none;
 		margin: 0;
