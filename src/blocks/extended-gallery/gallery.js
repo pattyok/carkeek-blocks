@@ -10,10 +10,10 @@ import classnames from 'classnames';
 import { MediaPlaceholder, MediaUpload, MediaUploadCheck, InspectorControls } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { PanelBody, SelectControl, RadioControl, ToggleControl } from "@wordpress/components";
 import { withSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+//import { useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -28,7 +28,7 @@ export const Gallery = ( props ) => {
 		className,
 		isSelected,
         imageSizes,
-		resizedImages,
+		//resizedImages,
 	} = props;
 
 	const {
@@ -168,7 +168,6 @@ export const Gallery = ( props ) => {
                 id: parseInt( newImage.id ),
             } ) ),
         } );
-
     }
 
     function onUploadError( message ) {
@@ -205,21 +204,26 @@ export const Gallery = ( props ) => {
 		);
 	}
 
+	// useEffect(() => {
+
+    // }, [newSizeSlug]);
+
     function updateImagesSize( newSizeSlug ) {
-		const updatedImages = map( images, ( image ) => {
-			if ( ! image.id ) {
-				return image;
-			}
-			const url = get( resizedImages, [
-				parseInt( image.id, 10 ),
-				newSizeSlug,
-			] );
-			return {
-				...image,
-				...( url && { url } ),
-			};
-		} );
-		setAttributes( { images: updatedImages, sizeSlug: newSizeSlug } );
+		// const updatedImages = map( images, ( image ) => {
+		// 	if ( ! image.id ) {
+		// 		return image;
+		// 	}
+		// 	const url = get( resizedImages, [
+		// 		parseInt( image.id, 10 ),
+		// 		newSizeSlug,
+		// 	] );
+		// 	return {
+		// 		...image,
+		// 		...( url && { url } ),
+		// 	};
+		// } );
+		//setAttributes( { images: updatedImages, sizeSlug: newSizeSlug } );
+		setAttributes( { sizeSlug: newSizeSlug } );
 	}
     function updateThumbsSize( newSizeSlug ) {
 		const updatedImages = map( images, ( image ) => {
@@ -322,6 +326,8 @@ export const Gallery = ( props ) => {
 								//{ ...props }
 								key={ img.id || img.url }
 								url={ img.url }
+								thumbUrl = { img.thumbUrl }
+								lightUrl = { img.lightUrl }
 								alt={ img.alt }
                                 id={ parseInt( img.id, 10 ) } // make id an integer explicitly
                                 focalPointX={img.focalPointX}
@@ -400,55 +406,56 @@ export const Gallery = ( props ) => {
 };
 
 
-export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
-		const { getMedia } = select( 'core' );
+//export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
+export default withSelect( ( select ) => {
+		//const { getMedia } = select( 'core' );
 		const { getSettings } = select( 'core/block-editor' );
 		const { imageSizes } = getSettings();
-
-		const resizedImages = useMemo( () => {
-			if ( isSelected ) {
-				return reduce(
-					ids,
-					( currentResizedImages, id ) => {
-						if ( ! id ) {
-							return currentResizedImages;
-						}
-						const image = getMedia( id );
-						const sizes = reduce(
-							imageSizes,
-							( currentSizes, size ) => {
-								const defaultUrl = get( image, [
-									'sizes',
-									size.slug,
-									'url',
-								] );
-								const mediaDetailsUrl = get( image, [
-									'media_details',
-									'sizes',
-									size.slug,
-									'source_url',
-								] );
-								return {
-									...currentSizes,
-									[ size.slug ]:
-										defaultUrl || mediaDetailsUrl,
-								};
-							},
-							{}
-						);
-						return {
-							...currentResizedImages,
-							[ parseInt( id, 10 ) ]: sizes,
-						};
-					},
-					{}
-				);
-			}
-			return {};
-		}, [ isSelected, ids, imageSizes ] );
+		//this is causing a react queue bug, so I stripped it out for now
+		// const resizedImages = useMemo( () => {
+		// 	if ( isSelected ) {
+		// 		return reduce(
+		// 			ids,
+		// 			( currentResizedImages, id ) => {
+		// 				if ( ! id ) {
+		// 					return currentResizedImages;
+		// 				}
+		// 				const image = getMedia( id );
+		// 				const sizes = reduce(
+		// 					imageSizes,
+		// 					( currentSizes, size ) => {
+		// 						const defaultUrl = get( image, [
+		// 							'sizes',
+		// 							size.slug,
+		// 							'url',
+		// 						] );
+		// 						const mediaDetailsUrl = get( image, [
+		// 							'media_details',
+		// 							'sizes',
+		// 							size.slug,
+		// 							'source_url',
+		// 						] );
+		// 						return {
+		// 							...currentSizes,
+		// 							[ size.slug ]:
+		// 								defaultUrl || mediaDetailsUrl,
+		// 						};
+		// 					},
+		// 					{}
+		// 				);
+		// 				return {
+		// 					...currentResizedImages,
+		// 					[ parseInt( id, 10 ) ]: sizes,
+		// 				};
+		// 			},
+		// 			{}
+		// 		);
+		// 	}
+		// 	return {};
+		// }, [ isSelected, ids, imageSizes ] );
 
 		return {
 			imageSizes,
-			resizedImages,
+			//resizedImages,
 		};
 	} ) (Gallery);

@@ -2,13 +2,14 @@ import "./style.editor.css";
 
 import edit from "./edit";
 import save from "./save";
+import deprecated from "./deprecated";
 
 import icons from "../../resources/icons";
 
-import { registerBlockType } from "@wordpress/blocks";
+import { registerBlockType, createBlock } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 
-
+import { pickRelevantMediaFiles, pickRelevantMediaFilesCore, columnConvert } from './shared';
 
 const attributes = {
     title: {
@@ -19,7 +20,65 @@ const attributes = {
     },
     images: {
         type: 'array',
-        default: []
+        default: [],
+        source: 'query',
+        selector: '.ck-blocks-gallery-grid-item',
+        query: {
+            url: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-full-image',
+            },
+            thumbUrl: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'src',
+            },
+            lightUrl: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-light-image',
+            },
+            link: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-link',
+            },
+            customLink: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-custom-link',
+            },
+            linkTarget: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-custom-link-target',
+            },
+            alt: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'alt',
+                default: '',
+            },
+            id: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-id',
+            },
+            caption: {
+                type: 'string',
+                source: 'html',
+                selector: '.ck-blocks-gallery-item-caption',
+            },
+        },
+    },
+    lightSize: {
+        type: 'string',
+        default: 'full',
+    },
+    thumbSize: {
+        type: 'string',
+        default: 'large',
     },
     displayAs: {
         type: "string",
@@ -158,7 +217,7 @@ registerBlockType("carkeek-blocks/extended-gallery", {
         align: ["wide", "full"],
     },
 
-    category: "widgets",
+    category: "carkeek-category",
 
     keywords: [
         __("logo", "carkeek-blocks"),
@@ -168,7 +227,42 @@ registerBlockType("carkeek-blocks/extended-gallery", {
 
     attributes,
 
+    transforms: {
+		from: [
+			{
+				type: 'block',
+				blocks: [ 'core/gallery' ],
+				transform: ( attributes ) => {
+					return createBlock( 'kadence/advancedgallery', {
+						align: ( attributes.align ? attributes.align : 'none' ),
+						columns: columnConvert( ( attributes.columns ? attributes.columns : 3 ) ),
+						images: attributes.images.map( ( image ) => pickRelevantMediaFiles( image, 'large', 'full' ) ),
+						linkTo: ( attributes.linkTo ? attributes.linkTo : 'none' ),
+						ids: attributes.ids,
+					} );
+				},
+			},
+		],
+		to: [
+			{
+				type: 'block',
+				blocks: [ 'core/gallery' ],
+				transform: ( attributes ) => {
+					return createBlock( 'core/gallery', {
+						align: attributes.align,
+						columns: attributes.columns[ 2 ],
+						images: attributes.images.map( ( image ) => pickRelevantMediaFilesCore( image ) ),
+						linkTo: attributes.linkTo,
+						ids: attributes.ids,
+					} );
+				},
+			},
+		],
+	},
+
     save,
 
-    edit
+    edit,
+
+    deprecated
 });

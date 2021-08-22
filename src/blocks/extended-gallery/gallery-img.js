@@ -44,7 +44,8 @@ export const GalleryImage = ( props ) => {
 		'aria-label': ariaLabel,
 		onDeselect,
 		inlineEdit,
-		sizeSlug,
+		lightSize,
+		thumbSize,
 		linkImages
 	} = props;
 
@@ -70,7 +71,7 @@ export const GalleryImage = ( props ) => {
 			return;
 		}
 
-		let mediaAttributes = pickRelevantMediaFiles( media, sizeSlug );
+		let mediaAttributes = pickRelevantMediaFiles( media, lightSize, thumbSize );
 
 		// If the current image is temporary but an alt text was meanwhile
 		// written by the user, make sure the text is not overwritten.

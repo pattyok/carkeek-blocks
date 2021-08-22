@@ -108,8 +108,8 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'imageOrientation' => array(
-						'type'    => 'string',
+					'imageOrientation'     => array(
+						'type' => 'string',
 					),
 					'openAsModal'          => array(
 						'type'    => 'boolean',
@@ -131,8 +131,8 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'string',
 						'default' => 'date',
 					),
-					'sortByMeta'               => array(
-						'type'    => 'string',
+					'sortByMeta'           => array(
+						'type' => 'string',
 					),
 					'emptyMessage'         => array(
 						'type' => 'string',
@@ -365,16 +365,16 @@ class CarkeekBlocks_Block_Register {
 	 * @param array $post post optional.
 	 */
 	public function carkeek_blocks_categories( $categories, $post ) {
-		return array_merge(
-			$categories,
-			array(
-				array(
-					'slug'  => 'carkeek-category',
-					'title' => __( 'Carkeek Blocks', 'carkeek-blocks' ),
-					'icon'  => 'wordpress',
-				),
-			)
+		error_log( print_r( $categories, true ) );
+		$new_category = array(
+			'slug'  => 'carkeek-category',
+			'title' => __( 'Carkeek Blocks', 'carkeek-blocks' ),
+			'icon' => '',
 		);
+		array_unshift( $categories, $new_category );
+		error_log("after");
+		error_log( print_r( $categories, true ) );
+		return $categories;
 	}
 
 	public function carkeek_blocks_render_formassembly_form( $atts ) {
