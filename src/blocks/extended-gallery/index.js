@@ -66,19 +66,19 @@ const attributes = {
                 attribute: 'data-id',
             },
             caption: {
-                type: 'string',
+                type: 'attribute',
                 source: 'html',
-                selector: '.ck-blocks-gallery-item-caption',
+                selector: 'data-caption',
             },
         },
     },
     lightSize: {
         type: 'string',
-        default: 'full',
+        default: 'large',
     },
     thumbSize: {
         type: 'string',
-        default: 'large',
+        default: 'medium',
     },
     displayAs: {
         type: "string",

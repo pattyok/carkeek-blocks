@@ -24,9 +24,10 @@ const isTemporaryImage = ( id, url ) => ! id && isBlobURL( url );
 export const GalleryImage = ( props ) => {
 	const {
 		url,
+		thumbUrl,
 		alt,
 		id,
-		linksto,
+		customLink,
 		focalPointX,
 		focalPointY,
 		linkTarget,
@@ -110,7 +111,7 @@ export const GalleryImage = ( props ) => {
 		// direct image selection and unfocus caption fields.
 		<>
 			<img
-				src={ url }
+				src={ thumbUrl || url }
 				alt={ alt }
 				data-id={ id }
 				onClick={ onSelect }
@@ -207,9 +208,9 @@ export const GalleryImage = ( props ) => {
 			{ ! isEditing && ( isSelected && linkImages == 'custom') &&  (
 			<div className = "ck-gallery-custom-link">
 				<URLInput
-					value={linksto}
+					value={customLink}
 					className="editor-media-placeholder__url-input-field block-editor-media-placeholder__url-input-field"
-					onChange={ ( linksto ) => setAttributes( { linksto } ) }
+					onChange={ ( customLink ) => setAttributes( { customLink } ) }
 					label={__("Link To", "carkeek-blocks")}
 				/>
 

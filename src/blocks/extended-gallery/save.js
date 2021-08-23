@@ -57,8 +57,6 @@ function ExtendedGallerySave ({ attributes }) {
         'has-captions': showCaptions && !isLightbox,
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
-
-
 	});
 
 
@@ -111,11 +109,11 @@ function ExtendedGallerySave ({ attributes }) {
                     const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit),
-                        'has-link': ((linkImages == 'custom' && img.linksto) || isLightbox )
+                        'has-link': ((linkImages == 'custom' && img.customLink) || isLightbox )
                     })
                     const image = (
                         <img
-                            src={ img.thumUrl || img.url }
+                            src={ img.thumbUrl || img.url }
                             alt={ img.alt }
                             style={imageStyle}
                             data-full-image={img.url}
@@ -124,16 +122,17 @@ function ExtendedGallerySave ({ attributes }) {
                             data-custom-link={img.customLink}
                             data-custom-link-target={img.customLinkTarget}
                             data-id={img.id}
+                            data-caption={img.caption}
                         />
                     );
                     let imagePack;
                     if (linkImages == 'lightbox') {
                         imagePack = (
-                            <a href={img.fullUrl}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}>{image}</a>
+                            <a href={img.lightUrl}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}>{image}</a>
                         );
-                    } else if (linkImages == 'custom' && img.linksto) {
+                    } else if (linkImages == 'custom' && img.customLink) {
                         const myProps = {
-                            href: img.linksto,
+                            href: img.customLink,
                             target: ( img.linkTarget === '_blank' ) ? '_blank' : undefined,
                             rel: ( '_blank' === img.linkTarget ? 'noopener noreferrer' : undefined )
                         }

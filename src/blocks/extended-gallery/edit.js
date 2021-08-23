@@ -4,6 +4,8 @@ import {
     InspectorControls,
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
+import { useState, useEffect } from '@wordpress/element';
+import { withSelect, useSelect } from '@wordpress/data';
 import { PanelBody, CheckboxControl, RadioControl, RangeControl, TextControl, ToggleControl, SelectControl } from "@wordpress/components";
 import Gallery from './gallery';
 
@@ -13,6 +15,7 @@ function ExtendedGalleryEdit( props ) {
     const { attributes, clientId, setAttributes} = props;
     const { title,
         subtitle,
+        lightSize,
         blockId,
         linkImages,
         hideTitle,
@@ -39,9 +42,11 @@ function ExtendedGalleryEdit( props ) {
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
+
     const blockProps = useBlockProps();
     const isGallery = displayAs == 'gallery';
     const isCarousel = displayAs == 'carousel';
+    const [currentLightSize, setCurrentLightSize] = useState(lightSize);
 
     return(
         <div {...blockProps} >

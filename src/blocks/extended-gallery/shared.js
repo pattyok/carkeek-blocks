@@ -2,12 +2,15 @@
  * External dependencies
  */
 import { get, pick } from 'lodash';
+import { useSelect, withSelect } from '@wordpress/data';
+
 
 export function defaultColumnsNumber( attributes ) {
 	return Math.min( 3, attributes.images.length );
 }
 
 export const pickRelevantMediaFiles = ( image, lightSize, thumbSize, oldImages ) => {
+	console.log("newImagesPropsBefore", image);
 	const imageProps = pick( image, [ 'alt', 'id', 'link', 'caption' ] );
 	if ( image.id && ! image.sizes && ! image.media_details ) {
 		const theImage = wp.data.select( 'core' ).getMedia( image.id );
@@ -32,6 +35,7 @@ export const pickRelevantMediaFiles = ( image, lightSize, thumbSize, oldImages )
 	imageProps.lightUrl = get( image, [ 'sizes', lightSize, 'url' ] ) || get( image, [ 'media_details', 'sizes', lightSize, 'source_url' ] ) || image.url || image.source_url;
 	imageProps.width = get( image, [ 'sizes', thumbSize, 'width' ] ) || get( image, [ 'media_details', 'sizes', thumbSize, 'width' ] ) || get( image, [ 'sizes', 'full', 'width' ] ) || get( image, [ 'media_details', 'width' ] ) || undefined;
 	imageProps.height = get( image, [ 'sizes', thumbSize, 'height' ] ) || get( image, [ 'media_details', 'sizes', thumbSize, 'height' ] ) || get( image, [ 'sizes', 'full', 'height' ] ) || get( image, [ 'media_details', 'height' ] ) || undefined;
+	console.log("newImagesPropsAfter", imageProps);
 	return imageProps;
 };
 
@@ -41,11 +45,35 @@ export const pickRelevantMediaFilesCore = ( image ) => {
 	return imageProps;
 };
 
-export const pickRelevantMediaFilesUpdate = ( image, lightSize, thumbSize ) => {
-	let theImage = wp.data.select( 'core' ).getMedia( image.id );
+
+
+export const PickRelevantMediaFilesUpdate = withSelect(
+	(select, ownProps) => {
+		console.log(ownProps);
+		const { getMedia } = select( 'core' );
+		const { id } = ownProps.image.id;
+
+		return {
+			image: getMedia( id )
+		}
+	}
+);
+
+export const OldPickRelevantMediaFilesUpdate = ( props ) => {
+	console.log(props);
+	console.log("imagePropsBeforeUpdate", image);
+	console.log(parseInt(image.id));
+	//let theImage = wp.data.select( 'core' ).getMedia( parseInt(image.id) );
+	let theImage = useSelect(
+		( select ) => {
+			return select( 'core' ).getMedia( parseInt(image.id) )
+		}
+	)
+	console.log("imagePropsAfterGet", theImage);
 	if ( ! theImage ) {
 		theImage = image;
 	}
+
 	const imageProps = pick( theImage, [ 'id', 'link' ] );
 	imageProps.alt = get( theImage, [ 'alt_text' ] ) || get( theImage, [ 'alt' ] ) || undefined;
 	imageProps.caption = get( theImage, [ 'caption', 'raw' ] ) || get( theImage, [ 'caption' ] ) || undefined;
@@ -56,5 +84,6 @@ export const pickRelevantMediaFilesUpdate = ( image, lightSize, thumbSize ) => {
 	imageProps.lightUrl = get( theImage, [ 'sizes', lightSize, 'url' ] ) || get( theImage, [ 'media_details', 'sizes', lightSize, 'source_url' ] ) || theImage.source_url || image.url;
 	imageProps.width = get( theImage, [ 'sizes', thumbSize, 'width' ] ) || get( theImage, [ 'media_details', 'sizes', thumbSize, 'width' ] ) || get( theImage, [ 'media_details', 'width' ] ) || undefined;
 	imageProps.height = get( theImage, [ 'sizes', thumbSize, 'height' ] ) || get( theImage, [ 'media_details', 'sizes', thumbSize, 'height' ] ) || get( theImage, [ 'media_details', 'height' ] ) || undefined;
+	console.log("imagePropsAfter", imageProps);
 	return imageProps;
-};
+}

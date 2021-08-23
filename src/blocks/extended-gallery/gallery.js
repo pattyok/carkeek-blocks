@@ -12,7 +12,7 @@ import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { PanelBody, SelectControl, RadioControl, ToggleControl } from "@wordpress/components";
-import { withSelect } from '@wordpress/data';
+import { withSelect, useSelect } from '@wordpress/data';
 //import { useMemo } from '@wordpress/element';
 
 /**
@@ -20,7 +20,7 @@ import { withSelect } from '@wordpress/data';
  */
 import GalleryImage from './gallery-img';
 import icons from "../../resources/icons";
-import { pickRelevantMediaFiles } from './shared';
+import { pickRelevantMediaFiles, PickRelevantMediaFilesUpdate } from './shared';
 
 export const Gallery = ( props ) => {
 	const {
@@ -28,13 +28,14 @@ export const Gallery = ( props ) => {
 		className,
 		isSelected,
         imageSizes,
+		getMedia,
 		//resizedImages,
 	} = props;
 
 	const {
 		images,
-		sizeSlug,
-        sizeSlugThumbs,
+		lightSize,
+        thumbSize,
         ids,
 		displayAs,
 		columns,
@@ -47,6 +48,7 @@ export const Gallery = ( props ) => {
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
+
     const [ attachmentCaptions, setAttachmentCaptions ] = useState(images.map( ( newImage ) => ( {
         id: parseInt( newImage.id, 10 ),
         caption: newImage.caption,
@@ -64,8 +66,8 @@ export const Gallery = ( props ) => {
 		[ `columns-${ slidesToShow }` ] : isCarousel
 	})
 
-
     function setAttributes( newAttrs ) {
+		console.log("setAttributes", newAttrs);
 		if ( newAttrs.ids ) {
 			throw new Error(
 				'The "ids" attribute should not be changed directly. It is managed automatically when "images" attribute changes'
@@ -151,22 +153,8 @@ export const Gallery = ( props ) => {
     }
 
     function onSelectImages( newImages ) {
-        setAttachmentCaptions(
-			newImages.map( ( newImage ) => ( {
-                id: parseInt( newImage.id, 10 ),
-                caption: newImage.caption,
-            } ) )
-		);
         setAttributes( {
-            images: newImages.map( ( newImage ) => ( {
-                ...pickRelevantMediaFiles( newImage, sizeSlug, sizeSlugThumbs ),
-                caption: selectCaption(
-                    newImage,
-                    images,
-                    attachmentCaptions
-                ),
-                id: parseInt( newImage.id ),
-            } ) ),
+			images: newImages.map( ( image ) => pickRelevantMediaFiles( image, lightSize, thumbSize, images ) ),
         } );
     }
 
@@ -204,42 +192,37 @@ export const Gallery = ( props ) => {
 		);
 	}
 
-	// useEffect(() => {
+    function updateLightSize( newLightSize ) {
+		console.log("update light size");
 
-    // }, [newSizeSlug]);
-
-    function updateImagesSize( newSizeSlug ) {
-		// const updatedImages = map( images, ( image ) => {
-		// 	if ( ! image.id ) {
-		// 		return image;
-		// 	}
-		// 	const url = get( resizedImages, [
-		// 		parseInt( image.id, 10 ),
-		// 		newSizeSlug,
-		// 	] );
-		// 	return {
-		// 		...image,
-		// 		...( url && { url } ),
-		// 	};
-		// } );
-		//setAttributes( { images: updatedImages, sizeSlug: newSizeSlug } );
-		setAttributes( { sizeSlug: newSizeSlug } );
-	}
-    function updateThumbsSize( newSizeSlug ) {
-		const updatedImages = map( images, ( image ) => {
-			if ( ! image.id ) {
-				return image;
-			}
-			const thumbUrl = get( resizedImages, [
-				parseInt( image.id, 10 ),
-				newSizeSlug,
-			] );
-			return {
-				...image,
-				...( thumbUrl && { thumbUrl } ),
-			};
+		setAttributes( { lightSize: newLightSize } );
+		const newImages = images.map( ( image ) =>  {
+			console.log("imagemap", image.id);
+			const newImage = getMedia(image.id);
+			console.log("newImage", newImage);
+			const fileUpdateComponent = <PickRelevantMediaFilesUpdate key={image.id} image={image} lightSize={newLightSize} thumbSize={thumbSize} />;
+			console.log("fileUpdate", fileUpdateComponent);
+			return fileUpdateComponent;
 		} );
-		setAttributes( { images: updatedImages, sizeSlugThumbs: newSizeSlug } );
+		console.log("newImages", newImages);
+		setAttributes( {
+			images: newImages
+			}
+		)
+
+	}
+    function updateThumbsSize( newThumbSize ) {
+		console.log("update thumbs size");
+		setAttributes( { thumbSize: newThumbSize } );
+		setAttributes( {
+			images: images.map( ( image ) =>  {
+				console.log("imagemap", image.id);
+				const fileUpdateComponent = <PickRelevantMediaFilesUpdate key={image.id} image={image} lightSize={lightSize} thumbSize={newThumbSize} />;
+				console.log("fileUpdate", fileUpdateComponent);
+				return fileUpdateComponent;
+			}
+			)
+        } );
 	}
 
     const imageSizeOptions = getImagesSizeOptions();
@@ -288,16 +271,16 @@ export const Gallery = ( props ) => {
 					{linkImages == 'lightbox' &&
 						<SelectControl
 							label={ __( 'Thumbnail size' ) }
-							value={ sizeSlugThumbs }
+							value={ thumbSize }
 							options={ imageSizeOptions }
 							onChange={ updateThumbsSize }
 						/>
 					}
                         <SelectControl
 							label={ __( 'Image size' ) }
-							value={ sizeSlug }
+							value={ lightSize }
 							options={ imageSizeOptions }
-							onChange={ updateImagesSize }
+							onChange={ updateLightSize }
 						/>
                     </>
 					) }
@@ -348,12 +331,12 @@ export const Gallery = ( props ) => {
 								}
 								cropImages = { cropImages }
 								linkImages = { linkImages }
-								linksto={img.linksto}
+								customLink={img.customLink}
 								linkTarget={img.linkTarget}
 								showCaptions = {showCaptions}
 								caption={ img.caption }
 								aria-label={ ariaLabel }
-								sizeSlug={ sizeSlug }
+								lightSize={ lightSize }
 							/>
 				}
 						</li>
@@ -408,54 +391,13 @@ export const Gallery = ( props ) => {
 
 //export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
 export default withSelect( ( select ) => {
-		//const { getMedia } = select( 'core' );
-		const { getSettings } = select( 'core/block-editor' );
-		const { imageSizes } = getSettings();
-		//this is causing a react queue bug, so I stripped it out for now
-		// const resizedImages = useMemo( () => {
-		// 	if ( isSelected ) {
-		// 		return reduce(
-		// 			ids,
-		// 			( currentResizedImages, id ) => {
-		// 				if ( ! id ) {
-		// 					return currentResizedImages;
-		// 				}
-		// 				const image = getMedia( id );
-		// 				const sizes = reduce(
-		// 					imageSizes,
-		// 					( currentSizes, size ) => {
-		// 						const defaultUrl = get( image, [
-		// 							'sizes',
-		// 							size.slug,
-		// 							'url',
-		// 						] );
-		// 						const mediaDetailsUrl = get( image, [
-		// 							'media_details',
-		// 							'sizes',
-		// 							size.slug,
-		// 							'source_url',
-		// 						] );
-		// 						return {
-		// 							...currentSizes,
-		// 							[ size.slug ]:
-		// 								defaultUrl || mediaDetailsUrl,
-		// 						};
-		// 					},
-		// 					{}
-		// 				);
-		// 				return {
-		// 					...currentResizedImages,
-		// 					[ parseInt( id, 10 ) ]: sizes,
-		// 				};
-		// 			},
-		// 			{}
-		// 		);
-		// 	}
-		// 	return {};
-		// }, [ isSelected, ids, imageSizes ] );
+	const { getMedia } = select( 'core' );
+	const { getSettings } = select( 'core/block-editor' );
+	const { imageSizes } = getSettings();
 
-		return {
-			imageSizes,
-			//resizedImages,
-		};
-	} ) (Gallery);
+	return {
+		imageSizes,
+		getMedia,
+		//resizedImages,
+	};
+} ) (Gallery);
