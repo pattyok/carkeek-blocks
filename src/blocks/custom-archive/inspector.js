@@ -1,4 +1,5 @@
 import { InspectorControls } from "@wordpress/block-editor";
+import _ from "lodash";
 import { __ } from "@wordpress/i18n";
 import {
     RangeControl,
@@ -9,6 +10,7 @@ import {
     TextareaControl,
     TextControl
 } from "@wordpress/components";
+import { useEffect, useState } from "@wordpress/element";
 
 
 function postsInspector( props ){
@@ -28,6 +30,10 @@ function postsInspector( props ){
         filterByTaxonomy,
         taxTermsSelected,
         taxonomySelected,
+        groupListings,
+        groupTaxSelected,
+        groupHideParents,
+        groupHideEmpty,
         hideIfEmpty,
         emptyMessage,
         headlineLevel,
@@ -74,12 +80,31 @@ function postsInspector( props ){
         />
     );
 
+    const [showGroupHierarchyOpt, setShowGroupHierarchyOpt] = useState(true);
+
+    /** Set the tax selected on settings change */
     function handleTaxChange( value ){
         setAttributes( { filterByTaxonomy: value } );
         if (Array.isArray(taxonomies) && typeof taxonomies[0] === 'object' && taxonomies[0] !== null && taxonomies[0].slug !== undefined) {
             setAttributes({ taxonomySelected : taxonomies[0].slug});
         }
     }
+
+    function handleGroupSettingChange( value ){
+        setAttributes( { groupListings: value } );
+        if (Array.isArray(taxonomies) && typeof taxonomies[0] === 'object' && taxonomies[0] !== null && taxonomies[0].slug !== undefined) {
+            setAttributes({ groupTaxSelected : taxonomies[0].slug});
+        }
+    }
+
+    useEffect( () => {
+        const tax = _.find(taxonomies, {slug: groupTaxSelected});
+        if (tax) {
+            setShowGroupHierarchyOpt(tax.hierarchical);
+        } else {
+            setShowGroupHierarchyOpt(false);
+        }
+    }, [groupTaxSelected, taxonomies]);
 
     const taxonomySelect = (
         <>
@@ -121,6 +146,7 @@ function postsInspector( props ){
                     />
                     : <div className="ck-error">{__("There are no terms assigned to this taxonomy.", "carkeek-blocks")}</div>
                     }
+
                     {taxTermsSelected && (taxTermsSelected.split(',').length > 1) &&
                         <RadioControl
                             label={__("Taxonomy Query Type")}
@@ -200,7 +226,7 @@ function postsInspector( props ){
                     }
                 />
             </PanelBody>
-            <PanelBody title={__("Layout", "carkeek-blocks")}>
+            <PanelBody title={__("Layout", "carkeek-blocks")} initialOpen={ false }>
             <RadioControl
                 label={__("Layout Style")}
                 selected={postLayout}
@@ -214,6 +240,7 @@ function postsInspector( props ){
                     })
                 }
             />
+
             {postLayout == 'grid' &&
             <>
                 <RangeControl
@@ -239,7 +266,11 @@ function postsInspector( props ){
                         setAttributes({ showPagination: value })
                     }
                 />
-
+            <ToggleControl
+                label={__("Group by Taxonomy Terms")}
+                checked={groupListings}
+                onChange={ ( value ) => handleGroupSettingChange( value ) }
+            />
             <ToggleControl
                     label={__("Hide Block if Empty")}
                     checked={hideIfEmpty}
@@ -258,7 +289,39 @@ function postsInspector( props ){
                 )}
 
             </PanelBody>
-            <PanelBody title={__("Item Style", "carkeek-blocks")}>
+            {groupListings &&
+            <PanelBody title={__("Group Settings", "carkeek-blocks")}  initialOpen={ false }>
+                { taxonomies && taxonomies.length > 0
+                ?
+                <>
+                <SelectControl
+                    label={__("Select Taxonomy to Group By", "carkeek-blocks")}
+                    onChange={ ( groupTaxSelected ) => setAttributes( { groupTaxSelected } ) }
+                    options={ taxOptions }
+                    value={groupTaxSelected}
+                />
+                {showGroupHierarchyOpt &&
+                    <ToggleControl
+                        label={__("Hide Parent Terms")}
+                        checked={groupHideParents}
+                        onChange={value =>
+                            setAttributes({ groupHideParents: value })
+                        }
+                    />
+                }
+                <ToggleControl
+                        label={__("Hide Empty Terms")}
+                        checked={groupHideEmpty}
+                        onChange={value =>
+                            setAttributes({ groupHideEmpty: value })
+                        }
+                    />
+                </>
+                : <div className="ck-error">{__("There are no taxonomies assigned this post type.", "carkeek-blocks")}</div>
+                }
+            </PanelBody>
+            }
+            <PanelBody title={__("Item Style", "carkeek-blocks")}  initialOpen={ false }>
             <ToggleControl
                 label={__("Use Heading tag for Titles")}
                 checked={useHeadingTitle}

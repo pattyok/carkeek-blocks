@@ -100,6 +100,21 @@ class CarkeekBlocks_Block_Register {
 					'taxonomySelected'     => array(
 						'type' => 'string',
 					),
+					'groupListings'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'groupTaxSelected'     => array(
+						'type' => 'string',
+					),
+					'groupHideParents'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'groupHideEmpty'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
 					'displayPostExcerpt'   => array(
 						'type'    => 'boolean',
 						'default' => true,

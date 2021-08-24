@@ -108,7 +108,7 @@ class CarkeekBlocks_Block_Assets {
 	 * Enqueue block frontend JS & CSS
 	 */
 	public function carkeek_blocks_enqueue_frontend_assets() {
-		$frontend_js_path = '/dist/script.js';
+		$frontend_js_path = 'dist/script.js';
 		$style_path       = '/dist/style.css';
 		$deps             = array( 'jquery', 'bootstrap-js' );
 		// wp_enqueue_script( 'jquery-ui-slider' );
@@ -127,7 +127,7 @@ class CarkeekBlocks_Block_Assets {
 		// Only load slider js when using the slider block
 		if ( is_singular() ) {
 			$id = get_the_ID();
-			if ( has_block( 'carkeek-blocks/carkeek-slider', $id ) || has_block( 'carkeek-blocks/lightbox-gallery', $id ) || has_block( 'carkeek-blocks/extended-gallery', $id )) {
+			if ( has_block( 'carkeek-blocks/carkeek-slider', $id ) || has_block( 'carkeek-blocks/lightbox-gallery', $id ) || has_block( 'carkeek-blocks/extended-gallery', $id ) ) {
 				$deps[] = 'ck-slick';
 				wp_enqueue_script(
 					'ck-slick',
@@ -137,7 +137,7 @@ class CarkeekBlocks_Block_Assets {
 					true
 				);
 			}
-			if ( has_block( 'carkeek-blocks/lightbox-gallery', $id ) || has_block( 'carkeek-blocks/extended-gallery', $id )) {
+			if ( has_block( 'carkeek-blocks/lightbox-gallery', $id ) || has_block( 'carkeek-blocks/extended-gallery', $id ) ) {
 				$deps[] = 'ck-fancybox';
 				wp_enqueue_script(
 					'ck-fancybox',
@@ -168,7 +168,7 @@ class CarkeekBlocks_Block_Assets {
 		// Register frontend scripts.
 		wp_enqueue_script(
 			$this->slug . '-script',
-			$this->url . $frontend_js_path,
+			$this->url . '/' . $frontend_js_path,
 			$deps,
 			filemtime( $this->dir . $frontend_js_path ),
 			true

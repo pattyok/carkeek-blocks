@@ -56,6 +56,21 @@ const attributes = {
         type: "boolean",
         default: false
     },
+    groupListings: {
+        type: "boolean",
+        default: false
+    },
+    groupTaxSelected: {
+        type: "string"
+    },
+    groupHideParents: {
+        type: "boolean",
+        default: false
+    },
+    groupHideEmpty: {
+        type: "boolean",
+        default: false
+    },
     taxonomySelected: {
         type: "string"
     },
