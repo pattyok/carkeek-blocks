@@ -144,7 +144,7 @@ function ExtendedGalleryEdit( props ) {
                                         onChange={value =>
                                             setAttributes({ slidesToShow: value })
                                         }
-                                        min={2}
+                                        min={1}
                                         max={6}
                                     />
 
