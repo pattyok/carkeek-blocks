@@ -6,10 +6,8 @@ import deprecated from "./deprecated";
 
 import icons from "../../resources/icons";
 
-import { registerBlockType, createBlock } from "@wordpress/blocks";
+import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-
-import { pickRelevantMediaFiles, pickRelevantMediaFilesCore, columnConvert } from './shared';
 
 const attributes = {
     title: {
@@ -66,9 +64,9 @@ const attributes = {
                 attribute: 'data-id',
             },
             caption: {
-                type: 'attribute',
-                source: 'html',
-                selector: 'data-caption',
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-caption',
             },
         },
     },
@@ -226,39 +224,6 @@ registerBlockType("carkeek-blocks/extended-gallery", {
     ],
 
     attributes,
-
-    transforms: {
-		from: [
-			{
-				type: 'block',
-				blocks: [ 'core/gallery' ],
-				transform: ( attributes ) => {
-					return createBlock( 'kadence/advancedgallery', {
-						align: ( attributes.align ? attributes.align : 'none' ),
-						columns: columnConvert( ( attributes.columns ? attributes.columns : 3 ) ),
-						images: attributes.images.map( ( image ) => pickRelevantMediaFiles( image, 'large', 'full' ) ),
-						linkTo: ( attributes.linkTo ? attributes.linkTo : 'none' ),
-						ids: attributes.ids,
-					} );
-				},
-			},
-		],
-		to: [
-			{
-				type: 'block',
-				blocks: [ 'core/gallery' ],
-				transform: ( attributes ) => {
-					return createBlock( 'core/gallery', {
-						align: attributes.align,
-						columns: attributes.columns[ 2 ],
-						images: attributes.images.map( ( image ) => pickRelevantMediaFilesCore( image ) ),
-						linkTo: attributes.linkTo,
-						ids: attributes.ids,
-					} );
-				},
-			},
-		],
-	},
 
     save,
 

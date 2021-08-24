@@ -335,7 +335,7 @@ export const Gallery = ( props ) => {
                     onSelect={ onSelectImages }
                     allowedTypes={ [ 'image' ] }
                     isAppender={ hasImages }
-                    addToGallery={ hasImages }
+                    addToGallery={ false }
                     multiple
                     gallery
                     value={ ids }

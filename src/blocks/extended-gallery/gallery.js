@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { filter, map, find, isEmpty, reduce, get } from 'lodash';
+import { filter, map, isEmpty } from 'lodash';
 import classnames from 'classnames';
 /**
  * WordPress dependencies
@@ -10,9 +10,10 @@ import classnames from 'classnames';
 import { MediaPlaceholder, MediaUpload, MediaUploadCheck, InspectorControls } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { PanelBody, SelectControl, RadioControl, ToggleControl } from "@wordpress/components";
-import { withSelect, useSelect } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
+import useGetMedia from './use-get-media';
 //import { useMemo } from '@wordpress/element';
 
 /**
@@ -20,7 +21,7 @@ import { withSelect, useSelect } from '@wordpress/data';
  */
 import GalleryImage from './gallery-img';
 import icons from "../../resources/icons";
-import { pickRelevantMediaFiles, PickRelevantMediaFilesUpdate } from './shared';
+import { pickRelevantMediaFiles, pickRelevantMediaFilesUpdate } from './shared';
 
 export const Gallery = ( props ) => {
 	const {
@@ -28,8 +29,6 @@ export const Gallery = ( props ) => {
 		className,
 		isSelected,
         imageSizes,
-		getMedia,
-		//resizedImages,
 	} = props;
 
 	const {
@@ -49,10 +48,8 @@ export const Gallery = ( props ) => {
 
 	const [imageSelected, setImageSelected] = useState(null);
 
-    const [ attachmentCaptions, setAttachmentCaptions ] = useState(images.map( ( newImage ) => ( {
-        id: parseInt( newImage.id, 10 ),
-        caption: newImage.caption,
-    } ) ));
+	const imageData = useGetMedia( ids );
+
 
 	const isGallery = displayAs == 'gallery';
 	const isCarousel = displayAs == 'carousel';
@@ -67,7 +64,6 @@ export const Gallery = ( props ) => {
 	})
 
     function setAttributes( newAttrs ) {
-		console.log("setAttributes", newAttrs);
 		if ( newAttrs.ids ) {
 			throw new Error(
 				'The "ids" attribute should not be changed directly. It is managed automatically when "images" attribute changes'
@@ -128,33 +124,10 @@ export const Gallery = ( props ) => {
     }
 
 
-    function selectCaption( newImage, images, attachmentCaptions ) {
-        const newImageId = parseInt( newImage.id, 10 );
-        const currentImage = find( images, { id: newImageId } );
-
-        const currentImageCaption = currentImage
-            ? currentImage.caption
-            : newImage.caption;
-
-        if ( ! attachmentCaptions ) {
-            return currentImageCaption;
-        }
-
-        const attachment = find( attachmentCaptions, {
-            id: newImageId,
-        } );
-
-        // if the attachment caption is updated
-        if ( attachment && attachment.caption !== newImage.caption ) {
-            return newImage.caption;
-        }
-
-        return currentImageCaption;
-    }
-
     function onSelectImages( newImages ) {
+		const oldImages = [ ...images ];
         setAttributes( {
-			images: newImages.map( ( image ) => pickRelevantMediaFiles( image, lightSize, thumbSize, images ) ),
+			images: newImages.map( ( image ) => pickRelevantMediaFiles( image, thumbSize, lightSize, oldImages ) ),
         } );
     }
 
@@ -193,36 +166,27 @@ export const Gallery = ( props ) => {
 	}
 
     function updateLightSize( newLightSize ) {
-		console.log("update light size");
 
 		setAttributes( { lightSize: newLightSize } );
 		const newImages = images.map( ( image ) =>  {
-			console.log("imagemap", image.id);
-			const newImage = getMedia(image.id);
-			console.log("newImage", newImage);
-			const fileUpdateComponent = <PickRelevantMediaFilesUpdate key={image.id} image={image} lightSize={newLightSize} thumbSize={thumbSize} />;
-			console.log("fileUpdate", fileUpdateComponent);
-			return fileUpdateComponent;
+			return pickRelevantMediaFilesUpdate( image, thumbSize, newLightSize, imageData );
 		} );
-		console.log("newImages", newImages);
 		setAttributes( {
 			images: newImages
 			}
 		)
 
 	}
+
     function updateThumbsSize( newThumbSize ) {
-		console.log("update thumbs size");
 		setAttributes( { thumbSize: newThumbSize } );
+		const newImages = images.map( ( image ) =>  {
+			return pickRelevantMediaFilesUpdate( image, newThumbSize, lightSize, imageData );
+		} );
 		setAttributes( {
-			images: images.map( ( image ) =>  {
-				console.log("imagemap", image.id);
-				const fileUpdateComponent = <PickRelevantMediaFilesUpdate key={image.id} image={image} lightSize={lightSize} thumbSize={newThumbSize} />;
-				console.log("fileUpdate", fileUpdateComponent);
-				return fileUpdateComponent;
+			images: newImages
 			}
-			)
-        } );
+		)
 	}
 
     const imageSizeOptions = getImagesSizeOptions();
@@ -372,7 +336,7 @@ export const Gallery = ( props ) => {
                     onSelect={ onSelectImages }
                     allowedTypes={ [ 'image' ] }
                     isAppender={ hasImages }
-                    addToGallery={ hasImages }
+                    addToGallery={ false } //temp to avoid problem with images disappearing was hasImages
                     multiple
                     gallery
                     value={ ids }
@@ -399,6 +363,5 @@ export default withSelect( ( select ) => {
 	return {
 		imageSizes,
 		getMedia,
-		//resizedImages,
 	};
 } ) (Gallery);

@@ -45,7 +45,7 @@ function ExtendedGallerySave ({ attributes }) {
     const blockProps = useBlockProps.save({className: blockStyle} );
 
     const galleryStyle = classnames({
-		'ck-blocks-gallery-grid': isGallery,
+		'ck-blocks-gallery-grid': true,
 		[ `columns-${ columns }` ]: isGallery,
         [ `columns-m-${ columnsMobile }` ]: isGallery,
         [ `columns-t-${ columnsTablet }` ]: isGallery,
