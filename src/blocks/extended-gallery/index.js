@@ -2,13 +2,12 @@ import "./style.editor.css";
 
 import edit from "./edit";
 import save from "./save";
+import deprecated from "./deprecated";
 
 import icons from "../../resources/icons";
 
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-
-
 
 const attributes = {
     title: {
@@ -19,7 +18,65 @@ const attributes = {
     },
     images: {
         type: 'array',
-        default: []
+        default: [],
+        source: 'query',
+        selector: '.ck-blocks-gallery-grid-item',
+        query: {
+            url: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-full-image',
+            },
+            thumbUrl: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'src',
+            },
+            lightUrl: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-light-image',
+            },
+            link: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-link',
+            },
+            customLink: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-custom-link',
+            },
+            linkTarget: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-custom-link-target',
+            },
+            alt: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'alt',
+                default: '',
+            },
+            id: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-id',
+            },
+            caption: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-caption',
+            },
+        },
+    },
+    lightSize: {
+        type: 'string',
+        default: 'large',
+    },
+    thumbSize: {
+        type: 'string',
+        default: 'medium',
     },
     displayAs: {
         type: "string",
@@ -158,7 +215,7 @@ registerBlockType("carkeek-blocks/extended-gallery", {
         align: ["wide", "full"],
     },
 
-    category: "widgets",
+    category: "carkeek-category",
 
     keywords: [
         __("logo", "carkeek-blocks"),
@@ -170,5 +227,7 @@ registerBlockType("carkeek-blocks/extended-gallery", {
 
     save,
 
-    edit
+    edit,
+
+    deprecated
 });

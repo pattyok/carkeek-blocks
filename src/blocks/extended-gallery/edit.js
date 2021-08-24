@@ -39,6 +39,7 @@ function ExtendedGalleryEdit( props ) {
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
+
     const blockProps = useBlockProps();
     const isGallery = displayAs == 'gallery';
     const isCarousel = displayAs == 'carousel';

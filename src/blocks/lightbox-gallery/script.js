@@ -1,5 +1,3 @@
-import "./style.css";
-
 import jQuery from 'jquery';
 
 (function($) {

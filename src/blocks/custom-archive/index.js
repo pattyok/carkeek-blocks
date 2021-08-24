@@ -133,7 +133,7 @@ registerBlockType("carkeek-blocks/custom-archive", {
         "carkeek-blocks"
     ),
     icon: icons.layout,
-    category: "widgets",
+    category: "carkeek-category",
     edit: edit,
     attributes: attributes,
     supports: {
