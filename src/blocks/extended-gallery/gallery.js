@@ -268,20 +268,21 @@ export const Gallery = ( props ) => {
 					) }
                 { shouldShowSizeOptions && (
                     <>
-					{linkImages == 'lightbox' &&
+
 						<SelectControl
-							label={ __( 'Thumbnail size' ) }
+							label={ __( 'Image size' ) }
 							value={ thumbSize }
 							options={ imageSizeOptions }
 							onChange={ updateThumbsSize }
 						/>
-					}
+					{linkImages == 'lightbox' &&
                         <SelectControl
-							label={ __( 'Image size' ) }
+							label={ __( 'Lightbox Image size' ) }
 							value={ lightSize }
 							options={ imageSizeOptions }
 							onChange={ updateLightSize }
 						/>
+					}
                     </>
 					) }
                 </PanelBody>
