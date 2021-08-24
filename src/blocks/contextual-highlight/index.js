@@ -36,7 +36,7 @@ registerBlockType("carkeek-blocks/contextual-highlight-text", {
         }
     },
 
-    category: "widgets",
+    category: "carkeek-category",
 
     keywords: [__("sidebar", "carkeek-blocks"), __("quick", "carkeek-blocks"), __("i would like to", "carkeek-blocks"), __("icon", "carkeek-blocks")],
 

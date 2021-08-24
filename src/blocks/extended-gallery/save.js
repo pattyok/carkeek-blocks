@@ -45,7 +45,7 @@ function ExtendedGallerySave ({ attributes }) {
     const blockProps = useBlockProps.save({className: blockStyle} );
 
     const galleryStyle = classnames({
-		'ck-blocks-gallery-grid': isGallery,
+		'ck-blocks-gallery-grid': true,
 		[ `columns-${ columns }` ]: isGallery,
         [ `columns-m-${ columnsMobile }` ]: isGallery,
         [ `columns-t-${ columnsTablet }` ]: isGallery,
@@ -57,8 +57,6 @@ function ExtendedGallerySave ({ attributes }) {
         'has-captions': showCaptions && !isLightbox,
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
-
-
 	});
 
 
@@ -111,49 +109,52 @@ function ExtendedGallerySave ({ attributes }) {
                     const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit),
-                        'has-link': ((linkImages == 'custom' && img.linksto) || isLightbox )
+                        'has-link': ((linkImages == 'custom' && img.customLink) || isLightbox )
                     })
+                    const image = (
+                        <img
+                            src={ img.thumbUrl || img.url }
+                            alt={ img.alt }
+                            style={imageStyle}
+                            data-full-image={img.url}
+                            data-light-image={ img.lightUrl || img.url }
+                            data-link={img.link}
+                            data-custom-link={img.customLink}
+                            data-custom-link-target={img.customLinkTarget}
+                            data-id={img.id}
+                            data-caption={img.caption}
+                        />
+                    );
                     let imagePack;
                     if (linkImages == 'lightbox') {
                         imagePack = (
-                            <a href={img.fullUrl}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}><img style={imageStyle} src={img.url} ></img></a>
+                            <a href={img.lightUrl}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}>{image}</a>
                         );
-                    } else {
-                        const image = (
-                            <>
-                            <img
-                                src={ img.url }
-                                alt={ img.alt }
-                                style={imageStyle}
-                            />
-                            </>
-                        );
-                        if (linkImages == 'custom' && img.linksto) {
-                            const myProps = {
-                                href: img.linksto,
-                                target: ( img.linkTarget === '_blank' ) ? '_blank' : undefined,
-                                rel: ( '_blank' === img.linkTarget ? 'noopener noreferrer' : undefined )
-                            }
-                            imagePack = (
-                                <>
-                                <a { ...myProps }>{image}</a>
-                                {showCaptions &&
-                                <figcaption>{img.caption}</figcaption>
-                                }
-                                </>
-                            )
-                        } else {
-                            imagePack = (
-                                <>
-                                {image}
-                                {showCaptions &&
-                                <figcaption>{img.caption}</figcaption>
-                                }
-                                </>
-                            )
+                    } else if (linkImages == 'custom' && img.customLink) {
+                        const myProps = {
+                            href: img.customLink,
+                            target: ( img.linkTarget === '_blank' ) ? '_blank' : undefined,
+                            rel: ( '_blank' === img.linkTarget ? 'noopener noreferrer' : undefined )
                         }
-
+                        imagePack = (
+                            <>
+                            <a { ...myProps }>{image}</a>
+                            {showCaptions &&
+                            <figcaption>{img.caption}</figcaption>
+                            }
+                            </>
+                        )
+                    } else {
+                        imagePack = (
+                            <>
+                            {image}
+                            {showCaptions &&
+                            <figcaption className={`ck-blocks-gallery-grid-item__caption`}>{img.caption}</figcaption>
+                            }
+                            </>
+                        )
                     }
+
                     return(
                     <li key={index} className={itemStyle}><figure>{imagePack}</figure></li>
                     )

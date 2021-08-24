@@ -33,7 +33,7 @@ registerBlockType("carkeek-blocks/accordion-panel", {
         src: icons.dropdown,
     },
 
-    category: "widgets",
+    category: "carkeek-category",
 
     attributes,
 

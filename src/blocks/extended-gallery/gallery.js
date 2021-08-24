@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { filter, map, find, isEmpty, reduce, get } from 'lodash';
+import { filter, map, isEmpty } from 'lodash';
 import classnames from 'classnames';
 /**
  * WordPress dependencies
@@ -13,14 +13,15 @@ import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { PanelBody, SelectControl, RadioControl, ToggleControl } from "@wordpress/components";
 import { withSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
+import useGetMedia from './use-get-media';
+//import { useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import GalleryImage from './gallery-img';
 import icons from "../../resources/icons";
-import { pickRelevantMediaFiles } from './shared';
+import { pickRelevantMediaFiles, pickRelevantMediaFilesUpdate } from './shared';
 
 export const Gallery = ( props ) => {
 	const {
@@ -28,13 +29,12 @@ export const Gallery = ( props ) => {
 		className,
 		isSelected,
         imageSizes,
-		resizedImages,
 	} = props;
 
 	const {
 		images,
-		sizeSlug,
-        sizeSlugThumbs,
+		lightSize,
+        thumbSize,
         ids,
 		displayAs,
 		columns,
@@ -47,10 +47,9 @@ export const Gallery = ( props ) => {
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
-    const [ attachmentCaptions, setAttachmentCaptions ] = useState(images.map( ( newImage ) => ( {
-        id: parseInt( newImage.id, 10 ),
-        caption: newImage.caption,
-    } ) ));
+
+	const imageData = useGetMedia( ids );
+
 
 	const isGallery = displayAs == 'gallery';
 	const isCarousel = displayAs == 'carousel';
@@ -63,7 +62,6 @@ export const Gallery = ( props ) => {
 		'ck-blocks-gallery-carousel': isCarousel,
 		[ `columns-${ slidesToShow }` ] : isCarousel
 	})
-
 
     function setAttributes( newAttrs ) {
 		if ( newAttrs.ids ) {
@@ -126,49 +124,11 @@ export const Gallery = ( props ) => {
     }
 
 
-    function selectCaption( newImage, images, attachmentCaptions ) {
-        const newImageId = parseInt( newImage.id, 10 );
-        const currentImage = find( images, { id: newImageId } );
-
-        const currentImageCaption = currentImage
-            ? currentImage.caption
-            : newImage.caption;
-
-        if ( ! attachmentCaptions ) {
-            return currentImageCaption;
-        }
-
-        const attachment = find( attachmentCaptions, {
-            id: newImageId,
-        } );
-
-        // if the attachment caption is updated
-        if ( attachment && attachment.caption !== newImage.caption ) {
-            return newImage.caption;
-        }
-
-        return currentImageCaption;
-    }
-
     function onSelectImages( newImages ) {
-        setAttachmentCaptions(
-			newImages.map( ( newImage ) => ( {
-                id: parseInt( newImage.id, 10 ),
-                caption: newImage.caption,
-            } ) )
-		);
+		const oldImages = [ ...images ];
         setAttributes( {
-            images: newImages.map( ( newImage ) => ( {
-                ...pickRelevantMediaFiles( newImage, sizeSlug, sizeSlugThumbs ),
-                caption: selectCaption(
-                    newImage,
-                    images,
-                    attachmentCaptions
-                ),
-                id: parseInt( newImage.id ),
-            } ) ),
+			images: newImages.map( ( image ) => pickRelevantMediaFiles( image, thumbSize, lightSize, oldImages ) ),
         } );
-
     }
 
     function onUploadError( message ) {
@@ -205,37 +165,28 @@ export const Gallery = ( props ) => {
 		);
 	}
 
-    function updateImagesSize( newSizeSlug ) {
-		const updatedImages = map( images, ( image ) => {
-			if ( ! image.id ) {
-				return image;
-			}
-			const url = get( resizedImages, [
-				parseInt( image.id, 10 ),
-				newSizeSlug,
-			] );
-			return {
-				...image,
-				...( url && { url } ),
-			};
+    function updateLightSize( newLightSize ) {
+
+		setAttributes( { lightSize: newLightSize } );
+		const newImages = images.map( ( image ) =>  {
+			return pickRelevantMediaFilesUpdate( image, thumbSize, newLightSize, imageData );
 		} );
-		setAttributes( { images: updatedImages, sizeSlug: newSizeSlug } );
+		setAttributes( {
+			images: newImages
+			}
+		)
+
 	}
-    function updateThumbsSize( newSizeSlug ) {
-		const updatedImages = map( images, ( image ) => {
-			if ( ! image.id ) {
-				return image;
-			}
-			const thumbUrl = get( resizedImages, [
-				parseInt( image.id, 10 ),
-				newSizeSlug,
-			] );
-			return {
-				...image,
-				...( thumbUrl && { thumbUrl } ),
-			};
+
+    function updateThumbsSize( newThumbSize ) {
+		setAttributes( { thumbSize: newThumbSize } );
+		const newImages = images.map( ( image ) =>  {
+			return pickRelevantMediaFilesUpdate( image, newThumbSize, lightSize, imageData );
 		} );
-		setAttributes( { images: updatedImages, sizeSlugThumbs: newSizeSlug } );
+		setAttributes( {
+			images: newImages
+			}
+		)
 	}
 
     const imageSizeOptions = getImagesSizeOptions();
@@ -281,20 +232,21 @@ export const Gallery = ( props ) => {
 					) }
                 { shouldShowSizeOptions && (
                     <>
-					{linkImages == 'lightbox' &&
+
 						<SelectControl
-							label={ __( 'Thumbnail size' ) }
-							value={ sizeSlugThumbs }
+							label={ __( 'Image size' ) }
+							value={ thumbSize }
 							options={ imageSizeOptions }
 							onChange={ updateThumbsSize }
 						/>
-					}
+					{linkImages == 'lightbox' &&
                         <SelectControl
-							label={ __( 'Image size' ) }
-							value={ sizeSlug }
+							label={ __( 'Lightbox Image size' ) }
+							value={ lightSize }
 							options={ imageSizeOptions }
-							onChange={ updateImagesSize }
+							onChange={ updateLightSize }
 						/>
+					}
                     </>
 					) }
                 </PanelBody>
@@ -322,6 +274,8 @@ export const Gallery = ( props ) => {
 								//{ ...props }
 								key={ img.id || img.url }
 								url={ img.url }
+								thumbUrl = { img.thumbUrl }
+								lightUrl = { img.lightUrl }
 								alt={ img.alt }
                                 id={ parseInt( img.id, 10 ) } // make id an integer explicitly
                                 focalPointX={img.focalPointX}
@@ -342,12 +296,12 @@ export const Gallery = ( props ) => {
 								}
 								cropImages = { cropImages }
 								linkImages = { linkImages }
-								linksto={img.linksto}
+								customLink={img.customLink}
 								linkTarget={img.linkTarget}
 								showCaptions = {showCaptions}
 								caption={ img.caption }
 								aria-label={ ariaLabel }
-								sizeSlug={ sizeSlug }
+								lightSize={ lightSize }
 							/>
 				}
 						</li>
@@ -382,7 +336,7 @@ export const Gallery = ( props ) => {
                     onSelect={ onSelectImages }
                     allowedTypes={ [ 'image' ] }
                     isAppender={ hasImages }
-                    addToGallery={ hasImages }
+                    addToGallery={ false } //temp to avoid problem with images disappearing was hasImages
                     multiple
                     gallery
                     value={ ids }
@@ -400,55 +354,14 @@ export const Gallery = ( props ) => {
 };
 
 
-export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
-		const { getMedia } = select( 'core' );
-		const { getSettings } = select( 'core/block-editor' );
-		const { imageSizes } = getSettings();
+//export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
+export default withSelect( ( select ) => {
+	const { getMedia } = select( 'core' );
+	const { getSettings } = select( 'core/block-editor' );
+	const { imageSizes } = getSettings();
 
-		const resizedImages = useMemo( () => {
-			if ( isSelected ) {
-				return reduce(
-					ids,
-					( currentResizedImages, id ) => {
-						if ( ! id ) {
-							return currentResizedImages;
-						}
-						const image = getMedia( id );
-						const sizes = reduce(
-							imageSizes,
-							( currentSizes, size ) => {
-								const defaultUrl = get( image, [
-									'sizes',
-									size.slug,
-									'url',
-								] );
-								const mediaDetailsUrl = get( image, [
-									'media_details',
-									'sizes',
-									size.slug,
-									'source_url',
-								] );
-								return {
-									...currentSizes,
-									[ size.slug ]:
-										defaultUrl || mediaDetailsUrl,
-								};
-							},
-							{}
-						);
-						return {
-							...currentResizedImages,
-							[ parseInt( id, 10 ) ]: sizes,
-						};
-					},
-					{}
-				);
-			}
-			return {};
-		}, [ isSelected, ids, imageSizes ] );
-
-		return {
-			imageSizes,
-			resizedImages,
-		};
-	} ) (Gallery);
+	return {
+		imageSizes,
+		getMedia,
+	};
+} ) (Gallery);
