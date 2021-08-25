@@ -52,31 +52,28 @@ class PageHeaderSettings extends Component {
             hideFeaturedImage,
             setHideFeaturedImage,
             posttype,
-            featuredImage
         } = this.props;
 
-        let hideImageCheckbox;
-        if (featuredImage) {
-            hideImageCheckbox = (
-                <CheckboxControl
-                    className="carkeek-hide-featured-image-label"
-                    label="Hide Featured Image"
-                    checked={hideFeaturedImage}
-                    onChange={value => setHideFeaturedImage(value)}
-                    help={
-                        hideFeaturedImage
-                            ? __(
-                                  "The Featured Image is hidden on the rendered page.",
-                                  "carkeek-blocks"
-                              )
-                            : __(
-                                  "The Featured Image is visible on the rendered page.",
-                                  "carkeek-blocks"
-                              )
-                    }
-                />
-            );
-        }
+        const hideImageCheckbox = (
+            <CheckboxControl
+                className="carkeek-hide-featured-image-label"
+                label="Hide Featured Image"
+                checked={hideFeaturedImage}
+                onChange={value => setHideFeaturedImage(value)}
+                help={
+                    hideFeaturedImage
+                        ? __(
+                                "The Featured Image is hidden on the rendered page.",
+                                "carkeek-blocks"
+                            )
+                        : __(
+                                "The Featured Image is visible on the rendered page.",
+                                "carkeek-blocks"
+                            )
+                }
+            />
+        );
+
         return (
             <PluginDocumentSettingPanel
                 name="page-header-settings-panel"
@@ -112,9 +109,6 @@ export default compose(
             hideFeaturedImage: select("core/editor").getEditedPostAttribute(
                 "meta"
             )["_carkeekblocks_featuredimage_hidden"],
-            featuredImage: select("core/editor").getEditedPostAttribute(
-                "featured_media"
-            ),
             posttype: select("core/editor").getEditedPostAttribute("type")
         };
     }),
