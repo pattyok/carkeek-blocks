@@ -82,7 +82,7 @@ export default withSelect((select, props) => {
     const { getEntityRecords,  getPostTypes, getTaxonomies } = select("core");
     const taxTerms = getEntityRecords('taxonomy', taxonomySelected, { per_page: -1 } );
 
-    let taxonomies = getTaxonomies();
+    let taxonomies = getTaxonomies({ per_page: -1 });
     taxonomies = !Array.isArray(taxonomies)
             ? taxonomies
             : taxonomies.filter(tax => tax.types.includes(postTypeSelected));
