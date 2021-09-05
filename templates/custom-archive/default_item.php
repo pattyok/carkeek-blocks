@@ -1,11 +1,11 @@
 <?php
+error_log(print_r($data, true));
 $featured_image = '';
 if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, 'medium_large' );
 }
 
 $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image', $featured_image, $post->ID, $data );
-
 
 $excerpt = '';
 if ( true == $data->displayPostExcerpt ) {
@@ -36,10 +36,9 @@ $meta = array(
 if ( $data->showPublishDate ) {
 	$meta[ $data->publishDateLocation ] = wp_sprintf( '<span class="ck-custom-archive-item-date">%1s</span>', get_the_date() );
 }
-//deprecate this in favor of dynamic titles
+// deprecate this in favor of dynamic titles
 $meta_before = apply_filters( 'ck_custom_archive_layout__meta_before_title', $meta['before'], $data );
 $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $meta['after'], $data );
-//
 $meta_before = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_before_title', $meta['before'], $data );
 $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_after_title', $meta['after'], $data );
 ?>

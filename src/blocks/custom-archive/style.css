@@ -7,6 +7,9 @@
 
 
 	& .ck-custom-archive-image-link {
+		position: relative;
+		display: block;
+		margin-bottom: var(--ck-archive-image-text-gap);
 
 		&.layout-square {
 			--ck-archive-image-ratio: 100%;
@@ -23,9 +26,6 @@
 		&.layout-landscape-34 {
 			--ck-archive-image-ratio: 75%;
 		}
-		position: relative;
-		display: block;
-		margin-bottom: var(--ck-archive-image-text-gap);
 
 		&::after {
 			display: block;
@@ -56,6 +56,11 @@
 
 		& .ck-columns__wrap {
 			flex-wrap: wrap;
+		}
+
+		& .archive-entry {
+			display: flex;
+			flex-direction: column;
 		}
 	}
 

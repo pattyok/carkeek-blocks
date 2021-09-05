@@ -285,16 +285,16 @@ class CarkeekBlocks_CustomPost {
 				$filter_terms = explode( ',', $attributes['taxTermsSelected'] );
 			}
 
-			foreach ( $filter_terms as $filter_term) {
+			foreach ( $filter_terms as $filter_term ) {
 
 				$parent = 0;
 
 				$tax_args['child_of'] = $filter_term;
-				//get children and parents and merge them
-				$tax_terms          = get_terms( $tax_args );
+				// get children and parents and merge them
+				$tax_terms = get_terms( $tax_args );
 
-				//add Parent to the array
-				if (true == $attributes['groupHideParents']) {
+				// add Parent to the array
+				if ( true == $attributes['groupHideParents'] ) {
 					$parent = $filter_term;
 				} else {
 					$parent_term = get_term( $filter_term, $group_by );

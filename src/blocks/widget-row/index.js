@@ -27,6 +27,14 @@ const attributes = {
         type: 'number',
         default: 3
     },
+    itemsPerRowMobile: {
+        type: 'number',
+        default: 1
+    },
+    itemsPerRowTablet: {
+        type: 'number',
+        default: 2
+    },
     alignInnerBlocks: {
         type: 'string',
         default: 'left'
@@ -70,7 +78,7 @@ registerBlockType("carkeek-blocks/widget-row", {
     deprecated,
 
     save({ attributes } ) {
-        const { allowItemsWrap, itemsPerRow, alignInnerBlocks,rowDirection } = attributes
+        const { allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks,rowDirection } = attributes
         const blockProps = useBlockProps.save();
         return (
             <div { ...blockProps }
@@ -78,7 +86,9 @@ registerBlockType("carkeek-blocks/widget-row", {
                     "ck-columns": 'true',
                     [`ck-columns-wrap-${allowItemsWrap}`]: true,
                     [`ck-columns-align-${alignInnerBlocks}`]: true,
-                    [`has-${itemsPerRow}-columns`]: 'true',
+                    [`has-${itemsPerRow}-columns`]: true,
+                    [`has-${itemsPerRowMobile}-columns-mobile`]: true,
+                    [`has-${itemsPerRowTablet}-columns-tablet`]: true,
                     [`direction-${rowDirection}`]: 'true',
                 }) }
                 >

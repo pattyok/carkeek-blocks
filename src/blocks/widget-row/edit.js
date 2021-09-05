@@ -14,7 +14,7 @@ import { dispatch, useSelect } from "@wordpress/data";
 
 export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, alignInnerBlocks, rowDirection } = attributes;
+    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks, rowDirection } = attributes;
 
     const availBlocks = getBlockTypes();
     let myAllowedBlocks = allowedBlocks;
@@ -70,6 +70,20 @@ export default function CollapseSectionEdit( props ) {
                         label={__("Columns", "carkeek-blocks")}
                         value={ itemsPerRow }
                         onChange={ ( itemsPerRow ) => setAttributes( { itemsPerRow } ) }
+                        min={1}
+                        max={6}
+                    />
+                    <RangeControl
+                        label={__("Columns Mobile", "carkeek-blocks")}
+                        value={ itemsPerRowMobile }
+                        onChange={ ( itemsPerRowMobile ) => setAttributes( { itemsPerRowMobile } ) }
+                        min={1}
+                        max={6}
+                    />
+                    <RangeControl
+                        label={__("Columns Tablet", "carkeek-blocks")}
+                        value={ itemsPerRowTablet }
+                        onChange={ ( itemsPerRowTablet ) => setAttributes( { itemsPerRowTablet } ) }
                         min={1}
                         max={6}
                     />
