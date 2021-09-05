@@ -16,6 +16,17 @@ export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
     const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks, rowDirection } = attributes;
 
+
+    if (!itemsPerRowTablet) {
+        setAttributes( {
+            itemsPerRowTablet : itemsPerRow > 3 ? 3 : itemsPerRow
+        } );
+    }
+    if (!itemsPerRowMobile) {
+        setAttributes( {
+            itemsPerRowMobile : 1
+        } );
+    }
     const availBlocks = getBlockTypes();
     let myAllowedBlocks = allowedBlocks;
     let addLabel = __('a Block');
