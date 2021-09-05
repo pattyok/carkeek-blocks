@@ -94,6 +94,26 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'number',
 						'default' => 3,
 					),
+					'columnsMobile'              => array(
+						'type'    => 'number',
+						'default' => 1,
+					),
+					'columnsTablet'              => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
+					'limitItemsMobile'              => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'itemsMobile'              => array(
+						'type'    => 'number',
+						'default' => 1,
+					),
+					'itemsTablet'              => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
 					'taxTermsSelected'     => array(
 						'type' => 'string',
 					),

@@ -399,6 +399,16 @@ class CarkeekBlocks_CustomPost {
 		);
 		if ( 'grid' === $layout ) {
 			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
+			$mobile              = isset( $attributes['columnsMobile'] ) ? $attributes['columnsMobile'] : 1;
+			$tablet              = isset( $attributes['columnsTablet'] ) ? $attributes['columnsTablet'] : $attributes['columns'];
+			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
+		}
+
+		if ( isset( $attributes['limitItemsMobile'] ) && true == $attributes['limitItemsMobile'] ) {
+			if ( -1 !== $attributes['itemsTablet'] ) {
+				$css_classes_outer[] = 'limit-tablet-' . $attributes['itemsTablet'];
+			}
+			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
 		}
 
 		if ( $attributes['className'] && ! empty( $attributes['className'] ) ) {

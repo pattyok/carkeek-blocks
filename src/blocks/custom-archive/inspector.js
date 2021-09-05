@@ -41,6 +41,11 @@ function postsInspector( props ){
         sortByMeta,
         order,
         columns,
+        columnsMobile,
+        columnsTablet,
+        limitItemsMobile,
+        itemsMobile,
+        itemsTablet,
         displayFeaturedImage,
         openAsModal,
         useHeadingTitle,
@@ -80,6 +85,17 @@ function postsInspector( props ){
         />
     );
 
+    if (!columnsTablet) {
+        setAttributes( {
+            columnsTablet : columns > 3 ? 3 : columns
+        } );
+    }
+    if (!columnsMobile) {
+        setAttributes( {
+            columnsMobile : 1
+        } );
+    }
+
     const [showGroupHierarchyOpt, setShowGroupHierarchyOpt] = useState(true);
 
     /** Set the tax selected on settings change */
@@ -96,6 +112,11 @@ function postsInspector( props ){
             setAttributes({ groupTaxSelected : taxonomies[0].slug});
         }
     }
+    function handlePaginationSettingChange( value ){
+        setAttributes({ showPagination: value })
+        setAttributes({ limitItemsMobile: false })
+    }
+
 
     useEffect( () => {
         const tax = _.find(taxonomies, {slug: groupTaxSelected});
@@ -262,9 +283,7 @@ function postsInspector( props ){
             <ToggleControl
                     label={__("Show Pagination")}
                     checked={showPagination}
-                    onChange={value =>
-                        setAttributes({ showPagination: value })
-                    }
+                    onChange={ ( value ) => handlePaginationSettingChange( value ) }
                 />
             <ToggleControl
                 label={__("Group by Taxonomy Terms")}
@@ -429,7 +448,54 @@ function postsInspector( props ){
                     />
                 }
             </PanelBody>
-
+            <PanelBody title={__("Responsive Layout", "carkeek-blocks")}  initialOpen={ false }>
+            {postLayout == 'grid' &&
+            <>
+                <RangeControl
+                    label={__("Columns Mobile", "carkeek-blocks")}
+                    value={ columnsMobile }
+                    onChange={ ( columnsMobile ) => setAttributes( { columnsMobile } ) }
+                    min={1}
+                    max={6}
+                />
+                <RangeControl
+                    label={__("Columns Tablet", "carkeek-blocks")}
+                    value={ columnsTablet }
+                    onChange={ ( columnsTablet ) => setAttributes( { columnsTablet } ) }
+                    min={1}
+                    max={6}
+                />
+            </>
+            }
+            {!showPagination &&
+             <ToggleControl
+                label={__("Limit the number of posts displayed in Mobile/Tablet")}
+                checked={limitItemsMobile}
+                onChange={value =>
+                    setAttributes({ limitItemsMobile: value })
+                }
+            />
+            }
+            {limitItemsMobile &&
+                <>
+                <RangeControl
+                    label={__("Items to show Mobile", "carkeek-blocks")}
+                    value={ itemsMobile }
+                    onChange={ ( itemsMobile ) => setAttributes( { itemsMobile } ) }
+                    min={1}
+                    max={6}
+                />
+                <RangeControl
+                    label={__("Items to show Tablet", "carkeek-blocks")}
+                    value={ itemsTablet }
+                    help={__("Select -1 to show all")}
+                    onChange={ ( itemsTablet ) => setAttributes( { itemsTablet } ) }
+                    min={1}
+                    max={6}
+                />
+                </>
+            }
+            </PanelBody>
         </InspectorControls>
     );
 }
