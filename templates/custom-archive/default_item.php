@@ -1,5 +1,4 @@
 <?php
-error_log(print_r($data, true));
 $featured_image = '';
 if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, 'medium_large' );

@@ -2,17 +2,20 @@
 	$item_id          = $data->blockId . '_' . $post->ID;
 	$image            = '';
 	$modal_body_image = '';
-	$image = get_the_post_thumbnail( $post->ID, 'large' );
+	$image            = get_the_post_thumbnail( $post->ID, 'large' );
 
-if ( ! empty( $image )   ) {
+if ( ! empty( $image ) ) {
 	$modal_body_image = '<div class="ck-modal-item-image">' . $image . '</div>';
 }
 	$modal_body_image = apply_filters( 'ck_custom_archive_layout_modal_dialog__image', $modal_body_image );
 ?>
 
 <div class="ck-columns__item ck-custom-archive__item ck-modal-item <?php echo esc_attr( $post->name ); ?>" data-id="<?php echo esc_attr( $item_id ); ?>" >
-	<?php if ( ! empty( $image ) && true ==  $data->displayFeaturedImage ) { ?>
-		<a class="ck-modal-item-image ck-custom-archive-image-link" data-toggle="modal" data-target="#dialog-<?php echo esc_attr( $item_id ); ?>">
+	<?php
+	if ( ! empty( $image ) && true == $data->displayFeaturedImage ) {
+		$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
+		?>
+		<a class="ck-modal-item-image ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" data-toggle="modal" data-target="#dialog-<?php echo esc_attr( $item_id ); ?>">
 			<?php echo wp_kses_post( $image ); ?>
 		</a>
 	<?php } ?>
