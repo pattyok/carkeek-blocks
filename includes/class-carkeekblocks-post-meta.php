@@ -24,7 +24,36 @@ class CarkeekBlocks_Post_Meta {
 	 */
 	public function __construct() {
 		add_filter( 'init', array( $this, 'register_meta' ) );
+		add_action( 'rest_api_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
+
+	/**
+	 * Register API Key settings.
+	 *
+	 * @return void
+	 */
+	public function register_settings() {
+		register_setting(
+			'options',
+			'_carkeekblocks_featuredimage_use_focalpoint',
+			array(
+				'type'         => 'boolean',
+				'show_in_rest' => true,
+				'default'      => false,
+			)
+		);
+		register_setting(
+			'options',
+			'_carkeekblocks_featuredimage_use_hideTitle',
+			array(
+				'show_in_rest' => true,
+				'type'         => 'boolean',
+				'default'      => true,
+			)
+		);
+	}
+
 
 	/**
 	 * Register meta.
@@ -53,6 +82,32 @@ class CarkeekBlocks_Post_Meta {
 				'auth_callback' => function() {
 					return current_user_can( 'edit_posts' );
 				},
+			)
+		);
+
+		register_meta(
+			'post',
+			'_carkeekblocks_featured_image_focal_point',
+			array(
+				'type'         => 'object',
+				'description'  => 'Focal point of the featured image',
+				'single'       => true,
+				'auth_callback' => function() {
+					return current_user_can( 'edit_posts' );
+				},
+				'show_in_rest' => array(
+					'schema' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'x' => array(
+								'type' => 'number',
+							),
+							'y' => array(
+								'type' => 'number',
+							),
+						),
+					),
+				),
 			)
 		);
 

@@ -38,6 +38,8 @@ export const Gallery = ( props ) => {
         ids,
 		displayAs,
 		columns,
+		columnsMobile,
+		columnsTablet,
 		cropImages,
 		imageLayout,
 		linkImages,
@@ -57,6 +59,8 @@ export const Gallery = ( props ) => {
 	const galleryStyle = classnames({
 		'blocks-gallery-grid': true,
 		[ `columns-${ columns }` ]: isGallery,
+		[ `columns-m-${ columnsMobile }` ]: isGallery,
+		[ `columns-t-${ columnsTablet }` ]: isGallery,
 		'fixed-images': cropImages,
         [ `fixed-images-${ imageLayout }` ]: cropImages,
 		'ck-blocks-gallery-carousel': isCarousel,

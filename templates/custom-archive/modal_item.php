@@ -15,7 +15,7 @@ if ( ! empty( $image ) ) {
 	if ( ! empty( $image ) && true == $data->displayFeaturedImage ) {
 		$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 		?>
-		<a class="ck-modal-item-image ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" data-toggle="modal" data-target="#dialog-<?php echo esc_attr( $item_id ); ?>">
+		<a href="javascript:;" class="ck-modal-item-image ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>" data-toggle="modal" data-target="#dialog-<?php echo esc_attr( $item_id ); ?>">
 			<?php echo wp_kses_post( $image ); ?>
 		</a>
 	<?php } ?>
@@ -25,6 +25,7 @@ if ( ! empty( $image ) ) {
 		id="title-<?php echo esc_attr( $item_id ); ?>"
 		data-toggle="modal"
 		data-target="#dialog-<?php echo esc_attr( $item_id ); ?>"
+		href="javascript:;"
 	>
 		<?php the_title(); ?>
 	</a>

@@ -3,7 +3,21 @@ import { RichText, useBlockProps } from "@wordpress/block-editor";
 import { cleanForSlug } from "@wordpress/editor";
 
 function LighboxGallerySave ({ attributes }) {
-    const { title, subtitle, images, linkFirstImage, blockId, hideTitle, displayAs, viewLimit, cropImages, columns, limitView, imageLayout, mobileScroll} = attributes;
+    const { title,
+        subtitle,
+        images,
+        linkFirstImage,
+        blockId,
+        hideTitle,
+        displayAs,
+        viewLimit,
+        cropImages,
+        columns,
+        columnsMobile,
+        columnsTablet,
+        limitView,
+        imageLayout,
+        mobileScroll} = attributes;
     const blockProps = useBlockProps.save();
     const hasImages = !! images.length;
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
@@ -13,6 +27,8 @@ function LighboxGallerySave ({ attributes }) {
     const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': isGallery,
 		[ `columns-${ columns }` ]: isGallery,
+        [ `columns-m-${ columnsMobile }` ]: isGallery,
+        [ `columns-t-${ columnsTablet }` ]: isGallery,
 		'fixed-images': isGallery && cropImages,
         'ck-blocks-gallery-hidden': !isGallery,
         [ `fixed-images-${ imageLayout }` ]: isGallery && cropImages,
@@ -23,7 +39,7 @@ function LighboxGallerySave ({ attributes }) {
     return (
         <div { ...blockProps }>
                 {hasImages && linkFirstImage && !isGallery &&
-                <a className="ck-lightbox-featured-image" data-title={title} data-fancybox-trigger={`gallery-${galleryId}`} href='javascript:;'>
+                <a className="ck-lightbox-featured-image" data-title={title} data-fancybox-trigger={`gallery-${galleryId}`} href='#fancybox'>
                     <img src={images[0].thumbUrl} alt={images[0].alt}></img>
                 </a>
                 }
@@ -62,7 +78,7 @@ function LighboxGallerySave ({ attributes }) {
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit)
                     })
                     return(
-                    <li key={index} className={itemStyle}> <a href={img.url}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}><img style={imageStyle} src={img.thumbUrl} ></img></a></li>
+                    <li key={index} className={itemStyle}> <a href={img.url}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}><img style={imageStyle} alt={img.alt} src={img.thumbUrl} ></img></a></li>
                     )
                 }
                 ) }

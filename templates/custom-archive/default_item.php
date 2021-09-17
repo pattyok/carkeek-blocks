@@ -46,7 +46,7 @@ $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 	?>
-		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
+		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 			<?php echo wp_kses_post( $featured_image ); ?>
 		</a>
 	<?php } ?>

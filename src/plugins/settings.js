@@ -1,28 +1,20 @@
-import { Component } from "@wordpress/element";
 import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
 import { __ } from "@wordpress/i18n";
-import { CheckboxControl } from "@wordpress/components";
+import { CheckboxControl, FocalPointPicker } from "@wordpress/components";
 import { withSelect, withDispatch } from "@wordpress/data";
 import { compose } from "@wordpress/compose";
 
-class PageHeaderSettings extends Component {
-    constructor() {
-        super(...arguments);
 
-        this.initialize = this.initialize.bind(this);
-    }
-
-    componentDidMount() {
-        this.initialize();
-    }
-
-    componentDidUpdate() {
-        this.initialize();
-    }
-
-    initialize() {
-        const { hideTitle } = this.props;
-
+function PageHeaderSettings( props ) {
+        const {
+            hideTitle,
+            setHideTitle,
+            hideFeaturedImage,
+            setHideFeaturedImage,
+            featuredMedia,
+            featuredImageFocalPoint,
+            setFeaturedImageFocalPoint
+        } = props;
         const titleBlock = document.querySelector(".editor-post-title__block");
 
         if (titleBlock) {
@@ -44,15 +36,23 @@ class PageHeaderSettings extends Component {
 
             document.body.classList.add(bodyClass);
         }
-    }
-    render() {
-        const {
-            hideTitle,
-            setHideTitle,
-            hideFeaturedImage,
-            setHideFeaturedImage,
-            posttype,
-        } = this.props;
+
+        let focalPoint;
+        if (!hideFeaturedImage && featuredMedia && featuredMedia.source_url) {
+            const url = featuredMedia.source_url;
+            const { width, height } = featuredMedia.media_details;
+            focalPoint = (
+                <FocalPointPicker
+                    label={ __( 'Featured Image Focal Point' ) }
+                    url={ url }
+                    dimensions={ { width, height } }
+                    value={ featuredImageFocalPoint }
+                    onChange={ ( newFocalPoint ) =>
+                        setFeaturedImageFocalPoint( newFocalPoint )
+                    }
+                />
+            )
+        }
 
         const hideImageCheckbox = (
             <CheckboxControl
@@ -80,52 +80,70 @@ class PageHeaderSettings extends Component {
                 title="Page Header Settings"
                 className="page-header-settings-panel"
             >
+
                 <CheckboxControl
                     className="carkeek-hide-title-label"
-                    label={__("Hide " + posttype + " Title", "carkeek-blocks")}
+                    label={__("Hide Page Title", "carkeek-blocks")}
                     checked={hideTitle}
                     onChange={value => setHideTitle(value)}
                     help={
                         hideTitle
                             ? __(
-                                  "Title is hidden on the rendered page.",
-                                  "carkeek-blocks"
-                              )
+                                    "Title is hidden on the rendered page.",
+                                    "carkeek-blocks"
+                                )
                             : null
                     }
                 />
                 {hideImageCheckbox}
+                {focalPoint}
+                <div>
+                    These settings may not be applied on all pages/posts.
+                </div>
             </PluginDocumentSettingPanel>
-        );
-    }
+    );
 }
 
-export default compose(
-    withSelect(select => {
-        return {
-            hideTitle: select("core/editor").getEditedPostAttribute("meta")[
-                "_carkeekblocks_title_hidden"
-            ],
-            hideFeaturedImage: select("core/editor").getEditedPostAttribute(
-                "meta"
-            )["_carkeekblocks_featuredimage_hidden"],
-            posttype: select("core/editor").getEditedPostAttribute("type")
+const applyWithSelect = withSelect( ( select )=> {
+    const { getEditedPostAttribute } = select( 'core/editor' );
+    const { getMedia } = select( 'core' );
+
+    const hideTitle = getEditedPostAttribute('meta')['_carkeekblocks_title_hidden'];
+    const hideFeaturedImage = getEditedPostAttribute('meta')['_carkeekblocks_featuredimage_hidden'];
+    const featuredImageFocalPoint = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_focal_point' ];
+
+    const featuredImageId = getEditedPostAttribute( 'featured_media' );
+    const featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
+    return {
+            hideTitle,
+            hideFeaturedImage,
+            featuredMedia,
+            featuredImageFocalPoint
         };
-    }),
-    withDispatch(dispatch => {
-        return {
+});
+const applyWithDispatch = withDispatch( ( dispatch ) => {
+    const { editPost } = dispatch( 'core/editor' );
+
+    return {
             setHideTitle: hideTitle => {
-                dispatch("core/editor").editPost({
+                editPost({
                     meta: { _carkeekblocks_title_hidden: hideTitle }
                 });
             },
             setHideFeaturedImage: hideFeaturedImage => {
-                dispatch("core/editor").editPost({
+                editPost({
                     meta: {
                         _carkeekblocks_featuredimage_hidden: hideFeaturedImage
                     }
                 });
+            },
+            setFeaturedImageFocalPoint: focalPoint => {
+                editPost( { meta: { _carkeekblocks_featured_image_focal_point: focalPoint } } );
             }
         };
-    })
+});
+
+export default compose(
+    applyWithSelect,
+    applyWithDispatch,
 )(PageHeaderSettings);

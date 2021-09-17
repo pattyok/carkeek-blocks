@@ -30,6 +30,14 @@ const attributes = {
         type: "number",
         default: 4
     },
+    columnsMobile: {
+        type: "number",
+        default: 1
+    },
+    columnsTablet: {
+        type: "number",
+        default: 2
+    },
     cropImages: {
         type: 'boolean',
         default: true

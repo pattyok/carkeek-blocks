@@ -38,6 +38,8 @@ export const Gallery = ( props ) => {
         ids,
 		displayAs,
 		columns,
+		columnsMobile,
+		columnsTablet,
 		cropImages,
 		imageLayout,
 		limitView,
@@ -53,8 +55,10 @@ export const Gallery = ( props ) => {
 	const isGallery = displayAs == 'gallery';
 
 	const galleryStyle = classnames({
-		'ck-blocks-gallery-grid': isGallery,
+		'blocks-gallery-grid': isGallery,
 		[ `columns-${ columns }` ]: isGallery,
+		[ `columns-m-${ columnsMobile }` ]: isGallery,
+		[ `columns-t-${ columnsTablet }` ]: isGallery,
 		'fixed-images': isGallery && cropImages,
         [ `fixed-images-${ imageLayout }` ]: isGallery && cropImages,
 	})
@@ -266,6 +270,7 @@ export const Gallery = ( props ) => {
 					);
 
 					const itemStyle = classnames({
+						'blocks-gallery-item': true,
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit)
                     })

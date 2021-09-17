@@ -13,9 +13,28 @@ function LightboxGalleryEdit( props ) {
 
     //console.log(this.props);
     const { attributes, isSelected, clientId, setAttributes} = props;
-    const { title, subtitle, images, blockId, linkFirstImage, hideTitle, displayAs, columns, cropImages, limitView, viewLimit, imageLayout, mobileScroll } = attributes;
+    const { title,
+        subtitle,
+        images, blockId,
+        linkFirstImage,
+        hideTitle,
+        displayAs,
+        columns,
+        columnsMobile,
+        columnsTablet,
+        cropImages,
+        limitView,
+        viewLimit,
+        imageLayout,
+        mobileScroll } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
+    }
+    if ( !columnsMobile) {
+        setAttributes( { columnsMobile: 1 } );
+    }
+    if ( !columnsTablet) {
+        setAttributes( { columnsTablet: 2 } );
     }
     const blockProps = useBlockProps();
     const hasImages = !! images.length;
@@ -48,6 +67,7 @@ function LightboxGalleryEdit( props ) {
             <>
                 <img
                     src={ image.url }
+                    alt={ image.alt }
                     style = { imageStyle }
                 />
                </>
@@ -132,6 +152,26 @@ function LightboxGalleryEdit( props ) {
                                 checked={ mobileScroll }
                                 onChange={ ( mobileScroll ) => setAttributes( { mobileScroll } ) }
                             />
+                            {!mobileScroll &&
+                                <>
+                                <RangeControl
+                                    label="Columns Mobile"
+                                    value={ columnsMobile }
+                                    onChange={ ( columnsMobile ) => setAttributes( { columnsMobile } ) }
+                                    min={ 1 }
+                                    max={ 6 }
+                                    step={ 1 }
+                                />
+                                <RangeControl
+                                    label="Columns Tablet"
+                                    value={ columnsTablet }
+                                    onChange={ ( columnsTablet ) => setAttributes( { columnsTablet } ) }
+                                    min={ 1 }
+                                    max={ 6 }
+                                    step={ 1 }
+                                />
+                                </>
+                            }
                             </PanelBody>
                         </>
                     }
