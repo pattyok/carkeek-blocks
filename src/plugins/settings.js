@@ -57,7 +57,7 @@ function PageHeaderSettings( props ) {
                             setFeaturedImageFocalPoint( newFocalPoint )
                         }
                     />
-                    <Button onClick={ resetFocalPoint }>Reset FocalPoint</Button>
+                    <Button variant="secondary" className={ 'is-secondary' } onClick={ resetFocalPoint }>Reset FocalPoint</Button>
                 </>
             )
         }
@@ -105,9 +105,10 @@ function PageHeaderSettings( props ) {
                 />
                 {hideImageCheckbox}
                 {focalPoint}
-                <div>
+                <p></p>
+                <p>
                     These settings may not be applied on all pages/posts.
-                </div>
+                </p>
             </PluginDocumentSettingPanel>
     );
 }
