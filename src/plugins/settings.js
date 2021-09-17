@@ -1,6 +1,6 @@
 import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
 import { __ } from "@wordpress/i18n";
-import { CheckboxControl, FocalPointPicker } from "@wordpress/components";
+import { CheckboxControl, FocalPointPicker, Button } from "@wordpress/components";
 import { withSelect, withDispatch } from "@wordpress/data";
 import { compose } from "@wordpress/compose";
 
@@ -37,20 +37,28 @@ function PageHeaderSettings( props ) {
             document.body.classList.add(bodyClass);
         }
 
+        function resetFocalPoint() {
+            const newFocal = { x: 0.5, y: 0.5 }
+            setFeaturedImageFocalPoint( newFocal );
+        }
+
         let focalPoint;
         if (!hideFeaturedImage && featuredMedia && featuredMedia.source_url) {
             const url = featuredMedia.source_url;
             const { width, height } = featuredMedia.media_details;
             focalPoint = (
-                <FocalPointPicker
-                    label={ __( 'Featured Image Focal Point' ) }
-                    url={ url }
-                    dimensions={ { width, height } }
-                    value={ featuredImageFocalPoint }
-                    onChange={ ( newFocalPoint ) =>
-                        setFeaturedImageFocalPoint( newFocalPoint )
-                    }
-                />
+                <>
+                    <FocalPointPicker
+                        label={ __( 'Featured Image Focal Point' ) }
+                        url={ url }
+                        dimensions={ { width, height } }
+                        value={ featuredImageFocalPoint }
+                        onChange={ ( newFocalPoint ) =>
+                            setFeaturedImageFocalPoint( newFocalPoint )
+                        }
+                    />
+                    <Button onClick={ resetFocalPoint }>Reset FocalPoint</Button>
+                </>
             )
         }
 
