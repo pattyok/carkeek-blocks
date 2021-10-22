@@ -11,7 +11,7 @@ const attributes = {
     },
     fillTheSlots: {
         type: "boolean",
-        default: 3
+        default: false
     },
     postTypeSelected: {
         type: "string"
