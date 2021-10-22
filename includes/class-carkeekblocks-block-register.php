@@ -94,23 +94,23 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'number',
 						'default' => 3,
 					),
-					'columnsMobile'              => array(
+					'columnsMobile'        => array(
 						'type'    => 'number',
 						'default' => 1,
 					),
-					'columnsTablet'              => array(
+					'columnsTablet'        => array(
 						'type'    => 'number',
 						'default' => 3,
 					),
-					'limitItemsMobile'              => array(
+					'limitItemsMobile'     => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),
-					'itemsMobile'              => array(
+					'itemsMobile'          => array(
 						'type'    => 'number',
 						'default' => 1,
 					),
-					'itemsTablet'              => array(
+					'itemsTablet'          => array(
 						'type'    => 'number',
 						'default' => 3,
 					),
@@ -120,7 +120,7 @@ class CarkeekBlocks_Block_Register {
 					'taxonomySelected'     => array(
 						'type' => 'string',
 					),
-					'groupListings'     => array(
+					'groupListings'        => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),
@@ -131,7 +131,7 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'boolean',
 						'default' => false,
 					),
-					'groupHideEmpty'     => array(
+					'groupHideEmpty'       => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),
@@ -210,6 +210,162 @@ class CarkeekBlocks_Block_Register {
 					'taxQueryType'         => array(
 						'type'    => 'string',
 						'default' => 'AND',
+					),
+					'isRelated'            => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+				),
+			)
+		);
+
+		$this->carkeek_blocks_register_block(
+			'related-posts-archive',
+			array(
+				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_posttype_archive' ),
+				'attributes'      => array(
+					'numberOfPosts'        => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
+					'blockId'              => array(
+						'type' => 'string',
+					),
+					'postTypeSelected'     => array(
+						'type' => 'string',
+					),
+					'postLayout'           => array(
+						'type'    => 'string',
+						'default' => 'grid',
+					),
+					'columns'              => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
+					'columnsMobile'        => array(
+						'type'    => 'number',
+						'default' => 1,
+					),
+					'columnsTablet'        => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
+					'fillTheSlots'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'limitItemsMobile'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'itemsMobile'          => array(
+						'type'    => 'number',
+						'default' => 1,
+					),
+					'itemsTablet'          => array(
+						'type'    => 'number',
+						'default' => 3,
+					),
+					'taxTermsSelected'     => array(
+						'type' => 'string',
+					),
+					'taxonomySelected'     => array(
+						'type' => 'string',
+					),
+					'groupListings'        => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'groupTaxSelected'     => array(
+						'type' => 'string',
+					),
+					'groupHideParents'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'groupHideEmpty'       => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'displayPostExcerpt'   => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'displayFeaturedImage' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'imageOrientation'     => array(
+						'type' => 'string',
+					),
+					'openAsModal'          => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'filterByTaxonomy'     => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'excerptLength'        => array(
+						'type'    => 'number',
+						'default' => 30,
+					),
+					'order'                => array(
+						'type'    => 'string',
+						'default' => 'ASC',
+					),
+					'sortBy'               => array(
+						'type'    => 'string',
+						'default' => 'date',
+					),
+					'sortByMeta'           => array(
+						'type' => 'string',
+					),
+					'emptyMessage'         => array(
+						'type' => 'string',
+					),
+					'hideIfEmpty'          => array(
+						'type' => 'boolean',
+					),
+					'align'                => array(
+						'type' => 'string',
+					),
+					'className'            => array(
+						'type' => 'string',
+					),
+					'headlineLevel'        => array(
+						'type' => 'number',
+					),
+					'useHeadingTitle'      => array(
+						'type' => 'boolean',
+					),
+					'showPublishDate'      => array(
+						'type' => 'boolean',
+					),
+					'publishDateLocation'  => array(
+						'type' => 'string',
+					),
+					'showTerms'            => array(
+						'type' => 'boolean',
+					),
+					'showPagination'       => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'showLearnMoreLink'    => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'learnMoreLinkTitle'   => array(
+						'type' => 'string',
+					),
+					'taxQueryType'         => array(
+						'type'    => 'string',
+						'default' => 'AND',
+					),
+					'isRelated'            => array(
+						'type'    => 'boolean',
+						'default' => true,
 					),
 				),
 			)
@@ -400,15 +556,12 @@ class CarkeekBlocks_Block_Register {
 	 * @param array $post post optional.
 	 */
 	public function carkeek_blocks_categories( $categories, $post ) {
-		error_log( print_r( $categories, true ) );
 		$new_category = array(
 			'slug'  => 'carkeek-category',
 			'title' => __( 'Carkeek Blocks', 'carkeek-blocks' ),
-			'icon' => '',
+			'icon'  => '',
 		);
 		array_unshift( $categories, $new_category );
-		error_log("after");
-		error_log( print_r( $categories, true ) );
 		return $categories;
 	}
 

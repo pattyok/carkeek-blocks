@@ -13,7 +13,7 @@
 	--slick-loader-path: "./img/";
 	--slick-arrow-color: #fff;
 	--slick-dot-color: #fff;
-	--slick-dot-color-active: --slick-dot-color;
+	--slick-dot-color-active: var(--slick-dot-color);
 	--slick-prev-character: "\F104";
 	--slick-next-character: "\F105";
 	--slick-dot-size: 10px;
