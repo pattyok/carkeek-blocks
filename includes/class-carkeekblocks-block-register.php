@@ -72,6 +72,48 @@ class CarkeekBlocks_Block_Register {
 			$this->carkeek_blocks_register_block( $block );
 		}
 		$this->carkeek_blocks_register_block(
+			'featured-image',
+			array(
+				'attributes'      => array(
+					'align'      => array(
+						'type' => 'string',
+					),
+					'className'  => array(
+						'type' => 'string',
+					),
+					'focalPoint' => array(
+						'type' => 'object',
+					),
+					'blockId'    => array(
+						'type' => 'string',
+					),
+				),
+				'render_callback' => function( $attributes ) {
+					$class_names = '';
+					if ( ! empty( $attributes['align'] ) ) {
+						$class_names .= 'align' . $attributes['align'];
+					}
+					if ( ! empty( $attributes['className'] ) ) {
+						$class_names .= $attributes['className'];
+					}
+					$id = '';
+					$style = '';
+
+					$nocrop = strpos( $attributes['className'], 'is-style-no-crop' );
+					if ( false == $nocrop && ! empty( $attributes['blockId'] ) && ! empty( $attributes['focalPoint'] ) ) {
+						$id = 'id="block-' . esc_attr( $attributes['blockId'] ) . '"';
+						$focal_point = $attributes['focalPoint'];
+
+						$x = $focal_point['x'] * 100;
+						$y = $focal_point['y'] * 100;
+
+						$style = '<style>#block-' . $attributes['blockId'] . ' img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
+					}
+					return $style . '<div ' . $id . ' class="wp-block-carkeek-blocks-featured-image ' . esc_attr( $class_names ) . '">' . get_the_post_thumbnail() . '</div>';
+				},
+			)
+		);
+		$this->carkeek_blocks_register_block(
 			'custom-archive',
 			array(
 				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_posttype_archive' ),
@@ -250,7 +292,7 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'number',
 						'default' => 3,
 					),
-					'fillTheSlots'     => array(
+					'fillTheSlots'         => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),

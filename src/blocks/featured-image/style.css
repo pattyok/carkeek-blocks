@@ -1,0 +1,42 @@
+:root {
+	--ck-featured-image-ratio: 75%;
+	--ck-featured-image-ratio-portrait: 125%;
+}
+
+.wp-block-carkeek-blocks-featured-image:not(.is-style-no-crop) {
+	position: relative;
+	display: block;
+	overflow: hidden;
+
+	&::before {
+		content: "";
+		width: 100%;
+		height: 0;
+		padding-top: var(--ck-featured-image-ratio);
+		display: block;
+	}
+
+	& img {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 50%;
+	}
+
+	&.is-style-square {
+
+		&::before {
+			padding-top: 100%;
+		}
+	}
+
+	&.is-style-portrait {
+
+		&::before {
+			padding-top: var(--ck-featured-image-ratio-portrait);
+		}
+	}
+}
