@@ -10,6 +10,10 @@ const attributes = {
         type: "number",
         default: 3
     },
+    hideTitle: {
+        type: "boolean",
+        default: false
+    },
     displayField1: {
         type: "string",
     },
@@ -43,6 +47,26 @@ const attributes = {
         default: "grid"
     },
     columns: {
+        type: "number",
+        default: 3
+    },
+    columnsMobile: {
+        type: "number",
+        default: 1
+    },
+    columnsTablet: {
+        type: "number",
+        default: 3
+    },
+    limitItemsMobile: {
+        type: "boolean",
+        default: false,
+    },
+    itemsMobile: {
+        type: "number",
+        default: 1
+    },
+    itemsTablet: {
         type: "number",
         default: 3
     },

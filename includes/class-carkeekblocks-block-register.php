@@ -432,6 +432,26 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'number',
 							'default' => 3,
 						),
+						'columnsMobile'        => array(
+							'type'    => 'number',
+							'default' => 1,
+						),
+						'columnsTablet'        => array(
+							'type'    => 'number',
+							'default' => 3,
+						),
+						'limitItemsMobile'     => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'itemsMobile'          => array(
+							'type'    => 'number',
+							'default' => 1,
+						),
+						'itemsTablet'          => array(
+							'type'    => 'number',
+							'default' => 3,
+						),
 						'catTermsSelected'     => array(
 							'type' => 'string',
 						),
@@ -477,6 +497,10 @@ class CarkeekBlocks_Block_Register {
 						),
 						'className'            => array(
 							'type' => 'string',
+						),
+						'hideTitle'     => array(
+							'type'    => 'boolean',
+							'default' => false,
 						),
 						'displayField1'        => array(
 							'type' => 'string',
@@ -607,7 +631,12 @@ class CarkeekBlocks_Block_Register {
 		return $categories;
 	}
 
-	public function carkeek_blocks_render_formassembly_form( $atts ) {
+	/**
+	 * Render form assembly block
+	 *
+	 * @param array $atts attributes passed from block.
+	 */
+	public static function carkeek_blocks_render_formassembly_form( $atts ) {
 		if ( ! empty( $atts['formId'] ) ) {
 			$shortcode   = '[formassembly formid=' . $atts['formId'] . ']';
 			$form_block  = '<div class="wp-block-carkeek-blocks-form-assembly">';

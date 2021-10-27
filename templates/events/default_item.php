@@ -4,6 +4,13 @@
 $meta_fields = array( $data->displayField1, $data->displayField2, $data->displayField3, $data->displayField4 );
 $meta_data   = array();
 
+$permalink = apply_filters(
+	'ck_events_archive_tribe_events__link',
+	get_permalink(),
+	$post->ID,
+	$data
+);
+
 foreach ( $meta_fields as $field ) {
 	switch ( $field ) {
 		case 'startdate':
@@ -36,6 +43,10 @@ foreach ( $meta_fields as $field ) {
 			$venue       = '<div class="ck-item-event_venue">' . tribe_get_venue( $post->ID ) . '</div>';
 			$meta_data[] = $venue;
 			break;
+		case 'title':
+			$post_title = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '">' . get_the_title() . '</a>';
+			$meta_data[] = $post_title;
+			break;
 	}
 }
 
@@ -55,13 +66,7 @@ if ( true == $data->displayPostExcerpt ) {
 	}
 }
 
-$permalink = apply_filters(
-	'ck_events
-_archive_' . $data->postTypeSelected . '__link',
-	get_permalink(),
-	$post->ID,
-	$data
-);
+
 
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?>">
@@ -74,7 +79,9 @@ if ( ! empty( $featured_image ) ) {
 	<?php } ?>
 	<div class="ck-custom-archive__content-wrap">
 		<?php do_action( 'ck_events_archive_layout__before_title', $data ); ?>
+		<?php if (false == $data->hideTitle) { ?>
 		<a class="ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
+		<?php } ?>
 		<?php do_action( 'ck_events_archive_layout__after_title', $data ); ?>
 		<?php echo implode( '', $meta_data ); ?>
 		<?php

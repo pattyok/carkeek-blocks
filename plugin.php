@@ -8,7 +8,7 @@
  * Primary Branch: main
  * Description: Series of blocks designed to work with this site's custom Theme
  * Author: Patty O'Hara
- * Version: 1.4.16
+ * Version: 1.4.17
  * Author URI https://carkeekstudios.com/
  * Text Domain: carkeek-blocks
  */
@@ -23,7 +23,6 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 	 *
 	 * @since 1.0
 	 */
-
 	final class CarkeekBlocks {
 		/**
 		 * The plugin's instance
@@ -37,13 +36,12 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 		/**
 		 * Main CarkeekBlocks instance
 		 *
-		 * insures only one instance exists. Also prevents needing to define globals all around.
+		 * Insures only one instance exists. Also prevents needing to define globals all around.
 		 *
 		 * @since 1.0.0
 		 * @static
 		 * @return object|CarkeekBlocks
 		 */
-
 		public static function instance() {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof CarkeekBLocks ) ) {
 				self::$instance = new CarkeekBlocks();
@@ -123,11 +121,11 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 		 */
 		private function includes() {
 
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-assets.php';
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-register.php';
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custom-post.php';
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-post-meta.php';
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-template-loader.php';
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-assets.php'; // phpcs:ignore
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-register.php'; // phpcs:ignore
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custompost.php'; // phpcs:ignore
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-post-meta.php'; // phpcs:ignore
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-template-loader.php'; // phpcs:ignore
 
 		}
 

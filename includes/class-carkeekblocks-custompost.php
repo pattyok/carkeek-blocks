@@ -143,9 +143,10 @@ class CarkeekBlocks_CustomPost {
 
 	/**
 	 * ACF Json for any custom post types launched in this plugin
+	 *
+	 * @param array $paths Existing paths.
 	 */
-
-	function acf_json_load_point( $paths ) {
+	public function acf_json_load_point( $paths ) {
 
 		$paths[] = plugin_dir_path( __FILE__ ) . 'acf-json';
 
@@ -156,7 +157,7 @@ class CarkeekBlocks_CustomPost {
 	/**
 	 * Allow for random in the REST API
 	 *
-	 * * @param array $params Attributes passed to callback.
+	 * @param array $params Attributes passed to callback.
 	 */
 	public function ckb_prefix_add_rest_orderby_params( $params ) {
 		$params['orderby']['enum'][] = 'rand';
@@ -168,9 +169,9 @@ class CarkeekBlocks_CustomPost {
 	 * Recursively sort an array of taxonomy terms hierarchically. Child categories will be
 	 * placed under a 'children' member of their parent term.
 	 *
-	 * @param Array   $cats     taxonomy term objects to sort
-	 * @param Array   $into     result array to put them in
-	 * @param integer $parentId the current parent ID to put them in
+	 * @param Array   $cats     taxonomy term objects to sort.
+	 * @param Array   $into     result array to put them in.
+	 * @param integer $parent_id the current parent ID to put them in.
 	 */
 	public static function sort_terms_hierarchically( array &$cats, array &$into, $parent_id = 0 ) {
 		foreach ( $cats as $i => $cat ) {
@@ -189,9 +190,12 @@ class CarkeekBlocks_CustomPost {
 	/**
 	 * Render Custom Post Type Archive grouped By Taxonomy Terms
 	 *
+	 * @param object $term the term to group.
+	 * @param string $tax the taxonomy of the term.
 	 * @param array  $args query args.
 	 * @param array  $attributes Attributes passed to callback.
 	 * @param object $template_loader template loader.
+	 * @param number $level current level of the group.
 	 * @return string HTML of dynamic content.
 	 */
 	public static function get_posts_per_term( $term, $tax, $args, $attributes, $template_loader, $level = 0 ) {
@@ -251,7 +255,7 @@ class CarkeekBlocks_CustomPost {
 		}
 		wp_reset_postdata();
 		if ( ! empty( $term->children ) ) {
-			$level += 1;
+			$level += 1; // phpcs:ignore
 			foreach ( $term->children as $child ) {
 				$posts_html .= self::get_posts_per_term( $child, $tax, $args, $attributes, $template_loader, $level );
 			}
@@ -265,6 +269,7 @@ class CarkeekBlocks_CustomPost {
 	 *
 	 * @param array  $args query args.
 	 * @param array  $attributes Attributes passed to callback.
+	 * @param string $block_start html that opens the block.
 	 * @param object $template_loader template loader.
 	 * @return string HTML of dynamic content.
 	 */
@@ -290,10 +295,10 @@ class CarkeekBlocks_CustomPost {
 				$parent = 0;
 
 				$tax_args['child_of'] = $filter_term;
-				// get children and parents and merge them
+				// get children and parents and merge them.
 				$tax_terms = get_terms( $tax_args );
 
-				// add Parent to the array
+				// add Parent to the array.
 				if ( true == $attributes['groupHideParents'] ) {
 					$parent = $filter_term;
 				} else {
@@ -324,7 +329,7 @@ class CarkeekBlocks_CustomPost {
 	 * @param array $attributes Attributes passed to callback.
 	 * @return string HTML of dynamic content.
 	 */
-	public function carkeek_blocks_render_custom_posttype_archive( $attributes ) {
+	public static function carkeek_blocks_render_custom_posttype_archive( $attributes ) {
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
 		if ( empty( $attributes['postTypeSelected'] ) ) {
 			return;
@@ -334,13 +339,13 @@ class CarkeekBlocks_CustomPost {
 		$post_type = $attributes['postTypeSelected'];
 		$paged     = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 		$args      = array(
-			'posts_per_page' => $attributes['numberOfPosts'],
-			'post_type'      => $attributes['postTypeSelected'],
-			'order'          => $attributes['order'],
-			'orderby'        => $attributes['sortBy'],
-			'post__not_in'   => array( get_the_ID() ),
-			'paged'          => $paged,
-			'ignore_sticky_posts' => true, //without this sticky posts add to the count
+			'posts_per_page'      => $attributes['numberOfPosts'],
+			'post_type'           => $attributes['postTypeSelected'],
+			'order'               => $attributes['order'],
+			'orderby'             => $attributes['sortBy'],
+			'post__not_in'        => array( get_the_ID() ),
+			'paged'               => $paged,
+			'ignore_sticky_posts' => true, // without this sticky posts add to the count.
 		);
 
 		if ( 'meta_value' == $attributes['sortBy'] && ! empty( $attributes['sortByMeta'] ) ) {
@@ -348,7 +353,7 @@ class CarkeekBlocks_CustomPost {
 				$attributes['sortBy'] => $attributes['order'],
 				'title'               => $attributes['order'],
 			);
-			// pull back all items whether they have been assigned or not
+			// pull back all items whether they have been assigned or not.
 			$args['meta_query'] = array(
 				'relation' => 'OR',
 				array(
@@ -409,7 +414,7 @@ class CarkeekBlocks_CustomPost {
 				}
 			}
 		}
-		/** set up classes for the rendered block */
+		/** Set up classes for the rendered block */
 		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
 		$inner_el_class    = 'ck-custom-archive';
 		$css_classes_outer = array(
@@ -455,7 +460,7 @@ class CarkeekBlocks_CustomPost {
 			if ( $query->found_posts < $attributes['numberOfPosts'] ) {
 				unset( $args['tax_query'] );
 				$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->found_posts;
-				//exclude posts found so far
+				// exclude posts found so far.
 				if ( $query->have_posts() ) {
 					while ( $query->have_posts() ) {
 						$query->the_post();
@@ -464,10 +469,10 @@ class CarkeekBlocks_CustomPost {
 						wp_reset_postdata();
 					}
 				}
-				$query2                 = new WP_Query( $args );
-				// populate post_count count for the loop to work correctly
+				$query2 = new WP_Query( $args );
+				// populate post_count count for the loop to work correctly.
 				$query->post_count = $query->post_count + $query2->post_count;
-				// merge the two arrays
+				// merge the two arrays.
 				$query->posts = array_merge( $query->posts, $query2->posts );
 			}
 		}
@@ -520,7 +525,7 @@ class CarkeekBlocks_CustomPost {
 			}
 			$posts .= '</div>';
 			if ( true == $attributes['showPagination'] ) {
-				$big    = 999999999; // need an unlikely integer
+				$big    = 999999999; // need an unlikely integer.
 				$posts .= '<div class="ck_pagination">';
 				$posts .= paginate_links(
 					array(
@@ -541,7 +546,7 @@ class CarkeekBlocks_CustomPost {
 			return $posts;
 		} else {
 			if ( false === $attributes['hideIfEmpty'] ) {
-				$block_content = '<div class="' . $class_pre . '__list empty">' . $attributes['emptyMessage'] . '</div>';
+				$block_content = '<div class="wp-block-carkeek-blocks-custom-archive __list empty">' . $attributes['emptyMessage'] . '</div>';
 				return $block_start . $block_content . '</div>';
 			} else {
 				return;
@@ -549,7 +554,13 @@ class CarkeekBlocks_CustomPost {
 		}
 	}
 
-	public static function make_custom_link( $link, $collapseTitle = false ) {
+	/**
+	 * Buildt the custom link
+	 *
+	 * @param object  $link link post type object.
+	 * @param boolean $collapse_title whether the title is collapsible.
+	 */
+	public static function make_custom_link( $link, $collapse_title = false ) {
 
 		$href  = get_field( 'cl_external_link', $link->ID );
 		$notes = get_field( 'cl_notes', $link->ID );
@@ -564,8 +575,8 @@ class CarkeekBlocks_CustomPost {
 				$link_type = 'page';
 			}
 		}
-		$target = ( $link_type == 'external' || $link_type == 'pdf' ) ? 'target="_blank"' : '';
-		if ( empty( $href ) && true == $collapseTitle ) {
+		$target = ( 'external' === $link_type || 'pdf' === $link_type ) ? 'target="_blank"' : '';
+		if ( empty( $href ) && true == $collapse_title ) {
 			$item = self::make_accordion_panel( $link->post_title, $notes );
 		} else {
 			if ( empty( $href ) ) {
@@ -580,7 +591,12 @@ class CarkeekBlocks_CustomPost {
 		return '<li>' . $item . '</li>';
 
 	}
-
+	/**
+	 * Make accordion panel
+	 *
+	 * @param string $header header content for the panel.
+	 * @param string $content main content for the panel.
+	 */
 	public static function make_accordion_panel( $header, $content ) {
 
 		$panel = '<div data-aria-accordion data-transition data-multi><div class="ck - custom - list - label" data-aria-accordion-heading>' . $header . '</div>
@@ -588,7 +604,12 @@ class CarkeekBlocks_CustomPost {
 		return $panel;
 	}
 
-	public function carkeek_blocks_render_custom_linklist( $attributes ) {
+	/**
+	 * Render Custom Link Lists
+	 *
+	 * @param array $attributes Attributes passed from the block.
+	 */
+	public static function carkeek_blocks_render_custom_linklist( $attributes ) {
 		if ( empty( $attributes['listSelected'] ) ) {
 			return;
 		}
@@ -602,7 +623,7 @@ class CarkeekBlocks_CustomPost {
 		);
 		$post_args = $args;
 
-		// first get all posts with no sub cat selected
+		// first get all posts with no sub cat selected.
 
 		$subcats           = get_term_children( $attributes['listSelected'], 'link_list' );
 		$args['tax_query'] = array(
@@ -690,7 +711,7 @@ class CarkeekBlocks_CustomPost {
 	 * @param array $attributes Attributes passed to callback.
 	 * @return string HTML of dynamic content.
 	 */
-	public function carkeek_blocks_render_events_archive( $attributes ) {
+	public static function carkeek_blocks_render_events_archive( $attributes ) {
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
 
 		$layout    = $attributes['postLayout'];
@@ -769,6 +790,16 @@ class CarkeekBlocks_CustomPost {
 		}
 		if ( 'grid' === $layout ) {
 			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
+			$mobile              = isset( $attributes['columnsMobile'] ) ? $attributes['columnsMobile'] : 1;
+			$tablet              = isset( $attributes['columnsTablet'] ) ? $attributes['columnsTablet'] : $attributes['columns'];
+			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
+		}
+
+		if ( isset( $attributes['limitItemsMobile'] ) && true == $attributes['limitItemsMobile'] ) {
+			if ( -1 !== $attributes['itemsTablet'] ) {
+				$css_classes_outer[] = 'limit-tablet-' . $attributes['itemsTablet'];
+			}
+			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
 		}
 
 		$block_start = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
@@ -815,7 +846,7 @@ class CarkeekBlocks_CustomPost {
 			return $posts;
 		} else {
 			if ( false === $attributes['hideIfEmpty'] ) {
-				$block_content = '<div class="' . $class_pre . '__list empty">' . $attributes['emptyMessage'] . '</div>';
+				$block_content = '<div class="wp-block-carkeek-blocks-custom-archive __list empty">' . $attributes['emptyMessage'] . '</div>';
 				return $block_start . $block_content . '</div>';
 			} else {
 				return;

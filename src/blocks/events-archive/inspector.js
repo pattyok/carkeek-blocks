@@ -26,6 +26,7 @@ function postsInspector( props ){
         featuredEvents,
         filterByCategory,
         filterByTag,
+        hideTitle,
         catTermsSelected,
         catTagsSelected,
         displayField1,
@@ -38,12 +39,18 @@ function postsInspector( props ){
         emptyMessage,
         headlineLevel,
         columns,
+        columnsMobile,
+        columnsTablet,
+        limitItemsMobile,
+        itemsMobile,
+        itemsTablet,
         displayFeaturedImage,
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
     const availFields = [
         { label: 'Select a Field', value: '' },
+        { label: 'Event Title', value: 'title' },
         { label: 'Event Date/Time', value: 'startdate' },
         { label: 'Organizer', value: 'organizer' },
         { label: 'Venue', value: 'venue' },
@@ -57,6 +64,12 @@ function postsInspector( props ){
 
     const fieldSelect = (
         <>
+            <ToggleControl
+                label={__("Hide Title")}
+                checked={hideTitle}
+                onChange={ ( value ) => setAttributes( { hideTitle: value } ) }
+                help={__("To change the order of the title, hide it add place it with a metafield below.")}
+            />
             <SelectControl
                 label={__("Select Metafield 1", "carkeek-blocks")}
                 onChange={ ( value ) => setAttributes( { displayField1: value } ) }
@@ -268,6 +281,52 @@ function postsInspector( props ){
                     />
                 )}
 
+            </PanelBody>
+            <PanelBody title={__("Responsive Layout", "carkeek-blocks")}  initialOpen={ false }>
+            {postLayout == 'grid' &&
+            <>
+                <RangeControl
+                    label={__("Columns Mobile", "carkeek-blocks")}
+                    value={ columnsMobile }
+                    onChange={ ( columnsMobile ) => setAttributes( { columnsMobile } ) }
+                    min={1}
+                    max={6}
+                />
+                <RangeControl
+                    label={__("Columns Tablet", "carkeek-blocks")}
+                    value={ columnsTablet }
+                    onChange={ ( columnsTablet ) => setAttributes( { columnsTablet } ) }
+                    min={1}
+                    max={6}
+                />
+            </>
+            }
+             <ToggleControl
+                label={__("Limit the number of posts displayed in Mobile/Tablet")}
+                checked={limitItemsMobile}
+                onChange={value =>
+                    setAttributes({ limitItemsMobile: value })
+                }
+            />
+            {limitItemsMobile &&
+                <>
+                <RangeControl
+                    label={__("Items to show Mobile", "carkeek-blocks")}
+                    value={ itemsMobile }
+                    onChange={ ( itemsMobile ) => setAttributes( { itemsMobile } ) }
+                    min={1}
+                    max={6}
+                />
+                <RangeControl
+                    label={__("Items to show Tablet", "carkeek-blocks")}
+                    value={ itemsTablet }
+                    help={__("Select -1 to show all")}
+                    onChange={ ( itemsTablet ) => setAttributes( { itemsTablet } ) }
+                    min={1}
+                    max={6}
+                />
+                </>
+            }
             </PanelBody>
         </InspectorControls>
     );
