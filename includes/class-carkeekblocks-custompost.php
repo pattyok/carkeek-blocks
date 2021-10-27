@@ -721,6 +721,7 @@ class CarkeekBlocks_CustomPost {
 			'post_type'      => $post_type,
 			'orderby'        => 'meta_value',
 			'meta_key'       => '_EventStartDate',
+			'post__not_in'   => array( get_the_ID() ),
 			'order'          => 'ASC',
 			'post_status'    => array( 'publish' ),
 			'meta_query'     => array(
