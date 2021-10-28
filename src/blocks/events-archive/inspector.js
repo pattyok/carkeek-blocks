@@ -45,6 +45,7 @@ function postsInspector( props ){
         itemsMobile,
         itemsTablet,
         displayFeaturedImage,
+        showPagination,
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
@@ -177,6 +178,12 @@ function postsInspector( props ){
         </>
     );
 
+    function handlePaginationSettingChange( value ){
+        setAttributes({ showPagination: value })
+        setAttributes({ limitItemsMobile: false })
+    }
+
+
 
     return (
         <InspectorControls>
@@ -263,7 +270,11 @@ function postsInspector( props ){
                             max={75}
                         />
                     )}
-
+                <ToggleControl
+                    label={__("Show Pagination")}
+                    checked={showPagination}
+                    onChange={ ( value ) => handlePaginationSettingChange( value ) }
+                />
                 <ToggleControl
                     label={__("Hide Block if Empty")}
                     checked={hideIfEmpty}

@@ -716,6 +716,7 @@ class CarkeekBlocks_CustomPost {
 
 		$layout    = $attributes['postLayout'];
 		$post_type = 'tribe_events';
+		$paged     = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 		$args      = array(
 			'posts_per_page' => $attributes['numberOfPosts'],
 			'post_type'      => $post_type,
@@ -723,6 +724,7 @@ class CarkeekBlocks_CustomPost {
 			'meta_key'       => '_EventStartDate',
 			'post__not_in'   => array( get_the_ID() ),
 			'order'          => 'ASC',
+			'paged'          => $paged,
 			'post_status'    => array( 'publish' ),
 			'meta_query'     => array(
 				array(
@@ -842,7 +844,25 @@ class CarkeekBlocks_CustomPost {
 				$count++;
 
 			}
-			$posts .= '</div></div>';
+			$posts .= '</div>';
+			if ( true == $attributes['showPagination'] ) {
+				$big    = 999999999; // need an unlikely integer.
+				$posts .= '<div class="ck_pagination">';
+				$posts .= paginate_links(
+					array(
+						'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+						'format'    => '?paged=%#%',
+						'current'   => max( 1, get_query_var( 'paged' ) ),
+						'total'     => $query->max_num_pages,
+						'prev_next' => false,
+						'type'      => 'list',
+					)
+				);
+				$posts .= '</div>';
+
+			}
+
+			$posts .= '</div>';
 			wp_reset_postdata();
 			return $posts;
 		} else {
@@ -858,5 +878,3 @@ class CarkeekBlocks_CustomPost {
 }
 
 CarkeekBlocks_CustomPost::register();
-
-

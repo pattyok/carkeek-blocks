@@ -498,7 +498,11 @@ class CarkeekBlocks_Block_Register {
 						'className'            => array(
 							'type' => 'string',
 						),
-						'hideTitle'     => array(
+						'hideTitle'            => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'showPagination'       => array(
 							'type'    => 'boolean',
 							'default' => false,
 						),

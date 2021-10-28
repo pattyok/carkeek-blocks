@@ -105,7 +105,11 @@ const attributes = {
     featuredEvents: {
         type: "boolean",
         default: false
-    }
+    },
+    showPagination: {
+        type: "boolean",
+        default: false,
+    },
 };
 
 registerBlockType("carkeek-blocks/events-archive", {
