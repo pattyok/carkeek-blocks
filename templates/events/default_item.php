@@ -14,17 +14,17 @@ $permalink = apply_filters(
 foreach ( $meta_fields as $field ) {
 	switch ( $field ) {
 		case 'startdate':
-			$date_format = !empty($data->dateFormat) ? $data->dateFormat : 'F j';
-			$show_time = false;
-			if (!empty($data->timeFormat)) {
+			$date_format = ! empty( $data->dateFormat ) ? $data->dateFormat : 'F j';
+			$show_time   = false;
+			if ( ! empty( $data->timeFormat ) ) {
 				$date_format .= ', ' . $data->timeFormat;
-				$show_time = true;
+				$show_time    = true;
 			}
 			$start = tribe_get_start_date( $post->ID, false, $date_format );
 			$end   = '';
 			if ( tribe_event_is_multiday( $post ) && 'show_end_date' == $data->showEndDate ) {
 				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $date_format ) );
-			} elseif (true == $show_time && 'show_end_date' == $data->showEndDate) {
+			} elseif ( true == $show_time && 'show_end_date' == $data->showEndDate ) {
 				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $data->timeFormat ) );
 			}
 			$meta_data[] = '<div class="ck-item-event_date">' . $start . $end . '</div>';
@@ -44,7 +44,7 @@ foreach ( $meta_fields as $field ) {
 			$meta_data[] = $venue;
 			break;
 		case 'title':
-			$post_title = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '">' . get_the_title() . '</a>';
+			$post_title  = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '">' . get_the_title() . '</a>';
 			$meta_data[] = $post_title;
 			break;
 	}
@@ -53,6 +53,7 @@ foreach ( $meta_fields as $field ) {
 $featured_image = '';
 if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, 'medium_large' );
+	$featured_image = apply_filters( 'carkeek_block_events_layout__featured_image', $featured_image, $post->ID, $data );
 }
 
 $excerpt = '';
@@ -79,7 +80,7 @@ if ( ! empty( $featured_image ) ) {
 	<?php } ?>
 	<div class="ck-custom-archive__content-wrap">
 		<?php do_action( 'ck_events_archive_layout__before_title', $data ); ?>
-		<?php if (false == $data->hideTitle) { ?>
+		<?php if ( false == $data->hideTitle ) { ?>
 		<a class="ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
 		<?php } ?>
 		<?php do_action( 'ck_events_archive_layout__after_title', $data ); ?>
