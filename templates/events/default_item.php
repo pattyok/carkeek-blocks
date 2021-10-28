@@ -14,8 +14,18 @@ $permalink = apply_filters(
 foreach ( $meta_fields as $field ) {
 	switch ( $field ) {
 		case 'startdate':
-			$date_format = ! empty( $data->dateFormat ) ? $data->dateFormat : 'F j';
-			$show_time   = false;
+			$date_format     = ! empty( $data->dateFormat ) ? $data->dateFormat : 'F j';
+			$end_date_format = $date_format;
+			// these are the standard date formats we'll probably use.
+			if ( 'F j' == $date_format || 'M j' == $date_format ) {
+				// if the months are the same, don't repeat.
+				$st = tribe_get_start_date( $post->ID, false, 'F' );
+				$et = tribe_get_end_date( $post, false, 'F' );
+				if ( $st == $et ) {
+					$end_date_format = 'j';
+				}
+			}
+			$show_time = false;
 			if ( ! empty( $data->timeFormat ) ) {
 				$date_format .= ', ' . $data->timeFormat;
 				$show_time    = true;
@@ -23,11 +33,12 @@ foreach ( $meta_fields as $field ) {
 			$start = tribe_get_start_date( $post->ID, false, $date_format );
 			$end   = '';
 			if ( tribe_event_is_multiday( $post ) && 'show_end_date' == $data->showEndDate ) {
-				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $date_format ) );
+				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $end_date_format ) );
 			} elseif ( true == $show_time && 'show_end_date' == $data->showEndDate ) {
 				$end = ' - ' . wp_kses_post( tribe_get_end_date( $post, false, $data->timeFormat ) );
 			}
-			$meta_data[] = '<div class="ck-item-event_date">' . $start . $end . '</div>';
+			$event_date  = '<div class="ck-item-event_date">' . $start . $end . '</div>';
+			$meta_data[] = apply_filters( 'carkeek_block_events_layout__event_date', $event_date, $post->ID, $data );
 			break;
 		case 'organizer':
 			$organizers = tribe_get_organizer_ids( $post->ID );
