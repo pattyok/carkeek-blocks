@@ -534,6 +534,10 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'boolean',
 							'default' => false,
 						),
+						'includePastEvents'    => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
 
 					),
 				),

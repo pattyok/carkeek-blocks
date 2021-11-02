@@ -726,15 +726,19 @@ class CarkeekBlocks_CustomPost {
 			'order'          => 'ASC',
 			'paged'          => $paged,
 			'post_status'    => array( 'publish' ),
-			'meta_query'     => array(
+
+		);
+
+		if ( true !== $attributes['includePastEvents'] ) {
+			$args['meta_query'] = array(
 				array(
 					'key'     => '_EventEndDateUTC',
 					'value'   => gmdate( 'Y-m-d H:i' ),
 					'compare' => '>=',
 					'type'    => 'DATETIME',
 				),
-			),
-		);
+			);
+		}
 
 		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] ) ) {
 			$args['tax_query'] = array(

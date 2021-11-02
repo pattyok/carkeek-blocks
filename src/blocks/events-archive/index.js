@@ -110,6 +110,10 @@ const attributes = {
         type: "boolean",
         default: false,
     },
+    includePastEvents: {
+        type: "boolean",
+        default: false,
+    },
 };
 
 registerBlockType("carkeek-blocks/events-archive", {

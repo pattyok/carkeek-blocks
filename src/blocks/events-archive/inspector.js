@@ -46,6 +46,7 @@ function postsInspector( props ){
         itemsTablet,
         displayFeaturedImage,
         showPagination,
+        includePastEvents
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
@@ -175,6 +176,11 @@ function postsInspector( props ){
                 />
             </>
             )}
+            <ToggleControl
+                label={__("Include Past Events")}
+                checked={includePastEvents}
+                onChange={ ( value ) => setAttributes( { includePastEvents: value } ) }
+            />
         </>
     );
 
