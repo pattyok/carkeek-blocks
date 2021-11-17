@@ -51,10 +51,16 @@ $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $met
 $meta_before = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_before_title', $meta['before'], $data );
 $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_after_title', $meta['after'], $data );
 ?>
-<div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?>">
+<div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
 <?php
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
+	$focal_point = get_post_meta( $post->ID, '_carkeekblocks_featured_image_focal_point', true );
+	if ( ! empty( $focal_point ) ) {
+		$x = $focal_point['x'] * 100;
+		$y = $focal_point['y'] * 100;
+		echo '<style>.wp-block-carkeek-blocks-custom-archive .archive-item-id-' . esc_attr( $post->ID ) . ' .ck-custom-archive-image-link img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
+	}
 	?>
 		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 			<?php echo wp_kses_post( $featured_image ); ?>
