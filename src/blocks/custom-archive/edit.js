@@ -80,7 +80,9 @@ export default withSelect((select, props) => {
     const { attributes } = props;
     const { postTypeSelected, taxonomySelected } = attributes;
     const { getEntityRecords,  getPostTypes, getTaxonomies } = select("core");
+    const { getSettings } = select( 'core/block-editor' );
     const taxTerms = getEntityRecords('taxonomy', taxonomySelected, { per_page: -1 } );
+    const { imageSizes } = getSettings();
 
     let taxonomies = getTaxonomies({ per_page: -1 });
     taxonomies = !Array.isArray(taxonomies)
@@ -93,5 +95,6 @@ export default withSelect((select, props) => {
         taxonomies: taxonomies,
         taxSelected:  Array.isArray(taxonomies) && taxonomies.length == 1 ? taxonomies[0] : taxonomySelected,
         taxTerms: taxTerms,
+        imageSizes: imageSizes,
     };
 })(customArchiveEdit);

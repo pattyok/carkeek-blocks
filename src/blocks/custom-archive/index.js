@@ -140,6 +140,10 @@ const attributes = {
         type: "string",
         default: 'Learn More',
     },
+    imageSize: {
+        type: "string",
+        default: 'default',
+    },
     blockId: {
         type: "string"
     }

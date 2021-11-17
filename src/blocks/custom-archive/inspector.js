@@ -20,6 +20,7 @@ function postsInspector( props ){
         postTypes,
         attributes,
         setAttributes,
+        imageSizes,
     } = props;
     const {
         numberOfPosts,
@@ -50,6 +51,7 @@ function postsInspector( props ){
         openAsModal,
         useHeadingTitle,
         imageOrientation,
+        imageSize,
         showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink
     } = attributes;
 
@@ -63,6 +65,14 @@ function postsInspector( props ){
     if (!postTypeSelected) {
         const selectAnItem = { value: null, label: 'Select a Post Type'};
         ptOptions.unshift(selectAnItem);
+    }
+    let sizeOptions = [];
+    if (imageSizes) {
+        sizeOptions = imageSizes.map(type => ({
+            value: type.slug,
+            label: type.name
+        }));
+        sizeOptions.unshift({value: 'default', label: 'Default'});
     }
 
     let taxOptions = [];
@@ -395,6 +405,7 @@ function postsInspector( props ){
                 }
             />
             {displayFeaturedImage &&
+            <>
             <SelectControl
                 label={__("Image Orientation", "carkeek-blocks")}
                 onChange={value =>
@@ -411,6 +422,17 @@ function postsInspector( props ){
                 ]}
                 value={imageOrientation}
             />
+            <SelectControl
+                label={__("Image Size", "carkeek-blocks")}
+                onChange={value =>
+                    setAttributes({
+                        imageSize: value
+                    })
+                }
+                options={sizeOptions}
+                value={imageSize}
+            />
+            </>
             }
             <ToggleControl
                 label={__("Include Excerpt")}

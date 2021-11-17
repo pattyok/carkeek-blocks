@@ -1,7 +1,17 @@
 <?php
 $featured_image = '';
+$image_size = 'medium_large';
+if (empty($data->imageSize) || $data->imageSize == 'default') {
+	//use standard image size for the theme	
+	$image_size = apply_filters( 'ck_custom_archive__featured_image_default_size', $image_size, $post->ID, $data );
+} else {
+	$image_size = $data->imageSize;
+}
+//allow override for specific post
+$image_size = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_default_size', $image_size, $post->ID, $data ); 
+
 if ( $data->displayFeaturedImage ) {
-	$featured_image = get_the_post_thumbnail( $post->ID, 'medium_large' );
+	$featured_image = get_the_post_thumbnail( $post->ID, $image_size );
 }
 
 $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image', $featured_image, $post->ID, $data );

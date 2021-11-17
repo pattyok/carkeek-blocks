@@ -257,6 +257,9 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'boolean',
 						'default' => false,
 					),
+					'imageSize'            => array(
+						'type'    => 'string',
+					),
 				),
 			)
 		);
