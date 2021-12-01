@@ -582,6 +582,17 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'string',
 						'default' => 'links',
 					),
+					'groupByChild' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'hideIfEmpty' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'emptyMessage' => array(
+						'type' => 'string',
+					),
 				),
 			)
 		);
