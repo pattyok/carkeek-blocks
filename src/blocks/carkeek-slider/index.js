@@ -52,6 +52,10 @@ const attributes = {
         type: 'boolean',
         default: false,
     },
+    arrowNavigation: {
+        type: 'string',
+        default: 'desktop-only',
+    },
     innerBlockType: {
         type: "string",
         default: 'carkeek-blocks/fixed-image'
@@ -103,9 +107,10 @@ registerBlockType("carkeek-blocks/carkeek-slider", {
     deprecated,
 
     save({ attributes } ) {
-        const{ autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
+        const{ autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, arrowNavigation, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
         const classes = classnames( {
-            [ `slider-${ sliderType }` ]: sliderType
+            [ `slider-${ sliderType }` ]: sliderType,
+            [ `arrows-${ arrowNavigation }` ]: arrowNavigation
         } );
         const blockProps = useBlockProps.save({ className: classes })
         return (
@@ -120,7 +125,8 @@ registerBlockType("carkeek-blocks/carkeek-slider", {
                 data-transitionspd={transitionSpeed}
                 data-scroll={slidesToScroll}
                 data-scrollmobile={slidesToScrollMobile}
-                data-showdots={showDots}>
+                data-showdots={showDots}
+                data-arrows={arrowNavigation}>
                 <InnerBlocks.Content />
                 </div>
             </div>

@@ -15,6 +15,7 @@ import "./style.css";
             const fade = $(this).data("transition");
             const transSpeed = $(this).data("transitionspd");
             const dots = $(this).data("showdots");
+            const arrows = $(this).data("arrows");
             const options = {
                 dots: dots,
                 speed: transSpeed,
@@ -23,6 +24,13 @@ import "./style.css";
                 options.autoplay = true;
                 options.autoplaySpeed = speed;
             }
+            let showArrowsMobile = true;
+            if ( 'hide' == arrows ) {
+                options.arrows = false;
+                showArrowsMobile = false;
+            } else if ( 'desktop-only' == arrows ) {
+                showArrowsMobile = false;
+            }
             if (type == "carousel") {
                 options.slidesToShow = slides;
                 options.slidesToScroll = scroll;
@@ -30,11 +38,19 @@ import "./style.css";
                     options.responsive = [{
                         breakpoint: 600,
                         settings: {
+                            arrows: showArrowsMobile,
                             slidesToShow: slidesMobile,
                             slidesToScroll: scrollMobile
                         }
                     }]
                 }
+            } else {
+                options.responsive = [{
+                    breakpoint: 600,
+                    settings: {
+                        arrows: showArrowsMobile,
+                    }
+                }]
             }
 
             if (fade == 'fade') {

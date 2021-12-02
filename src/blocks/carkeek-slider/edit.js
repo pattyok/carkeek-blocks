@@ -9,6 +9,8 @@ import { PanelBody, SelectControl, ToggleControl, RangeControl, RadioControl } f
 import { createBlock } from "@wordpress/blocks";
 import { dispatch } from "@wordpress/data";
 
+
+
 function AddABlock( props ) {
     const { innerBlockType, clientId } = props;
     if (innerBlockType =='carkeek-blocks/fixed-image') {
@@ -47,14 +49,18 @@ function AddABlock( props ) {
 
 export default function SliderEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
-
+    const { innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
+    
+    if ( ! arrowNavigation ) {
+        setAttributes( { arrowNavigation: 'desktop-only' } );
+    }
     const blockOptions = [
         { label: 'Fixed Sized Image and Caption', value: 'carkeek-blocks/fixed-image'},
         { label: 'Image and Caption', value: 'core/image'},
         { label: 'Cover Block', value: 'core/cover'},
         { label: 'Media Text', value: 'core/media-text'},
         { label: 'Group', value: 'core/group'},
+        { label: 'Quote', value: 'core/quote'},
     ];
 
     const classes = classnames( {
@@ -146,6 +152,16 @@ export default function SliderEdit( props ) {
                             max={10000}
                         />
                         }
+                        <RadioControl
+                            label="Arrow Navigation"
+                            selected={ arrowNavigation }
+                            options={ [
+                                { label: 'Desktop Only', value: 'desktop-only' },
+                                { label: 'Show', value: 'show' },
+                                { label: 'Hide', value: 'hide' },
+                            ] }
+                            onChange={ ( arrowNavigation ) => { setAttributes( { arrowNavigation } ) } }
+                        />
                         <ToggleControl
                             label="Show Dot Navigation"
                             checked={ showDots }

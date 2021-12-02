@@ -1,5 +1,10 @@
 .editor-styles-wrapper {
 
+	& .wp-block-cover:not(.is-cover-quote) {
+		height: auto;
+		max-height: none;
+	}
+
 	& .wp-block-carkeek-blocks-carkeek-slider.slider-single {
 
 		& > .block-editor-inner-blocks > .block-editor-block-list__layout {
@@ -13,6 +18,11 @@
 		&.has-child-selected {
 
 			& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+
+				& > *:not(.block-list-appender) {
+					border: 1px solid #ccc !important;
+					padding: 10px;
+				}
 
 				& > *:not(:first-child) {
 					display: block;
