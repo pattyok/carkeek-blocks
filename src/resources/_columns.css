@@ -58,8 +58,11 @@
 
 			& > * {
 				flex: 0 1 auto;
+				margin-bottom: var(--ck-column-gap);
 
-
+				&:last-child {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -250,6 +253,11 @@
 			& > * {
 				flex: 0 1 auto;
 				margin-right: var(--ck-column-gap);
+				margin-bottom: var(--ck-column-gap);
+
+				&:last-child {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -320,6 +328,10 @@
 				flex-basis: 100%;
 				margin-right: 0;
 
+				&:nth-last-child(-n+1) {
+					margin-bottom: 0;
+				}
+
 			}
 		}
 
@@ -332,6 +344,10 @@
 				&:nth-child(2n+2) {
 					margin-right: 0;
 				}
+
+				&:nth-last-child(-n+2) {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -342,6 +358,10 @@
 
 				&:nth-child(3n+3) {
 					margin-right: 0;
+				}
+
+				&:nth-last-child(-n+3) {
+					margin-bottom: 0;
 				}
 			}
 		}
@@ -354,6 +374,10 @@
 				&:nth-child(4n+4) {
 					margin-right: 0;
 				}
+
+				&:nth-last-child(-n+4) {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -365,6 +389,10 @@
 				&:nth-child(5n+5) {
 					margin-right: 0;
 				}
+
+				&:nth-last-child(-n+5) {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -375,6 +403,10 @@
 
 				&:nth-child(6n+6) {
 					margin-right: 0;
+				}
+
+				&:nth-last-child(-n+6) {
+					margin-bottom: 0;
 				}
 			}
 		}
@@ -438,6 +470,11 @@
 			& > * {
 				flex: 0 1 auto;
 				margin-right: var(--ck-column-gap);
+				margin-bottom: var(--ck-column-gap);
+
+				&:last-child {
+					margin-bottom: 0;
+				}
 			}
 
 		}
@@ -481,6 +518,10 @@
 				&:nth-child(2n+2) {
 					margin-right: 0;
 				}
+
+				&:nth-last-child(-n+2) {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -491,6 +532,10 @@
 
 				&:nth-child(3n+3) {
 					margin-right: 0;
+				}
+
+				&:nth-last-child(-n+3) {
+					margin-bottom: 0;
 				}
 			}
 		}
@@ -503,6 +548,10 @@
 				&:nth-child(4n+4) {
 					margin-right: 0;
 				}
+
+				&:nth-last-child(-n+4) {
+					margin-bottom: 0;
+				}
 			}
 		}
 
@@ -513,6 +562,10 @@
 
 				&:nth-child(5n+5) {
 					margin-right: 0;
+				}
+
+				&:nth-last-child(-n+5) {
+					margin-bottom: 0;
 				}
 			}
 		}
@@ -525,6 +578,10 @@
 
 				&:nth-child(6n+6) {
 					margin-right: 0;
+				}
+
+				&:nth-last-child(-n+6) {
+					margin-bottom: 0;
 				}
 			}
 		}
