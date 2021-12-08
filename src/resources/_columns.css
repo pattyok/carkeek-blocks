@@ -5,28 +5,12 @@
 		margin-bottom: var(--ck-column-gap-vert);
 	}
 
-	&.direction-vertical {
-
-		&.ck-columns-align-center {
-
-			& .ck-modal-item {
-				text-align: center;
-			}
-		}
-
-		& .ck-columns__wrap {
-			column-width: auto;
-			column-gap: var(--ck-column-gap);
-			display: block;
-		}
-	}
-
 	&.ck-columns-align-stretch {
 
 		& .ck-columns__wrap {
 
 			& > * {
-				flex-grow: 1;
+				flex: 1;
 			}
 		}
 	}
@@ -194,51 +178,6 @@
 				}
 			}
 		}
-
-		&.direction-vertical {
-
-			&.has-1-columns-mobile {
-
-				& .ck-columns__wrap {
-					column-count: 1;
-				}
-			}
-
-			&.has-2-columns-mobile {
-
-				& .ck-columns__wrap {
-					column-count: 2;
-				}
-			}
-
-			&.has-3-columns-mobile {
-
-				& .ck-columns__wrap {
-					column-count: 3;
-				}
-			}
-
-			&.has-4-columns-mobile {
-
-				& .ck-columns__wrap {
-					column-count: 4;
-				}
-			}
-
-			&.has-5-columns-mobile {
-
-				& .ck-columns__wrap {
-					column-count: 5;
-				}
-			}
-
-			&.has-6-columns-mobile {
-
-				& .ck-columns__wrap {
-					column-count: 5;
-				}
-			}
-		}
 	}
 }
 
@@ -256,7 +195,7 @@
 				margin-bottom: var(--ck-column-gap);
 
 				&:last-child {
-					margin-bottom: 0;
+					margin-right: 0;
 				}
 			}
 		}
@@ -269,6 +208,7 @@
 				&:nth-child(n+2) {
 					display: none;
 				}
+
 			}
 		}
 
@@ -411,52 +351,6 @@
 			}
 		}
 
-		&.direction-vertical {
-
-			&.has-1-columns-tablet {
-
-				& .ck-columns__wrap {
-					column-count: 1;
-				}
-			}
-
-			&.has-2-columns-tablet {
-
-				& .ck-columns__wrap {
-					column-count: 2;
-				}
-			}
-
-			&.has-3-columns-tablet {
-
-				& .ck-columns__wrap {
-					column-count: 3;
-				}
-			}
-
-			&.has-4-columns-tablet {
-
-				& .ck-columns__wrap {
-					column-count: 4;
-				}
-			}
-
-			&.has-5-columns-tablet {
-
-				& .ck-columns__wrap {
-					column-count: 5;
-				}
-			}
-
-			&.has-6-columns-tablet {
-
-				& .ck-columns__wrap {
-					column-count: 5;
-				}
-			}
-		}
-
-
 	}
 }
 
@@ -473,7 +367,7 @@
 				margin-bottom: var(--ck-column-gap);
 
 				&:last-child {
-					margin-bottom: 0;
+					margin-right: 0;
 				}
 			}
 
@@ -586,50 +480,7 @@
 			}
 		}
 
-		&.direction-vertical {
 
-			&.has-1-columns {
-
-				& .ck-columns__wrap {
-					column-count: 1;
-				}
-			}
-
-			&.has-2-columns {
-
-				& .ck-columns__wrap {
-					column-count: 2;
-				}
-			}
-
-			&.has-3-columns {
-
-				& .ck-columns__wrap {
-					column-count: 3;
-				}
-			}
-
-			&.has-4-columns {
-
-				& .ck-columns__wrap {
-					column-count: 4;
-				}
-			}
-
-			&.has-5-columns {
-
-				& .ck-columns__wrap {
-					column-count: 5;
-				}
-			}
-
-			&.has-6-columns {
-
-				& .ck-columns__wrap {
-					column-count: 5;
-				}
-			}
-		}
 	}
 }
 

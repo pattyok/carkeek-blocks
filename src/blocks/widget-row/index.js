@@ -19,6 +19,10 @@ const attributes = {
     blocksTemplate: {
         type: 'array'
     },
+    layoutType: {
+        type: 'string',
+        default: 'grid'
+    },
     allowItemsWrap: {
         type: 'boolean',
         default: false
@@ -35,14 +39,14 @@ const attributes = {
         type: 'number',
         default: 2
     },
+    itemsToShow: {
+        type: 'number',
+        default: 6
+    },
     alignInnerBlocks: {
         type: 'string',
         default: 'left'
     },
-    rowDirection: {
-        type: 'string',
-        default: 'horizontal'
-    }
 }
 
 registerBlockType("carkeek-blocks/widget-row", {
@@ -78,18 +82,18 @@ registerBlockType("carkeek-blocks/widget-row", {
     deprecated,
 
     save({ attributes } ) {
-        const { allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks,rowDirection } = attributes
+        const { allowItemsWrap, itemsPerRow, layoutType, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes
         const blockProps = useBlockProps.save();
         return (
             <div { ...blockProps }
             className={ classnames(blockProps.className, {
                     "ck-columns": 'true',
-                    [`ck-columns-wrap-${allowItemsWrap}`]: true,
-                    [`ck-columns-align-${alignInnerBlocks}`]: true,
-                    [`has-${itemsPerRow}-columns`]: true,
+                    [`ck-columns-layout-${layoutType}`]: layoutType == 'grid',
+                    [`ck-columns-wrap-${allowItemsWrap}`]: layoutType == 'flex',
+                    [`ck-columns-align-${alignInnerBlocks}`]: layoutType == 'flex',
+                    [`has-${itemsPerRow}-columns`]: alignInnerBlocks !== 'stretch',
                     [`has-${itemsPerRowMobile}-columns-mobile`]: true,
                     [`has-${itemsPerRowTablet}-columns-tablet`]: true,
-                    [`direction-${rowDirection}`]: 'true',
                 }) }
                 >
                 <div className={ 'ck-columns__wrap' }>

@@ -14,8 +14,14 @@ import { dispatch, useSelect } from "@wordpress/data";
 
 export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, allowedBlocks, allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks, rowDirection } = attributes;
+    const { innerBlockType,  layoutType, allowedBlocks, allowItemsWrap, itemsToShow, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes;
 
+/* for existing blocks we set to flex as that was previously the default */
+    if (!layoutType) {
+        setAttributes( {
+            layoutType : 'flex'
+        } );
+    }
 
     if (!itemsPerRowTablet) {
         setAttributes( {
@@ -25,6 +31,11 @@ export default function CollapseSectionEdit( props ) {
     if (!itemsPerRowMobile) {
         setAttributes( {
             itemsPerRowMobile : 1
+        } );
+    }
+    if (!itemsToShow) {
+        setAttributes( {
+            itemsToShow : itemsPerRow
         } );
     }
     const availBlocks = getBlockTypes();
@@ -52,7 +63,7 @@ export default function CollapseSectionEdit( props ) {
     */
     const innerBlockCount = useSelect( ( select ) => select( 'core/block-editor' ).getBlock( clientId ).innerBlocks )
     const appenderToUse = () => {
-        if ( !allowItemsWrap && innerBlockCount.length >= itemsPerRow) {
+        if ( !allowItemsWrap && innerBlockCount.length >= itemsToShow) {
             return false;
         } else {
             return (
@@ -69,34 +80,14 @@ export default function CollapseSectionEdit( props ) {
         <>
         <InspectorControls>
                 <PanelBody title={__("Layout Settings", "carkeek-blocks")}>
+                    {layoutType == 'flex' &&
+                    <>
                     <ToggleControl
                         label={__("Allow Items to Wrap")}
                         checked={allowItemsWrap}
-                        help="When items are allowed to wrap we fix the width of each item"
                         onChange={value =>
                             setAttributes({ allowItemsWrap: value })
                         }
-                    />
-                    <RangeControl
-                        label={__("Columns", "carkeek-blocks")}
-                        value={ itemsPerRow }
-                        onChange={ ( itemsPerRow ) => setAttributes( { itemsPerRow } ) }
-                        min={1}
-                        max={6}
-                    />
-                    <RangeControl
-                        label={__("Columns Mobile", "carkeek-blocks")}
-                        value={ itemsPerRowMobile }
-                        onChange={ ( itemsPerRowMobile ) => setAttributes( { itemsPerRowMobile } ) }
-                        min={1}
-                        max={6}
-                    />
-                    <RangeControl
-                        label={__("Columns Tablet", "carkeek-blocks")}
-                        value={ itemsPerRowTablet }
-                        onChange={ ( itemsPerRowTablet ) => setAttributes( { itemsPerRowTablet } ) }
-                        min={1}
-                        max={6}
                     />
                     <RadioControl
                         label="Align inner blocks"
@@ -112,18 +103,38 @@ export default function CollapseSectionEdit( props ) {
                             setAttributes({ alignInnerBlocks: value })
                         }
                     />
-                    <RadioControl
-                        label="Widget Direction"
-                        selected={rowDirection}
-                        help={__('Set the direction to vertical to get a masonry layout')}
-                        options={ [
-                            { label: 'Horizontal', value: 'horizontal' },
-                            { label: 'Vertical', value: 'vertical' },
-                        ] }
-                        onChange={ (value) =>
-                            setAttributes({ rowDirection: value })
-                        }
-                    />
+                    </>
+                    }
+                    { (allowItemsWrap || alignInnerBlocks !== 'stretch') && (
+                        <>
+                        <RangeControl
+                            label={__("Items Per Row", "carkeek-blocks")}
+                            value={ itemsPerRow }
+                            help={allowItemsWrap ? "" : "This will fix the size of each item"}
+                            onChange={ ( itemsPerRow ) => setAttributes( { itemsPerRow } ) }
+                            min={1}
+                            max={allowItemsWrap ? 6 : itemsToShow }
+                        />
+
+                        </>
+
+                    )}
+                </PanelBody>
+                <PanelBody title={__("Responsive Settings", "carkeek-blocks")}>
+                <RangeControl
+                            label={__("Items Per Row Mobile", "carkeek-blocks")}
+                            value={ itemsPerRowMobile }
+                            onChange={ ( itemsPerRowMobile ) => setAttributes( { itemsPerRowMobile } ) }
+                            min={1}
+                            max={6}
+                        />
+                        <RangeControl
+                            label={__("Items Per Row Tablet", "carkeek-blocks")}
+                            value={ itemsPerRowTablet }
+                            onChange={ ( itemsPerRowTablet ) => setAttributes( { itemsPerRowTablet } ) }
+                            min={1}
+                            max={6}
+                        />
                 </PanelBody>
             </InspectorControls>
             <InspectorAdvancedControls>
@@ -135,6 +146,28 @@ export default function CollapseSectionEdit( props ) {
                         setAttributes({ innerBlockType: value })
                     }
                 />
+                <RadioControl
+                        label="Layout Type"
+                        selected={layoutType}
+                        help={__('If trailing items should align center choose flex, otherwise grid is preferred')}
+                        options={ [
+                            { label: 'Grid', value: 'grid' },
+                            { label: 'Flex-flow', value: 'flex' },
+                        ] }
+                        onChange={ (value) =>
+                            setAttributes({ layoutType: value })
+                        }
+                    />
+                { !allowItemsWrap &&
+                    <RangeControl
+                        label={__("Limit Items", "carkeek-blocks")}
+                        value={ itemsToShow }
+                        help="If the design dictates a maximum number of items, set that here."
+                        onChange={ ( itemsToShow ) => setAttributes( { itemsToShow } ) }
+                        min={1}
+                        max={6}
+                    />
+                    }
             </InspectorAdvancedControls>
         <div
             { ...blockProps }
@@ -142,7 +175,7 @@ export default function CollapseSectionEdit( props ) {
                 "ck-columns": 'true',
                     [`ck-columns-wrap-${allowItemsWrap}`]: true,
                     [`ck-columns-align-${alignInnerBlocks}`]: true,
-                    [`has-${itemsPerRow}-columns`]: 'true',
+                    [`has-${itemsPerRow}-columns`]: allowItemsWrap,
             })}
             >
                 {innerBlockType ?
