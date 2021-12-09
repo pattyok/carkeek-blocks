@@ -3,7 +3,7 @@
 
 	& .ck-columns__wrap {
 		display: grid;
-		gap: var(--ck-column-gap) var(--ck-column-gap-vert);
+		gap: var(--ck-column-gap-vert) var(--ck-column-gap);
 	}
 
 	& .ck-columns__wrap > * {
