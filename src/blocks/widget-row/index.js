@@ -91,7 +91,7 @@ registerBlockType("carkeek-blocks/widget-row", {
                     [`ck-columns-layout-${layoutType}`]: layoutType == 'grid',
                     [`ck-columns-wrap-${allowItemsWrap}`]: layoutType == 'flex',
                     [`ck-columns-align-${alignInnerBlocks}`]: layoutType == 'flex',
-                    [`has-${itemsPerRow}-columns`]: alignInnerBlocks == 'stretch' || layoutType == 'grid',
+                    [`has-${itemsPerRow}-columns`]: alignInnerBlocks !== 'stretch' || layoutType == 'grid',
                     [`has-${itemsPerRowMobile}-columns-mobile`]: true,
                     [`has-${itemsPerRowTablet}-columns-tablet`]: true,
                 }) }
