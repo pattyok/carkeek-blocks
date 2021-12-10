@@ -10,6 +10,7 @@ import {
 import { PanelBody, SelectControl, ToggleControl, RangeControl, RadioControl } from "@wordpress/components";
 import { getBlockTypes, createBlock, getBlockType } from "@wordpress/blocks";
 import { dispatch, useSelect } from "@wordpress/data";
+import { useEffect } from "@wordpress/element";
 
 
 export default function CollapseSectionEdit( props ) {
@@ -75,6 +76,15 @@ export default function CollapseSectionEdit( props ) {
             )
         }
     }
+
+    useEffect( () => {
+
+        if ('grid' == layoutType) {
+            setAttributes( {
+                itemsPerRow : innerBlockCount.length
+            } );
+        }
+    }, [layoutType, innerBlockCount]);
 
     return(
         <>

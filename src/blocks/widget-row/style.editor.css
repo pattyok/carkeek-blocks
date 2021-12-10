@@ -32,6 +32,15 @@
 				}
 			}
 
+			&.ck-columns-wrap-false {
+
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					display: flex;
+					flex-wrap: nowrap;
+
+				}
+			}
+
 			&.ck-columns-align-stretch {
 
 				& > .block-editor-inner-blocks > .block-editor-block-list__layout {

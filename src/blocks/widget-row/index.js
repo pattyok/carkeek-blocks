@@ -4,7 +4,6 @@ import edit from "./edit";
 import deprecated from "./deprecated";
 
 import classnames from "classnames";
-
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { InnerBlocks, useBlockProps } from "@wordpress/block-editor";
@@ -84,6 +83,7 @@ registerBlockType("carkeek-blocks/widget-row", {
     save({ attributes } ) {
         const { allowItemsWrap, itemsPerRow, layoutType, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes
         const blockProps = useBlockProps.save();
+
         return (
             <div { ...blockProps }
             className={ classnames(blockProps.className, {
@@ -91,7 +91,7 @@ registerBlockType("carkeek-blocks/widget-row", {
                     [`ck-columns-layout-${layoutType}`]: layoutType == 'grid',
                     [`ck-columns-wrap-${allowItemsWrap}`]: layoutType == 'flex',
                     [`ck-columns-align-${alignInnerBlocks}`]: layoutType == 'flex',
-                    [`has-${itemsPerRow}-columns`]: alignInnerBlocks !== 'stretch',
+                    [`has-${itemsPerRow}-columns`]: alignInnerBlocks == 'stretch' || layoutType == 'grid',
                     [`has-${itemsPerRowMobile}-columns-mobile`]: true,
                     [`has-${itemsPerRowTablet}-columns-tablet`]: true,
                 }) }
