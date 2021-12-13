@@ -57,6 +57,7 @@ function postsInspector( props ){
                 {taxonomySelect}
                 <SelectControl
                         label={__("Sort By", "carkeek-blocks")}
+                        help={__("If it seems that your sorting selections aren't working, check for a taxonomy terms order plugin, if installed, you can manage the sort there.", "carkeek-blocks")}
                         onChange={value =>
                             setAttributes({
                                 sortBy: value

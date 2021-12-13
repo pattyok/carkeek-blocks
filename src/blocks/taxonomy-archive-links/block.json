@@ -20,7 +20,7 @@
         },
         "sortBy": {
             "type": "string",
-            "default": "title"
+            "default": "name"
         },
         "order": {
             "type": "string",

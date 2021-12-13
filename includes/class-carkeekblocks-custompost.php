@@ -611,11 +611,10 @@ class CarkeekBlocks_CustomPost {
 	public static function carkeek_blocks_render_tax_archive( $attributes ) {
 		$args = array(
 			'taxonomy' => $attributes['taxonomySelected'],
-			'orderby'  => $attributes['orderBy'],
+			'orderby'  => $attributes['sortBy'],
 			'order'    => $attributes['order'],
 		);
-
-		$terms = get_terms( $attributes['taxonomySelected'] );
+		$terms = get_terms( $args );
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			$term_list = '<ul class="term-archive">';
 			foreach ( $terms as $term ) {
