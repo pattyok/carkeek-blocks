@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "carkeek-blocks/taxonomy-terms",
+    "title": "Taxonomy Archive List",
+    "category": "carkeek-category",
+    "description": "Place taxonomy terms list on a page",
+    "keywords": [ "taxonomy", "terms", "archive" ],
+    "version": "1.0.0",
+    "textdomain": "carkeek-blocks",
+    "attributes": {
+        "taxonomySelected": {
+            "type": "string"
+        },
+        "level": {
+            "type": "number"
+        },
+        "excludeTerms": {
+            "type": "string"
+        },
+        "sortBy": {
+            "type": "string",
+            "default": "title"
+        },
+        "order": {
+            "type": "string",
+            "default": "ASC"
+        }
+    },
+    "supports": {
+        "align": true
+    },
+    "editorScript": "file:./index.js"
+  }

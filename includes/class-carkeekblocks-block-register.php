@@ -71,6 +71,15 @@ class CarkeekBlocks_Block_Register {
 		foreach ( $blocks as $block ) {
 			$this->carkeek_blocks_register_block( $block );
 		}
+		/** Blocks that use blocks.json get registered this way */
+		$block_dir = WP_PLUGIN_DIR . '/carkeek-blocks/src/blocks/taxonomy-archive-links';
+		register_block_type(
+			$block_dir,
+			array(
+				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_tax_archive' ),
+			),
+		);
+
 		$this->carkeek_blocks_register_block(
 			'featured-image',
 			array(
@@ -258,7 +267,7 @@ class CarkeekBlocks_Block_Register {
 						'default' => false,
 					),
 					'imageSize'            => array(
-						'type'    => 'string',
+						'type' => 'string',
 					),
 				),
 			)
@@ -582,15 +591,15 @@ class CarkeekBlocks_Block_Register {
 						'type'    => 'string',
 						'default' => 'links',
 					),
-					'groupByChild' => array(
+					'groupByChild'          => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'hideIfEmpty' => array(
+					'hideIfEmpty'           => array(
 						'type'    => 'boolean',
 						'default' => true,
 					),
-					'emptyMessage' => array(
+					'emptyMessage'          => array(
 						'type' => 'string',
 					),
 				),

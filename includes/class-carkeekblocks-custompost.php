@@ -580,12 +580,12 @@ class CarkeekBlocks_CustomPost {
 			$item = self::make_accordion_panel( $link->post_title, $notes );
 		} else {
 			if ( empty( $href ) ) {
-				$item = '<div class="ck - custom - list - title">' . $link->post_title . '</div>';
+				$item = '<div class="ck-custom-list-title">' . $link->post_title . '</div>';
 			} else {
-				$item = '<a class="ck - custom - list - title" href="' . esc_url( $href ) . '" ' . esc_attr( $target ) . '>' . $link->post_title . '</a>';
+				$item = '<a class="ck-custom-list-title" href="' . esc_url( $href ) . '" ' . esc_attr( $target ) . '>' . $link->post_title . '</a>';
 			}
 			if ( ! empty( $notes ) ) {
-				$item .= '<div class="ck - custom - list - notes">' . $notes . '</div>';
+				$item .= '<div class="ck-custom-list-notes">' . $notes . '</div>';
 			}
 		}
 		return '<li>' . $item . '</li>';
@@ -599,9 +599,32 @@ class CarkeekBlocks_CustomPost {
 	 */
 	public static function make_accordion_panel( $header, $content ) {
 
-		$panel = '<div data-aria-accordion data-transition data-multi><div class="ck - custom - list - label" data-aria-accordion-heading>' . $header . '</div>
-			<div class="ck - custom - list - notes" data-aria-accordion-panel>' . $content . '</div></div>';
+		$panel = '<div data-aria-accordion data-transition data-multi><div class="ck-custom-list-label" data-aria-accordion-heading>' . $header . '</div>
+			<div class="ck-custom-list-notes" data-aria-accordion-panel>' . $content . '</div></div>';
 		return $panel;
+	}
+	/**
+	 * Render Taxonomy Archive Links
+	 *
+	 * @param array $attributes Attributes passed from the block.
+	 */
+	public static function carkeek_blocks_render_tax_archive( $attributes ) {
+		$args = array(
+			'taxonomy' => $attributes['taxonomySelected'],
+			'orderby'  => $attributes['orderBy'],
+			'order'    => $attributes['order'],
+		);
+
+		$terms = get_terms( $attributes['taxonomySelected'] );
+		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+			$term_list = '<ul class="term-archive">';
+			foreach ( $terms as $term ) {
+				$term_list .= '<li><a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '">' . $term->name . '</a></li>';
+			}
+			$term_list .= '</ul>';
+		}
+		$block_content = '<div class="wp-block-carkeek-blocks-tax-archive">' . $term_list . '</div>';
+		return $block_content;
 	}
 
 	/**
@@ -661,15 +684,15 @@ class CarkeekBlocks_CustomPost {
 			$list_style .= ' is-style-content';
 		}
 
-		$block_content = '<div class="wp - block - carkeek - custom - link - list' . esc_attr( $list_style ) . '"><div ' . esc_attr( $data_atts['accordion'] ) . '>';
+		$block_content = '<div class="wp-block-carkeek-custom-link-list' . esc_attr( $list_style ) . '"><div ' . esc_attr( $data_atts['accordion'] ) . '>';
 
 		if ( ! empty( $attributes['headline'] ) ) {
 			$tag_name       = 'h' . $attributes['headlineLevel'];
-			$block_content .= '<' . $tag_name . ' class="ck - custom - headline">' . $attributes['headline'] . '</' . $tag_name . '>';
+			$block_content .= '<' . $tag_name . ' class="ck-custom-headline">' . $attributes['headline'] . '</' . $tag_name . '>';
 		}
 
 		if ( ! empty( $links ) ) {
-			$block_content .= '<ul class="ck - custom - list no - bullets">';
+			$block_content .= '<ul class="ck-custom-list no-bullets">';
 			foreach ( $links as $link ) {
 				$block_content .= self::make_custom_link( $link, $attributes['makeTitlesCollapsible'] );
 			}
@@ -690,8 +713,8 @@ class CarkeekBlocks_CustomPost {
 				if ( ! empty( $sub_links ) ) {
 					$list_style = '';
 
-					$block_content .= '<div class="ck - custom - list - label" ' . esc_attr( $data_atts['header'] ) . '>' . $term->name . '</div>';
-					$block_content .= '<div class="ck - custom - list" ' . esc_attr( $data_atts['panel'] ) . '><ul class="no - bullets">';
+					$block_content .= '<div class="ck-custom-list-label" ' . esc_attr( $data_atts['header'] ) . '>' . $term->name . '</div>';
+					$block_content .= '<div class="ck-custom-list" ' . esc_attr( $data_atts['panel'] ) . '><ul class="no-bullets">';
 					foreach ( $sub_links as $sub ) {
 						$block_content .= self::make_custom_link( $sub, $attributes['makeTitlesCollapsible'] );
 					}

@@ -14,3 +14,4 @@ import "./blocks/carkeek-slider/script";
 import "./blocks/lightbox-gallery/script";
 import "./blocks/extended-gallery/script";
 import "./blocks/featured-image/script";
+import "./blocks/taxonomy-archive-links/script";

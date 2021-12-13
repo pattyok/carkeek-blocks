@@ -16,5 +16,6 @@ import "./blocks/carkeek-slider";
 import "./blocks/lightbox-gallery";
 import "./blocks/featured-image";
 import "./blocks/extended-gallery";
+import "./blocks/taxonomy-archive-links";
 
 
