@@ -2,13 +2,13 @@
 $featured_image = '';
 $image_size = 'medium_large';
 if (empty($data->imageSize) || $data->imageSize == 'default') {
-	//use standard image size for the theme	
+	//use standard image size for the theme
 	$image_size = apply_filters( 'ck_custom_archive__featured_image_default_size', $image_size, $post->ID, $data );
 } else {
 	$image_size = $data->imageSize;
 }
 //allow override for specific post
-$image_size = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_default_size', $image_size, $post->ID, $data ); 
+$image_size = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_default_size', $image_size, $post->ID, $data );
 
 if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, $image_size );
@@ -18,7 +18,7 @@ $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected 
 
 $excerpt = '';
 if ( true == $data->displayPostExcerpt ) {
-	$excerpt = get_the_excerpt();
+	$excerpt = wp_filter_nohtml_kses(get_the_excerpt());
 	$limit   = $data->excerptLength;
 	if ( str_word_count( $excerpt, 0 ) > $limit ) {
 		$words    = str_word_count( $excerpt, 2 );
