@@ -86,6 +86,10 @@ const attributes = {
         type: "boolean",
         default: false
     },
+    filterByVenue: {
+        type: "boolean",
+        default: false
+    },
     taxonomySelected: {
         type: "string"
     },
@@ -93,6 +97,9 @@ const attributes = {
         type: "string"
     },
     catTagsSelected: {
+        type: "string"
+    },
+    venueSelected: {
         type: "string"
     },
     hideIfEmpty: {

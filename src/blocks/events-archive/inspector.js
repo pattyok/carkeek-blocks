@@ -15,6 +15,7 @@ function postsInspector( props ){
     const {
         catTerms,
         catTags,
+        venues,
         attributes,
         setAttributes,
     } = props;
@@ -26,7 +27,9 @@ function postsInspector( props ){
         featuredEvents,
         filterByCategory,
         filterByTag,
+        filterByVenue,
         hideTitle,
+        venueSelected,
         catTermsSelected,
         catTagsSelected,
         displayField1,
@@ -62,7 +65,6 @@ function postsInspector( props ){
     if (displayField1 == "startdate"  || displayField2 == 'startdate' || displayField3 == 'startdate') {
         showDateFormat = true;
     }
-
 
     const fieldSelect = (
         <>
@@ -173,6 +175,27 @@ function postsInspector( props ){
                         }))
                     }
                     value={catTagsSelected && catTagsSelected.split(',')}
+                />
+            </>
+            )}
+            <ToggleControl
+                label={__("Filter by Venue")}
+                checked={filterByVenue}
+                onChange={ ( value ) => setAttributes( { filterByVenue: value } ) }
+            />
+            {filterByVenue && (
+            <>
+                <SelectControl
+                    label={__("Select Venue", "carkeek-blocks")}
+                    onChange={ ( term ) => setAttributes( { venueSelected: term } ) }
+                    options={
+                        venues &&
+                        venues.map(type => ({
+                            value: type.id,
+                            label: type.title.raw
+                        }))
+                    }
+                    value={venueSelected && venueSelected.split(',')}
                 />
             </>
             )}

@@ -59,10 +59,12 @@ export default withSelect((select) => {
     const { getEntityRecords } = select("core");
     const catTerms = getEntityRecords('taxonomy', 'tribe_events_cat', { per_page: -1 } );
     const catTags = getEntityRecords('taxonomy', 'post_tag', { per_page: -1 } );
+    const venues = getEntityRecords('postType', 'tribe_venue', { per_page: -1 } );
 
 
     return {
         catTags: catTags,
         catTerms: catTerms,
+        venues: venues,
     };
 })(customArchiveEdit);

@@ -470,6 +470,9 @@ class CarkeekBlocks_Block_Register {
 						'catTagsSelected'      => array(
 							'type' => 'string',
 						),
+						'venueSelected'      => array(
+							'type' => 'string',
+						),
 						'displayPostExcerpt'   => array(
 							'type'    => 'boolean',
 							'default' => false,
@@ -483,6 +486,10 @@ class CarkeekBlocks_Block_Register {
 							'default' => false,
 						),
 						'filterByTag'          => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'filterByVenue'          => array(
 							'type'    => 'boolean',
 							'default' => false,
 						),

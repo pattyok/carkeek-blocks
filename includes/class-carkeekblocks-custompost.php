@@ -609,7 +609,7 @@ class CarkeekBlocks_CustomPost {
 	 * @param array $attributes Attributes passed from the block.
 	 */
 	public static function carkeek_blocks_render_tax_archive( $attributes ) {
-		$args = array(
+		$args  = array(
 			'taxonomy' => $attributes['taxonomySelected'],
 			'orderby'  => $attributes['sortBy'],
 			'order'    => $attributes['order'],
@@ -735,11 +735,11 @@ class CarkeekBlocks_CustomPost {
 	 */
 	public static function carkeek_blocks_render_events_archive( $attributes ) {
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
-
-		$layout    = $attributes['postLayout'];
-		$post_type = 'tribe_events';
-		$paged     = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-		$args      = array(
+		$meta_query_count          = 0;
+		$layout                    = $attributes['postLayout'];
+		$post_type                 = 'tribe_events';
+		$paged                     = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+		$args                      = array(
 			'posts_per_page' => $attributes['numberOfPosts'],
 			'post_type'      => $post_type,
 			'orderby'        => 'meta_value',
@@ -760,6 +760,7 @@ class CarkeekBlocks_CustomPost {
 					'type'    => 'DATETIME',
 				),
 			);
+			$meta_query_count ++;
 		}
 
 		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] ) ) {
@@ -791,12 +792,30 @@ class CarkeekBlocks_CustomPost {
 			}
 		}
 
+		if ( true === $attributes['filterByVenue'] ) {
+			$venue_args = array(
+				'key'     => '_EventVenueID',
+				'value'   => $attributes['venueSelected'],
+				'compare' => '=',
+			);
+			if ( ! isset( $args['meta_query'] ) ) {
+				$args['meta_query'] = array();
+			}
+			$meta_query_count++;
+			$args['meta_query'][] = $venue_args;
+		}
+
 		if ( true === $attributes['featuredEvents'] ) {
-			$args['meta_query'][] = array(
+			$featured_args = array(
 				'key'     => '_tribe_featured',
 				'value'   => true,
 				'compare' => '=',
 			);
+			if ( ! isset( $args['meta_query'] ) ) {
+				$args['meta_query'] = array();
+			}
+			$args['meta_query'][] = $featured_args;
+			$meta_query_count++;
 		}
 
 		$args  = apply_filters( 'carkeek_block_events_layout_query_args', $args, $attributes );
