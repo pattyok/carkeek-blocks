@@ -63,8 +63,6 @@ class CarkeekBlocks_Block_Register {
 			'modal-item',
 			'fixed-image',
 			'widget-row',
-			'quick-link',
-			'page-link',
 			'extended-gallery',
 		);
 
@@ -470,7 +468,7 @@ class CarkeekBlocks_Block_Register {
 						'catTagsSelected'      => array(
 							'type' => 'string',
 						),
-						'venueSelected'      => array(
+						'venueSelected'        => array(
 							'type' => 'string',
 						),
 						'displayPostExcerpt'   => array(
@@ -489,7 +487,7 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'boolean',
 							'default' => false,
 						),
-						'filterByVenue'          => array(
+						'filterByVenue'        => array(
 							'type'    => 'boolean',
 							'default' => false,
 						),
@@ -562,56 +560,6 @@ class CarkeekBlocks_Block_Register {
 				),
 			);
 		}
-
-		$this->carkeek_blocks_register_block(
-			'custom-link-list',
-			array(
-				'render_callback' => array( 'CarkeekBlocks_CustomPost', 'carkeek_blocks_render_custom_linklist' ),
-				'attributes'      => array(
-					'order'                 => array(
-						'type'    => 'string',
-						'default' => 'ASC',
-					),
-					'makeCollapsible'       => array(
-						'type'    => 'boolean',
-						'default' => true,
-					),
-					'makeTitlesCollapsible' => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'headline'              => array(
-						'type' => 'string',
-					),
-					'sortBy'                => array(
-						'type'    => 'string',
-						'default' => 'title',
-					),
-					'headlineLevel'         => array(
-						'type'    => 'number',
-						'default' => 2,
-					),
-					'listSelected'          => array(
-						'type' => 'string',
-					),
-					'primaryContent'        => array(
-						'type'    => 'string',
-						'default' => 'links',
-					),
-					'groupByChild'          => array(
-						'type'    => 'boolean',
-						'default' => true,
-					),
-					'hideIfEmpty'           => array(
-						'type'    => 'boolean',
-						'default' => true,
-					),
-					'emptyMessage'          => array(
-						'type' => 'string',
-					),
-				),
-			)
-		);
 
 		$this->carkeek_blocks_register_block(
 			'form-assembly',
