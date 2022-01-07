@@ -105,6 +105,11 @@ function postsInspector( props ){
             columnsMobile : 1
         } );
     }
+    if (!headlineLevel) {
+        setAttributes( {
+            headlineLevel : 2
+        } );
+    }
 
     const [showGroupHierarchyOpt, setShowGroupHierarchyOpt] = useState(true);
 

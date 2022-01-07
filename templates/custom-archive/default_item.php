@@ -32,7 +32,8 @@ if ( true == $data->displayPostExcerpt ) {
 $permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
 $permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', '_self', $data );
 $link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
-if ( $data->useHeadingTitle ) {
+if ( true == $data->useHeadingTitle ) {
+
 	$start      = '<h' . $data->headlineLevel . '>';
 	$end        = '</h' . $data->headlineLevel . '>';
 	$link_title = $start . $link_title . $end;
@@ -42,14 +43,14 @@ $meta = array(
 	'before' => '',
 	'after'  => '',
 );
-if ( $data->showPublishDate ) {
+if ( true == $data->showPublishDate ) {
 	$meta[ $data->publishDateLocation ] = wp_sprintf( '<span class="ck-custom-archive-item-date">%1s</span>', get_the_date() );
 }
 // deprecate this in favor of dynamic titles
 $meta_before = apply_filters( 'ck_custom_archive_layout__meta_before_title', $meta['before'], $data );
 $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $meta['after'], $data );
-$meta_before = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_before_title', $meta['before'], $data );
-$meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_after_title', $meta['after'], $data );
+$meta_before = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_before_title', $meta_before, $data );
+$meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_after_title', $meta_after, $data );
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
 <?php
@@ -89,17 +90,20 @@ if ( ! empty( $featured_image ) ) {
 
 		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 		<?php
-		if ( $data->showTerms ) {
+		if ( true == $data->showTerms ) {
 			$term_list = '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $data->taxonomySelected, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
 			$term_list = apply_filters( 'ck_custom_archive_layout__term_list', $term_list, $data );
+			$term_list = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_term_list', $term_list, $data );
 			echo wp_kses_post( $term_list );
 		}
 		?>
 		<?php
-		if ( $data->showLearnMoreLink ) {
+		if ( true == $data->showLearnMoreLink ) {
 			$link_label = empty( $data->learnMoreLinkTitle ) ? __( 'Learn more', 'wp-rig' ) : $data->learnMoreLinkTitle;
 			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s">%2s<span class="screen-reader-text">%3s</span></a>', get_the_permalink(), $link_label, get_the_title() );
 			$more_link  = apply_filters( 'ck_custom_archive_layout__more_link', $more_link, $data );
+			$more_link  = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_more_link', $more_link, $data );
+
 			echo wp_kses_post( $more_link );
 		}
 		?>

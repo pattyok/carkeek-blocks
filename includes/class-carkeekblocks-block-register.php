@@ -232,6 +232,7 @@ class CarkeekBlocks_Block_Register {
 					),
 					'headlineLevel'        => array(
 						'type' => 'number',
+						'default' => 2,
 					),
 					'useHeadingTitle'      => array(
 						'type' => 'boolean',
@@ -387,6 +388,7 @@ class CarkeekBlocks_Block_Register {
 					),
 					'headlineLevel'        => array(
 						'type' => 'number',
+						'default' => 2,
 					),
 					'useHeadingTitle'      => array(
 						'type' => 'boolean',
