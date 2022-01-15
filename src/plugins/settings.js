@@ -13,7 +13,8 @@ function PageHeaderSettings( props ) {
             setHideFeaturedImage,
             featuredMedia,
             featuredImageFocalPoint,
-            setFeaturedImageFocalPoint
+            setFeaturedImageFocalPoint,
+            supportsMeta,
         } = props;
         const titleBlock = document.querySelector(".editor-post-title__block");
 
@@ -88,7 +89,8 @@ function PageHeaderSettings( props ) {
                 title="Page Header Settings"
                 className="page-header-settings-panel"
             >
-
+            {supportsMeta &&
+                <>
                 <CheckboxControl
                     className="carkeek-hide-title-label"
                     label={__("Hide Page Title", "carkeek-blocks")}
@@ -109,25 +111,40 @@ function PageHeaderSettings( props ) {
                 <p>
                     These settings may not be applied on all pages/posts.
                 </p>
+                </>
+            }
+            { !supportsMeta &&
+                <p>Not supported for this post type. If you want to use this feature on this post, let your site admin know that this post type must support &#39;custom-fields&#39;.</p>
+            }
             </PluginDocumentSettingPanel>
     );
 }
 
 const applyWithSelect = withSelect( ( select )=> {
     const { getEditedPostAttribute } = select( 'core/editor' );
-    const { getMedia } = select( 'core' );
+    const { getMedia, getPostType } = select( 'core' );
+    const type = getEditedPostAttribute('type');
+    const postType = getPostType( type );
+    let supportsMeta = false, hideTitle, hideFeaturedImage, featuredImageFocalPoint, featuredImageId, featuredMedia;
+    if (postType && postType.supports['custom-fields'] && postType.supports['custom-fields']){
+        supportsMeta = true;
+    }
+    if (supportsMeta) {
+    //post types need to support custom fields for this to work - if missing or js errors check for that
+    hideTitle = getEditedPostAttribute('meta')['_carkeekblocks_title_hidden'];
+    hideFeaturedImage = getEditedPostAttribute('meta')['_carkeekblocks_featuredimage_hidden'];
+    featuredImageFocalPoint = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_focal_point' ];
 
-    const hideTitle = getEditedPostAttribute('meta')['_carkeekblocks_title_hidden'];
-    const hideFeaturedImage = getEditedPostAttribute('meta')['_carkeekblocks_featuredimage_hidden'];
-    const featuredImageFocalPoint = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_focal_point' ];
+    featuredImageId = getEditedPostAttribute( 'featured_media' );
+    featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
 
-    const featuredImageId = getEditedPostAttribute( 'featured_media' );
-    const featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
+    }
     return {
             hideTitle,
             hideFeaturedImage,
             featuredMedia,
-            featuredImageFocalPoint
+            featuredImageFocalPoint,
+            supportsMeta,
         };
 });
 const applyWithDispatch = withDispatch( ( dispatch ) => {

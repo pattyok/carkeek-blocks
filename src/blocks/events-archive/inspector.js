@@ -1,4 +1,4 @@
-import { InspectorControls } from "@wordpress/block-editor";
+import { InspectorControls, InspectorAdvancedControls } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import {
     RangeControl,
@@ -49,7 +49,8 @@ function postsInspector( props ){
         itemsTablet,
         displayFeaturedImage,
         showPagination,
-        includePastEvents
+        includePastEvents,
+        prioritizeRelated
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
@@ -215,6 +216,7 @@ function postsInspector( props ){
 
 
     return (
+        <>
         <InspectorControls>
             <PanelBody title={__("Events Settings", "carkeek-blocks")}>
 
@@ -369,6 +371,15 @@ function postsInspector( props ){
             }
             </PanelBody>
         </InspectorControls>
+        <InspectorAdvancedControls>
+            <ToggleControl
+                label={__("Prioritize Related Events")}
+                checked={prioritizeRelated}
+                help={__("If selected and placed on an event page, we will find events with similar tags and categories first. This is an intensize database search so only use if the standard filters are not getting what you want.", "carkeek-blocks")}
+                onChange={ ( value ) => setAttributes( { prioritizeRelated: value } ) }
+            />
+        </InspectorAdvancedControls>
+        </>
     );
 }
 

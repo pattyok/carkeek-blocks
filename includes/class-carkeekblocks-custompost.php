@@ -594,9 +594,82 @@ class CarkeekBlocks_CustomPost {
 			$args['meta_query'][] = $featured_args;
 			$meta_query_count++;
 		}
+		// if prioritizeRelated, we first search by related, then by the original args.
+		if ( true == $attributes['prioritizeRelated'] ) {
+			global $post;
+			$args2              = $args;
+			$args2['tax_query'] = array(
+				'relation' => 'AND',
+			);
+			$event_cats         = get_the_terms( $post->ID, 'tribe_events_cat' );
+			$event_tags         = get_the_terms( $post->ID, 'post_tag' );
+			if ( ! empty( $event_cats ) ) {
+				$cat_list = wp_list_pluck( $event_cats, 'term_id' );
+				// run each as their own argument so we can switch to OR if not filled.
+				foreach ( $cat_list as $cat ) {
+					$args2['tax_query'][] = array(
+						'taxonomy' => 'tribe_events_cat',
+						'field'    => 'term_id',
+						'terms'    => $cat,
+					);
+				}
+			}
+			if ( ! empty( $event_tags ) ) {
+				$tags_list = wp_list_pluck( $event_tags, 'term_id' );
+				foreach ( $tags_list as $tag ) {
+					$args2['tax_query'][] = array(
+						'taxonomy' => 'post_tag',
+						'field'    => 'term_id',
+						'terms'    => $tag,
+					);
+				}
+			}
+			$args2  = apply_filters( 'carkeek_block_events_related_layout_query_args', $args2, $attributes );
+			$query = new WP_Query( $args2 );
 
-		$args  = apply_filters( 'carkeek_block_events_layout_query_args', $args, $attributes );
-		$query = new WP_Query( $args );
+			if ( $query->found_posts < $attributes['numberOfPosts'] ) {
+				$args2['tax_query']['relation'] = 'OR';
+				$args2['posts_per_page']        = $attributes['numberOfPosts'] - $query->found_posts;
+				// exclude posts found so far.
+				if ( $query->have_posts() ) {
+					while ( $query->have_posts() ) {
+						$query->the_post();
+						global $post;
+						$args2['post__not_in'][] = $post->ID;
+						wp_reset_postdata();
+					}
+				}
+				$query2 = new WP_Query( $args2 );
+				// populate post_count count for the loop to work correctly .
+				$query->post_count = $query->post_count + $query2->post_count;
+				// merge the two arrays .
+				$query->posts = array_merge( $query->posts, $query2->posts );
+			}
+			//run once more to fill up the grid if necessary
+			if ( $query->post_count < $attributes['numberOfPosts'] ) {
+				$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->post_count;
+				// exclude posts found so far.
+				if ( $query->have_posts() ) {
+					while ( $query->have_posts() ) {
+						$query->the_post();
+						global $post;
+						$args['post__not_in'][] = $post->ID;
+						wp_reset_postdata();
+					}
+				}
+				//run with original args.
+				$query3 = new WP_Query( $args );
+				// populate post_count count for the loop to work correctly .
+				$query->post_count = $query->post_count + $query3->post_count;
+				// merge the two arrays .
+				$query->posts = array_merge( $query->posts, $query3->posts );
+			}
+		} else {
+
+			$args  = apply_filters( 'carkeek_block_events_layout_query_args', $args, $attributes );
+			$query = new WP_Query( $args );
+
+		}
 
 		$posts = '';
 

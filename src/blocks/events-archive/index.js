@@ -90,6 +90,10 @@ const attributes = {
         type: "boolean",
         default: false
     },
+    prioritizeRelated: {
+        type: "boolean",
+        default: false
+    },
     taxonomySelected: {
         type: "string"
     },

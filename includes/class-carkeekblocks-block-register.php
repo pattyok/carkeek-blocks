@@ -493,6 +493,10 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'boolean',
 							'default' => false,
 						),
+						'prioritizeRelated'    => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
 						'excerptLength'        => array(
 							'type'    => 'number',
 							'default' => 30,
