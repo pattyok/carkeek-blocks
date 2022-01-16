@@ -16,8 +16,15 @@ foreach ( $meta_fields as $field ) {
 		case 'startdate':
 			$date_format     = ! empty( $data->dateFormat ) ? $data->dateFormat : 'F j';
 			$end_date_format = $date_format;
+
+			$show_time = false;
+			if ( ! tribe_event_is_all_day( $post->ID ) && ! empty( $data->timeFormat ) ) {
+				$date_format .= ', ' . $data->timeFormat;
+				$end_date_format = $date_format;
+				$show_time    = true;
+			}
 			// these are the standard date formats we'll probably use.
-			if ( 'F j' == $date_format || 'M j' == $date_format ) {
+			if ( 'F j' == $date_format || 'M j' == $date_format && false == $show_time ) {
 				// if the months are the same, don't repeat.
 				$st = tribe_get_start_date( $post->ID, false, 'F' );
 				$et = tribe_get_end_date( $post, false, 'F' );
@@ -25,11 +32,7 @@ foreach ( $meta_fields as $field ) {
 					$end_date_format = 'j';
 				}
 			}
-			$show_time = false;
-			if ( ! empty( $data->timeFormat ) ) {
-				$date_format .= ', ' . $data->timeFormat;
-				$show_time    = true;
-			}
+
 			$start = tribe_get_start_date( $post->ID, false, $date_format );
 			$end   = '';
 			if ( tribe_event_is_multiday( $post ) && 'show_end_date' == $data->showEndDate ) {

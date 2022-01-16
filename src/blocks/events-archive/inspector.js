@@ -40,7 +40,6 @@ function postsInspector( props ){
         showEndDate,
         hideIfEmpty,
         emptyMessage,
-        headlineLevel,
         columns,
         columnsMobile,
         columnsTablet,
@@ -262,15 +261,6 @@ function postsInspector( props ){
                     />
                 </>
                 }
-                <RangeControl
-                    label={__("Heading Size", "carkeek-blocks")}
-                    value={headlineLevel}
-                    onChange={value =>
-                        setAttributes({ headlineLevel: value })
-                    }
-                    min={2}
-                    max={6}
-                />
             </PanelBody>
             <PanelBody title={__("Data to display", "carkeek-blocks")}>
                 <ToggleControl
