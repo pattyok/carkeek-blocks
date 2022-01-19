@@ -10,12 +10,10 @@ import {
 import { PanelBody, SelectControl, ToggleControl, RangeControl, RadioControl } from "@wordpress/components";
 import { getBlockTypes, createBlock, getBlockType } from "@wordpress/blocks";
 import { dispatch, useSelect } from "@wordpress/data";
-import { useEffect } from "@wordpress/element";
-
 
 export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType,  layoutType, allowedBlocks, allowItemsWrap, itemsToShow, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes;
+    const { innerBlockType,  layoutType, allowedBlocks, allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes;
 
 /* for existing blocks we set to flex as that was previously the default */
     if (!layoutType) {
@@ -34,11 +32,7 @@ export default function CollapseSectionEdit( props ) {
             itemsPerRowMobile : 1
         } );
     }
-    if (!itemsToShow) {
-        setAttributes( {
-            itemsToShow : itemsPerRow
-        } );
-    }
+
     const availBlocks = getBlockTypes();
     let myAllowedBlocks = allowedBlocks;
     let addLabel = __('a Block');
@@ -58,13 +52,9 @@ export default function CollapseSectionEdit( props ) {
     blockOptions.unshift( { label:'Select a Block', value: ''} );
 
     let blockProps = useBlockProps();
-
-    /* if we've set a row limit and not allowed wrapping we hide the appender
-        after the limit - sneaky way to obfuscate adding extra items when the design dictates a  limit
-    */
     const innerBlockCount = useSelect( ( select ) => select( 'core/block-editor' ).getBlock( clientId ).innerBlocks )
     const appenderToUse = () => {
-        if ( !allowItemsWrap && innerBlockCount.length >= itemsToShow) {
+        if ( 'flex' == layoutType && !allowItemsWrap && innerBlockCount.length >= itemsPerRow) {
             return false;
         } else {
             return (
@@ -77,14 +67,6 @@ export default function CollapseSectionEdit( props ) {
         }
     }
 
-    useEffect( () => {
-
-        if ('grid' == layoutType) {
-            setAttributes( {
-                itemsPerRow : innerBlockCount.length
-            } );
-        }
-    }, [layoutType, innerBlockCount]);
 
     return(
         <>
@@ -123,7 +105,7 @@ export default function CollapseSectionEdit( props ) {
                             help={allowItemsWrap ? "" : "This will fix the size of each item"}
                             onChange={ ( itemsPerRow ) => setAttributes( { itemsPerRow } ) }
                             min={1}
-                            max={allowItemsWrap ? 6 : itemsToShow }
+                            max={6}
                         />
 
                         </>
@@ -168,24 +150,17 @@ export default function CollapseSectionEdit( props ) {
                             setAttributes({ layoutType: value })
                         }
                     />
-                { !allowItemsWrap &&
-                    <RangeControl
-                        label={__("Limit Items", "carkeek-blocks")}
-                        value={ itemsToShow }
-                        help="If the design dictates a maximum number of items, set that here."
-                        onChange={ ( itemsToShow ) => setAttributes( { itemsToShow } ) }
-                        min={1}
-                        max={6}
-                    />
-                    }
             </InspectorAdvancedControls>
         <div
             { ...blockProps }
             className={ classnames( blockProps.className, {
                 "ck-columns": 'true',
-                    [`ck-columns-wrap-${allowItemsWrap}`]: true,
-                    [`ck-columns-align-${alignInnerBlocks}`]: true,
-                    [`has-${itemsPerRow}-columns`]: allowItemsWrap,
+                    [`ck-columns-layout-${layoutType}`]: layoutType == 'grid',
+                    [`ck-columns-wrap-${allowItemsWrap}`]: layoutType == 'flex',
+                    [`ck-columns-align-${alignInnerBlocks}`]: layoutType == 'flex',
+                    [`has-${itemsPerRow}-columns`]: alignInnerBlocks !== 'stretch' || layoutType == 'grid',
+                    [`has-${itemsPerRowMobile}-columns-mobile`]: true,
+                    [`has-${itemsPerRowTablet}-columns-tablet`]: true,
             })}
             >
                 {innerBlockType ?

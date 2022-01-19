@@ -38,10 +38,6 @@ const attributes = {
         type: 'number',
         default: 2
     },
-    itemsToShow: {
-        type: 'number',
-        default: 6
-    },
     alignInnerBlocks: {
         type: 'string',
         default: 'left'
