@@ -52,6 +52,15 @@ class CarkeekBlocks_Post_Meta {
 				'default'      => true,
 			)
 		);
+		register_setting(
+			'options',
+			'_carkeekblocks_featuredimage_use_imageOpacity',
+			array(
+				'show_in_rest' => true,
+				'type'         => 'boolean',
+				'default'      => false,
+			)
+		);
 	}
 
 
@@ -89,13 +98,13 @@ class CarkeekBlocks_Post_Meta {
 			'post',
 			'_carkeekblocks_featured_image_focal_point',
 			array(
-				'type'         => 'object',
-				'description'  => 'Focal point of the featured image',
-				'single'       => true,
+				'type'          => 'object',
+				'description'   => 'Focal point of the featured image',
+				'single'        => true,
 				'auth_callback' => function() {
 					return current_user_can( 'edit_posts' );
 				},
-				'show_in_rest' => array(
+				'show_in_rest'  => array(
 					'schema' => array(
 						'type'       => 'object',
 						'properties' => array(
@@ -108,6 +117,19 @@ class CarkeekBlocks_Post_Meta {
 						),
 					),
 				),
+			)
+		);
+
+		register_meta(
+			'post',
+			'_carkeekblocks_featured_image_opacity',
+			array(
+				'show_in_rest'  => true,
+				'single'        => true,
+				'type'          => 'number',
+				'auth_callback' => function() {
+					return current_user_can( 'edit_posts' );
+				},
 			)
 		);
 

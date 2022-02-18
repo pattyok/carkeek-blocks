@@ -81,6 +81,11 @@ class CarkeekBlocks_Block_Assets {
 			array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
 			$this->version
 		);
+		//add script to pass options variables (cannot access via rest);
+		wp_add_inline_script( $this->slug . '-plugins-editor-script', 'const ckBlocksVars = ' . json_encode( array(
+			'supportsOpacity' => get_option( '_carkeekblocks_featuredimage_use_opacity' ),
+			'opacityDefault' => get_option( '_carkeekblocks_featuredimage_opacity_default', 0 ),
+		) ), 'before' );
 
 		wp_enqueue_style(
 			$this->slug . '-plugins-editor-style',

@@ -1,9 +1,9 @@
 import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
 import { __ } from "@wordpress/i18n";
-import { CheckboxControl, FocalPointPicker, Button } from "@wordpress/components";
+import { CheckboxControl, FocalPointPicker, Button, RangeControl } from "@wordpress/components";
 import { withSelect, withDispatch } from "@wordpress/data";
 import { compose } from "@wordpress/compose";
-
+/* global ckBlocksVars */
 
 function PageHeaderSettings( props ) {
         const {
@@ -15,6 +15,9 @@ function PageHeaderSettings( props ) {
             featuredImageFocalPoint,
             setFeaturedImageFocalPoint,
             supportsMeta,
+            supportsOpacity,
+            setFeaturedImageOpacity,
+            featuredImageOpacity,
         } = props;
         const titleBlock = document.querySelector(".editor-post-title__block");
 
@@ -38,17 +41,23 @@ function PageHeaderSettings( props ) {
             document.body.classList.add(bodyClass);
         }
 
+        if (!featuredImageOpacity && featuredImageOpacity !== 0 ) {
+            setFeaturedImageOpacity(ckBlocksVars.defaultOpacity);
+        }
+
+
         function resetFocalPoint() {
             const newFocal = { x: 0.5, y: 0.5 }
             setFeaturedImageFocalPoint( newFocal );
         }
 
-        let focalPoint;
+        let focalPoint, opacityPicker;
         if (!hideFeaturedImage && featuredMedia && featuredMedia.source_url) {
             const url = featuredMedia.source_url;
             const { width, height } = featuredMedia.media_details;
+            const imageClasses = supportsOpacity ? `ck-focal-point-wrapper has-opacity` : '';
             focalPoint = (
-                <>
+                <div className={ imageClasses } style={{ "--focal-opacity": featuredImageOpacity }}>
                     <FocalPointPicker
                         label={ __( 'Featured Image Focal Point' ) }
                         url={ url }
@@ -59,8 +68,24 @@ function PageHeaderSettings( props ) {
                         }
                     />
                     <Button variant="secondary" className={ 'is-secondary' } onClick={ resetFocalPoint }>Reset FocalPoint</Button>
-                </>
+                </div>
             )
+            if (supportsOpacity) {
+                opacityPicker = (
+                    <>
+                    <RangeControl
+                    label = "Overlay Opacity"
+                    value = { featuredImageOpacity }
+                    onChange={ ( value ) =>
+                        setFeaturedImageOpacity( value )
+                    }
+                    min = { 0 }
+                    max = { 50 }
+                    step = { 5 }
+                    ></RangeControl>
+                    </>
+                )
+            }
         }
 
         const hideImageCheckbox = (
@@ -107,6 +132,7 @@ function PageHeaderSettings( props ) {
                 />
                 {hideImageCheckbox}
                 {focalPoint}
+                {opacityPicker}
                 <p></p>
                 <p>
                     These settings may not be applied on all pages/posts.
@@ -125,7 +151,8 @@ const applyWithSelect = withSelect( ( select )=> {
     const { getMedia, getPostType } = select( 'core' );
     const type = getEditedPostAttribute('type');
     const postType = getPostType( type );
-    let supportsMeta = false, hideTitle, hideFeaturedImage, featuredImageFocalPoint, featuredImageId, featuredMedia;
+    let supportsOpacity = true;
+    let supportsMeta = false, hideTitle, hideFeaturedImage, featuredImageFocalPoint, featuredImageId, featuredMedia, featuredImageOpacity;
     if (postType && postType.supports['custom-fields'] && postType.supports['custom-fields']){
         supportsMeta = true;
     }
@@ -139,12 +166,20 @@ const applyWithSelect = withSelect( ( select )=> {
     featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
 
     }
+    //ckBlockVars are stored in site options and passed via wp_add_inline_script
+    supportsOpacity = (ckBlocksVars && ckBlocksVars.supportsOpacity == 1) ? true : false;
+
+    if (supportsOpacity) {
+        featuredImageOpacity = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_opacity' ];
+    }
     return {
             hideTitle,
             hideFeaturedImage,
             featuredMedia,
             featuredImageFocalPoint,
             supportsMeta,
+            featuredImageOpacity,
+            supportsOpacity
         };
 });
 const applyWithDispatch = withDispatch( ( dispatch ) => {
@@ -165,6 +200,9 @@ const applyWithDispatch = withDispatch( ( dispatch ) => {
             },
             setFeaturedImageFocalPoint: focalPoint => {
                 editPost( { meta: { _carkeekblocks_featured_image_focal_point: focalPoint } } );
+            },
+            setFeaturedImageOpacity: focalPoint => {
+                editPost( { meta: { _carkeekblocks_featured_image_opacity: focalPoint } } );
             }
         };
 });
