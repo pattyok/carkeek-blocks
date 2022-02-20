@@ -46,9 +46,11 @@ function PageHeaderSettings( props ) {
             document.body.classList.add(bodyClass);
         }
 
-        if (!featuredImageOpacity && featuredImageOpacity !== 0 ) {
-            setFeaturedImageOpacity(ckBlocksVars.defaultOpacity);
-        }
+        // console.log(featuredImageOpacity);
+        // console.log(ckBlocksVars);
+        // if (!featuredImageOpacity && featuredImageOpacity !== 0 ) {
+        //     setFeaturedImageOpacity(ckBlocksVars.opacityDefault);
+        // }
 
 
         function resetFocalPoint() {
@@ -175,6 +177,10 @@ const applyWithSelect = withSelect( ( select )=> {
 
     if (supportsOpacity) {
         featuredImageOpacity = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_opacity' ];
+        //we set the default to 101 so we can distinguish 0 from false.
+        if (featuredImageOpacity === 101){
+            featuredImageOpacity = parseInt(ckBlocksVars.opacityDefault);
+        }
     }
     return {
             hideTitle,

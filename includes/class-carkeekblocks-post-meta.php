@@ -126,6 +126,7 @@ class CarkeekBlocks_Post_Meta {
 			array(
 				'show_in_rest'  => true,
 				'single'        => true,
+				'default'       => 101,
 				'type'          => 'number',
 				'auth_callback' => function() {
 					return current_user_can( 'edit_posts' );
