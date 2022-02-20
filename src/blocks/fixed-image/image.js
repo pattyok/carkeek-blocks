@@ -17,7 +17,7 @@ import {
     FocalPointPicker,
 	SelectControl,
 	ToggleControl,
-	IconButton
+	ToolbarButton,
 } from '@wordpress/components';
 import { usePrevious } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
@@ -225,7 +225,7 @@ export default function Image( {
 						onSelect={ onSelectImage }
 						onError={ onUploadError }
 					/>
-					<IconButton
+					<ToolbarButton
 							className="components-icon-button components-toolbar__control"
 							label={__("Remove Image", "carkeek-blocks")}
 							onClick={onRemoveImage}

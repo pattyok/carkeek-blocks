@@ -20,6 +20,11 @@ function PageHeaderSettings( props ) {
             featuredImageOpacity,
         } = props;
         const titleBlock = document.querySelector(".editor-post-title__block");
+        const defaultFocal = { x: 0.5, y: 0.5 }
+
+        if (!featuredImageFocalPoint || typeof featuredImageFocalPoint !== 'object' ){
+            setFeaturedImageFocalPoint( defaultFocal );
+        }
 
         if (titleBlock) {
             const isHidden =
@@ -47,8 +52,7 @@ function PageHeaderSettings( props ) {
 
 
         function resetFocalPoint() {
-            const newFocal = { x: 0.5, y: 0.5 }
-            setFeaturedImageFocalPoint( newFocal );
+            setFeaturedImageFocalPoint( defaultFocal );
         }
 
         let focalPoint, opacityPicker;
