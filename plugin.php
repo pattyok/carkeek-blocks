@@ -8,7 +8,7 @@
  * Primary Branch: main
  * Description: Series of blocks designed to work with this site's custom Theme
  * Author: Patty O'Hara
- * Version: 2.2.26
+ * Version: 2.2.27
  * Author URI https://carkeekstudios.com/
  * Text Domain: carkeek-blocks
  */
