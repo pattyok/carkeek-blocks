@@ -30,7 +30,7 @@ const BrowserSyncPlugin = new _BrowserSyncPlugin({
     // ./public directory is being served
     host: 'localhost',
     port: 3000,
-    proxy: 'https://carkeek-theme.local'
+    proxy: 'https://carkeek-theme-for-reuse.local'
   })
 
 

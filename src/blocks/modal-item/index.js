@@ -43,6 +43,9 @@ const attributes = {
     hideTitlePreview: {
         type: 'boolean',
         default: false
+    },
+    mailtoLink: {
+        type: 'string'
     }
 };
 

@@ -5,17 +5,17 @@ import classnames from 'classnames';
 import {
     RichText,
     useBlockProps,
-    InspectorControls,
+    InspectorControls
 } from "@wordpress/block-editor";
 
-import { PanelBody, RadioControl, ToggleControl } from "@wordpress/components";
+import { PanelBody, RadioControl, ToggleControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 function ModalItemEdit( props ) {
 
     //console.log(this.props);
     const { attributes, isSelected, clientId, setAttributes } = props;
-    const { title, name, details, blockId, hideImagePreview, hideTitlePreview, modalLayout } = attributes;
+    const { title, name, details, blockId, hideImagePreview, hideTitlePreview, modalLayout, mailtoLink } = attributes;
 
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
@@ -51,6 +51,7 @@ function ModalItemEdit( props ) {
                     options={ [
                         { label: 'Large', value: 'image-large' },
                         { label: 'Small', value: 'image-small' },
+                        { label: 'Hide', value: 'image-hide' },
                     ] }
                     onChange={value =>
                         setAttributes({ modalLayout: value })
@@ -68,7 +69,8 @@ function ModalItemEdit( props ) {
                     onChange={ ( name ) => setAttributes( { name } ) }
                     value={ name }
                     placeholder={__("Member Name", "carkeek-blocks")}
-                    formatingControls={[]}
+                    formatingCowithoutInteractiveFormatting={true}
+                    allowedFormats={[]}
                 />
                 { (!hideTitlePreview || isSelected || hasSelectedInnerBlock(props)) &&
                 <RichText
@@ -77,19 +79,27 @@ function ModalItemEdit( props ) {
                     onChange={ ( title ) => setAttributes( { title } ) }
                     value={title}
                     placeholder={isSelected ? __("Member Title", "carkeek-blocks") : null}
-                    formatingControls={[]}
+                    allowedFormats={[]}
+                    withoutInteractiveFormatting={true}
                 />
                 }
 
                 { (isSelected || hasSelectedInnerBlock(props)) &&
                 <>
+                    <TextControl
+                        value={mailtoLink}
+                        className="block-editor-media-placeholder__url-input-field"
+                        onChange={ ( mailtoLink ) => setAttributes( { mailtoLink } ) }
+                        label={__("Email Address", "carkeek-blocks")}
+                    />
                     <RichText
                         className={"ck-modal-details"}
-                        tagName="p"
+                        tagName="div"
+                        multiline="p"
                         onChange={ ( details ) => setAttributes( { details } ) }
                         value={details}
                         placeholder={__("Member Details", "carkeek-blocks")}
-                        formatingControls={[]}
+                        preserveWhiteSpace={true}
                     />
                 </>
                 }

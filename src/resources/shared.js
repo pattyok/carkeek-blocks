@@ -1,5 +1,5 @@
 function hasSelectedInnerBlock(props) {
-    const select = wp.data.select('core/editor');
+    const select = wp.data.select('core/block-editor');
     const selected = select.getBlockSelectionStart();
     const inner = select.getBlock(props.clientId).innerBlocks;
     for (let i = 0; i < inner.length; i++) {

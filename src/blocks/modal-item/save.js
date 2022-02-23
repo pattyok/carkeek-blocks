@@ -4,11 +4,12 @@ import { RichText, useBlockProps } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 
 function ModalItemSave ({ attributes }) {
-    const { title, name, details, blockId, hideImagePreview, hideTitlePreview, modalLayout } = attributes;
+    const { title, name, details, blockId, hideImagePreview, hideTitlePreview, modalLayout, mailtoLink } = attributes;
     const blockProps = useBlockProps.save();
     return (
         <div { ...blockProps } className={ classnames(blockProps.className, {
             [ `pos-${ modalLayout }` ]: modalLayout,
+            'has-image' : modalLayout !== 'image-hide'
         }) }>
             <div className="ck-modal-item" data-id={blockId}>
             { ! hideImagePreview &&
@@ -42,7 +43,6 @@ function ModalItemSave ({ attributes }) {
                             </button>
                         </div>
                         <div className="modal-body">
-                        <ImageSave />
 
                         <RichText.Content
                             className={"ck-modal-item-name"}
@@ -60,13 +60,16 @@ function ModalItemSave ({ attributes }) {
                             {details && (
                                 <RichText.Content
                                     className={"ck-modal-item-details"}
-                                    tagName="p"
+                                    tagName="div"
                                     value={details}
                                 />
                             )}
+                            {mailtoLink && (
+                                <a className="ck-modal-item-mailto" href={`mailto:${mailtoLink}`}>Contact</a>
+                            )}
                          </div>
                         <div className="modal-footer">
-                            <a data-dismiss="modal">{__('Close', 'carkeek-blocks')}</a>
+                            <button type="button" data-dismiss="modal">{__('Close', 'carkeek-blocks')}</button>
                         </div>
                     </div>
                 </div>
