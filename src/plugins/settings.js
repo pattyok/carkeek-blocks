@@ -22,7 +22,7 @@ function PageHeaderSettings( props ) {
         const titleBlock = document.querySelector(".editor-post-title__block");
         const defaultFocal = { x: 0.5, y: 0.5 }
 
-        if (!featuredImageFocalPoint || typeof featuredImageFocalPoint !== 'object' ){
+        if (supportsOpacity && ( !featuredImageFocalPoint || typeof featuredImageFocalPoint !== 'object' ) ){
             setFeaturedImageFocalPoint( defaultFocal );
         }
 
@@ -157,30 +157,32 @@ const applyWithSelect = withSelect( ( select )=> {
     const { getMedia, getPostType } = select( 'core' );
     const type = getEditedPostAttribute('type');
     const postType = getPostType( type );
-    let supportsOpacity = true;
+    let supportsOpacity = false;
     let supportsMeta = false, hideTitle, hideFeaturedImage, featuredImageFocalPoint, featuredImageId, featuredMedia, featuredImageOpacity;
     if (postType && postType.supports['custom-fields'] && postType.supports['custom-fields']){
         supportsMeta = true;
     }
     if (supportsMeta) {
-    //post types need to support custom fields for this to work - if missing or js errors check for that
-    hideTitle = getEditedPostAttribute('meta')['_carkeekblocks_title_hidden'];
-    hideFeaturedImage = getEditedPostAttribute('meta')['_carkeekblocks_featuredimage_hidden'];
-    featuredImageFocalPoint = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_focal_point' ];
+        //post types need to support custom fields for this to work - if missing or js errors check for that
+        hideTitle = getEditedPostAttribute('meta')['_carkeekblocks_title_hidden'];
+        hideFeaturedImage = getEditedPostAttribute('meta')['_carkeekblocks_featuredimage_hidden'];
+        featuredImageFocalPoint = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_focal_point' ];
 
-    featuredImageId = getEditedPostAttribute( 'featured_media' );
-    featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
+        featuredImageId = getEditedPostAttribute( 'featured_media' );
+        featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
 
-    }
-    //ckBlockVars are stored in site options and passed via wp_add_inline_script
-    supportsOpacity = (ckBlocksVars && ckBlocksVars.supportsOpacity == 1) ? true : false;
 
-    if (supportsOpacity) {
-        featuredImageOpacity = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_opacity' ];
-        //we set the default to 101 so we can distinguish 0 from false.
-        if (featuredImageOpacity === 101){
-            featuredImageOpacity = parseInt(ckBlocksVars.opacityDefault);
+        //ckBlockVars are stored in site options and passed via wp_add_inline_script
+        supportsOpacity = (ckBlocksVars && ckBlocksVars.supportsOpacity == 1) ? true : false;
+
+        if (supportsOpacity) {
+            featuredImageOpacity = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_opacity' ];
+            //we set the default to 101 so we can distinguish 0 from false.
+            if (featuredImageOpacity === 101){
+                featuredImageOpacity = parseInt(ckBlocksVars.opacityDefault);
+            }
         }
+
     }
     return {
             hideTitle,

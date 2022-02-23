@@ -50,7 +50,7 @@ class CarkeekBlocks_Block_Register {
 		$this->slug = 'carkeek-blocks';
 
 		add_action( 'init', array( $this, 'carkeek_blocks_register_blocks' ), 9999 );
-		add_filter( 'block_categories', array( $this, 'carkeek_blocks_categories' ), 10, 2 );
+		add_filter( 'block_categories_all', array( $this, 'carkeek_blocks_categories' ), 10, 2 );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class CarkeekBlocks_Block_Register {
 						'type' => 'string',
 					),
 					'headlineLevel'        => array(
-						'type' => 'number',
+						'type'    => 'number',
 						'default' => 2,
 					),
 					'useHeadingTitle'      => array(
@@ -387,7 +387,7 @@ class CarkeekBlocks_Block_Register {
 						'type' => 'string',
 					),
 					'headlineLevel'        => array(
-						'type' => 'number',
+						'type'    => 'number',
 						'default' => 2,
 					),
 					'useHeadingTitle'      => array(
