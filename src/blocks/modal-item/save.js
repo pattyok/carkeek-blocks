@@ -43,7 +43,7 @@ function ModalItemSave ({ attributes }) {
                             </button>
                         </div>
                         <div className="modal-body">
-
+                        <div className="ck-modal-item-header">
                         <RichText.Content
                             className={"ck-modal-item-name"}
                             tagName="div"
@@ -57,6 +57,7 @@ function ModalItemSave ({ attributes }) {
                                 value={title}
                             />
                         )}
+                        </div>
                             {details && (
                                 <RichText.Content
                                     className={"ck-modal-item-details"}
@@ -65,7 +66,7 @@ function ModalItemSave ({ attributes }) {
                                 />
                             )}
                             {mailtoLink && (
-                                <a className="ck-modal-item-mailto" href={`mailto:${mailtoLink}`}>Contact</a>
+                                <a className="ck-modal-item-mailto arrow-link" href={`mailto:${mailtoLink}`}>Contact</a>
                             )}
                          </div>
                         <div className="modal-footer">
