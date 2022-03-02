@@ -125,9 +125,11 @@ class CarkeekBlocks_CustomPost {
 	 * @return string HTML of dynamic content.
 	 */
 	public static function get_posts_per_term( $term, $tax, $args, $attributes, $template_loader, $level = 0 ) {
-		$posts_html = '<div class="ck-archive-tax-header level-' . esc_attr( $level ) . '">' . $term->name . '</div>';
-		$new_args   = $args;
-		$tax_query  = array(
+		if ( false == $attributes['groupHideEmpty'] ) {
+			$posts_html = '<div class="ck-archive-tax-header level-' . esc_attr( $level ) . '">' . $term->name . '</div>';
+		}
+		$new_args  = $args;
+		$tax_query = array(
 			'taxonomy' => $tax,
 			'field'    => 'id',
 			'terms'    => $term->term_id,
@@ -149,7 +151,9 @@ class CarkeekBlocks_CustomPost {
 		}
 		$query = new WP_Query( $new_args );
 		if ( $query->have_posts() ) {
-
+			if ( true == $attributes['groupHideEmpty'] ) {
+				$posts_html = '<div class="ck-archive-tax-header level-' . esc_attr( $level ) . '">' . $term->name . '</div>';
+			}
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				global $post;
@@ -355,6 +359,10 @@ class CarkeekBlocks_CustomPost {
 			$mobile              = isset( $attributes['columnsMobile'] ) ? $attributes['columnsMobile'] : 1;
 			$tablet              = isset( $attributes['columnsTablet'] ) ? $attributes['columnsTablet'] : $attributes['columns'];
 			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
+		}
+
+		if ( true == $attributes['groupHideParents']) {
+			$css_classes_outer[] = 'group-hide-parents';
 		}
 
 		if ( isset( $attributes['limitItemsMobile'] ) && true == $attributes['limitItemsMobile'] ) {
@@ -624,7 +632,7 @@ class CarkeekBlocks_CustomPost {
 					);
 				}
 			}
-			$args2  = apply_filters( 'carkeek_block_events_related_layout_query_args', $args2, $attributes );
+			$args2 = apply_filters( 'carkeek_block_events_related_layout_query_args', $args2, $attributes );
 			$query = new WP_Query( $args2 );
 
 			if ( $query->found_posts < $attributes['numberOfPosts'] ) {
@@ -645,7 +653,7 @@ class CarkeekBlocks_CustomPost {
 				// merge the two arrays .
 				$query->posts = array_merge( $query->posts, $query2->posts );
 			}
-			//run once more to fill up the grid if necessary
+			// run once more to fill up the grid if necessary
 			if ( $query->post_count < $attributes['numberOfPosts'] ) {
 				$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->post_count;
 				// exclude posts found so far.
@@ -657,7 +665,7 @@ class CarkeekBlocks_CustomPost {
 						wp_reset_postdata();
 					}
 				}
-				//run with original args.
+				// run with original args.
 				$query3 = new WP_Query( $args );
 				// populate post_count count for the loop to work correctly .
 				$query->post_count = $query->post_count + $query3->post_count;

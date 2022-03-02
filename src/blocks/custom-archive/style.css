@@ -75,6 +75,13 @@
 		display: block;
 		margin-top: 1rem;
 	}
+
+	&.group-hide-parents {
+
+		& .ck-archive-tax-header.level-0 {
+			display: none;
+		}
+	}
 }
 
 .ck_pagination {
