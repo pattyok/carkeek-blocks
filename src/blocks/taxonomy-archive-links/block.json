@@ -25,6 +25,10 @@
         "order": {
             "type": "string",
             "default": "ASC"
+        },
+        "relevantToPost": {
+            "type": "boolean",
+            "default": false
         }
     },
     "supports": {

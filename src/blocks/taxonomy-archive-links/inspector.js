@@ -4,6 +4,7 @@ import {
     PanelBody,
     RadioControl,
     SelectControl,
+    ToggleControl
 } from "@wordpress/components";
 
 
@@ -17,6 +18,7 @@ function postsInspector( props ){
         taxonomySelected,
         sortBy,
         order,
+        relevantToPost
           } = attributes;
 
 
@@ -82,6 +84,13 @@ function postsInspector( props ){
                         setAttributes({
                             order: value
                         })
+                    }
+                />
+                 <ToggleControl
+                    label="Limit to current post"
+                    checked={ relevantToPost }
+                    onChange={value =>
+                        setAttributes({ relevantToPost: value })
                     }
                 />
             </PanelBody>

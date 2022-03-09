@@ -361,7 +361,7 @@ class CarkeekBlocks_CustomPost {
 			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
 		}
 
-		if ( true == $attributes['groupHideParents']) {
+		if ( true == $attributes['groupHideParents'] ) {
 			$css_classes_outer[] = 'group-hide-parents';
 		}
 
@@ -493,16 +493,23 @@ class CarkeekBlocks_CustomPost {
 	 * @param array $attributes Attributes passed from the block.
 	 */
 	public static function carkeek_blocks_render_tax_archive( $attributes ) {
-		$args  = array(
-			'taxonomy' => $attributes['taxonomySelected'],
-			'orderby'  => $attributes['sortBy'],
-			'order'    => $attributes['order'],
-		);
-		$terms = get_terms( $args );
+		global $post;
+		if ( true == $attributes['relevantToPost'] ) {
+
+			$terms = get_the_terms( $post->ID, $attributes['taxonomySelected'] );
+		} else {
+			$args  = array(
+				'taxonomy' => $attributes['taxonomySelected'],
+				'orderby'  => $attributes['sortBy'],
+				'order'    => $attributes['order'],
+			);
+			$terms = get_terms( $args );
+		}
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			$term_list = '<ul class="term-archive">';
 			foreach ( $terms as $term ) {
-				$term_list .= '<li><a href="' . esc_url( get_term_link( $term ) ) . '" alt="' . esc_attr( sprintf( __( 'View all post filed under %s', 'my_localization_domain' ), $term->name ) ) . '">' . $term->name . '</a></li>';
+				$term_link  = apply_filters( 'ck_tax_archive_term_link', get_term_link( $term ), $term, $post );
+				$term_list .= '<li><a href="' . esc_url( $term_link ) . '" alt="' . esc_attr( sprintf( __( 'View all items filed under %s', 'my_localization_domain' ), $term->name ) ) . '">' . $term->name . '</a></li>';
 			}
 			$term_list .= '</ul>';
 		}
