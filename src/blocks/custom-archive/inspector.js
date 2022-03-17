@@ -1,4 +1,4 @@
-import { InspectorControls } from "@wordpress/block-editor";
+import { InspectorControls, InspectorAdvancedControls } from "@wordpress/block-editor";
 import _ from "lodash";
 import { __ } from "@wordpress/i18n";
 import {
@@ -52,7 +52,7 @@ function postsInspector( props ){
         useHeadingTitle,
         imageOrientation,
         imageSize,
-        showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink
+        showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink, newWindow
     } = attributes;
 
     let ptOptions = [];
@@ -208,6 +208,7 @@ function postsInspector( props ){
 
 
     return (
+        <>
         <InspectorControls>
             <PanelBody title={__("Posts Settings", "carkeek-blocks")}>
                 {postTypeSelect}
@@ -524,6 +525,15 @@ function postsInspector( props ){
             }
             </PanelBody>
         </InspectorControls>
+        <InspectorAdvancedControls>
+            <ToggleControl
+                label={__("Open Links in New Window")}
+                checked={newWindow}
+                help={__("Should only be used when the content links externally.", "carkeek-blocks")}
+                onChange={ ( value ) => setAttributes( { newWindow: value } ) }
+            />
+        </InspectorAdvancedControls>
+    </>
     );
 }
 

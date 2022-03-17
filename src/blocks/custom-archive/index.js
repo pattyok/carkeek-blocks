@@ -144,6 +144,10 @@ const attributes = {
         type: "string",
         default: 'default',
     },
+    newWindow: {
+        type: "boolean",
+        detaul: false
+    },
     blockId: {
         type: "string"
     }

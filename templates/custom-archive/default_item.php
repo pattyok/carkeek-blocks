@@ -30,7 +30,8 @@ if ( true == $data->displayPostExcerpt ) {
 }
 
 $permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
-$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', '_self', $data );
+$permalink_target =  $data->newWindow ? '_blank' : '_self';
+$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
 $link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
 if ( true == $data->useHeadingTitle ) {
 
@@ -100,7 +101,7 @@ if ( ! empty( $featured_image ) ) {
 		<?php
 		if ( true == $data->showLearnMoreLink ) {
 			$link_label = empty( $data->learnMoreLinkTitle ) ? __( 'Learn more', 'wp-rig' ) : $data->learnMoreLinkTitle;
-			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s">%2s<span class="screen-reader-text">%3s</span></a>', get_the_permalink(), $link_label, get_the_title() );
+			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s" target="%2s">%2s<span class="screen-reader-text">%3s</span></a>', get_the_permalink(), $permalink_target, $link_label, get_the_title() );
 			$more_link  = apply_filters( 'ck_custom_archive_layout__more_link', $more_link, $data );
 			$more_link  = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_more_link', $more_link, $data );
 

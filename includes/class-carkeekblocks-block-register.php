@@ -78,33 +78,20 @@ class CarkeekBlocks_Block_Register {
 			),
 		);
 
-		$this->carkeek_blocks_register_block(
-			'featured-image',
+		$block_dir = WP_PLUGIN_DIR . '/carkeek-blocks/src/blocks/featured-image';
+		register_block_type(
+			$block_dir,
 			array(
-				'attributes'      => array(
-					'align'      => array(
-						'type' => 'string',
-					),
-					'className'  => array(
-						'type' => 'string',
-					),
-					'focalPoint' => array(
-						'type' => 'object',
-					),
-					'blockId'    => array(
-						'type' => 'string',
-					),
-				),
 				'render_callback' => function( $attributes ) {
-					$class_names = '';
+					$class_names = $attributes['className'];
 					if ( ! empty( $attributes['align'] ) ) {
-						$class_names .= 'align' . $attributes['align'];
+						$class_names .= ' align' . $attributes['align'];
 					}
-					if ( ! empty( $attributes['className'] ) ) {
-						$class_names .= $attributes['className'];
-					}
+
 					$id = '';
 					$style = '';
+
+					$size = $attributes['imageSize'] ? $attributes['imageSize'] : 'large';
 
 					$nocrop = strpos( $attributes['className'], 'is-style-no-crop' );
 					if ( false == $nocrop && ! empty( $attributes['blockId'] ) && ! empty( $attributes['focalPoint'] ) ) {
@@ -116,7 +103,7 @@ class CarkeekBlocks_Block_Register {
 
 						$style = '<style>#block-' . $attributes['blockId'] . ' img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
 					}
-					return $style . '<div ' . $id . ' class="wp-block-carkeek-blocks-featured-image ' . esc_attr( $class_names ) . '">' . get_the_post_thumbnail() . '</div>';
+					return $style . '<div ' . $id . ' class="wp-block-carkeek-blocks-featured-image ' . esc_attr( $class_names ) . '">' . get_the_post_thumbnail( null, $size ) . '</div>';
 				},
 			)
 		);
@@ -267,6 +254,10 @@ class CarkeekBlocks_Block_Register {
 					),
 					'imageSize'            => array(
 						'type' => 'string',
+					),
+					'newWindow' => array(
+						'type'    => 'boolean',
+						'default' => false,
 					),
 				),
 			)

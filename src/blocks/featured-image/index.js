@@ -3,66 +3,33 @@ import { __ } from "@wordpress/i18n";
 import { isBlobURL } from '@wordpress/blob';
 import { withSelect } from '@wordpress/data';
 import {  useBlockProps, InspectorControls } from "@wordpress/block-editor";
-import { FocalPointPicker, PanelBody, Spinner } from "@wordpress/components";
+import { FocalPointPicker, PanelBody, Spinner, SelectControl } from "@wordpress/components";
 
 import "./style.editor.css";
 import icons from "../../resources/icons";
 
-registerBlockType("carkeek-blocks/featured-image", {
-    apiVersion: 2,
-    title: __("Featured Image", "carkeek-blocks"),
-    description: __(
-        "Place the featured image within your page",
-        "carkeek-blocks"
-    ),
+import metadata from './block.json';
+
+registerBlockType( metadata, {
     icon: icons.featuredimage,
-    category: "widgets",
-    supports: {
-        align: ["wide", "full", "left", "center", "right"],
-        alignWide: true,
-        anchor: false,
-        spacing: true
-    },
-    styles: [
-        {
-            name: 'landscape',
-            label: __( 'Landscape' ),
-            isDefault: true
-        },
-        {
-            name: 'square',
-            label: __( 'Square' )
-        },
-        {
-            name: 'portrait',
-            label: __( 'Portrait' )
-        },
-        {
-            name: 'no-crop',
-            label: __( 'No Crop' )
-        },
-    ],
-    attributes: {
-        focalPoint: {
-            type: "object"
-        },
-        blockId: {
-            type: "string"
-        }
-    },
     edit: withSelect(
         ( select ) => {
             const { getEditedPostAttribute } = select( 'core/editor' );
             const { getMedia } = select( 'core' );
             const featuredImageId = getEditedPostAttribute( 'featured_media' );
+            const { getSettings } = select( 'core/block-editor' );
+            const { imageSizes } = getSettings();
+
             const featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
             return {
-                featuredMedia
+                featuredMedia,
+                imageSizes
             };
         } ) ( props => {
         const blockProps = useBlockProps();
         const {
             featuredMedia,
+            imageSizes,
             attributes,
             setAttributes,
             clientId
@@ -70,6 +37,7 @@ registerBlockType("carkeek-blocks/featured-image", {
         const {
             focalPoint,
             blockId,
+            imageSize,
         } = attributes;
         if ( ! blockId ) {
             setAttributes( { blockId: clientId } );
@@ -85,6 +53,15 @@ registerBlockType("carkeek-blocks/featured-image", {
         if (focalPoint) {
             imageStyle.objectPosition = `${focalPoint.x *
                 100}% ${focalPoint.y * 100}%`;
+        }
+
+        let sizeOptions = [];
+        if (imageSizes) {
+            sizeOptions = imageSizes.map(type => ({
+                value: type.slug,
+                label: type.name
+            }));
+            sizeOptions.unshift({value: 'default', label: 'Default'});
         }
 
         let img = (
@@ -116,6 +93,16 @@ registerBlockType("carkeek-blocks/featured-image", {
                                     })
                                 }
                                 value={focalPoint}
+                            />
+                            <SelectControl
+                                label={__("Image Size", "carkeek-blocks")}
+                                onChange={value =>
+                                    setAttributes({
+                                        imageSize: value
+                                    })
+                                }
+                                options={sizeOptions}
+                                value={imageSize}
                             />
                         </PanelBody>
                     </InspectorControls>
