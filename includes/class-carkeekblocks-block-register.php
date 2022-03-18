@@ -83,6 +83,9 @@ class CarkeekBlocks_Block_Register {
 			$block_dir,
 			array(
 				'render_callback' => function( $attributes ) {
+					if ( ! has_post_thumbnail() ) {
+						return;
+					}
 					$class_names = $attributes['className'];
 					if ( ! empty( $attributes['align'] ) ) {
 						$class_names .= ' align' . $attributes['align'];
@@ -255,7 +258,7 @@ class CarkeekBlocks_Block_Register {
 					'imageSize'            => array(
 						'type' => 'string',
 					),
-					'newWindow' => array(
+					'newWindow'            => array(
 						'type'    => 'boolean',
 						'default' => false,
 					),

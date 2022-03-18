@@ -109,7 +109,7 @@ registerBlockType( metadata, {
                     {img}
                  </div>
             :
-                <div className="empty-block">
+                <div className="wp-block empty-block">
                     <div className="empty-block__icon">{icons.featuredimage}</div>
                     <div className="empty-block__content">
                     <p className="empty-block__title">{__('Featured Image Block.', 'carkeek-blocks')}</p>
