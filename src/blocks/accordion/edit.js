@@ -20,7 +20,8 @@ export default function CollapseSectionEdit( props ) {
         'core/heading',
         'core/list',
         'core/image',
-        'carkeek-blocks/custom-link-list'
+        'carkeek-blocks/custom-link-list',
+        'core/shortcode'
     ],
     template = [
         [ 'core/paragraph', { placeholder: 'Enter panel content...' } ],
