@@ -6,7 +6,8 @@ import deprecated from "./deprecated";
 
 import icons from "../../resources/icons";
 
-import { registerBlockType } from "@wordpress/blocks";
+import { registerBlockType, createBlock } from "@wordpress/blocks";
+
 import { __ } from "@wordpress/i18n";
 
 const attributes = {
@@ -222,6 +223,31 @@ registerBlockType("carkeek-blocks/extended-gallery", {
         __("gallery", "carkeek-blocks"),
         __("carousel", "carkeek-blocks"),
     ],
+
+    transforms: {
+        from: [
+            {
+                type: "block",
+                blocks: ["core/gallery"],
+                transform: (attr) => {
+                    return createBlock("carkeek-blocks/extended-gallery", {
+                        images: attr.images,
+                    });
+                }
+            }
+        ],
+        to: [
+            {
+                type: "block",
+                blocks: ["core/gallery"],
+                transform: (attr) => {
+                    return createBlock("core/gallery", {
+                        images: attr.images,
+                    });
+                }
+            }
+        ]
+    },
 
     attributes,
 
