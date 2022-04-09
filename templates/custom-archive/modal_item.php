@@ -46,10 +46,12 @@ if ( ! empty( $image ) ) {
 					<?php } ?>
 					<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_image' ); ?>
 					<!-- Shows up on small and big item -->
-					<?php do_action( 'ck_custom_archive_layout__before_title', $data ); ?>
-					<p class="ck-modal-item-name"><?php the_title(); ?></p>
-					<?php do_action( 'ck_custom_archive_layout__after_title', $data ); ?>
-					<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_title' ); ?>
+					<div class="ck-modal-item-header">
+						<?php do_action( 'ck_custom_archive_layout__before_title', $data ); ?>
+						<p class="ck-modal-item-name"><?php the_title(); ?></p>
+						<?php do_action( 'ck_custom_archive_layout__after_title', $data ); ?>
+						<?php do_action( 'ck_custom_archive_layout_modal_dialog__after_title' ); ?>
+					</div>
 					<div class="ck-modal-item-details">
 						<?php the_content(); ?>
 					</div>
