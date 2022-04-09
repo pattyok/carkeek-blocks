@@ -5,12 +5,18 @@
 	$image            = get_the_post_thumbnail( $post->ID, 'large' );
 
 if ( ! empty( $image ) ) {
+	$focal_point = get_post_meta( $post->ID, '_carkeekblocks_featured_image_focal_point', true );
+	if ( ! empty( $focal_point ) ) {
+		$x = $focal_point['x'] * 100;
+		$y = $focal_point['y'] * 100;
+		echo '<style>.wp-block-carkeek-blocks-custom-archive .archive-item-id-' . esc_attr( $post->ID ) . ' .ck-custom-archive-image-link img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
+	}
 	$modal_body_image = '<div class="ck-modal-item-image">' . $image . '</div>';
 }
 	$modal_body_image = apply_filters( 'ck_custom_archive_layout_modal_dialog__image', $modal_body_image );
 ?>
 
-<div class="ck-columns__item ck-custom-archive__item ck-modal-item <?php echo esc_attr( $post->name ); ?>" data-id="<?php echo esc_attr( $item_id ); ?>" >
+<div class="ck-columns__item ck-custom-archive__item ck-modal-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>" data-id="<?php echo esc_attr( $item_id ); ?>" >
 	<?php
 	if ( ! empty( $image ) && true == $data->displayFeaturedImage ) {
 		$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
