@@ -72,6 +72,7 @@ export function ImageEdit( {
 		width,
 		height,
 		sizeSlug,
+		aspectRatio,
 	} = attributes;
 
 	const altRef = useRef();
@@ -200,6 +201,7 @@ export function ImageEdit( {
 		'is-resized': !! width || !! height,
 		'is-focused': isSelected,
 		[ `size-${ sizeSlug }` ]: sizeSlug,
+		[ `fixed-image-${ aspectRatio }` ] : aspectRatio
 	} );
 
 	const blockProps = useBlockProps( {
@@ -220,6 +222,7 @@ export function ImageEdit( {
                 onSelectImage={ onSelectImage }
                 onUploadError={ onUploadError }
                 containerRef={ ref }
+				aspectRatio={ aspectRatio }
             />
 			) }
 

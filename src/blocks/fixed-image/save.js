@@ -25,13 +25,15 @@ export default function save( { attributes } ) {
         useCaption,
 		focalPoint,
 		linkStyle,
-		photoCredit
+		photoCredit,
+		aspectRatio,
 	} = attributes;
 
 	const newRel = isEmpty( rel ) ? undefined : rel;
 
 	const classes = classnames( {
 		[ `size-${ sizeSlug }` ]: sizeSlug,
+		[ `fixed-image-${ aspectRatio }` ] : aspectRatio
 	} );
 
 	let imageStyle = {};

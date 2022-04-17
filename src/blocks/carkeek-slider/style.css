@@ -45,7 +45,6 @@
 
 .wp-block-carkeek-blocks-carkeek-slider {
 	width: 100%;
-	max-width: 100vw !important;
 
 	& .slick-list,
 	& .slick-track {

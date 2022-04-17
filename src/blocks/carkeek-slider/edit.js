@@ -50,7 +50,7 @@ function AddABlock( props ) {
 export default function SliderEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
     const { innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
-    
+
     if ( ! arrowNavigation ) {
         setAttributes( { arrowNavigation: 'desktop-only' } );
     }
@@ -192,10 +192,19 @@ export default function SliderEdit( props ) {
                 />
             </InspectorAdvancedControls>
         <div { ...blockProps } >
+                <button className="slick-prev slick-arrow" aria-label="Previous" type="button">&lsaquo;</button>
                 <AddABlock
                     innerBlockType = { innerBlockType }
                     clientId = {clientId}
                 />
+                {showDots &&
+                <ul className="slick-dots">
+                    <li className="slick-active" role="presentation"></li>
+                    <li role="presentation"></li>
+                    <li role="presentation" className=""></li>
+                </ul>
+                }
+                <button className="slick-next slick-arrow" aria-label="Previous" type="button">&rsaquo;</button>
         </div>
         </>
     )

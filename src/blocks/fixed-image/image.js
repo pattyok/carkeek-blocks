@@ -65,7 +65,8 @@ export default function Image( {
 		sizeSlug,
 		useCaption,
 		useLink,
-		photoCredit
+		photoCredit,
+		aspectRatio
 	},
 	setAttributes,
 	isSelected,
@@ -236,6 +237,22 @@ export default function Image( {
 			</BlockControls>
 			<InspectorControls>
 				<PanelBody title={ __( 'Image settings' ) }>
+					<SelectControl
+						label={__("Image Orientation", "carkeek-blocks")}
+						onChange={value =>
+							setAttributes({
+								aspectRatio: value
+							})
+						}
+						options={[
+							{ label: __("Landscape 2:3"), value: "landscape"},
+							{ label: __("Landscape 3:4"), value: "landscape-34"},
+							{ label: __("Portrait 3:2"), value: "portrait"},
+							{ label: __("Portrait 4:3"), value: "portrait-43"},
+							{ label: __("Square 1:1"), value: "square"},
+						]}
+						value={aspectRatio}
+					/>
 					{ ! multiImageSelection && (
                         <>
 						<TextareaControl

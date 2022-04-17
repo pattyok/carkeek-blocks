@@ -6,7 +6,7 @@ import "./style.editor.css";
 import icons from "../../resources/icons";
 
 import "./style.editor.css";
-import { registerBlockType } from "@wordpress/blocks";
+import { registerBlockType, createBlock } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 
 
@@ -80,6 +80,9 @@ const attributes = {
         type: "string",
         source: "attribute",
     },
+    aspectRatio: {
+        type: "string",
+    },
     linkDestination: {
         type: "string"
     },
@@ -102,6 +105,33 @@ registerBlockType("carkeek-blocks/fixed-image", {
     ),
 
     icon: icons.image,
+
+    transforms: {
+        from: [
+            {
+                type: "block",
+                blocks: ["core/image"],
+                transform: (attr) => {
+                    return createBlock("carkeek-blocks/fixed-image", {
+                        id: attr.id,
+                        url: attr.url
+                    });
+                }
+            }
+        ],
+        to: [
+            {
+                type: "block",
+                blocks: ["core/image"],
+                transform: (attr) => {
+                    return createBlock("core/image", {
+                        id: attr.id,
+                        url: attr.url
+                    });
+                }
+            }
+        ]
+    },
 
     supports: {
         html: false,

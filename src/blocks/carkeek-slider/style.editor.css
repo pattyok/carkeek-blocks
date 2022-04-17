@@ -5,6 +5,53 @@
 		max-height: none;
 	}
 
+	& .wp-block-carkeek-blocks-carkeek-slider {
+
+		& .slick-arrow {
+			position: absolute;
+			top: 35%;
+
+			background-color: transparent;
+			border: none;
+			color: #ccc;
+			font-size: 60px;
+
+			&.slick-prev {
+				left: -50px;
+			}
+
+			&.slick-next {
+				right: -50px;
+			}
+		}
+
+		& .slick-dots {
+			display: flex;
+			justify-content: center;
+			color: #ccc;
+
+			& li {
+				padding-left: 15px;
+			}
+		}
+
+		&.alignwide,
+		&.alignfull {
+
+			& .slick-arrow {
+				z-index: 20;
+
+				&.slick-prev {
+					left: 30px;
+				}
+
+				&.slick-next {
+					right: 30px;
+				}
+			}
+		}
+	}
+
 	& .wp-block-carkeek-blocks-carkeek-slider.slider-single {
 
 		& > .block-editor-inner-blocks > .block-editor-block-list__layout {

@@ -1,5 +1,21 @@
 .wp-block-carkeek-blocks-fixed-image:not(.is-placeholder) {
 
+	&.fixed-image-square {
+		--ck-fixed-image-ratio: 100%;
+	}
+
+	&.fixed-image-portrait-43 {
+		--ck-fixed-image-ratio: 100%;
+	}
+
+	&.fixed-image-portrait {
+		--ck-fixed-image-ratio: 133%;
+	}
+
+	&.fixed-image-landscape-34 {
+		--ck-fixed-image-ratio: 75%;
+	}
+
 	& .ck-fixed-image-wrap {
 		position: relative;
 		display: block;
