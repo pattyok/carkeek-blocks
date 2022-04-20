@@ -20,6 +20,10 @@
         },
         "className": {
             "type": "string"
+        },
+        "showCaption": {
+            "type": "boolean",
+            "default": false
         }
     },
     "styles": [

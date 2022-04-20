@@ -96,6 +96,11 @@ class CarkeekBlocks_Block_Register {
 
 					$size = $attributes['imageSize'] ? $attributes['imageSize'] : 'large';
 
+					if ( true === $attributes['showCaption'] ) {
+						$caption = '<div class="image-caption">' . get_the_post_thumbnail_caption() . '</div>';
+					} else {
+						$caption = '';
+					}
 					$nocrop = strpos( $attributes['className'], 'is-style-no-crop' );
 					if ( false == $nocrop && ! empty( $attributes['blockId'] ) && ! empty( $attributes['focalPoint'] ) ) {
 						$id = 'id="block-' . esc_attr( $attributes['blockId'] ) . '"';
@@ -106,7 +111,7 @@ class CarkeekBlocks_Block_Register {
 
 						$style = '<style>#block-' . $attributes['blockId'] . ' img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
 					}
-					return $style . '<div ' . $id . ' class="wp-block-carkeek-blocks-featured-image ' . esc_attr( $class_names ) . '">' . get_the_post_thumbnail( null, $size ) . '</div>';
+					return $style . '<div ' . $id . ' class="wp-block-carkeek-blocks-featured-image ' . esc_attr( $class_names ) . '">' . get_the_post_thumbnail( null, $size ) . $caption . '</div>';
 				},
 			)
 		);

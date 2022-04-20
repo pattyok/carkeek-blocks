@@ -3,7 +3,7 @@ import { __ } from "@wordpress/i18n";
 import { isBlobURL } from '@wordpress/blob';
 import { withSelect } from '@wordpress/data';
 import {  useBlockProps, InspectorControls } from "@wordpress/block-editor";
-import { FocalPointPicker, PanelBody, Spinner, SelectControl } from "@wordpress/components";
+import { FocalPointPicker, PanelBody, Spinner, SelectControl, ToggleControl } from "@wordpress/components";
 
 import "./style.editor.css";
 import icons from "../../resources/icons";
@@ -38,15 +38,17 @@ registerBlockType( metadata, {
             focalPoint,
             blockId,
             imageSize,
+            showCaption
         } = attributes;
         if ( ! blockId ) {
             setAttributes( { blockId: clientId } );
         }
-        let url, width, height;
+        let url, width, height, caption;
         if ( featuredMedia && featuredMedia.source_url ) {
             url = featuredMedia.source_url;
             width = featuredMedia.width;
             height = featuredMedia.height;
+            caption = featuredMedia.caption;
         }
 
         let imageStyle = {};
@@ -71,6 +73,9 @@ registerBlockType( metadata, {
                     style = { imageStyle }
                     role = "presentation"
                 />
+                { showCaption && caption && (
+                    <div className="image-caption">{caption.raw}</div>
+                )}
                 { isBlobURL( url ) && <Spinner /> }
             </>
         );
@@ -93,6 +98,15 @@ registerBlockType( metadata, {
                                     })
                                 }
                                 value={focalPoint}
+                            />
+                            <ToggleControl
+                                label={__("Show caption", "carkeek-blocks")}
+                                onChange={value =>
+                                    setAttributes({
+                                        showCaption: value
+                                    })
+                                }
+                                checked={showCaption}
                             />
                             <SelectControl
                                 label={__("Image Size", "carkeek-blocks")}
