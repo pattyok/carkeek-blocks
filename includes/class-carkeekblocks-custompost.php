@@ -527,7 +527,7 @@ class CarkeekBlocks_CustomPost {
 	 */
 	public static function carkeek_blocks_render_events_archive( $attributes ) {
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
-		$meta_query_count          = 0;
+		$meta_query_count          = 1;
 		$layout                    = $attributes['postLayout'];
 		$post_type                 = 'tribe_events';
 		$paged                     = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
@@ -540,17 +540,24 @@ class CarkeekBlocks_CustomPost {
 			'order'          => 'ASC',
 			'paged'          => $paged,
 			'post_status'    => array( 'publish' ),
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'key'     => '_EventHideFromUpcoming',
+					'compare' => 'NOT EXISTS',
+				),
+			),
 
 		);
 
 		if ( true !== $attributes['includePastEvents'] ) {
-			$args['meta_query'] = array(
+			$args['meta_query'][] =
 				array(
 					'key'     => '_EventEndDateUTC',
 					'value'   => gmdate( 'Y-m-d H:i' ),
 					'compare' => '>=',
 					'type'    => 'DATETIME',
-				),
+
 			);
 			$meta_query_count ++;
 		}
