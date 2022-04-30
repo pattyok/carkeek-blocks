@@ -1,0 +1,183 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "carkeek-blocks/custom-archive",
+    "title": "Custom Post Type Archive",
+    "category": "carkeek-category",
+    "description": "Block showing the latest items by post type.",
+    "keywords": [ "archive", "posts", "list" ],
+    "version": "1.0.0",
+    "textdomain": "carkeek-blocks",
+    "attributes": {
+        "numberOfPosts": {
+            "type": "number",
+            "default": 3
+        },
+        "postTypeSelected": {
+            "type": "string",
+            "default": "post"
+        },
+        "displayPostExcerpt": {
+            "type": "boolean",
+            "default": true
+        },
+        "displayFeaturedImage": {
+            "type": "boolean",
+            "default": true
+        },
+        "imageOrientation": {
+            "type": "string",
+            "default": "landscape"
+        },
+        "openAsModal": {
+            "type": "boolean",
+            "default": false
+        },
+        "postLayout": {
+            "type": "string",
+            "default": "grid"
+        },
+        "columns": {
+            "type": "number",
+            "default": 3
+        },
+        "columnsMobile": {
+            "type": "number",
+            "default": 1
+        },
+        "columnsTablet": {
+            "type": "number",
+            "default": 3
+        },
+        "limitItemsMobile": {
+            "type": "boolean",
+            "default": false
+        },
+        "itemsMobile": {
+            "type": "number",
+            "default": 1
+        },
+        "itemsTablet": {
+            "type": "number",
+            "default": 3
+        },
+        "sortBy": {
+            "type": "string",
+            "default": "date"
+        },
+        "sortByMeta": {
+            "type": "string",
+            "default": ""
+        },
+        "order": {
+            "type": "string",
+            "default": "ASC"
+        },
+        "excerptLength": {
+            "type": "number",
+            "default": 25
+        },
+        "filterByTaxonomy": {
+            "type": "boolean",
+            "default": false
+        },
+        "groupListings": {
+            "type": "boolean",
+            "default": false
+        },
+        "groupTaxSelected": {
+            "type": "string",
+            "default": ""
+        },
+        "groupHideParents": {
+            "type": "boolean",
+            "default": false
+        },
+        "groupHideEmpty": {
+            "type": "boolean",
+            "default": false
+        },
+        "taxonomySelected": {
+            "type": "string",
+            "default": ""
+        },
+        "taxTermsSelected": {
+            "type": "string",
+            "default": ""
+        },
+        "taxQueryType": {
+            "type": "string",
+            "default": "AND"
+        },
+        "hideIfEmpty": {
+            "type": "boolean",
+            "default": true
+        },
+        "emptyMessage": {
+            "type": "string",
+            "default": "No posts found."
+        },
+        "useHeadingTitle": {
+            "type": "boolean",
+            "default": false
+        },
+        "headlineLevel": {
+            "type": "number",
+            "default": 2
+        },
+        "showPublishDate": {
+            "type": "boolean",
+            "default": false
+        },
+        "showPagination": {
+                    "type": "boolean",
+                    "default": false
+                },
+        "showTerms": {
+            "type": "boolean",
+            "default": false
+        },
+        "publishDateLocation": {
+            "type": "string",
+            "default": "below"
+        },
+        "publishDatePrefix": {
+            "type": "string",
+            "default": ""
+        },
+        "showLearnMoreLink": {
+            "type": "boolean",
+            "default": false
+        },
+        "learnMoreLinkTitle": {
+            "type": "string",
+            "default": "Learn More"
+        },
+        "imageSize": {
+            "type": "string",
+            "default": "default"
+        },
+        "newWindow": {
+            "type": "boolean",
+            "detault": false
+        },
+        "addlContentBefore": {
+            "type": "string",
+            "detault": ""
+        },
+        "addlContentAfter": {
+            "type": "string",
+            "detault": ""
+        },
+        "blockId": {
+            "type": "string"
+        }
+
+    },
+    "supports": {
+        "align": ["wide", "full", "left", "center", "right"],
+        "anchor": false,
+        "spacing": true
+    },
+    "editorScript": "file:./index.js"
+  }

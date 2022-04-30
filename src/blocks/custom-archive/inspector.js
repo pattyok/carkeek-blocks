@@ -52,7 +52,7 @@ function postsInspector( props ){
         useHeadingTitle,
         imageOrientation,
         imageSize,
-        showPublishDate,publishDateLocation,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink, newWindow
+        showPublishDate,publishDateLocation,publishDatePrefix,showTerms,taxQueryType,showPagination,learnMoreLinkTitle,showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
     let ptOptions = [];
@@ -391,6 +391,7 @@ function postsInspector( props ){
                 }
             />
             {showPublishDate &&
+                <>
                 <RadioControl
                 label={__("Location of Date")}
                 selected={publishDateLocation}
@@ -402,6 +403,15 @@ function postsInspector( props ){
                     setAttributes({ publishDateLocation: value })
                 }
                 />
+                <TextControl
+                    label="Publish Date Prefix"
+                    value={ publishDatePrefix }
+                    help={__("Text to display before publish date")}
+                    onChange={value =>
+                        setAttributes({ publishDatePrefix: value })
+                    }
+                    />
+                </>
             }
             <ToggleControl
                 label={__("Include Featured Image")}
@@ -454,7 +464,7 @@ function postsInspector( props ){
                     onChange={value =>
                         setAttributes({ excerptLength: value })
                     }
-                    min={10}
+                    min={-1}
                     max={75}
                 />
             )}
@@ -531,6 +541,21 @@ function postsInspector( props ){
                 checked={newWindow}
                 help={__("Should only be used when the content links externally.", "carkeek-blocks")}
                 onChange={ ( value ) => setAttributes( { newWindow: value } ) }
+            />
+            <TextControl
+                label="Custom Meta Field Before Excerpt"
+                value={ addlContentBefore }
+                onChange={value =>
+                    setAttributes({ addlContentBefore: value })
+                }
+            />
+            <TextControl
+                label="Custom Meta Field After Excerpt"
+                value={ addlContentAfter }
+                help={__("Enter the name of the metafield to display, enter multiples separated by a comma. Ask your developer for help identifying the correct meta field.", "carkeek-blocks")}
+                onChange={value =>
+                    setAttributes({ addlContentAfter: value })
+                }
             />
         </InspectorAdvancedControls>
     </>
