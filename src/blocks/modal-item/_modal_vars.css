@@ -52,6 +52,7 @@
 	--modal-footer-border-color: var(--modal-header-border-color);
 	--modal-header-border-width: var(--modal-content-border-width);
 	--modal-footer-border-width: var(--modal-header-border-width);
+	--modal-footer-button-color: var(--gray-600);
 	--modal-header-padding: 1rem;
 
 	--modal-lg: 800px;

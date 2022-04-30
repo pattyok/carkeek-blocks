@@ -157,12 +157,17 @@ Where all modal content resides (sibling of .modal-header and .modal-footer) */
 	padding: 0 4.5rem 2rem;
 
 	/* Easily place margin between footer elements */
-	> :not(:first-child) {
+	& > :not(:first-child) {
 		margin-left: 0.25rem;
 	}
 
-	> :not(:last-child) {
+	& > :not(:last-child) {
 		margin-right: 0.25rem;
+	}
+
+	& button {
+		background-color: transparent;
+		color: var(--modal-footer-button-color);
 	}
 }
 

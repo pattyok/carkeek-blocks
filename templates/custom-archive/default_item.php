@@ -56,12 +56,9 @@ $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $met
 $meta_before = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_before_title', $meta_before, $data );
 $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_after_title', $meta_after, $data );
 
-if ( ! empty( $data->addlContentBefore ) ) {
-	$meta_before_excerpt = explode( ',', $data->addlContentBefore );
-}
-if ( ! empty( $data->addlContentBefore ) ) {
-	$meta_after_excerpt = explode( ',', $data->addlContentAfter );
-}
+
+$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected );
+$html_after_excerpt  = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected );
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
 <?php
@@ -94,20 +91,10 @@ if ( ! empty( $featured_image ) ) {
 		do_action( 'ck_custom_archive_layout__after_title', $data );
 		?>
 		<?php
-		if ( ! empty( $meta_before_excerpt ) ) {
-			foreach ( $meta_before_excerpt as $key ) {
-				$key = trim( $key );
-				if ( ! empty( $key ) ) {
-					$value = get_post_meta( $post->ID, $key, true );
-					if ( ! empty( $value ) ) {
-						$html = '<div class="ck-custom-archive-item-meta-before-excerpt" data-meta="' . esc_attr( $key ) . '">' . wp_kses_post( $value ) . '</div>';
-						$html = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_meta_before_excerpt', $html, $key );
-						echo wp_kses_post( $html );
-					}
-				}
+			if ( ! empty( $html_before_excerpt ) ) {
+				echo wp_kses_post( $html_before_excerpt );
 			}
-		}
-		?>
+			?>
 		<?php
 		if ( ! empty( $excerpt ) ) {
 			?>
@@ -116,21 +103,10 @@ if ( ! empty( $featured_image ) ) {
 
 		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 		<?php
-		if ( ! empty( $meta_after_excerpt ) ) {
-			foreach ( $meta_after_excerpt as $key ) {
-				if ( ! empty( $key ) ) {
-					$key         = trim( $key );
-					$value_after = get_post_meta( $post->ID, $key, true );
-					if ( ! empty( $value_after ) ) {
-						$html = '';
-						$html = '<div class="ck-custom-archive-item-meta-before-excerpt" data-meta="' . esc_attr( $key ) . '">' . wp_kses_post( $value_after ) . '</div>';
-						$html = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_meta_after_excerpt', $html, $key );
-						echo wp_kses_post( $html );
-					}
-				}
+			if ( ! empty( $html_after_excerpt ) ) {
+				echo wp_kses_post( $html_after_excerpt );
 			}
-		}
-		?>
+			?>
 		<?php
 		if ( true == $data->showTerms ) {
 			$term_list = '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $data->taxonomySelected, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';

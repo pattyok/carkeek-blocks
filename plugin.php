@@ -8,7 +8,7 @@
  * Primary Branch: main
  * Description: Series of blocks designed to work with this site's custom Theme
  * Author: Patty O'Hara
- * Version: 2.2.45
+ * Version: 2.2.46
  * Author URI https://carkeekstudios.com/
  * Text Domain: carkeek-blocks
  */
@@ -125,6 +125,7 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-register.php'; // phpcs:ignore
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custompost.php'; // phpcs:ignore
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-post-meta.php'; // phpcs:ignore
+			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-helpers.php'; // phpcs:ignore
 			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-template-loader.php'; // phpcs:ignore
 
 		}
