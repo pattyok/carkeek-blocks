@@ -101,7 +101,6 @@ function ExtendedGallerySave ({ attributes }) {
                 >
                 { images.map( ( img, index ) => {
                     let imageStyle = {};
-
                     if (cropImages && img.focalPointX && img.focalPointY) {
                         imageStyle.objectPosition = `${img.focalPointX *
                             100}% ${img.focalPointY * 100}%`;
@@ -140,7 +139,7 @@ function ExtendedGallerySave ({ attributes }) {
                             <>
                             <a { ...myProps }>{image}</a>
                             {showCaptions &&
-                            <figcaption>{img.caption}</figcaption>
+                            <figcaption dangerouslySetInnerHTML={{__html: img.caption}}/>
                             }
                             </>
                         )
@@ -149,7 +148,7 @@ function ExtendedGallerySave ({ attributes }) {
                             <>
                             {image}
                             {showCaptions &&
-                            <figcaption className={`ck-blocks-gallery-grid-item__caption`}>{img.caption}</figcaption>
+                            <figcaption className={`ck-blocks-gallery-grid-item__caption`} dangerouslySetInnerHTML={{__html: img.caption}}/>
                             }
                             </>
                         )
