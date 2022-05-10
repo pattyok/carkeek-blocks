@@ -125,6 +125,14 @@ const attributes = {
         type: "boolean",
         default: false,
     },
+    sortOrder: {
+        type: "string",
+        default: "ASC"
+    },
+    onlyPastEvents: {
+        type: "boolean",
+        default: false,
+    },
 };
 
 registerBlockType("carkeek-blocks/events-archive", {

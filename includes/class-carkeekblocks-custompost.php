@@ -558,8 +558,21 @@ class CarkeekBlocks_CustomPost {
 					'compare' => '>=',
 					'type'    => 'DATETIME',
 
-			);
+				);
 			$meta_query_count ++;
+		} else {
+			$args['order'] = $attributes['sortOrder'];
+			if ( true == $attributes['onlyPastEvents'] ) {
+				$args['meta_query'][] =
+					array(
+						'key'     => '_EventEndDateUTC',
+						'value'   => gmdate( 'Y-m-d H:i' ),
+						'compare' => '<=',
+						'type'    => 'DATETIME',
+
+					);
+				$meta_query_count ++;
+			}
 		}
 
 		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] ) ) {

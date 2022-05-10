@@ -19,9 +19,9 @@ foreach ( $meta_fields as $field ) {
 
 			$show_time = false;
 			if ( ! tribe_event_is_all_day( $post->ID ) && ! empty( $data->timeFormat ) ) {
-				$date_format .= ', ' . $data->timeFormat;
+				$date_format    .= ', ' . $data->timeFormat;
 				$end_date_format = $date_format;
-				$show_time    = true;
+				$show_time       = true;
 			}
 			// these are the standard date formats we'll probably use.
 			if ( 'F j' == $date_format || 'M j' == $date_format && false == $show_time ) {
@@ -60,6 +60,10 @@ foreach ( $meta_fields as $field ) {
 		case 'title':
 			$post_title  = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '">' . get_the_title() . '</a>';
 			$meta_data[] = $post_title;
+			break;
+		case 'excerpt':
+			$excerpt     = '<div class="ck-item-event_excerpt">' . get_the_excerpt() . '</div>';
+			$meta_data[] = $excerpt;
 			break;
 	}
 }

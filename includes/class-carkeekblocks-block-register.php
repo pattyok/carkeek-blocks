@@ -413,6 +413,14 @@ class CarkeekBlocks_Block_Register {
 							'type'    => 'boolean',
 							'default' => false,
 						),
+						'sortOrder'    => array(
+							'type'    => 'string',
+							'default' => 'ASC',
+						),
+						'onlyPastEvents'       => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
 
 					),
 				),
