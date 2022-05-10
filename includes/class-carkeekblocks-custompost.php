@@ -542,13 +542,16 @@ class CarkeekBlocks_CustomPost {
 			'post_status'    => array( 'publish' ),
 			'meta_query'     => array(
 				'relation' => 'AND',
-				array(
-					'key'     => '_EventHideFromUpcoming',
-					'compare' => 'NOT EXISTS',
-				),
+
 			),
 
 		);
+		if ( false == $attributes['includeHiddenEvents'] ) {
+			$args['meta_query'][] = array(
+				'key'     => '_EventHideFromUpcoming',
+				'compare' => 'NOT EXISTS',
+			);
+		}
 
 		if ( true !== $attributes['includePastEvents'] ) {
 			$args['meta_query'][] =

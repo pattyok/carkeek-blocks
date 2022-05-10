@@ -125,6 +125,10 @@ const attributes = {
         type: "boolean",
         default: false,
     },
+    includeHiddenEvents: {
+        type: "boolean",
+        default: false,
+    },
     sortOrder: {
         type: "string",
         default: "ASC"

@@ -49,6 +49,7 @@ function postsInspector(props) {
         displayFeaturedImage,
         showPagination,
         includePastEvents,
+        includeHiddenEvents,
         onlyPastEvents,
         sortOrder,
         prioritizeRelated
@@ -233,6 +234,12 @@ function postsInspector(props) {
                     />
                 </>
             )}
+            <ToggleControl
+                label={__("Include Hidden Events")}
+                checked={includeHiddenEvents}
+                help={__("Include Events that have 'Hide from Event Listings' checked")}
+                onChange={(value) => setAttributes({ includeHiddenEvents: value })}
+            />
         </>
     );
 
