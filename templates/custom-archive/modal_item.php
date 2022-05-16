@@ -26,7 +26,7 @@ $html_after_excerpt  = CarkeekBlocks_Helpers::make_meta_fields( $data->addlConte
 		if ( ! empty( $focal_point ) ) {
 			$x = $focal_point['x'] * 100;
 			$y = $focal_point['y'] * 100;
-			echo '<style>.wp-block-carkeek-blocks-custom-archive .archive-item-id-' . esc_attr( $post->ID ) . ' .ck-custom-archive-image-link img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
+			echo '<style>.wp-block-carkeek-blocks-custom-archive .archive-item-id-' . esc_attr( $post->ID ) . ' .ck-modal-item-image img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
 		}
 		?>
 		<a href="javascript:;" class="ck-modal-item-image ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>" data-toggle="modal" data-target="#dialog-<?php echo esc_attr( $item_id ); ?>">
