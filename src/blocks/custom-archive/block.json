@@ -171,6 +171,12 @@
         },
         "blockId": {
             "type": "string"
+        },
+        "align": {
+            "type": "string"
+        },
+        "className": {
+            "type": "string"
         }
 
     },
