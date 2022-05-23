@@ -67,6 +67,19 @@
 
 }
 
+.block-library-gallery-item__inline-menu.carkeek-edit {
+
+	& .components-button.is-primary {
+		background-color: #fff;
+		color: #000;
+
+		&.is-active {
+			color: #fff;
+			background-color: #007cba;
+		}
+	}
+}
+
 @media (min-width: 600px) {
 
 	.wp-block-carkeek-blocks-extended-gallery {

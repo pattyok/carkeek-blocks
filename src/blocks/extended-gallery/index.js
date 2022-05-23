@@ -69,6 +69,16 @@ const attributes = {
                 selector: 'img',
                 attribute: 'data-caption',
             },
+            focalPointX: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-focalx',
+            },
+            focalPointY: {
+                source: 'attribute',
+                selector: 'img',
+                attribute: 'data-focaly',
+            }
         },
     },
     lightSize: {
@@ -191,7 +201,10 @@ const attributes = {
     blockId: {
         type: 'string',
     },
-
+    showOverlay: {
+        type: 'boolean',
+        default: false,
+    },
     ids: {
         type: 'array',
         items: {

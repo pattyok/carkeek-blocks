@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { RichText, useBlockProps } from "@wordpress/block-editor";
+import { InnerBlocks, RichText, useBlockProps } from "@wordpress/block-editor";
 import { cleanForSlug } from "@wordpress/editor";
 
 function ExtendedGallerySave ({ attributes }) {
@@ -30,6 +30,7 @@ function ExtendedGallerySave ({ attributes }) {
         slidesToShowTablet,
         autoPlaySpeed,
         transitionSpeed,
+        showOverlay,
         showDots} = attributes;
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
     const galleryId = title ? cleanForSlug(title) : blockId;
@@ -82,6 +83,11 @@ function ExtendedGallerySave ({ attributes }) {
                     )}
                 </>
                 }
+                {showOverlay &&
+                <div className="ck-lightbox-overlay">
+                    <InnerBlocks.Content />
+
+                    </div>}
 
                 <ul
                 className={galleryStyle}
@@ -119,9 +125,11 @@ function ExtendedGallerySave ({ attributes }) {
                             data-light-image={ img.lightUrl || img.url }
                             data-link={img.link}
                             data-custom-link={img.customLink}
-                            data-custom-link-target={img.customLinkTarget}
+                            data-custom-link-target={img.linkTarget}
                             data-id={img.id}
                             data-caption={img.caption}
+                            data-focalx={img.focalPointX}
+                            data-focaly={img.focalPointY}
                         />
                     );
                     let imagePack;

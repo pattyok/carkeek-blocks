@@ -49,7 +49,7 @@ function AddABlock( props ) {
 
 export default function SliderEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
+    const { showOverlay, innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
 
     if ( ! arrowNavigation ) {
         setAttributes( { arrowNavigation: 'desktop-only' } );
@@ -188,6 +188,13 @@ export default function SliderEdit( props ) {
                     options={ blockOptions }
                     onChange={ (value) =>
                         setAttributes({ innerBlockType: value })
+                    }
+                />
+                <ToggleControl
+                    label="Text Overlay"
+                    checked={ showOverlay }
+                    onChange={value =>
+                        setAttributes({ showOverlay: value })
                     }
                 />
             </InspectorAdvancedControls>

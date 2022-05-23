@@ -397,6 +397,14 @@ ul.ck-blocks-gallery-grid {
 			}
 		}
 
+		&[data-slides="1"] {
+			padding: 0;
+
+			& .ck-blocks-gallery-grid-item {
+				padding: 0;
+			}
+		}
+
 		&.image-align-center {
 
 			& figure {
@@ -404,6 +412,13 @@ ul.ck-blocks-gallery-grid {
 			}
 
 		}
+	}
+
+	& .ck-lightbox-overlay {
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+		z-index: 200;
 	}
 
 

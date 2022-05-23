@@ -8,11 +8,12 @@ import { get, omit, filter } from 'lodash';
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody, ToggleControl } from '@wordpress/components';
+import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody, ToggleControl, Dropdown } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { RichText, MediaPlaceholder, InspectorControls, URLInput } from '@wordpress/block-editor';
 import { isBlobURL } from '@wordpress/blob';
 import icons from "./icons";
+
 
 /**
  * Internal dependencies
@@ -176,8 +177,35 @@ export const GalleryImage = ( props ) => {
 					aria-disabled={ isLastItem }
 					disabled={ ! isSelected }
 				/>
+				<Dropdown
+					position="bottom right"
+					renderToggle={ ( { isOpen, onToggle } ) => (
+						<Button
+							icon={ icons.link }
+							variant="primary"
+							onClick={ onToggle }
+							aria-expanded={ isOpen }
+							className={ customLink ? 'is-active' : undefined }
+						>
+						</Button>
+					) }
+					renderContent={ () => <div className="url-input-dropdown"><URLInput
+						value={customLink}
+						className="editor-media-placeholder__url-input-field block-editor-media-placeholder__url-input-field"
+						onChange={ ( customLink ) => setAttributes( { customLink } ) }
+					/>
+
+					<ToggleControl
+						label={ __( 'Open in New Tab', 'carkeek-blocks' ) }
+						checked={ linkTarget === '_blank' }
+						onChange={ ( target ) => setAttributes( { linkTarget: ( target ? '_blank' : '' ) } ) }
+					/></div> }
+
+				/>
 			</ButtonGroup>
 			{inlineEdit &&
+			<>
+
 			<ButtonGroup className="block-library-gallery-item__inline-menu carkeek-edit is-right">
 
 				<Button
@@ -188,6 +216,7 @@ export const GalleryImage = ( props ) => {
 				/>
 
 			</ButtonGroup>
+			</>
 			}
 			{ ! isEditing && (showCaptions || linkImages == 'lightbox' ) && ( isSelected || caption ) && (
 				<RichText
@@ -205,22 +234,6 @@ export const GalleryImage = ( props ) => {
 				/>
 			) }
 			</figure>
-			{ ! isEditing && ( isSelected && linkImages == 'custom') &&  (
-			<div className = "ck-gallery-custom-link">
-				<URLInput
-					value={customLink}
-					className="editor-media-placeholder__url-input-field block-editor-media-placeholder__url-input-field"
-					onChange={ ( customLink ) => setAttributes( { customLink } ) }
-					label={__("Link To", "carkeek-blocks")}
-				/>
-
-				<ToggleControl
-					label={ __( 'Open in New Tab', 'carkeek-blocks' ) }
-					checked={ linkTarget === '_blank' }
-					onChange={ ( target ) => setAttributes( { linkTarget: ( target ? '_blank' : '' ) } ) }
-				/>
-			</div>
-			) }
 
 		</>
 	);

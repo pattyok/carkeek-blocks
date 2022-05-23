@@ -2,6 +2,8 @@
 import {
     useBlockProps,
     InspectorControls,
+    InspectorAdvancedControls,
+    InnerBlocks
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import { PanelBody, CheckboxControl, RadioControl, RangeControl, TextControl, ToggleControl, SelectControl } from "@wordpress/components";
@@ -35,6 +37,7 @@ function ExtendedGalleryEdit( props ) {
         autoPlaySpeed,
         transitionSpeed,
         showDots,
+        showOverlay
      } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
@@ -274,9 +277,28 @@ function ExtendedGalleryEdit( props ) {
                     </PanelBody>
                 }
             </InspectorControls>
+            <InspectorAdvancedControls>
+                <ToggleControl
+                    label="Text Overlay"
+                    checked={ showOverlay }
+                    onChange={value =>
+                        setAttributes({ showOverlay: value })
+                    }
+                />
+            </InspectorAdvancedControls>
+            { showOverlay &&
+                <InnerBlocks
+                    template={[
+                        [ 'core/group', {}, [
+                            [ 'core/paragraph', {}, [] ],
+                        ]
+                    ]]}
+                />
+            }
             <Gallery
                 { ...props }
             />
+
 
         </div>
     )
