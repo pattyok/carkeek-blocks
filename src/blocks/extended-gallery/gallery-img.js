@@ -177,6 +177,7 @@ export const GalleryImage = ( props ) => {
 					aria-disabled={ isLastItem }
 					disabled={ ! isSelected }
 				/>
+				{linkImages == 'custom' && (
 				<Dropdown
 					position="bottom right"
 					renderToggle={ ( { isOpen, onToggle } ) => (
@@ -202,6 +203,7 @@ export const GalleryImage = ( props ) => {
 					/></div> }
 
 				/>
+				)}
 			</ButtonGroup>
 			{inlineEdit &&
 			<>
