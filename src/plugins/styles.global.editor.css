@@ -44,3 +44,25 @@ body {
 
 	}
 }
+
+.is-block-lines-on {
+
+	& .wp-block {
+		border: 1px solid #e0e0e0;
+	}
+}
+
+.is-group-lines-on {
+
+	& .wp-block-group {
+		border: 1px solid #bec7b7;
+	}
+}
+
+.is-column-lines-on {
+
+	& .wp-block-column {
+		border: 1px solid #d5edf1;
+	}
+}
+

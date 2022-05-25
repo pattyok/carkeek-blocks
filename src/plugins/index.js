@@ -3,7 +3,7 @@
  */
 import "./styles.global.editor.css";
 import PageHeaderSettings from "./settings";
-
+import CarkeekSidebar from "./sidebar";
 /**
  * WordPress dependencies
  */
@@ -14,4 +14,9 @@ import { registerPlugin } from "@wordpress/plugins";
 registerPlugin("carkeek-blocks-pageheader", {
     icon: false,
     render: PageHeaderSettings
+});
+
+registerPlugin("carkeek-blocks-sidebar", {
+    icon: false,
+    render: CarkeekSidebar
 });
