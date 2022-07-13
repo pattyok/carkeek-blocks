@@ -125,8 +125,13 @@ class CarkeekBlocks_CustomPost {
 	 * @return string HTML of dynamic content.
 	 */
 	public static function get_posts_per_term( $term, $tax, $args, $attributes, $template_loader, $level = 0 ) {
+		$term_item    = apply_filters( 'ck_custom_archive_tax_term_item', $term->name, $term, $tax, $args, $attributes, $level );
+		$header_class = 'ck-archive-tax-header level-' . esc_attr( $level );
+		$header_class = apply_filters( 'ck_custom_archive_tax_header_class', $header_class, $term, $tax, $args, $attributes, $level );
+		$term_header = '<div class="' . esc_attr( $header_class ) . '">' . $term_item . '</div>';
+		$term_header = apply_filters( 'ck_custom_archive_tax_term_header', $term_header, $term, $tax, $args, $attributes, $level );
 		if ( false == $attributes['groupHideEmpty'] ) {
-			$posts_html = '<div class="ck-archive-tax-header level-' . esc_attr( $level ) . '">' . $term->name . '</div>';
+			$posts_html = $term_header;
 		}
 		$new_args  = $args;
 		$tax_query = array(
@@ -152,7 +157,7 @@ class CarkeekBlocks_CustomPost {
 		$query = new WP_Query( $new_args );
 		if ( $query->have_posts() ) {
 			if ( true == $attributes['groupHideEmpty'] ) {
-				$posts_html = '<div class="ck-archive-tax-header level-' . esc_attr( $level ) . '">' . $term->name . '</div>';
+				$posts_html = $term_header;
 			}
 			while ( $query->have_posts() ) {
 				$query->the_post();
