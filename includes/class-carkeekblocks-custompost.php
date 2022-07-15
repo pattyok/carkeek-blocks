@@ -128,8 +128,8 @@ class CarkeekBlocks_CustomPost {
 		$term_item    = apply_filters( 'ck_custom_archive_tax_term_item', $term->name, $term, $tax, $args, $attributes, $level );
 		$header_class = 'ck-archive-tax-header level-' . esc_attr( $level );
 		$header_class = apply_filters( 'ck_custom_archive_tax_header_class', $header_class, $term, $tax, $args, $attributes, $level );
-		$term_header = '<div class="' . esc_attr( $header_class ) . '">' . $term_item . '</div>';
-		$term_header = apply_filters( 'ck_custom_archive_tax_term_header', $term_header, $term, $tax, $args, $attributes, $level );
+		$term_header  = '<div class="' . esc_attr( $header_class ) . '">' . $term_item . '</div>';
+		$term_header  = apply_filters( 'ck_custom_archive_tax_term_header', $term_header, $term, $tax, $args, $attributes, $level );
 		if ( false == $attributes['groupHideEmpty'] ) {
 			$posts_html = $term_header;
 		}
@@ -269,17 +269,23 @@ class CarkeekBlocks_CustomPost {
 		if ( empty( $attributes['postTypeSelected'] ) ) {
 			return;
 		}
+		if ( true == $attributes['honorStickyPosts'] ) {
+			$sticky_posts                = get_option( 'sticky_posts' );
+			$args['post__in']            = $sticky_posts;
+			$args['ignore_sticky_posts'] = 1;
+		}
 
-		$layout    = $attributes['postLayout'];
-		$post_type = $attributes['postTypeSelected'];
-		$paged     = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-		$args      = array(
+		$layout       = $attributes['postLayout'];
+		$post_type    = $attributes['postTypeSelected'];
+		$paged        = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+		$posts_not_in = array( get_the_ID() );
+		$args         = array(
 			'posts_per_page'      => $attributes['numberOfPosts'],
 			'post_type'           => $attributes['postTypeSelected'],
 			'order'               => $attributes['order'],
 			'orderby'             => $attributes['sortBy'],
-			'post__not_in'        => array( get_the_ID() ),
 			'paged'               => $paged,
+			'post__not_in'        => array( get_the_ID() ),
 			'ignore_sticky_posts' => true, // without this sticky posts add to the count.
 		);
 
@@ -349,6 +355,7 @@ class CarkeekBlocks_CustomPost {
 				}
 			}
 		}
+
 		/** Set up classes for the rendered block */
 		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
 		$inner_el_class    = 'ck-custom-archive';
@@ -390,9 +397,30 @@ class CarkeekBlocks_CustomPost {
 		if ( true == $attributes['groupListings'] && ! empty( $attributes['groupTaxSelected'] ) ) {
 			return self::render_custom_posttype_archive_grouped( $args, $attributes, $block_start, $ck_blocks_template_loader );
 		}
-		$args  = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
-		$args  = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
-		$query = new WP_Query( $args );
+
+		$args = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
+		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
+		// if sticky posts are enabled, we need to add them to the query.
+		if ( true == $attributes['honorStickyPosts'] ) {
+			$args0              = $args;
+			$sticky_posts       = get_option( 'sticky_posts' );
+			$args0['post__in']  = $sticky_posts;
+			$query              = new WP_Query( $args0 );
+			$sticky_posts_count = $query->post_count;
+			if ( -1 == $attributes['numberOfPosts'] || $attributes['numberOfPosts'] > $sticky_posts_count ) {
+				$args['post__not_in'] = array_merge( $args['post__not_in'], $sticky_posts );
+				if ( -1 !== $attributes['numberOfPosts'] ) {
+					$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->found_posts;
+				}
+				$query2 = new WP_Query( $args );
+				// populate post_count count for the loop to work correctly.
+				$query->post_count = $query->post_count + $query2->post_count;
+				// merge the two arrays.
+				$query->posts = array_merge( $query->posts, $query2->posts );
+			}
+		} else {
+			$query = new WP_Query( $args );
+		}
 		$posts = '';
 
 		if ( true == $attributes['isRelated'] && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {

@@ -13,6 +13,10 @@
             "type": "number",
             "default": 3
         },
+        "honorStickyPosts": {
+            "type": "boolean",
+            "default": false
+        },
         "postTypeSelected": {
             "type": "string",
             "default": "post"
