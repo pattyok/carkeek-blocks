@@ -333,7 +333,7 @@ class CarkeekBlocks_CustomPost {
 					),
 				);
 			}
-		} elseif ( true == $attributes['isRelated'] ) {
+		} elseif ( isset($attributes['isRelated']) && true == $attributes['isRelated'] ) {
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
 				$tax      = $attributes['taxonomySelected'];
 				$my_id    = get_the_ID();
@@ -359,11 +359,12 @@ class CarkeekBlocks_CustomPost {
 		/** Set up classes for the rendered block */
 		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
 		$inner_el_class    = 'ck-custom-archive';
+		$align = isset($attributes['align']) ? $attributes['align'] : '';
 		$css_classes_outer = array(
 			$block_class,
 			'is-' . $layout,
 			'post-type-' . $post_type,
-			'align' . $attributes['align'],
+			'align' . $align,
 
 		);
 		if ( 'grid' === $layout ) {
@@ -384,7 +385,7 @@ class CarkeekBlocks_CustomPost {
 			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
 		}
 
-		if ( $attributes['className'] && ! empty( $attributes['className'] ) ) {
+		if ( isset($attributes['className']) && ! empty( $attributes['className'] ) ) {
 			$css_classes_outer[] = $attributes['className'];
 		}
 
@@ -423,7 +424,7 @@ class CarkeekBlocks_CustomPost {
 		}
 		$posts = '';
 
-		if ( true == $attributes['isRelated'] && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {
+		if ( isset($attributes['isRelated']) && true == $attributes['isRelated'] && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {
 			if ( $query->found_posts < $attributes['numberOfPosts'] ) {
 				unset( $args['tax_query'] );
 				$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->found_posts;

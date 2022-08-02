@@ -134,9 +134,9 @@
             "default": false
         },
         "showPagination": {
-                    "type": "boolean",
-                    "default": false
-                },
+            "type": "boolean",
+            "default": false
+        },
         "showTerms": {
             "type": "boolean",
             "default": false
@@ -163,24 +163,26 @@
         },
         "newWindow": {
             "type": "boolean",
-            "detault": false
+            "default": false
         },
         "addlContentBefore": {
             "type": "string",
-            "detault": ""
+            "default": ""
         },
         "addlContentAfter": {
             "type": "string",
-            "detault": ""
+            "default": ""
         },
         "blockId": {
             "type": "string"
         },
         "align": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         },
         "className": {
-            "type": "string"
+            "type": "string",
+            "default": ""
         }
 
     },
