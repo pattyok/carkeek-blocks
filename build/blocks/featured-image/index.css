@@ -1,0 +1,1 @@
+.editor-styles-wrapper{& .empty-block{background-color:#ebebeb;border:1px solid #ccc;-moz-column-gap:10px;column-gap:10px;display:grid;font-size:12px;grid-template-columns:60px 1fr;padding:10px;& svg{height:auto;width:100%}}& .empty-block__icon{align-self:start}& .empty-block__title{font-weight:600;margin-top:8px}& .empty-block__content{& p{margin-bottom:0}}}

@@ -1,18 +1,17 @@
 # carkeek-blocks
-
 Blocks plugin for Carkeek Based Theme.
-Based on resources from Gutenberg Blocks for WordPress and React Developers (Udemy)
-https://github.com/alialaa/gutenberg-course-blocks/branches/
 
-## NPM Version
-`nvm use 10`
+
+## Uses @wordpress/create-block
+Refer to the documentation for help with build processes.
+https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/
 
 ## To Run
 
-`npm run watch`
+`npm start`
 Will build and watch files.
 
-`npm run bundle`
+`npm run build`
 Makes a production ready bundle
 
 ## Other notes
