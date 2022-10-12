@@ -1,0 +1,10 @@
+.editor-styles-wrapper {
+
+	& .wp-block.pos-image-small {
+
+		& figure {
+			width: 50%;
+		}
+	}
+
+}

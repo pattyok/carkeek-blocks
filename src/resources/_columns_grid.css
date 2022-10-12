@@ -1,0 +1,164 @@
+
+.ck-columns.ck-columns-layout-grid {
+
+	& .ck-columns__wrap {
+		display: grid;
+		gap: var(--ck-column-gap-vert) var(--ck-column-gap);
+	}
+
+	& .ck-columns__wrap > * {
+		margin-bottom: 0;
+		margin-right: 0;
+	}
+
+}
+
+@media (--mobile-only) {
+
+	.ck-columns.ck-columns-layout-grid {
+
+
+		&.has-1-columns-mobile {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		&.has-2-columns-mobile {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+
+		&.has-3-columns-mobile {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-4-columns-mobile {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-5-columns-mobile {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-6-columns-mobile {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+			}
+		}
+
+	}
+}
+
+@media (--tablet) {
+
+	.ck-columns.ck-columns-layout-grid {
+
+
+		&.has-1-columns-tablet {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		&.has-2-columns-tablet {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+
+		&.has-3-columns-tablet {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-4-columns-tablet {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-5-columns-tablet {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-6-columns-tablet {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+			}
+		}
+
+
+	}
+}
+
+@media (--tablet-wide-up) {
+
+	.ck-columns.ck-columns-layout-grid {
+
+		&.has-1-columns {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		&.has-2-columns {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+
+		&.has-3-columns {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-4-columns {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-5-columns {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			}
+		}
+
+		&.has-6-columns {
+
+			& .ck-columns__wrap {
+				grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+			}
+		}
+	}
+}
+

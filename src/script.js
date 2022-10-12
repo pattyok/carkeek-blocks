@@ -1,0 +1,11 @@
+import "./resources/global.css";
+import "./blocks/modal-item/script";
+import "./blocks/fixed-image/script";
+import "./blocks/accordion/script";
+import "./blocks/custom-archive/script";
+import "./blocks/widget-row/script";
+import "./blocks/carkeek-slider/script";
+import "./blocks/lightbox-gallery/script";
+import "./blocks/extended-gallery/script";
+import "./blocks/featured-image/script";
+import "./blocks/taxonomy-archive-links/script";
