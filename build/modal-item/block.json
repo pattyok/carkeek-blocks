@@ -1,0 +1,56 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/modal-item",
+  "version": "0.1.0",
+  "title": "Modal Item",
+  "category": "widgets",
+  "description": "Block that opens additional content in a modal window.",
+  "supports": {
+    "reusable": false,
+    "html": false
+  },
+  "textdomain": "carkeek-blocks",
+  "attributes": {
+    "name": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ck-modal-item-name"
+    },
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ck-modal-item-title"
+    },
+    "details": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ck-modal-item-details"
+    },
+    "blockId": {
+      "type": "string",
+      "source": "attribute",
+      "selector": ".ck-modal-item",
+      "attribute": "data-id"
+    },
+    "modalLayout": {
+      "type": "string",
+      "default": "image-large"
+    },
+    "hideImagePreview": {
+      "type": "boolean",
+      "default": false
+    },
+    "hideTitlePreview": {
+      "type": "boolean",
+      "default": false
+    },
+    "mailtoLink": {
+      "type": "string"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./script.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

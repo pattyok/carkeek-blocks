@@ -1,0 +1,54 @@
+.wp-block-carkeek-blocks-fixed-image:not(.is-placeholder) {
+
+	&.fixed-image-square {
+		--ck-fixed-image-ratio: 100%;
+	}
+
+	&.fixed-image-portrait-43 {
+		--ck-fixed-image-ratio: 100%;
+	}
+
+	&.fixed-image-portrait {
+		--ck-fixed-image-ratio: 133%;
+	}
+
+	&.fixed-image-landscape-34 {
+		--ck-fixed-image-ratio: 75%;
+	}
+
+	.ck-fixed-image-wrap {
+		position: relative;
+		display: block;
+
+		&::before {
+			content: "";
+			width: 100%;
+			height: 0;
+			padding-top: var(--ck-fixed-image-ratio);
+			display: block;
+		}
+
+		img {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: 50% 50%;
+		}
+
+		.ck-fixed-image-credit {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			z-index: 200;
+			color: #fff;
+			font-size: 13px;
+			font-weight: 300;
+			padding: 5px 10px;
+			text-shadow: 0 0 5px rgba(0, 0, 0, 0.22);
+
+		}
+	}
+}

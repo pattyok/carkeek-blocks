@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/shared",
+	"version": "2.0.0",
+	"title": "Shared Assets",
+	"category": "widgets",
+	"description": "Shared Assets.",
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js"
+}

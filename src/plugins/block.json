@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/plugins",
+	"version": "2.0.0",
+	"title": "Plugins",
+	"category": "widgets",
+	"description": "Additional settings relevant to Carkeek Blocks Sites.",
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js"
+}

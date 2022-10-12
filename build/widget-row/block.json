@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/widget-row",
+  "version": "2.0.0",
+  "title": "Widget Row",
+  "category": "widgets",
+  "description": "Layout inner blocks, equally distributed in columns.",
+  "supports": {
+    "anchor": true,
+    "html": false,
+    "align": [
+      "wide",
+      "full",
+      "left",
+      "center",
+      "right"
+    ]
+  },
+  "attributes": {
+    "innerBlockType": {
+      "type": "string"
+    },
+    "allowedBlocks": {
+      "type": "array"
+    },
+    "blocksTemplate": {
+      "type": "array"
+    },
+    "layoutType": {
+      "type": "string",
+      "default": "grid"
+    },
+    "allowItemsWrap": {
+      "type": "boolean",
+      "default": false
+    },
+    "itemsPerRow": {
+      "type": "number",
+      "default": 3
+    },
+    "itemsPerRowMobile": {
+      "type": "number",
+      "default": 1
+    },
+    "itemsPerRowTablet": {
+      "type": "number",
+      "default": 2
+    },
+    "alignInnerBlocks": {
+      "type": "string",
+      "default": "left"
+    }
+  },
+  "textdomain": "carkeek-blocks",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

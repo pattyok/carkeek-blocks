@@ -1,0 +1,65 @@
+/** Variables
+*
+* Variables should follow the `--component-state-property-size` formula for
+* consistent naming. Ex: --nav-link-disabled-color and
+* --modal-content-box-shadow-xs.
+
+* Z-index master list
+*
+* Warning: Avoid customizing these values. They're used for a bird's eye view
+* of components dependent on the z-axis and are designed to all work together.
+**/
+:root {
+	--zindex-dropdown: 1000;
+	--zindex-sticky: 1020;
+	--zindex-fixed: 1030;
+	--zindex-modal-backdrop: 1040;
+	--zindex-modal: 1050;
+	--zindex-popover: 1060;
+	--zindex-tooltip: 1070;
+
+
+	--white: #fff;
+	--gray-100: #f8f9fa;
+	--gray-200: #e9ecef;
+	--gray-300: #dee2e6;
+	--gray-400: #ced4da;
+	--gray-500: #adb5bd;
+	--gray-600: #6c757d;
+	--gray-700: #495057;
+	--gray-800: #343a40;
+	--gray-900: #212529;
+	--black: #000;
+
+	--line-height-base: 1.5;
+	--border-width: 1px;
+	--modal-inner-padding: 1rem 4.5rem;
+
+	--modal-dialog-margin: 0.5rem;
+	--modal-dialog-margin-y-sm-up: 1.75rem;
+
+	--modal-title-line-height: var(--line-height-base);
+
+	--modal-content-bg: var(--white);
+	--modal-content-border-color: rgba(0, 0, 0, 0.2);
+	--modal-content-border-width: var(--border-width);
+	--modal-content-box-shadow-xs: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
+	--modal-content-box-shadow-sm-up: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+
+	--modal-backdrop-bg: var(--black);
+	--modal-backdrop-opacity: 0.5;
+	--modal-header-border-color: var(--gray-200);
+	--modal-footer-border-color: var(--modal-header-border-color);
+	--modal-header-border-width: var(--modal-content-border-width);
+	--modal-footer-border-width: var(--modal-header-border-width);
+	--modal-footer-button-color: var(--gray-600);
+	--modal-header-padding: 1rem;
+
+	--modal-lg: 800px;
+	--modal-md: 500px;
+	--modal-sm: 300px;
+
+	--modal-transition: transform 0.3s ease-out;
+
+}
+

@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/accordion-panel",
+	"version": "0.1.0",
+	"title": "Accordion Panel",
+	"category": "widgets",
+	"description": "Example block scaffolded with Create Block tool.",
+	"supports": {
+		"html": false
+	},
+	"parent": ["carkeek-blocks/accordion"],
+
+    "usesContext": ["carkeek-blocks/headerStyle"],
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Section Title"
+		},
+		"inheritedHeaderStyle": {
+			"type": "string"
+		}
+	}
+}

@@ -1,0 +1,27 @@
+.editor-styles-wrapper {
+	.ck-custom-appender {
+		background-color: var(--color-appender-bg);
+		color: var(--color-appender-text);
+		border: 1px solid var(--color-appender-border);
+		border-radius: 3px;
+		padding: 0.5rem 1rem;
+		margin: 0.5rem 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: background-color 0.2s ease-in-out;
+		font-weight: bold;
+		font-size: 13px;
+		line-height: 1;
+		&:hover {
+			background-color: var(--color-appender-hover);
+			color: var(--color-appender-hover-text);
+		}
+	}
+	[class*="wp-block-carkeek-blocks"] {
+		.block-list-appender {
+			position: relative;
+		}
+	}
+}

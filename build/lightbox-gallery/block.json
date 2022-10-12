@@ -1,0 +1,94 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/lightbox-gallery",
+  "version": "0.1.0",
+  "title": "Lightbox Gallery",
+  "category": "widgets",
+  "description": "Create an image linked to a lightbox gallery",
+  "supports": {
+    "reusable": false,
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "carkeek-blocks",
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "images": {
+      "type": "array",
+      "default": []
+    },
+    "displayAs": {
+      "type": "string",
+      "default": "single"
+    },
+    "columns": {
+      "type": "number",
+      "default": 4
+    },
+    "columnsMobile": {
+      "type": "number",
+      "default": 1
+    },
+    "columnsTablet": {
+      "type": "number",
+      "default": 2
+    },
+    "cropImages": {
+      "type": "boolean",
+      "default": true
+    },
+    "imageLayout": {
+      "type": "string",
+      "default": "landscape"
+    },
+    "limitView": {
+      "type": "boolean",
+      "default": false
+    },
+    "viewLimit": {
+      "type": "number",
+      "default": 4
+    },
+    "mobileScroll": {
+      "type": "boolean",
+      "default": false
+    },
+    "linkFirstImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "hideTitle": {
+      "type": "boolean",
+      "default": false
+    },
+    "sizeSlug": {
+      "type": "string",
+      "default": "full"
+    },
+    "sizeSlugThumbs": {
+      "type": "string",
+      "default": "medium"
+    },
+    "blockId": {
+      "type": "string"
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "default": []
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css"
+}

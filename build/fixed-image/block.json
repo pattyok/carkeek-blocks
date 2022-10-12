@@ -1,0 +1,112 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/fixed-image",
+  "version": "0.1.0",
+  "title": "Fixed Image",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Create an image cropped to a fixed size",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "typography": {
+      "fontSize": true
+    },
+    "color": {
+      "background": true,
+      "gradients": false,
+      "text": true
+    }
+  },
+  "textdomain": "carkeek-blocks",
+  "attributes": {
+    "id": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "src"
+    },
+    "focalPoint": {
+      "type": "object"
+    },
+    "alt": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "alt",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "img",
+      "attribute": "title"
+    },
+    "sizeSlug": {
+      "type": "string",
+      "default": "large"
+    },
+    "width": {
+      "type": "string"
+    },
+    "height": {
+      "type": "string"
+    },
+    "useCaption": {
+      "type": "boolean",
+      "default": false
+    },
+    "useLink": {
+      "type": "boolean",
+      "default": true
+    },
+    "caption": {
+      "type": "string",
+      "source": "html",
+      "selector": "figcaption"
+    },
+    "photoCredit": {
+      "type": "string",
+      "source": "html",
+      "selector": ".ck-fixed-image-credit"
+    },
+    "href": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "figure > a",
+      "attribute": "href"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "figure > a",
+      "attribute": "rel"
+    },
+    "linkClass": {
+      "type": "string",
+      "source": "attribute"
+    },
+    "aspectRatio": {
+      "type": "string"
+    },
+    "linkDestination": {
+      "type": "string"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "figure > a",
+      "attribute": "target"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

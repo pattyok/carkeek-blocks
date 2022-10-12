@@ -1,0 +1,86 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/carkeek-slider",
+  "version": "0.1.0",
+  "title": "Carkeek Slider",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block scaffolded with Create Block tool.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "autoPlay": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoPlaySpeed": {
+      "type": "number",
+      "default": 3000
+    },
+    "sliderType": {
+      "type": "string",
+      "default": "single"
+    },
+    "slidesToShow": {
+      "type": "number",
+      "default": 3
+    },
+    "slidesToScroll": {
+      "type": "number",
+      "default": 3
+    },
+    "slidesToShowMobile": {
+      "type": "number",
+      "default": 1
+    },
+    "slidesToScrollMobile": {
+      "type": "number",
+      "default": 1
+    },
+    "carousel": {
+      "type": "boolean",
+      "default": false
+    },
+    "transitionType": {
+      "type": "string",
+      "default": "slide"
+    },
+    "transitionSpeed": {
+      "type": "number",
+      "default": 3000
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": false
+    },
+    "arrowNavigation": {
+      "type": "string",
+      "default": "desktop-only"
+    },
+    "innerBlockType": {
+      "type": "string",
+      "default": "carkeek-blocks/fixed-image"
+    },
+    "textOverlay": {
+      "type": "boolean",
+      "default": false
+    },
+    "headerText": {
+      "type": "string",
+      "source": "html",
+      "selector": "h1"
+    },
+    "desktopText": {
+      "type": "string",
+      "source": "html",
+      "selector": ".desktop-text"
+    }
+  },
+  "textdomain": "carkeek-slider",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./script.js"
+}
