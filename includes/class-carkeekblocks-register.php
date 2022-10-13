@@ -185,34 +185,38 @@ class CarkeekBlocks_Block_Register {
 			array(),
 			filemtime( "$dir/$shared_css" )
 		);
+		// solves the wp-editor on the widgets screen error.
+		if ( 'widgets' !== get_current_screen()->id ) {
 
-		/** Assets for the Editor plugins */
-		$plugins = 'build/plugins/';
-		wp_enqueue_script(
-			$this->slug . '-plugins-editor-script',
-			plugins_url( $plugins . 'index.js', dirname( __FILE__ ) ),
-			array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
-			filemtime( "$dir/$plugins/index.js" ),
-			false
-		);
-		// add script to pass options variables (cannot access via rest);
-		wp_add_inline_script(
-			$this->slug . '-plugins-editor-script',
-			'const ckBlocksVars = ' . json_encode(
-				array(
-					'supportsOpacity' => get_option( '_carkeekblocks_featuredimage_use_opacity' ),
-					'opacityDefault'  => get_option( '_carkeekblocks_featuredimage_opacity_default', 0 ),
-				)
-			),
-			'before'
-		);
+			/** Assets for the Editor plugins */
+			$plugins = 'build/plugins/';
+			wp_enqueue_script(
+				$this->slug . '-plugins-editor-script',
+				plugins_url( $plugins . 'index.js', dirname( __FILE__ ) ),
+				array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
+				filemtime( "$dir/$plugins/index.js" ),
+				false
+			);
+			// add script to pass options variables (cannot access via rest);
+			wp_add_inline_script(
+				$this->slug . '-plugins-editor-script',
+				'const ckBlocksVars = ' . json_encode(
+					array(
+						'supportsOpacity' => get_option( '_carkeekblocks_featuredimage_use_opacity' ),
+						'opacityDefault'  => get_option( '_carkeekblocks_featuredimage_opacity_default', 0 ),
+					)
+				),
+				'before'
+			);
 
-		wp_enqueue_style(
-			$this->slug . '-plugins-editor-style',
-			plugins_url( $plugins . 'index.css', dirname( __FILE__ ) ),
-			array(),
-			filemtime( "$dir/$plugins/index.css" ),
-		);
+			wp_enqueue_style(
+				$this->slug . '-plugins-editor-style',
+				plugins_url( $plugins . 'index.css', dirname( __FILE__ ) ),
+				array(),
+				filemtime( "$dir/$plugins/index.css" ),
+			);
+
+		}
 	}
 }
 

@@ -1,6 +1,6 @@
 import icons from './icons';
 import PostsInspector from './inspector';
-import { ServerSideRender } from "@wordpress/editor";
+import { ServerSideRender } from "@wordpress/server-side-render";
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
 import { withSelect } from "@wordpress/data";

@@ -6,7 +6,7 @@ import {
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import { PanelBody, CheckboxControl, RadioControl, RangeControl, TextControl, ToggleControl } from "@wordpress/components";
-import { cleanForSlug } from "@wordpress/editor";
+import { cleanForSlug } from "@wordpress/url";
 import Gallery from './gallery';
 
 function LightboxGalleryEdit( props ) {

@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { RichText, useBlockProps } from "@wordpress/block-editor";
-import { cleanForSlug } from "@wordpress/editor";
+import { cleanForSlug } from "@wordpress/url";
 
 const deprecated = [
     {
