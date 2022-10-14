@@ -1,7 +1,7 @@
 import icons from './icons';
 
 import PostsInspector from './inspector';
-import { ServerSideRender } from "@wordpress/server-side-render";
+import ServerSideRender from "@wordpress/server-side-render";
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
 import { withSelect } from "@wordpress/data";
@@ -19,6 +19,7 @@ function customArchiveEdit( props ) {
         clientId,
         name
     } = props;
+
     const {
         postLayout,
         postTypeSelected,
@@ -66,7 +67,7 @@ function customArchiveEdit( props ) {
             </BlockControls>
 			<ServerSideRender
                 block={name}
-                attributes={props.attributes}
+                attributes={attributes}
             />
         </div>
     );

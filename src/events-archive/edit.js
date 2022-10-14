@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import icons from './icons';
 import PostsInspector from './inspector';
-import { ServerSideRender } from "@wordpress/server-side-render";
+import ServerSideRender from "@wordpress/server-side-render";
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { withSelect } from "@wordpress/data";
 import {  useBlockProps,  BlockControls } from "@wordpress/block-editor";

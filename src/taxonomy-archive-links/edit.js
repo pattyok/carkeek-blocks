@@ -1,6 +1,6 @@
 import icons from './icons';
 import PostsInspector from './inspector';
-import { ServerSideRender } from "@wordpress/server-side-render";
+import ServerSideRender from "@wordpress/server-side-render";
 
 import { withSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
