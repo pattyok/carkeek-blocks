@@ -5,9 +5,11 @@ import deprecated from './deprecated';
 import { registerBlockType, createBlock } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import metadata from './block.json';
+import icons from './icon.js';
 import './style.scss';
 
 registerBlockType(metadata, {
+	icon: icons.featuredImage,
     transforms: {
         from: [
             {

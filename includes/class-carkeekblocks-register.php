@@ -147,6 +147,17 @@ class CarkeekBlocks_Block_Register {
 			);
 		}
 
+		// load shared assets for specific blocks only.
+		if ( has_block( 'carkeek-blocks/accordion' ) || has_block( 'carkeek-blocks/expand-collapse-panel' ) ) {
+			wp_enqueue_script(
+				'aria-accordion',
+				plugins_url( $vendor . 'aria.accordion.min.js', dirname( __FILE__ ) ),
+				array( 'jquery' ),
+				filemtime( "$dir/$vendor/aria.accordion.min.js" ),
+				true
+			);
+		}
+
 		if ( has_block( 'carkeek-blocks/modal-item' ) ) {
 			wp_enqueue_script(
 				'bootsrap-modal',

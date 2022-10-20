@@ -18,8 +18,7 @@
 	"style": "file:./style-index.css",
 	"attributes": {
 		"title": {
-			"type": "string",
-			"default": "Section Title"
+			"type": "string"
 		},
 		"inheritedHeaderStyle": {
 			"type": "string"

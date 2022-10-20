@@ -11,7 +11,7 @@ import './style.scss';
 
 registerBlockType(metadata, {
 
-    icon: icon.logogrid,
+    icon: icon.logoGrid,
 
     keywords: [
         __("logo", "carkeek-blocks"),

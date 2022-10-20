@@ -1,5 +1,9 @@
 .editor-styles-wrapper {
-
+	.wp-block-carkeek-blocks-lightbox-gallery {
+		& ul {
+			list-style: none;
+		}
+	}
 	& .is-selected {
 
 		& .ck-blocks-gallery-hidden {

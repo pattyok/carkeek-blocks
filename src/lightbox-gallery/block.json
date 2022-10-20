@@ -77,7 +77,7 @@
   },
   "sizeSlugThumbs": {
     "type": "string",
-    "default": "medium"
+    "default": "large"
   },
   "blockId": {
     "type": "string"
