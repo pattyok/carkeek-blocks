@@ -7,7 +7,7 @@
   "category": "widgets",
   "description": "Create a carousel or slider from a gallery of images.",
   "supports": {
-    "reusable": false,
+    "reusable": true,
     "html": false,
     "align": [
       "wide",

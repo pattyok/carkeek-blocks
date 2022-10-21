@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "title": "Fixed Image",
   "category": "widgets",
-  "icon": "smiley",
   "description": "Create an image cropped to a fixed size",
   "supports": {
     "html": false,

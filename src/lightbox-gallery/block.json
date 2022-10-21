@@ -7,7 +7,7 @@
 	"category": "widgets",
 	"description": "Create an image linked to a lightbox gallery",
 	"supports": {
-		"reusable": false,
+		"reusable": true,
 		"html": false,
 		"align": [
 		  "wide",

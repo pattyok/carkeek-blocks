@@ -9,7 +9,7 @@ import icons from './icon.js';
 import './style.scss';
 
 registerBlockType(metadata, {
-	icon: icons.featuredImage,
+	icon: icons.featuredimage,
     transforms: {
         from: [
             {
