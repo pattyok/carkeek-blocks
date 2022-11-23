@@ -260,7 +260,7 @@ class CarkeekBlocks_CustomArchive {
 		if ( empty( $attributes['postTypeSelected'] ) ) {
 			return;
 		}
-		if ( true == $attributes['honorStickyPosts'] ) {
+		if ( isset( $attributes['honorStickyPosts'] ) && true == $attributes['honorStickyPosts'] ) {
 			$sticky_posts                = get_option( 'sticky_posts' );
 			$args['post__in']            = $sticky_posts;
 			$args['ignore_sticky_posts'] = 1;
@@ -365,12 +365,12 @@ class CarkeekBlocks_CustomArchive {
 			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
 		}
 
-		if ( true == $attributes['groupHideParents'] ) {
+		if ( isset( $attributes['groupHideParents'] ) && true == $attributes['groupHideParents'] ) {
 			$css_classes_outer[] = 'group-hide-parents';
 		}
 
 		if ( isset( $attributes['limitItemsMobile'] ) && true == $attributes['limitItemsMobile'] ) {
-			if ( -1 !== $attributes['itemsTablet'] ) {
+			if ( isset( $attributes['itemsTablet'] ) && -1 !== $attributes['itemsTablet'] ) {
 				$css_classes_outer[] = 'limit-tablet-' . $attributes['itemsTablet'];
 			}
 			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
@@ -386,20 +386,20 @@ class CarkeekBlocks_CustomArchive {
 		/** End set up classes */
 
 		/** If Grouping we take the args from here */
-		if ( true == $attributes['groupListings'] && ! empty( $attributes['groupTaxSelected'] ) ) {
+		if ( isset( $attributes['groupListings'] ) && true == $attributes['groupListings'] && ! empty( $attributes['groupTaxSelected'] ) ) {
 			return self::render_custom_posttype_archive_grouped( $args, $attributes, $block_start, $ck_blocks_template_loader );
 		}
 
 		$args = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
 		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
 		// if sticky posts are enabled, we need to add them to the query.
-		if ( true == $attributes['honorStickyPosts'] ) {
+		if ( isset ( $attributes['honorStickyPosts'] ) && true == $attributes['honorStickyPosts'] ) {
 			$args0              = $args;
 			$sticky_posts       = get_option( 'sticky_posts' );
 			$args0['post__in']  = $sticky_posts;
 			$query              = new WP_Query( $args0 );
 			$sticky_posts_count = $query->post_count;
-			if ( -1 == $attributes['numberOfPosts'] || $attributes['numberOfPosts'] > $sticky_posts_count ) {
+			if ( isset( $attributes['numberOfPosts'] ) && -1 == $attributes['numberOfPosts'] || $attributes['numberOfPosts'] > $sticky_posts_count ) {
 				$args['post__not_in'] = array_merge( $args['post__not_in'], $sticky_posts );
 				if ( -1 !== $attributes['numberOfPosts'] ) {
 					$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->found_posts;
@@ -456,7 +456,7 @@ class CarkeekBlocks_CustomArchive {
 				$query->the_post();
 				global $post;
 
-				if ( true == $attributes['openAsModal'] ) {
+				if ( isset( $attributes['openAsModal'] ) && true == $attributes['openAsModal'] ) {
 					ob_start();
 					$ck_blocks_template_loader
 						->set_template_data( $attributes )
@@ -483,7 +483,7 @@ class CarkeekBlocks_CustomArchive {
 
 			}
 			$posts .= '</div>';
-			if ( true == $attributes['showPagination'] ) {
+			if ( isset($attributes['showPagination']) && true == $attributes['showPagination'] ) {
 				$big    = 999999999; // need an unlikely integer.
 				$posts .= '<div class="ck_pagination">';
 				$posts .= paginate_links(

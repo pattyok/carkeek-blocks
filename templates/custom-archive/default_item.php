@@ -32,7 +32,7 @@ if ( true == $data->displayPostExcerpt ) {
 }
 
 $permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
-$permalink_target = $data->newWindow ? '_blank' : '_self';
+$permalink_target = isset($data->newWindow) && true == $data->newWindow ? '_blank' : '_self';
 $permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
 $link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
 if ( true == $data->useHeadingTitle ) {
@@ -46,8 +46,8 @@ $meta = array(
 	'before' => '',
 	'after'  => '',
 );
-if ( true == $data->showPublishDate ) {
-	$prefix                             = $data->publishDatePrefix ? '<span class="publish-date-prefix">' . $data->publishDatePrefix . '</span>' : '';
+if ( isset($data->showPublishDate) && true == $data->showPublishDate ) {
+	$prefix                             = isset($data->publishDatePrefix) && true == $data->publishDatePrefix ? '<span class="publish-date-prefix">' . $data->publishDatePrefix . '</span>' : '';
 	$meta[ $data->publishDateLocation ] = wp_sprintf( '<span class="ck-custom-archive-item-date">%1s %1s</span>', $prefix, get_the_date() );
 }
 // deprecate this in favor of dynamic titles
@@ -56,9 +56,14 @@ $meta_after  = apply_filters( 'ck_custom_archive_layout__meta_after_title', $met
 $meta_before = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_before_title', $meta_before, $data );
 $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__meta_after_title', $meta_after, $data );
 
-
-$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected );
-$html_after_excerpt  = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected );
+$html_before_excerpt = '';
+$html_after_excerpt  = '';
+if (isset($data->addlContentBefore)){
+	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected );
+}
+if (isset($data->addlContentAfter)){
+	$html_after_excerpt  = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected );
+}
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
 <?php
