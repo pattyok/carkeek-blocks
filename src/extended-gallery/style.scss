@@ -36,9 +36,11 @@ ul.ck-blocks-gallery-grid {
 	flex-wrap: wrap;
 	gap: var(--ck-gallery-gutter);
 	padding: 0;
+	& img {
+		width: 100%;
+	}
 
 	& .ck-blocks-gallery-grid-item {
-		margin-bottom: var(--ck-gallery-gutter);
 
 		& figure {
 			height: 100%;
