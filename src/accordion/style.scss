@@ -5,6 +5,20 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+ :root {
+	--ck-color-accordion-header-bg: #fff;
+	--ck-color-accordion-header-text: var(--color-theme-primary);
+	--ck-color-accordion-header-expanded-bg: var(--color-theme-primary);
+	--ck-color-accordion-header-expanded-text: #fff;
+	--ck-color-accordion-header-focus-bg: var(--color-link-active);
+	--ck-color-accordion-header-focus-text: #fff;
+	--ck-accordion-panel-bg: #ededed;
+	--ck-accordion-panel-spacing: 10px;
+	--ck-accordion-borders: 1px solid #ccc;
+	--ck-accordion-header-padding: 1rem;
+	--ck-accordion-expand: "\F138";
+ }
+
 .wp-block-carkeek-blocks-accordion {
 	/**
 	* Accordion container element
@@ -168,6 +182,20 @@
 	& .accordion__trigger[aria-expanded="true"] {
 		background: var(--ck-color-accordion-header-expanded-bg);
 		color: var(--ck-color-accordion-header-expanded-text);
+	}
+
+	&.is-style-mini {
+		--ck-color-accordion-header-bg: #fff;
+		--ck-color-accordion-header-text: var(--color-theme-primary);
+		--ck-color-accordion-header-expanded-bg: #fff;
+		--ck-color-accordion-header-expanded-text: var(--color-theme-primary);
+		--ck-color-accordion-header-focus-bg: #fff;
+		--ck-color-accordion-header-focus-text: var(--color-theme-primary);
+		--ck-accordion-panel-bg: #fff;
+		--ck-accordion-panel-spacing: 10px;
+		--ck-accordion-borders: none;
+		--ck-accordion-header-padding: 0;
+		--ck-accordion-expand: "\e806";
 	}
 
 }

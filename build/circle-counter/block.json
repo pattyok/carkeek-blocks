@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/circle-counter",
+  "version": "0.1.0",
+  "title": "Circle Counter",
+  "category": "widgets",
+  "description": "Create a circle chart.",
+  "supports": {
+    "html": false,
+    "align": false,
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "textdomain": "carkeek-blocks",
+  "attributes": {
+    "numberVal": {
+      "type": "number",
+      "default": 0
+    },
+    "isPercentage": {
+      "type": "boolean",
+      "default": true
+    },
+    "max": {
+      "type": "number",
+      "default": "1000"
+    },
+    "textBefore": {
+      "type": "string",
+      "default": ""
+    },
+    "textAfter": {
+      "type": "string",
+      "default": ""
+    },
+    "color": {
+      "type": "string"
+    },
+    "customColor": {
+      "type": "string"
+    },
+    "colorHex": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "customBackgroundColor": {
+      "type": "string"
+    },
+    "backgroundColorHex": {
+      "type": "string"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

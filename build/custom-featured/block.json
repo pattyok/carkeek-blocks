@@ -1,14 +1,22 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "carkeek-blocks/featured-image",
-  "title": "Featured Image",
+  "name": "carkeek-blocks/custom-featured",
+  "version": "0.1.0",
+  "title": "Featured Image Block",
   "category": "widgets",
-  "description": "Place the featured image within your page",
-  "keywords": [
-    "image",
-    "featured"
-  ],
+  "icon": "smiley",
+  "description": "Display the featured image in the body of your post",
+  "supports": {
+    "align": [
+      "wide",
+      "full",
+      "left",
+      "center",
+      "right"
+    ],
+    "anchor": false
+  },
   "textdomain": "carkeek-blocks",
   "attributes": {
     "focalPoint": {
@@ -47,16 +55,6 @@
       "label": "No Crop"
     }
   ],
-  "supports": {
-    "align": [
-      "wide",
-      "full",
-      "left",
-      "center",
-      "right"
-    ],
-    "anchor": false
-  },
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",

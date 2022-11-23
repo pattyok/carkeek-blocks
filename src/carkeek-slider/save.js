@@ -18,10 +18,11 @@
  * @return {WPElement} Element to render.
  */
 export default function ({ attributes } ) {
-	const{ autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, arrowNavigation, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
+	const{ alignSlideContent, autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, arrowNavigation, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
 	const classes = classnames( {
 		[ `slider-${ sliderType }` ]: sliderType,
-		[ `arrows-${ arrowNavigation }` ]: arrowNavigation
+		[ `arrows-${ arrowNavigation }` ]: arrowNavigation,
+		[ `align-content-${ alignSlideContent }` ]: alignSlideContent !== 'default',
 	} );
 	const blockProps = useBlockProps.save({ className: classes })
 	return (

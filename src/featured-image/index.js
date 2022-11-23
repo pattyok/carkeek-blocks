@@ -11,7 +11,15 @@ import metadata from './block.json';
 registerBlockType( metadata, {
     icon: icons.featuredimage,
     edit: edit,
-    save( ) {
-        return null;
-    }
+	transforms: {
+		to: [{
+			type: 'block',
+			blocks: [ 'carkeek-blocks/custom-featured' ],
+			transform: ( { attributes } ) => {
+				return createBlock( 'carkeek-blocks/custom-featured', {
+					attributes,
+				} );
+			}
+		}]
+	}
 });

@@ -17,6 +17,9 @@
 			padding-right: 4em;
 		}
 	}
+	& [class*="wp-block-"] {
+		color: inherit;
+	}
 }
 
 .slick-initialized .slick-track {
@@ -96,6 +99,23 @@
 			& .wp-block-image img {
 				margin-left: auto;
 				margin-right: auto;
+			}
+		}
+		&.align-content-top {
+			& .slide-carousel {
+				justify-content: flex-start;
+			}
+			& .slick-prev {
+				top: 20%;
+			}
+
+			& .slick-next {
+				top: 20%
+			}
+		}
+		&.align-content-bottom {
+			& .slide-carousel {
+				justify-content: flex-end;
 			}
 		}
 

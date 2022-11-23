@@ -49,10 +49,14 @@ function AddABlock( props ) {
 
 export default function SliderEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { showOverlay, innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
+    const { alignSlideContent, showOverlay, innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
 
     if ( ! arrowNavigation ) {
         setAttributes( { arrowNavigation: 'desktop-only' } );
+    }
+
+	if ( ! alignSlideContent) {
+        setAttributes( { alignSlideContent: 'default' } );
     }
     const blockOptions = [
         { label: 'Fixed Sized Image and Caption', value: 'carkeek-blocks/fixed-image'},
@@ -123,6 +127,16 @@ export default function SliderEdit( props ) {
                                 min={1}
                                 max={6}
                             />
+							<RadioControl
+								label="Align Slide Content"
+								selected={ alignSlideContent }
+								options={ [
+									{ label: 'Top', value: 'top' },
+									{ label: 'Center', value: 'default' },
+									{ label: 'Bottom', value: 'bottom' },
+								] }
+								onChange={ ( alignSlideContent ) => { setAttributes( { alignSlideContent } ) } }
+							/>
                         </>
                         }
                         <ToggleControl
@@ -162,6 +176,7 @@ export default function SliderEdit( props ) {
                             ] }
                             onChange={ ( arrowNavigation ) => { setAttributes( { arrowNavigation } ) } }
                         />
+
                         <ToggleControl
                             label="Show Dot Navigation"
                             checked={ showDots }

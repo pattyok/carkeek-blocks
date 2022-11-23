@@ -200,7 +200,6 @@ class CarkeekBlocks_CustomArchive {
 	 * @return string HTML of dynamic content.
 	 */
 	public static function render_custom_posttype_archive_grouped( $args, $attributes, $block_start, $template_loader ) {
-		error_log( print_r( $attributes, true ) );
 		$post_html  = $block_start;
 		$group_by   = $attributes['groupTaxSelected'];
 		$hide_empty = $attributes['groupHideEmpty'];
@@ -834,40 +833,6 @@ class CarkeekBlocks_CustomArchive {
 				return;
 			}
 		}
-	}
-
-	/** Render the featured Image block */
-	public function render_featured_image( $attributes ) {
-
-		if ( ! has_post_thumbnail() ) {
-			return;
-		}
-			$class_names = $attributes['className'];
-		if ( ! empty( $attributes['align'] ) ) {
-			$class_names .= ' align' . $attributes['align'];
-		}
-
-			$id    = '';
-			$style = '';
-
-			$size = $attributes['imageSize'] ? $attributes['imageSize'] : 'large';
-
-		if ( true === $attributes['showCaption'] ) {
-			$caption = '<div class="image-caption">' . get_the_post_thumbnail_caption() . '</div>';
-		} else {
-			$caption = '';
-		}
-			$nocrop = strpos( $attributes['className'], 'is-style-no-crop' );
-		if ( false == $nocrop && ! empty( $attributes['blockId'] ) && ! empty( $attributes['focalPoint'] ) ) {
-			$id          = 'id="block-' . esc_attr( $attributes['blockId'] ) . '"';
-			$focal_point = $attributes['focalPoint'];
-
-			$x = $focal_point['x'] * 100;
-			$y = $focal_point['y'] * 100;
-
-			$style = '<style>#block-' . $attributes['blockId'] . ' img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
-		}
-			return $style . '<div ' . $id . ' class="wp-block-carkeek-blocks-featured-image ' . esc_attr( $class_names ) . '">' . get_the_post_thumbnail( null, $size ) . $caption . '</div>';
 	}
 
 }

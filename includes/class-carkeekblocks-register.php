@@ -71,6 +71,9 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/lightbox-gallery" );
 		register_block_type( "$dir/build/modal-item" );
 		register_block_type( "$dir/build/widget-row" );
+		register_block_type( "$dir/build/circle-counter" );
+		register_block_type( "$dir/build/featured-image" );
+		//register_block_type( "$dir/build/custom-featured" );
 
 		/** Dynamic Blocks */
 		register_block_type(
@@ -94,12 +97,12 @@ class CarkeekBlocks_Block_Register {
 			),
 		);
 
-		register_block_type(
-			"$dir/build/featured-image",
-			array(
-				'render_callback' => array( 'CarkeekBlocks_CustomArchive', 'render_featured_image' ),
-			)
-		);
+		// register_block_type(
+		// "$dir/build/featured-image",
+		// array(
+		// 'render_callback' => array( 'CarkeekBlocks_CustomArchive', 'render_featured_image' ),
+		// )
+		// );
 
 		if ( post_type_exists( 'tribe_events' ) ) {
 			register_block_type(
