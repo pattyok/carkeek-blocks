@@ -7,7 +7,14 @@
 	"category": "widgets",
 	"description": "Example block scaffolded with Create Block tool.",
 	"supports": {
-		"html": false
+		"html": false,
+		"align": [
+			"wide",
+			"full"
+		],
+		"__experimentalLayout": {
+			"type": "constrained"
+		}
 	},
 	"parent": ["carkeek-blocks/accordion"],
 
@@ -22,6 +29,13 @@
 		},
 		"inheritedHeaderStyle": {
 			"type": "string"
+		},
+		"layout": {
+			"type": "object",
+			"default": {
+				"type": "constrained"
+				}
 		}
+
 	}
 }

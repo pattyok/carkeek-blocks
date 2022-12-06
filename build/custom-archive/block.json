@@ -55,6 +55,14 @@
       "type": "boolean",
       "default": false
     },
+    "noLink": {
+      "type": "boolean",
+      "default": false
+    },
+    "appendPostTitle": {
+      "type": "boolean",
+      "default": false
+    },
     "postLayout": {
       "type": "string",
       "default": "grid"

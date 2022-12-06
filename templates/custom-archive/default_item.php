@@ -10,8 +10,16 @@ if ( empty( $data->imageSize ) || $data->imageSize == 'default' ) {
 // allow override for specific post
 $image_size = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_default_size', $image_size, $post->ID, $data );
 
+$focal_point = get_post_meta( $post->ID, '_carkeekblocks_featured_image_focal_point', true );
+$style = '';
+if ( ! empty( $focal_point ) ) {
+	$x = $focal_point['x'] * 100;
+	$y = $focal_point['y'] * 100;
+	$style = 'object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;';
+}
+
 if ( $data->displayFeaturedImage ) {
-	$featured_image = get_the_post_thumbnail( $post->ID, $image_size );
+	$featured_image = get_the_post_thumbnail( $post->ID, $image_size, array( 'style' => $style ) );
 }
 
 $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image', $featured_image, $post->ID, $data );
@@ -31,10 +39,15 @@ if ( true == $data->displayPostExcerpt ) {
 	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
 
-$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
-$permalink_target = isset($data->newWindow) && true == $data->newWindow ? '_blank' : '_self';
-$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
-$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
+if ( true == $data->noLink ) {
+	$link_title = '<div class="ck-custom-archive-title">' . get_the_title() . '</div>';
+} else {
+	// $permalink        = get_permalink(
+	$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
+	$permalink_target = isset($data->newWindow) && true == $data->newWindow ? '_blank' : '_self';
+	$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
+	$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
+}
 if ( true == $data->useHeadingTitle ) {
 
 	$start      = '<h' . $data->headlineLevel . '>';
@@ -69,12 +82,7 @@ if (isset($data->addlContentAfter)){
 <?php
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
-	$focal_point = get_post_meta( $post->ID, '_carkeekblocks_featured_image_focal_point', true );
-	if ( ! empty( $focal_point ) ) {
-		$x = $focal_point['x'] * 100;
-		$y = $focal_point['y'] * 100;
-		echo '<style>.wp-block-carkeek-blocks-custom-archive .archive-item-id-' . esc_attr( $post->ID ) . ' .ck-custom-archive-image-link img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
-	}
+
 	?>
 		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 			<?php echo wp_kses_post( $featured_image ); ?>
@@ -123,7 +131,8 @@ if ( ! empty( $featured_image ) ) {
 		<?php
 		if ( true == $data->showLearnMoreLink ) {
 			$link_label = empty( $data->learnMoreLinkTitle ) ? __( 'Learn more', 'wp-rig' ) : $data->learnMoreLinkTitle;
-			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s" target="%2s">%2s<span class="screen-reader-text">%3s</span></a>', get_the_permalink(), $permalink_target, $link_label, get_the_title() );
+			$title_class = $data->appendPostTitle ? 'more-link--append-title' : 'screen-reader-text';
+			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s" target="%2s">%2s <span class="%3s">%4s</span></a>', get_the_permalink(), $permalink_target, $link_label, $title_class, get_the_title() );
 			$more_link  = apply_filters( 'ck_custom_archive_layout__more_link', $more_link, $data );
 			$more_link  = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_more_link', $more_link, $data );
 

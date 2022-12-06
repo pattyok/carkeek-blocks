@@ -135,7 +135,12 @@ function ExtendedGallerySave ({ attributes }) {
                     let imagePack;
                     if (linkImages == 'lightbox') {
                         imagePack = (
+							<>
                             <a href={img.lightUrl}  data-fancybox={`gallery-${galleryId}`} data-caption={img.caption}>{image}</a>
+							{showCaptions &&
+                            <figcaption dangerouslySetInnerHTML={{__html: img.caption}}/>
+                            }
+							</>
                         );
                     } else if (linkImages == 'custom' && img.customLink) {
                         const myProps = {

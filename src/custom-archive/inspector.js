@@ -52,7 +52,9 @@ function postsInspector(props) {
         useHeadingTitle,
         imageOrientation,
         imageSize,
+		noLink,
         honorStickyPosts,
+		appendPostTitle,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -305,6 +307,15 @@ function postsInspector(props) {
                             />
                         </>
                     }
+					{openAsModal == false &&
+					<ToggleControl
+						label={__("No Link to Post")}
+						checked={noLink}
+						onChange={value =>
+							setAttributes({ noLink: value })
+						}
+					/>
+					}
                     <ToggleControl
                         label={__("Show Pagination")}
                         checked={showPagination}
@@ -485,7 +496,7 @@ function postsInspector(props) {
                         }
                     />
                     {showLearnMoreLink &&
-
+					<>
                         <TextControl
                             label="Link Label"
                             value={learnMoreLinkTitle}
@@ -493,6 +504,15 @@ function postsInspector(props) {
                                 setAttributes({ learnMoreLinkTitle: value })
                             }
                         />
+
+							<ToggleControl
+								label={__("Append Post Title to More Link")}
+								checked={appendPostTitle}
+								onChange={value =>
+									setAttributes({ appendPostTitle: value })
+								}
+							/>
+						</>
                     }
                 </PanelBody>
                 <PanelBody title={__("Responsive Layout", "carkeek-blocks")} initialOpen={false}>

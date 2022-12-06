@@ -73,6 +73,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							{ label: 'h4', value: 'h4' },
 							{ label: 'h5', value: 'h5' },
 							{ label: 'h6', value: 'h6' },
+							{ label: 'p', value: 'p' },
 						]}
 						onChange= {updateHeaderStyle}
 					/>

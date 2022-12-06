@@ -7,7 +7,11 @@
   "category": "widgets",
   "description": "Accordion block.",
   "supports": {
-    "html": false
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
   },
   "keywords": [
     "accordion",

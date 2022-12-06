@@ -1,0 +1,20 @@
+.wp-block-carkeek-blocks-circle-counter {
+	position: relative;
+
+	& .ck-circle-counter--number {
+		font-size: 50px;
+		font-weight: 800;
+	}
+	& .ck-circle-counter--text-wrap {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 40px 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+}

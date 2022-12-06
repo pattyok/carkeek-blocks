@@ -75,14 +75,14 @@ function ExtendedGalleryEdit( props ) {
                             setAttributes({ linkImages: value })
                         }
                     />
-                    { linkImages != 'lightbox' &&
+
                     <ToggleControl
                         label="Show Captions"
                         help={ "Display captions in the gallery view"}
                         checked={ showCaptions }
                         onChange={ ( showCaptions ) => setAttributes( { showCaptions } ) }
                     />
-                    }
+
                     </PanelBody>
                     {isGallery &&
                         <>

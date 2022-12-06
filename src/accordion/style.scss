@@ -71,6 +71,7 @@
 		box-shadow: none;
 		display: flex;
 		justify-content: space-between;
+		white-space: normal;
 
 		&::after {
 			font-family: var(--ck-icon-font-family);
@@ -196,6 +197,17 @@
 		--ck-accordion-borders: none;
 		--ck-accordion-header-padding: 0;
 		--ck-accordion-expand: "\e806";
+	}
+
+	&.alignfull {
+		& .ck-accordion-header {
+			max-width: var(--content-width);
+			margin-left: auto;
+			margin-right: auto;
+		}
+		& .accordion__panel[aria-hidden="false"] {
+			max-height: none;
+		}
 	}
 
 }

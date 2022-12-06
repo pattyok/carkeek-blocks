@@ -17,7 +17,6 @@
   * @return {WPElement} Element to render.
   */
  export default function save( props ) {
-	console.log(props);
 	const{ attributes } = props;
 	const{ textBefore, textAfter, numberVal, max, isPercentage, backgroundColor, color, customBackgroundColor, customColor } = attributes;
 
@@ -43,12 +42,14 @@
 	 const blockProps = useBlockProps.save();
 		 return (
 			<div {...blockProps}>
-			<RichText.Content tagName="div" className={'ck-circle-counter--text before'} value={textBefore } />
-			<div className={'ck-circle-counter--number'}>
-				<span className={'ck-circle-counter--number-val'}>{numberVal}</span>
-		   		{isPercentage && <span className={'ck-circle-counter--percentage'}>%</span>}
+				<div className="ck-circle-counter--text-wrap">
+					<div className={'ck-circle-counter--text before'}>{textBefore }</div>
+					<div className={'ck-circle-counter--number'}>
+						<span className={'ck-circle-counter--number-val'}>{numberVal}</span>
+						{isPercentage && <span className={'ck-circle-counter--percentage'}>%</span>}
+					</div>
+					<div className={'ck-circle-counter--text before'}>{textAfter }</div>
 		   </div>
-		   <RichText.Content tagName="div" className={'ck-circle-counter--text after'} value={textAfter } />
 			<div className="ck-circle-counter--circle">
 				<svg class="svg" viewBox="0 0 300 300" version="1.1" preserveAspectRatio="xMinYMin meet">
 				<circle class="ck-bar-bg" r="145" cx="150" cy="150" stroke-width="10" style={bgStyles} fill="transparent" stroke-dasharray="911.06" stroke-dashoffset="0"></circle>
