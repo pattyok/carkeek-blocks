@@ -1,11 +1,10 @@
 <?php if ( ! empty( get_the_post_thumbnail( null, 'large' ) ) ) {
 	$size             = isset( $attributes['imageSize'] ) ? $attributes['imageSize'] : 'large';
 	$extra_attributes = array();
+	$caption          = '';
 	if ( true === $attributes['showCaption'] ) {
 			$caption                   = '<figcaption class="image-caption">' . get_the_post_thumbnail_caption() . '</figcaption>';
 			$extra_attributes['class'] = 'has-caption';
-	} else {
-		$caption = '';
 	}
 
 	$id = '';
@@ -23,13 +22,13 @@
 		$x = $focal_point['x'] * 100;
 		$y = $focal_point['y'] * 100;
 
-		$style = '<style>#block-' . $attributes['blockId'] . ' img {object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;}</style>';
+		$style = 'object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;';
 	}
 
 	?>
 <figure <?php echo get_block_wrapper_attributes( $extra_attributes ); ?> <?php echo $id; ?>>
-	<?php echo $style; ?>
-	<?php echo get_the_post_thumbnail( null, $size ); ?>
+	<?php echo get_the_post_thumbnail( null, $size, array('style' => $style) ); ?>
+	<?php echo $caption; ?>
 </figure>
 	<?php
 }
