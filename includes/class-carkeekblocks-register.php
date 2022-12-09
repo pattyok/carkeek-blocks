@@ -73,7 +73,7 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/widget-row" );
 		register_block_type( "$dir/build/circle-counter" );
 		register_block_type( "$dir/build/featured-image" );
-		//register_block_type( "$dir/build/custom-featured" );
+		// register_block_type( "$dir/build/custom-featured" );
 
 		/** Dynamic Blocks */
 		register_block_type(
@@ -140,7 +140,7 @@ class CarkeekBlocks_Block_Register {
 		$vendor = 'vendor/';
 
 		// load shared assets for specific blocks only.
-		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' )) {
+		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' ) ) {
 			wp_enqueue_script(
 				'slick-slider',
 				plugins_url( $vendor . 'slick.js', dirname( __FILE__ ) ),
@@ -161,7 +161,7 @@ class CarkeekBlocks_Block_Register {
 			);
 		}
 
-		if ( has_block( 'carkeek-blocks/modal-item' ) ) {
+		if ( has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive' ) ) {
 			wp_enqueue_script(
 				'bootsrap-modal',
 				plugins_url( $vendor . 'bootstrap.bundle.min.js', dirname( __FILE__ ) ),
