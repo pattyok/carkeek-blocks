@@ -4,11 +4,11 @@
  * Plugin URI: https://github.com/pattyok/carkeek-blocks
  * GitHub Plugin URI: pattyok/carkeek-blocks
  * Requires PHP: 7.0
- * Requires at least: 5.6
+ * Requires at least: 6.1
  * Primary Branch: main
  * Description: Series of blocks designed to work with this site's custom Theme
  * Author: Patty O'Hara
- * Version: 3.1.09
+ * Version: 3.1.10
  * Author URI https://carkeekstudios.com/
  * Text Domain: carkeek-blocks
  */

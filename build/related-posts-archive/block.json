@@ -130,6 +130,10 @@
     },
     "blockId": {
       "type": "string"
+    },
+    "className": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

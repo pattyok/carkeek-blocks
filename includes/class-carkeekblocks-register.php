@@ -161,7 +161,7 @@ class CarkeekBlocks_Block_Register {
 			);
 		}
 
-		if ( has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive' ) ) {
+		if ( !is_admin() && (has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive')) ) {
 			wp_enqueue_script(
 				'bootsrap-modal',
 				plugins_url( $vendor . 'bootstrap.bundle.min.js', dirname( __FILE__ ) ),

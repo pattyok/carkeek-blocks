@@ -147,6 +147,14 @@
     "onlyPastEvents": {
       "type": "boolean",
       "default": false
+    },
+    "className": {
+      "type": "string",
+      "default": ""
+    },
+    "align": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

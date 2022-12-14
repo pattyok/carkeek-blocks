@@ -27,13 +27,6 @@
 			object-fit: cover;
 			object-position: 50% 50%;
 		}
-
-		&.ck-modal-item-image {
-
-			&::after {
-				padding-bottom: var(--ck-modal-image-ratio);
-			}
-		}
 	}
 
 	&.is-grid {
