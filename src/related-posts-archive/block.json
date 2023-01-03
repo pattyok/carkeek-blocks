@@ -130,7 +130,10 @@
 		"className": {
 			"type": "string",
 			"default": ""
-		  }
+		},
+		"align": {
+			"type": "string"
+		}
 	},
     "supports": {
         "align": ["wide", "full", "left", "center", "right"],

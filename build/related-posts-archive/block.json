@@ -134,6 +134,9 @@
     "className": {
       "type": "string",
       "default": ""
+    },
+    "align": {
+      "type": "string"
     }
   },
   "supports": {

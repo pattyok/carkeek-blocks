@@ -1,6 +1,6 @@
 import icons from './icons';
 import PostsInspector from './inspector';
-import { ServerSideRender } from "@wordpress/server-side-render";
+import ServerSideRender from "@wordpress/server-side-render";
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 
 import { withSelect } from "@wordpress/data";
@@ -46,7 +46,7 @@ function customArchiveEdit( props ) {
     return (
 
         <div { ...blockProps } >
-                <PostsInspector { ...props } />
+			<PostsInspector { ...props } />
                 <BlockControls>
                     <ToolbarGroup label="Layout Options">
                         <ToolbarButton

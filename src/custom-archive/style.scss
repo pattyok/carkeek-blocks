@@ -129,5 +129,29 @@
 				flex: 1 1 67%;
 			}
 		}
+
+		&.is-fit {
+			& .ck-custom-archive__list {
+				display: flex;
+				gap: var(--ck-column-gap);
+				& > * {
+					flex: 1 1 0;
+				}
+			}
+			& .ck-custom-archive-item:first-child:last-child {
+				display: flex;
+				flex-direction: row;
+				gap: calc(2*var(--ck-archive-image-text-gap));
+
+				& .ck-custom-archive-image-link {
+					flex: 1 1 33%;
+				}
+				& .ck-custom-archive__content-wrap {
+					flex: 1 1 67%;
+					text-align: left;
+					align-items: flex-start;
+				}
+			}
+		}
 	}
 }

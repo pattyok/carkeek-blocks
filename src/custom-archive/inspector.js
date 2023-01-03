@@ -281,6 +281,7 @@ function postsInspector(props) {
                         options={[
                             { label: __("Grid"), value: "grid" },
                             { label: __("List"), value: "list" },
+							{ label: __("Fit Posts"), value: "fit" },
                         ]}
                         onChange={value =>
                             setAttributes({

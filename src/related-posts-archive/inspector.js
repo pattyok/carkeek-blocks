@@ -84,31 +84,25 @@ function postsInspector( props ){
         } );
     }
 
-    const taxonomySelect = (
-        <>
-        { taxonomies && taxonomies.length > 0
-            ?
-            <>
-            <SelectControl
-                label={__("Select a Taxonomy", "carkeek-blocks")}
-                onChange={ ( terms ) => setAttributes( { taxonomySelected: terms } ) }
-                options={ taxOptions }
-                value={taxonomySelected}
-                help={__("Select a taxonomy on which to build the relationship", "carkeek-blocks")}
-            />
-            </>
-            : <div className="ck-error">{__("There are no taxonomies assigned this post type.", "carkeek-blocks")}</div>
-        }
-        </>
-    );
-
 
     return (
         <InspectorControls>
             <PanelBody title={__("Posts Settings", "carkeek-blocks")}>
                 {postTypeSelect}
                 {postTypeSelected && (
-                    <> {taxonomySelect} </>
+					<>
+                    { taxonomies && taxonomies.length > 0
+						?
+						<SelectControl
+							label={__("Select a Taxonomy", "carkeek-blocks")}
+							onChange={ ( terms ) => setAttributes( { taxonomySelected: terms } ) }
+							options={ taxOptions }
+							value={taxonomySelected}
+							help={__("Select a taxonomy on which to build the relationship", "carkeek-blocks")}
+						/>
+						: <div className="ck-error">{__("There are no taxonomies assigned this post type.", "carkeek-blocks")}</div>
+					}
+					</>
                 )}
                 <RangeControl
                     label={__("Number of Posts", "carkeek-blocks")}
