@@ -1,5 +1,7 @@
 .components-select-control__input[multiple] {
 	height: auto !important;
+	overflow-y: scroll !important;
+	min-height: 100px !important;
 }
 
 .editor-styles-wrapper {
