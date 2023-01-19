@@ -82,6 +82,7 @@ if ( true == $data->useHeadingTitle ) {
 							echo wp_kses_post( $html_before_excerpt );
 						}
 						?>
+						<?php do_action( 'ck_custom_archive_layout_modal_dialog__before_content', $data ); ?>
 					</div>
 					<div class="ck-modal-item-details">
 						<?php the_content(); ?>
