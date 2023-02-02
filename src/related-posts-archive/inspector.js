@@ -38,6 +38,7 @@ function postsInspector( props ){
         fillTheSlots,
         useHeadingTitle,
         imageOrientation,
+		childTermsOnly,
         showPublishDate,publishDateLocation,showTerms,showPagination,learnMoreLinkTitle,showLearnMoreLink
     } = attributes;
 
@@ -93,6 +94,7 @@ function postsInspector( props ){
 					<>
                     { taxonomies && taxonomies.length > 0
 						?
+						<>
 						<SelectControl
 							label={__("Select a Taxonomy", "carkeek-blocks")}
 							onChange={ ( terms ) => setAttributes( { taxonomySelected: terms } ) }
@@ -100,6 +102,15 @@ function postsInspector( props ){
 							value={taxonomySelected}
 							help={__("Select a taxonomy on which to build the relationship", "carkeek-blocks")}
 						/>
+						<ToggleControl
+							label={__("Match on Child Terms Only", "carkeek-blocks")}
+							help={__(`Match only on child terms of the selected taxonomy. If no child terms are found, the parent terms will be used.`)}
+							checked={childTermsOnly}
+							onChange={value =>
+								setAttributes({ childTermsOnly: value })
+							}
+						/>
+					</>
 						: <div className="ck-error">{__("There are no taxonomies assigned this post type.", "carkeek-blocks")}</div>
 					}
 					</>

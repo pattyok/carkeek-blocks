@@ -137,6 +137,14 @@
     },
     "align": {
       "type": "string"
+    },
+    "isRelated": {
+      "type": "boolean",
+      "default": true
+    },
+    "childTermsOnly": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {
@@ -149,5 +157,6 @@
     ],
     "anchor": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
 }

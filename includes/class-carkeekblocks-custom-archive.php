@@ -325,11 +325,18 @@ class CarkeekBlocks_CustomArchive {
 				);
 			}
 		} elseif ( isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ) {
+
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
 				$tax      = $attributes['taxonomySelected'];
 				$my_id    = get_the_ID();
 				$my_terms = get_the_terms( $my_id, $tax );
 				if ( ! is_wp_error( $my_terms ) && is_array( $my_terms ) ) {
+					if ( isset( $attributes['childTermsOnly'] ) && true == $attributes['childTermsOnly'] ) {
+						$children = wp_list_filter( $my_terms, array( 'parent' => 0 ), 'NOT' );
+						if ( ! empty( $children ) ) {
+							$my_terms = $children;
+						}
+					}
 					$term_ids          = array_map(
 						function( $t ) {
 							return $t->term_id;
@@ -393,7 +400,7 @@ class CarkeekBlocks_CustomArchive {
 		$args = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
 		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
 		// if sticky posts are enabled, we need to add them to the query.
-		if ( isset ( $attributes['honorStickyPosts'] ) && true == $attributes['honorStickyPosts'] ) {
+		if ( isset( $attributes['honorStickyPosts'] ) && true == $attributes['honorStickyPosts'] ) {
 			$args0              = $args;
 			$sticky_posts       = get_option( 'sticky_posts' );
 			$args0['post__in']  = $sticky_posts;
@@ -483,7 +490,7 @@ class CarkeekBlocks_CustomArchive {
 
 			}
 			$posts .= '</div>';
-			if ( isset($attributes['showPagination']) && true == $attributes['showPagination'] ) {
+			if ( isset( $attributes['showPagination'] ) && true == $attributes['showPagination'] ) {
 				$big    = 999999999; // need an unlikely integer.
 				$posts .= '<div class="ck_pagination">';
 				$posts .= paginate_links(

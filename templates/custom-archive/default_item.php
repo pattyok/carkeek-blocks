@@ -39,7 +39,7 @@ if ( true == $data->displayPostExcerpt ) {
 	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
 
-if ( true == $data->noLink ) {
+if ( isset($data->noLink) && true == $data->noLink ) {
 	$link_title = '<div class="ck-custom-archive-title">' . get_the_title() . '</div>';
 } else {
 	// $permalink        = get_permalink(
