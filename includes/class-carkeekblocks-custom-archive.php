@@ -519,36 +519,6 @@ class CarkeekBlocks_CustomArchive {
 			}
 		}
 	}
-	/**
-	 * Render Taxonomy Archive Links
-	 *
-	 * @param array $attributes Attributes passed from the block.
-	 */
-	public static function carkeek_blocks_render_tax_archive( $attributes ) {
-		global $post;
-		if ( true == $attributes['relevantToPost'] ) {
-
-			$terms = get_the_terms( $post->ID, $attributes['taxonomySelected'] );
-		} else {
-			$args  = array(
-				'taxonomy' => $attributes['taxonomySelected'],
-				'orderby'  => $attributes['sortBy'],
-				'order'    => $attributes['order'],
-			);
-			$terms = get_terms( $args );
-		}
-		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-			$term_list = '<ul class="term-archive">';
-			foreach ( $terms as $term ) {
-				$term_link  = apply_filters( 'ck_tax_archive_term_link', get_term_link( $term ), $term, $post );
-				$term_list .= '<li><a href="' . esc_url( $term_link ) . '" alt="' . esc_attr( sprintf( __( 'View all items filed under %s', 'my_localization_domain' ), $term->name ) ) . '">' . $term->name . '</a></li>';
-			}
-			$term_list .= '</ul>';
-		}
-		$block_content = '<div class="wp-block-carkeek-blocks-tax-archive">' . $term_list . '</div>';
-		return $block_content;
-	}
-
 
 
 	/**

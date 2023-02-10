@@ -45,8 +45,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.1.0 =
-* Release
+= 3.1.15 =
+* Release 3.1.15 - 02/09/23
+	* Added an option to extended gallery to set the gap between columns
+	* Updated the Taxonomy Block to add the option to not link items and to allow for some display options.
 
 == Arbitrary section ==
 

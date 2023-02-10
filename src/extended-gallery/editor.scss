@@ -27,6 +27,28 @@
 	& .blocks-gallery-grid {
 		--gallery-image-ratio: 74%;
 
+		gap: var(--ck-gallery-gutter);
+
+		&:not(.has-nested-images) .blocks-gallery-item {
+			margin-right: 0 !important;
+		}
+
+		&.ck-column-gap-0 {
+			gap: var(--ck-gallery-gutter-none);
+		}
+		&.ck-column-gap-1 {
+			gap: var(--ck-gallery-gutter-xsmall);
+		}
+		&.ck-column-gap-2 {
+			gap: var(--ck-gallery-gutter-small);
+		}
+		&.ck-column-gap-4 {
+			gap: var(--ck-gallery-gutter-large);
+		}
+		&.ck-column-gap-5 {
+			gap: var(--ck-gallery-gutter-xlarge);
+		}
+
 		&.fixed-images {
 
 			& li.blocks-gallery-item a,

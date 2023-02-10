@@ -10,6 +10,7 @@
     "textdomain": "carkeek-blocks",
 	"editorScript": "file:./index.js",
 	"style": "file:./style-index.css",
+	"render": "file:./render.php",
     "attributes": {
         "taxonomySelected": {
             "type": "string"
@@ -34,9 +35,32 @@
         },
         "className": {
             "type": "string"
-        }
+        },
+		"linkToCategory": {
+			"type": "boolean",
+			"default": true
+		},
+		"align": {
+			"type": "string"
+		},
+		"displayAs": {
+			"type": "string",
+			"default": "list"
+		},
+		"showBullets": {
+			"type": "boolean",
+			"default": false
+		},
+		"separator": {
+			"type": "string",
+			"default": "comma"
+		},
+		"listLabel": {
+			"type": "string",
+			"default": ""
+		}
     },
     "supports": {
-        "align": true
+        "align": ["wide", "full", "left", "right", "center"]
     }
   }

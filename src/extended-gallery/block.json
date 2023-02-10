@@ -117,6 +117,10 @@
 		  "type": "number",
 		  "default": 2
 		},
+		"columnGap": {
+			"type": "number",
+			"default": 3
+		},
 		"showCaptions": {
 		  "type": "boolean",
 		  "default": false

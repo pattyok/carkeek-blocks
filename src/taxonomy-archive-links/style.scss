@@ -1,8 +1,52 @@
-.wp-block-carkeek-blocks-tax-archive {
+.wp-block-carkeek-blocks-taxonomy-terms {
 
-	& ul {
+	&.aligncenter {
+		text-align: center;
+	}
+	& ul.no-bullets {
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+
+	& ul.list-inline {
+		li {
+			display: inline-block;
+			&:last-child {
+				margin-right: 0;
+				&:after {
+					content: '' !important;
+				}
+			}
+		}
+		&.separator-comma {
+			li {
+				&:after {
+					content: ',';
+					display: inline-block;
+					padding-right: 5px;
+				}
+			}
+		}
+		&.separator-bullet {
+			li {
+				&:after {
+					content: '\2022';
+					display: inline-block;
+					padding-left: 5px;
+					padding-right: 5px;
+				}
+			}
+		}
+		&.separator-pipe {
+			li {
+				&:after {
+					content: '\007C';
+					display: inline-block;
+					padding-left: 5px;
+					padding-right: 5px;
+				}
+			}
+		}
 	}
 }

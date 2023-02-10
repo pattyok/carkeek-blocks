@@ -27,6 +27,10 @@
 			--ck-archive-image-ratio: 75%;
 		}
 
+		&.layout-landscape-35 {
+			--ck-archive-image-ratio: 60%;
+		}
+
 		&::after {
 			display: block;
 			width: 100%;

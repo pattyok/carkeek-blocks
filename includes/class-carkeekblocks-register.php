@@ -91,10 +91,7 @@ class CarkeekBlocks_Block_Register {
 		);
 
 		register_block_type(
-			"$dir/build/taxonomy-archive-links",
-			array(
-				'render_callback' => array( 'CarkeekBlocks_CustomArchive', 'carkeek_blocks_render_tax_archive' ),
-			),
+			"$dir/build/taxonomy-archive-links"
 		);
 
 		// register_block_type(

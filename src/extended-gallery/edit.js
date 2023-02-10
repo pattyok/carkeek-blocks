@@ -38,7 +38,8 @@ function ExtendedGalleryEdit( props ) {
         autoPlaySpeed,
         transitionSpeed,
         showDots,
-        showOverlay
+        showOverlay,
+		columnGap,
      } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
@@ -47,6 +48,13 @@ function ExtendedGalleryEdit( props ) {
     const blockProps = useBlockProps();
     const isGallery = displayAs == 'gallery';
     const isCarousel = displayAs == 'carousel';
+
+	if( ! columnGap && columnGap !== 0 ) {
+		setAttributes( { columnGap: 3 } );
+	}
+
+	const colGapLabels =['None', 'X-Small', 'Small', 'Medium (Default)', 'Large', 'X-Large'];
+	const colGapLabel = 'Column Gap: ' + colGapLabels[columnGap];
 
     return(
         <div {...blockProps} >
@@ -95,6 +103,17 @@ function ExtendedGalleryEdit( props ) {
                                 max={ 6 }
                                 step={ 1 }
                             />
+							<RangeControl
+								label= { colGapLabel }
+								value={ columnGap }
+								onChange={ ( columnGap ) => setAttributes( { columnGap } ) }
+								min={ 0 }
+								max={ 5 }
+								step={ 1 }
+								type="stepper"
+								withInputField={ false }
+							/>
+
                             <SelectControl
                                 label="Align Columns"
                                 value={ horizontalAlign }
@@ -138,6 +157,7 @@ function ExtendedGalleryEdit( props ) {
                             </PanelBody>
                         </>
                     }
+
                     { (isCarousel || mobileScroll ) &&
                         <PanelBody title="Carousel Settings">
                             <>

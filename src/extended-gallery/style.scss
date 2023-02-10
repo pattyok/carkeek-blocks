@@ -17,7 +17,12 @@ body.admin-bar .fancybox-container {
 }
 
 :root {
-	--ck-gallery-gutter: 1.875rem;
+	--ck-gallery-gutter: 1.875rem; //this is the original and used as the default
+	--ck-gallery-gutter-none: 0;
+	--ck-gallery-gutter-xsmall: 0.5rem;
+	--ck-gallery-gutter-small: 1rem;
+	--ck-gallery-gutter-large: 4rem;
+	--ck-gallery-gutter-xlarge: 6.25rem;
 }
 
 .ck-blocks-gallery-hidden {
@@ -38,6 +43,21 @@ ul.ck-blocks-gallery-grid {
 	padding: 0;
 	& img {
 		width: 100%;
+	}
+	&.ck-column-gap-0 {
+		gap: var(--ck-gallery-gutter-none);
+	}
+	&.ck-column-gap-1 {
+		gap: var(--ck-gallery-gutter-xsmall);
+	}
+	&.ck-column-gap-2 {
+		gap: var(--ck-gallery-gutter-small);
+	}
+	&.ck-column-gap-4 {
+		gap: var(--ck-gallery-gutter-large);
+	}
+	&.ck-column-gap-5 {
+		gap: var(--ck-gallery-gutter-xlarge);
 	}
 
 	& .ck-blocks-gallery-grid-item {

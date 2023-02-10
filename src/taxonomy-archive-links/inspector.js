@@ -18,7 +18,12 @@ function postsInspector( props ){
         taxonomySelected,
         sortBy,
         order,
-        relevantToPost
+        relevantToPost,
+		linkToCategory,
+		displayAs,
+		separator,
+		showBullets,
+		listLabel
           } = attributes;
 
 
@@ -93,7 +98,62 @@ function postsInspector( props ){
                         setAttributes({ relevantToPost: value })
                     }
                 />
+				<ToggleControl
+                    label="Link items to category archive"
+                    checked={ linkToCategory }
+                    onChange={value =>
+                        setAttributes({ linkToCategory: value })
+                    }
+                />
             </PanelBody>
+			<PanelBody title={__("Layout Style", "carkeek-blocks")}>
+			<TextControl
+				label="Label"
+				value={ listLabel }
+				onChange={value =>
+					setAttributes({ listLabel: value })
+				}
+			/>
+			<SelectControl
+				label={__("Display As", "carkeek-blocks")}
+				onChange={value =>
+					setAttributes({
+						displayAs: value
+					})
+				}
+				options={[
+					{ label: __("Vertical List"), value: "list"},
+					{ label: __("Horizontal (inline) List"), value: "inline"},
+				]}
+				value={displayAs}
+			/>
+			{ displayAs === 'inline' &&
+				<SelectControl
+					label={__("Separator", "carkeek-blocks")}
+					onChange={value =>
+						setAttributes({
+							separator: value
+						})
+					}
+					options={[
+						{ label: __("Comma (,)"), value: "comma"},
+						{ label: __("Bullet (&#8226;)"), value: "bullet"},
+						{ label: __("Pipe (|)"), value: "pipe"},
+					]}
+					value={separator}
+				/>
+			}
+			{ displayAs === 'list' &&
+				<ToggleControl
+					label="Include bullets?"
+					checked={ showBullets }
+					onChange={value =>
+						setAttributes({ showBullets: value })
+					}
+				/>
+			}
+
+			</PanelBody>
 
 
 

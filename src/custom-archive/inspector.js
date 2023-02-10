@@ -453,6 +453,7 @@ function postsInspector(props) {
                                 options={[
                                     { label: __("Landscape 2:3"), value: "landscape" },
                                     { label: __("Landscape 3:4"), value: "landscape-34" },
+									{ label: __("Landscape 3:5"), value: "landscape-35" },
                                     { label: __("Portrait 3:2"), value: "portrait" },
                                     { label: __("Portrait 4:3"), value: "portrait-43" },
                                     { label: __("Square 1:1"), value: "square" },

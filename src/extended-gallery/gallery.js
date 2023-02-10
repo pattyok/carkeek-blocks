@@ -40,6 +40,7 @@ export const Gallery = ( props ) => {
 		columns,
 		columnsMobile,
 		columnsTablet,
+		columnGap,
 		cropImages,
 		imageLayout,
 		linkImages,
@@ -64,7 +65,8 @@ export const Gallery = ( props ) => {
 		'fixed-images': cropImages,
         [ `fixed-images-${ imageLayout }` ]: cropImages,
 		'ck-blocks-gallery-carousel': isCarousel,
-		[ `columns-${ slidesToShow }` ] : isCarousel
+		[ `columns-${ slidesToShow }` ] : isCarousel,
+		[ `ck-column-gap-${ columnGap }` ]: isGallery,
 	})
 
     function setAttributes( newAttrs ) {

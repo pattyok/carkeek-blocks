@@ -31,6 +31,7 @@ function ExtendedGallerySave ({ attributes }) {
         autoPlaySpeed,
         transitionSpeed,
         showOverlay,
+		columnGap,
         showDots} = attributes;
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
     const galleryId = title ? cleanForSlug(title) : blockId;
@@ -58,6 +59,7 @@ function ExtendedGallerySave ({ attributes }) {
         'has-captions': showCaptions && !isLightbox,
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
+	   [ `ck-column-gap-${ columnGap }` ]: isGallery,
 	});
 
 
