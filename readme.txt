@@ -44,7 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
-
+= 3.1.16 =
+* Release 3.1.16 - 02/18/23
+	* Fix to taxonomy block
 = 3.1.15 =
 * Release 3.1.15 - 02/09/23
 	* Added an option to extended gallery to set the gap between columns

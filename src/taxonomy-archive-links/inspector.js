@@ -4,7 +4,8 @@ import {
     PanelBody,
     RadioControl,
     SelectControl,
-    ToggleControl
+    ToggleControl,
+	TextControl
 } from "@wordpress/components";
 
 
