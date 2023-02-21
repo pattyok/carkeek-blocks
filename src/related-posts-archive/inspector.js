@@ -39,7 +39,7 @@ function postsInspector( props ){
         useHeadingTitle,
         imageOrientation,
 		childTermsOnly,
-        showPublishDate,publishDateLocation,showTerms,showPagination,learnMoreLinkTitle,showLearnMoreLink
+        showPublishDate,publishDateLocation,showTerms,showPagination,learnMoreLinkTitle,showLearnMoreLink,matchAllTerms
     } = attributes;
 
     let ptOptions = [];
@@ -108,6 +108,14 @@ function postsInspector( props ){
 							checked={childTermsOnly}
 							onChange={value =>
 								setAttributes({ childTermsOnly: value })
+							}
+						/>
+						<ToggleControl
+							label={__("Match all terms", "carkeek-blocks")}
+							help={__(`Match all terms, if not set we'll find any matching terms.`)}
+							checked={matchAllTerms}
+							onChange={value =>
+								setAttributes({ matchAllTerms: value })
 							}
 						/>
 					</>

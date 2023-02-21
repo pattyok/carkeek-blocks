@@ -21,6 +21,10 @@
       "type": "boolean",
       "default": false
     },
+    "matchAllTerms": {
+      "type": "boolean",
+      "default": false
+    },
     "postTypeSelected": {
       "type": "string"
     },

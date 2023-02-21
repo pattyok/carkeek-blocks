@@ -330,6 +330,7 @@ class CarkeekBlocks_CustomArchive {
 				$tax      = $attributes['taxonomySelected'];
 				$my_id    = get_the_ID();
 				$my_terms = get_the_terms( $my_id, $tax );
+				$tax_operator = isset( $attributes['matchAllTerms'] ) && true ==  $attributes['matchAllTerms'] ? 'AND' : 'IN';
 				if ( ! is_wp_error( $my_terms ) && is_array( $my_terms ) ) {
 					if ( isset( $attributes['childTermsOnly'] ) && true == $attributes['childTermsOnly'] ) {
 						$children = wp_list_filter( $my_terms, array( 'parent' => 0 ), 'NOT' );
@@ -348,6 +349,7 @@ class CarkeekBlocks_CustomArchive {
 							'taxonomy' => $tax,
 							'field'    => 'term_id',
 							'terms'    => $term_ids,
+							'operator' => $tax_operator,
 						),
 					);
 				}
@@ -420,12 +422,38 @@ class CarkeekBlocks_CustomArchive {
 		} else {
 			$query = new WP_Query( $args );
 		}
+
 		$posts = '';
 
 		if ( isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {
-			if ( $query->found_posts < $attributes['numberOfPosts'] ) {
+			//if we used AND in the tax query, we need to use IN for the second query.
+			if ( isset( $attributes['matchAllTerms'] ) && true ==  $attributes['matchAllTerms']) {
+
+				if ( $query->post_count < $attributes['numberOfPosts'] ) {
+
+					$args['tax_query'][0]['operator'] = 'IN';
+					$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->post_count;
+					// exclude posts found so far.
+					if ( $query->have_posts() ) {
+						while ( $query->have_posts() ) {
+							$query->the_post();
+							global $post;
+							$args['post__not_in'][] = $post->ID;
+							wp_reset_postdata();
+						}
+					}
+					$query2 = new WP_Query( $args );
+					// populate post_count count for the loop to work correctly.
+					$query->post_count = $query->post_count + $query2->post_count;
+					// merge the two arrays.
+					$query->posts = array_merge( $query->posts, $query2->posts );
+				}
+			}
+
+			if ( $query->post_count < $attributes['numberOfPosts'] ) {
+
 				unset( $args['tax_query'] );
-				$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->found_posts;
+				$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->post_count;
 				// exclude posts found so far.
 				if ( $query->have_posts() ) {
 					while ( $query->have_posts() ) {

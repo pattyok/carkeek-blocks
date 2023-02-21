@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.1.17 =
+* Release 3.1.16 - 02/21/23
+	* Update to related posts block. Added option to match on ALL terms first, default tax search will search for any.
 = 3.1.16 =
 * Release 3.1.16 - 02/18/23
 	* Fix to taxonomy block
