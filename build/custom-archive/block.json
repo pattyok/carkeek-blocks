@@ -24,7 +24,12 @@
       "center",
       "right"
     ],
-    "anchor": false
+    "anchor": true,
+    "color": {
+      "background": true,
+      "text": false,
+      "link": false
+    }
   },
   "attributes": {
     "numberOfPosts": {
@@ -207,6 +212,10 @@
       "default": ""
     },
     "className": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundColor": {
       "type": "string",
       "default": ""
     }

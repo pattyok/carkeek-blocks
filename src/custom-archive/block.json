@@ -13,8 +13,13 @@
 	"style": "file:./style-index.css",
     "supports": {
         "align": ["wide", "full", "left", "center", "right"],
-        "anchor": false
-    },
+        "anchor": true,
+		"color": {
+			"background": true,
+			"text": false,
+			"link": false
+		}
+	},
     "attributes": {
         "numberOfPosts": {
             "type": "number",
@@ -198,7 +203,10 @@
         "className": {
             "type": "string",
             "default": ""
-        }
-
+        },
+		"backgroundColor": {
+			"type": "string",
+			"default": ""
+		}
     }
   }

@@ -18,11 +18,7 @@ body.admin-bar .fancybox-container {
 
 :root {
 	--ck-gallery-gutter: 1.875rem; //this is the original and used as the default
-	--ck-gallery-gutter-none: 0;
-	--ck-gallery-gutter-xsmall: 0.5rem;
-	--ck-gallery-gutter-small: 1rem;
-	--ck-gallery-gutter-large: 4rem;
-	--ck-gallery-gutter-xlarge: 6.25rem;
+
 }
 
 .ck-blocks-gallery-hidden {
@@ -39,25 +35,26 @@ ul.ck-blocks-gallery-grid {
 	/** use flex not grid so that the danglers can be center aligned **/
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--ck-gallery-gutter);
+	gap: 2rem var(--ck-gallery-gutter);
 	padding: 0;
 	& img {
 		width: 100%;
 	}
+	/** update the variable as it is used in the calculation **/
 	&.ck-column-gap-0 {
-		gap: var(--ck-gallery-gutter-none);
+		--ck-gallery-gutter: 0;
 	}
 	&.ck-column-gap-1 {
-		gap: var(--ck-gallery-gutter-xsmall);
+		--ck-gallery-gutter: 1vw;
 	}
 	&.ck-column-gap-2 {
-		gap: var(--ck-gallery-gutter-small);
+		--ck-gallery-gutter: 2vw;
 	}
 	&.ck-column-gap-4 {
-		gap: var(--ck-gallery-gutter-large);
+		--ck-gallery-gutter: 5vw;
 	}
 	&.ck-column-gap-5 {
-		gap: var(--ck-gallery-gutter-xlarge);
+		--ck-gallery-gutter: 8vw;
 	}
 
 	& .ck-blocks-gallery-grid-item {
@@ -213,7 +210,6 @@ ul.ck-blocks-gallery-grid {
 
 			&.columns-m-1 {
 				--columns: 1;
-
 			}
 
 			&.columns-m-2 {
@@ -250,12 +246,11 @@ ul.ck-blocks-gallery-grid {
 		display: flex;
 		flex-wrap: wrap;
 		list-style: none;
-		margin: 0 calc(-1 * var(--ck-gallery-gutter) / 2);
+		max-width: 100%;
 		padding: 0;
 
 		&.columns-t-1 {
 			--columns: 1;
-
 		}
 
 		&.columns-t-2 {
@@ -310,6 +305,7 @@ ul.ck-blocks-gallery-grid {
 
 		&.columns-1 {
 			--columns: 1;
+			--ck-gallery-gutter: 2rem
 		}
 
 		&.columns-2 {
