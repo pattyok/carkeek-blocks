@@ -22,7 +22,7 @@ if ( true == $attributes['relevantToPost'] ) {
 	$terms = get_terms( $args );
 }
 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-	$term_list = '<ul class="term-archive ' . $list_style . '" aria-label="' . $aria_label . '">';
+	$term_list = '<ul class="term-archive ' . $list_style . '" aria-label="' . $aria_title . '">';
 	foreach ( $terms as $term ) {
 		$term_link_url  = apply_filters( 'ck_tax_archive_term_link', get_term_link( $term ), $term, $post );
 		$term_link_text = apply_filters( 'ck_tax_archive_term_text', $term->name, $term, $post );
