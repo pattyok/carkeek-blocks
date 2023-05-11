@@ -145,6 +145,13 @@ class CarkeekBlocks_Block_Register {
 				filemtime( "$dir/$vendor/slick.js" ),
 				true
 			);
+			wp_enqueue_script(
+				'mobile-scroll',
+				plugins_url( 'build/lightbox-gallery/script.js', dirname( __FILE__ ) ),
+				array( 'jquery', 'slick-slider' ),
+				filemtime( "$dir/build/lightbox-gallery/script.js" ),
+				true
+			);
 		}
 
 		// load shared assets for specific blocks only.
