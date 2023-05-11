@@ -1,1 +1,40 @@
-.wp-block-carkeek-blocks-taxonomy-terms.aligncenter{text-align:center}.wp-block-carkeek-blocks-taxonomy-terms ul.no-bullets{list-style:none;margin:0;padding:0}.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline li{display:inline-block}.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline li:last-child{margin-right:0}.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline li:last-child:after{content:""!important}.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline.separator-comma li:after{content:",";display:inline-block;padding-right:5px}.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline.separator-bullet li:after{content:"•";display:inline-block;padding-left:5px;padding-right:5px}.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline.separator-pipe li:after{content:"|";display:inline-block;padding-left:5px;padding-right:5px}
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/taxonomy-archive-links/style.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+.wp-block-carkeek-blocks-taxonomy-terms.aligncenter {
+  text-align: center;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.no-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline li {
+  display: inline-block;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline li:last-child {
+  margin-right: 0;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline li:last-child:after {
+  content: "" !important;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline.separator-comma li:after {
+  content: ",";
+  display: inline-block;
+  padding-right: 5px;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline.separator-bullet li:after {
+  content: "•";
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.wp-block-carkeek-blocks-taxonomy-terms ul.list-inline.separator-pipe li:after {
+  content: "|";
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

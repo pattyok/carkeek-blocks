@@ -73,6 +73,7 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/widget-row" );
 		register_block_type( "$dir/build/circle-counter" );
 		register_block_type( "$dir/build/featured-image" );
+		register_block_type( "$dir/build/related-events-archive" );
 		// register_block_type( "$dir/build/custom-featured" );
 
 		/** Dynamic Blocks */

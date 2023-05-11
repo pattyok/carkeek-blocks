@@ -13,6 +13,10 @@
   "version": "1.0.0",
   "textdomain": "carkeek-blocks",
   "attributes": {
+    "postTypeSelected": {
+      "type": "string",
+      "default": "post"
+    },
     "numberOfPosts": {
       "type": "number",
       "default": 3
@@ -24,9 +28,6 @@
     "matchAllTerms": {
       "type": "boolean",
       "default": false
-    },
-    "postTypeSelected": {
-      "type": "string"
     },
     "displayPostExcerpt": {
       "type": "boolean",
@@ -68,17 +69,6 @@
       "type": "number",
       "default": 3
     },
-    "sortBy": {
-      "type": "string",
-      "default": "date"
-    },
-    "sortByMeta": {
-      "type": "string"
-    },
-    "order": {
-      "type": "string",
-      "default": "ASC"
-    },
     "excerptLength": {
       "type": "number",
       "default": 25
@@ -99,10 +89,22 @@
     },
     "hideIfEmpty": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "emptyMessage": {
       "type": "string"
+    },
+    "headline": {
+      "type": "string",
+      "default": ""
+    },
+    "morePostsLink": {
+      "type": "string",
+      "default": ""
+    },
+    "morePostsLinkLabel": {
+      "type": "string",
+      "default": ""
     },
     "useHeadingTitle": {
       "type": "boolean",
@@ -142,6 +144,9 @@
     "align": {
       "type": "string"
     },
+    "backgroundColor": {
+      "type": "string"
+    },
     "isRelated": {
       "type": "boolean",
       "default": true
@@ -159,7 +164,10 @@
       "center",
       "right"
     ],
-    "anchor": false
+    "color": {
+      "background": true,
+      "text": true
+    }
   },
   "editorScript": "file:./index.js",
   "style": "file:./style-index.css"

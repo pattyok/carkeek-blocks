@@ -269,6 +269,7 @@ class CarkeekBlocks_CustomArchive {
 		$layout       = $attributes['postLayout'];
 		$post_type    = $attributes['postTypeSelected'];
 		$paged        = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+		$related = isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ? true : false;
 		$posts_not_in = array( get_the_ID() );
 		$args         = array(
 			'posts_per_page'      => $attributes['numberOfPosts'],
@@ -324,7 +325,7 @@ class CarkeekBlocks_CustomArchive {
 					),
 				);
 			}
-		} elseif ( isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ) {
+		} elseif ( true == $related ) {
 
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
 				$tax      = $attributes['taxonomySelected'];
@@ -357,15 +358,15 @@ class CarkeekBlocks_CustomArchive {
 		}
 
 		/** Set up classes for the rendered block */
-		$block_class       = 'wp-block-carkeek-blocks-custom-archive';
+		$block_class       = 'carkeek-archive';
 		$inner_el_class    = 'ck-custom-archive';
 		$align             = isset( $attributes['align'] ) ? $attributes['align'] : '';
+
 		$css_classes_outer = array(
 			$block_class,
 			'is-' . $layout,
 			'post-type-' . $post_type,
-			'align' . $align,
-
+			'is-layout-constrained',
 		);
 		if ( 'grid' === $layout ) {
 			$css_classes_outer[] = 'ck-columns has-' . $attributes['columns'] . '-columns';
@@ -390,8 +391,20 @@ class CarkeekBlocks_CustomArchive {
 		}
 
 		$css_classes_outer = apply_filters( 'carkeek_block_custom_post_layout__css_classes_outer', $css_classes_outer, $attributes );
-		$block_start       = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
+		$block_start       = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ) . '">';
 
+		/** we only include headline and link if the whole block is hidden on empty */
+		$view_more_link = '';
+		if (true === $attributes['hideIfEmpty']) {
+			$headline = '';
+			if ( ! empty( $attributes['headline'] ) ) {
+				$headline = '<h2 class="ck-custom-archive__headline">' . $attributes['headline'] . '</h2>';
+			}
+			$block_start .= $headline;
+			if ( !empty( $attributes['morePostsLink'] ) ) {
+				$view_more_link = '<div class="ck-custom-archive__buttons"><a class="ck-custom-archive__view-more-link button" href="' . $attributes['morePostsLink'] . '">' . $attributes['morePostsLinkLabel'] . '</a></div>';
+			}
+		}
 		/** End set up classes */
 
 		/** If Grouping we take the args from here */
@@ -425,7 +438,7 @@ class CarkeekBlocks_CustomArchive {
 
 		$posts = '';
 
-		if ( isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {
+		if ( true == $related && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {
 			//if we used AND in the tax query, we need to use IN for the second query.
 			if ( isset( $attributes['matchAllTerms'] ) && true ==  $attributes['matchAllTerms']) {
 
@@ -475,6 +488,7 @@ class CarkeekBlocks_CustomArchive {
 			$posts           .= $block_start;
 			$css_classes_list = array(
 				$inner_el_class . '__list',
+				'alignwide',
 			);
 
 			if ( 'grid' === $layout ) {
@@ -534,7 +548,7 @@ class CarkeekBlocks_CustomArchive {
 				$posts .= '</div>';
 
 			}
-
+			$posts .= $view_more_link;
 			$posts .= '</div>';
 			wp_reset_postdata();
 			return $posts;
@@ -741,7 +755,7 @@ class CarkeekBlocks_CustomArchive {
 
 		$posts = '';
 
-		$block_class    = 'wp-block-carkeek-blocks-custom-archive';
+		$block_class    = 'carkeek-archive';
 		$inner_el_class = 'ck-custom-archive';
 
 		$css_classes_outer = array(
@@ -769,13 +783,13 @@ class CarkeekBlocks_CustomArchive {
 			}
 			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
 		}
-
-		$block_start = '<div class="' . implode( ' ', $css_classes_outer ) . '">';
+		$block_start       = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ) . '">';
 
 		if ( $query->have_posts() ) {
 			$posts           .= $block_start;
 			$css_classes_list = array(
 				$inner_el_class . '__list',
+				'alignwide',
 			);
 
 			if ( 'grid' === $layout ) {

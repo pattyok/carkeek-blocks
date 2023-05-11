@@ -1,4 +1,4 @@
-import { InspectorControls } from "@wordpress/block-editor";
+import { InspectorControls, __experimentalLinkControl as LinkControl } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import {
     RangeControl,
@@ -39,6 +39,11 @@ function postsInspector( props ){
         useHeadingTitle,
         imageOrientation,
 		childTermsOnly,
+		hideIfEmpty,
+		emptyMessage,
+		headline,
+		morePostsLink,
+		morePostsLinkLabel,
         showPublishDate,publishDateLocation,showTerms,showPagination,learnMoreLinkTitle,showLearnMoreLink,matchAllTerms
     } = attributes;
 
@@ -207,6 +212,47 @@ function postsInspector( props ){
                 />
             </>
             }
+			<ToggleControl
+				label={__("Hide Entire Block if no posts found")}
+				checked={hideIfEmpty}
+				onChange={value =>
+					setAttributes({ hideIfEmpty: value })
+				}
+			/>
+			{!hideIfEmpty &&
+				<TextControl
+				label="Empty Result Message"
+				value={ emptyMessage }
+				onChange={value =>
+					setAttributes({ emptyMessage: value })
+				}
+				/>
+			}
+			{hideIfEmpty &&
+			<>
+				<TextControl
+				label="Block Heading"
+				value={ headline }
+				onChange={value =>
+					setAttributes({ headline: value })
+				}
+				/>
+				<TextControl
+				label="More Posts Link"
+				value={ morePostsLink }
+				onChange={value =>
+					setAttributes({ morePostsLink: value })
+				}
+				/>
+				<TextControl
+				label="More Posts Link Label"
+				value={ morePostsLinkLabel }
+				onChange={value =>
+					setAttributes({ morePostsLinkLabel: value })
+				}
+				/>
+			</>
+			}
 
             </PanelBody>
             <PanelBody title={__("Item Style", "carkeek-blocks")}  initialOpen={ false }>
