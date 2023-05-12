@@ -1,0 +1,162 @@
+.carkeek-archive {
+	& .ck-custom-archive__headline {
+		text-align: center;
+	}
+
+	& .ck-custom-archive__buttons {
+		display: flex;
+		justify-content: center;
+	}
+
+	&.alignfull > * {
+		max-width: var(--content-width-wide);
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	&.is-grid {
+
+		& .archive-entry {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	&.is-list {
+
+		& .ck-custom-archive-item {
+			display: flex;
+			flex-direction: column;
+			margin-bottom: var(--ck-column-gap-vert);
+		}
+
+		& .ck-custom-archive-image-link {
+			width: 100%;
+		}
+	}
+
+	& .ck-custom-archive-more-link {
+		display: block;
+		margin-top: 1rem;
+	}
+
+	&.group-hide-parents {
+
+		& .ck-archive-tax-header.level-0 {
+			display: none;
+		}
+	}
+}
+
+
+
+@media screen and (min-width: 768px) {
+
+	.carkeek-archive {
+
+		&.is-list {
+
+			& .ck-custom-archive-item {
+				flex-direction: row;
+			}
+
+			& .ck-custom-archive-image-link {
+				flex: 1 1 33%;
+				margin-right: var(--ck-archive-image-text-gap);
+				margin-bottom: 0;
+				align-self: flex-start;
+			}
+
+			& .ck-custom-archive__content-wrap {
+				flex: 1 1 67%;
+			}
+		}
+
+		&.is-fit {
+			& .ck-custom-archive__list {
+				display: flex;
+				gap: var(--ck-column-gap);
+				& > * {
+					flex: 1 1 0;
+				}
+			}
+			& .ck-custom-archive-item:first-child:last-child {
+				display: flex;
+				flex-direction: row;
+				gap: calc(2*var(--ck-archive-image-text-gap));
+
+				& .ck-custom-archive-image-link {
+					flex: 1 1 33%;
+				}
+				& .ck-custom-archive__content-wrap {
+					flex: 1 1 67%;
+					text-align: left;
+					align-items: flex-start;
+				}
+			}
+		}
+	}
+}
+.ck-custom-archive-image-link {
+	position: relative;
+	display: block;
+	margin-bottom: var(--ck-archive-image-text-gap);
+
+	&.layout-square {
+		--ck-archive-image-ratio: 100%;
+	}
+
+	&.layout-portrait {
+		--ck-archive-image-ratio: 150%;
+	}
+
+	&.layout-portrait-43 {
+		--ck-archive-image-ratio: 133%;
+	}
+
+	&.layout-landscape-34 {
+		--ck-archive-image-ratio: 75%;
+	}
+
+	&::after {
+		display: block;
+		width: 100%;
+		content: "";
+		padding-bottom: var(--ck-archive-image-ratio);
+	}
+
+	& img {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 50%;
+	}
+
+}
+
+.ck_pagination {
+
+	& ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+
+		& li {
+
+			& a {
+				padding: 5px 10px;
+			}
+
+			& .current {
+				padding: 5px 10px;
+				background-color: var(--color-link);
+				color: #fff;
+			}
+
+		}
+	}
+}
