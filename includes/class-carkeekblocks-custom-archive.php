@@ -269,9 +269,10 @@ class CarkeekBlocks_CustomArchive {
 		$layout       = $attributes['postLayout'];
 		$post_type    = $attributes['postTypeSelected'];
 		$paged        = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-		$related = isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ? true : false;
+		$related      = isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ? true : false;
 		$posts_not_in = array( get_the_ID() );
-		$args         = array(
+
+		$args = array(
 			'posts_per_page'      => $attributes['numberOfPosts'],
 			'post_type'           => $attributes['postTypeSelected'],
 			'order'               => $attributes['order'],
@@ -328,10 +329,10 @@ class CarkeekBlocks_CustomArchive {
 		} elseif ( true == $related ) {
 
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
-				$tax      = $attributes['taxonomySelected'];
-				$my_id    = get_the_ID();
-				$my_terms = get_the_terms( $my_id, $tax );
-				$tax_operator = isset( $attributes['matchAllTerms'] ) && true ==  $attributes['matchAllTerms'] ? 'AND' : 'IN';
+				$tax          = $attributes['taxonomySelected'];
+				$my_id        = get_the_ID();
+				$my_terms     = get_the_terms( $my_id, $tax );
+				$tax_operator = isset( $attributes['matchAllTerms'] ) && true == $attributes['matchAllTerms'] ? 'AND' : 'IN';
 				if ( ! is_wp_error( $my_terms ) && is_array( $my_terms ) ) {
 					if ( isset( $attributes['childTermsOnly'] ) && true == $attributes['childTermsOnly'] ) {
 						$children = wp_list_filter( $my_terms, array( 'parent' => 0 ), 'NOT' );
@@ -358,9 +359,9 @@ class CarkeekBlocks_CustomArchive {
 		}
 
 		/** Set up classes for the rendered block */
-		$block_class       = 'carkeek-archive';
-		$inner_el_class    = 'ck-custom-archive';
-		$align             = isset( $attributes['align'] ) ? $attributes['align'] : '';
+		$block_class    = 'carkeek-archive';
+		$inner_el_class = 'ck-custom-archive';
+		$align          = isset( $attributes['align'] ) ? $attributes['align'] : '';
 
 		$css_classes_outer = array(
 			$block_class,
@@ -395,13 +396,13 @@ class CarkeekBlocks_CustomArchive {
 
 		/** we only include headline and link if the whole block is hidden on empty */
 		$view_more_link = '';
-		if (true === $attributes['hideIfEmpty']) {
+		if ( true === $attributes['hideIfEmpty'] ) {
 			$headline = '';
 			if ( ! empty( $attributes['headline'] ) ) {
 				$headline = '<h2 class="ck-custom-archive__headline">' . $attributes['headline'] . '</h2>';
 			}
 			$block_start .= $headline;
-			if ( !empty( $attributes['morePostsLink'] ) ) {
+			if ( ! empty( $attributes['morePostsLink'] ) ) {
 				$view_more_link = '<div class="ck-custom-archive__buttons"><a class="ck-custom-archive__view-more-link button" href="' . $attributes['morePostsLink'] . '">' . $attributes['morePostsLinkLabel'] . '</a></div>';
 			}
 		}
@@ -439,13 +440,13 @@ class CarkeekBlocks_CustomArchive {
 		$posts = '';
 
 		if ( true == $related && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {
-			//if we used AND in the tax query, we need to use IN for the second query.
-			if ( isset( $attributes['matchAllTerms'] ) && true ==  $attributes['matchAllTerms']) {
+			// if we used AND in the tax query, we need to use IN for the second query.
+			if ( isset( $attributes['matchAllTerms'] ) && true == $attributes['matchAllTerms'] ) {
 
 				if ( $query->post_count < $attributes['numberOfPosts'] ) {
 
 					$args['tax_query'][0]['operator'] = 'IN';
-					$args['posts_per_page'] = $attributes['numberOfPosts'] - $query->post_count;
+					$args['posts_per_page']           = $attributes['numberOfPosts'] - $query->post_count;
 					// exclude posts found so far.
 					if ( $query->have_posts() ) {
 						while ( $query->have_posts() ) {
@@ -783,7 +784,7 @@ class CarkeekBlocks_CustomArchive {
 			}
 			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
 		}
-		$block_start       = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ) . '">';
+		$block_start = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ) . '">';
 
 		if ( $query->have_posts() ) {
 			$posts           .= $block_start;

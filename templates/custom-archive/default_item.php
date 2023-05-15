@@ -11,10 +11,10 @@ if ( empty( $data->imageSize ) || $data->imageSize == 'default' ) {
 $image_size = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_default_size', $image_size, $post->ID, $data );
 
 $focal_point = get_post_meta( $post->ID, '_carkeekblocks_featured_image_focal_point', true );
-$style = '';
+$style       = '';
 if ( ! empty( $focal_point ) ) {
-	$x = $focal_point['x'] * 100;
-	$y = $focal_point['y'] * 100;
+	$x     = $focal_point['x'] * 100;
+	$y     = $focal_point['y'] * 100;
 	$style = 'object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;';
 }
 
@@ -39,12 +39,12 @@ if ( true == $data->displayPostExcerpt ) {
 	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
 
-if ( isset($data->noLink) && true == $data->noLink ) {
+if ( isset( $data->noLink ) && true == $data->noLink ) {
 	$link_title = '<div class="ck-custom-archive-title">' . get_the_title() . '</div>';
 } else {
 	// $permalink        = get_permalink(
 	$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
-	$permalink_target = isset($data->newWindow) && true == $data->newWindow ? '_blank' : '_self';
+	$permalink_target = isset( $data->newWindow ) && true == $data->newWindow ? '_blank' : '_self';
 	$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
 	$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
 }
@@ -59,8 +59,8 @@ $meta = array(
 	'before' => '',
 	'after'  => '',
 );
-if ( isset($data->showPublishDate) && true == $data->showPublishDate ) {
-	$prefix                             = isset($data->publishDatePrefix) && true == $data->publishDatePrefix ? '<span class="publish-date-prefix">' . $data->publishDatePrefix . '</span>' : '';
+if ( isset( $data->showPublishDate ) && true == $data->showPublishDate ) {
+	$prefix                             = isset( $data->publishDatePrefix ) && true == $data->publishDatePrefix ? '<span class="publish-date-prefix">' . $data->publishDatePrefix . '</span>' : '';
 	$meta[ $data->publishDateLocation ] = wp_sprintf( '<span class="ck-custom-archive-item-date">%1s %1s</span>', $prefix, get_the_date() );
 }
 // deprecate this in favor of dynamic titles
@@ -71,11 +71,11 @@ $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '
 
 $html_before_excerpt = '';
 $html_after_excerpt  = '';
-if (isset($data->addlContentBefore)){
+if ( isset( $data->addlContentBefore ) ) {
 	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected );
 }
-if (isset($data->addlContentAfter)){
-	$html_after_excerpt  = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected );
+if ( isset( $data->addlContentAfter ) ) {
+	$html_after_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected );
 }
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
@@ -104,10 +104,10 @@ if ( ! empty( $featured_image ) ) {
 		do_action( 'ck_custom_archive_layout__after_title', $data );
 		?>
 		<?php
-			if ( ! empty( $html_before_excerpt ) ) {
-				echo wp_kses_post( $html_before_excerpt );
-			}
-			?>
+		if ( ! empty( $html_before_excerpt ) ) {
+			echo wp_kses_post( $html_before_excerpt );
+		}
+		?>
 		<?php
 		if ( ! empty( $excerpt ) ) {
 			?>
@@ -116,10 +116,10 @@ if ( ! empty( $featured_image ) ) {
 
 		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 		<?php
-			if ( ! empty( $html_after_excerpt ) ) {
-				echo wp_kses_post( $html_after_excerpt );
-			}
-			?>
+		if ( ! empty( $html_after_excerpt ) ) {
+			echo wp_kses_post( $html_after_excerpt );
+		}
+		?>
 		<?php
 		if ( true == $data->showTerms ) {
 			$term_list = '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $data->taxonomySelected, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
@@ -130,11 +130,11 @@ if ( ! empty( $featured_image ) ) {
 		?>
 		<?php
 		if ( true == $data->showLearnMoreLink ) {
-			$link_label = empty( $data->learnMoreLinkTitle ) ? __( 'Learn more', 'wp-rig' ) : $data->learnMoreLinkTitle;
-			$title_class = $data->appendPostTitle ? 'more-link--append-title' : 'screen-reader-text';
-			$more_link  = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s" target="%2s">%2s <span class="%3s">%4s</span></a>', get_the_permalink(), $permalink_target, $link_label, $title_class, get_the_title() );
-			$more_link  = apply_filters( 'ck_custom_archive_layout__more_link', $more_link, $data );
-			$more_link  = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_more_link', $more_link, $data );
+			$link_label  = empty( $data->learnMoreLinkTitle ) ? __( 'Learn more', 'wp-rig' ) : $data->learnMoreLinkTitle;
+			$title_class = isset( $data->appendPostTitle ) && true == $data->appendPostTitle ? 'more-link--append-title' : 'screen-reader-text';
+			$more_link   = wp_sprintf( '<a class="ck-custom-archive-more-link arrow-link" href="%1s" target="%2s">%2s <span class="%3s">%4s</span></a>', get_the_permalink(), $permalink_target, $link_label, $title_class, get_the_title() );
+			$more_link   = apply_filters( 'ck_custom_archive_layout__more_link', $more_link, $data );
+			$more_link   = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_more_link', $more_link, $data );
 
 			echo wp_kses_post( $more_link );
 		}
