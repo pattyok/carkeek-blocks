@@ -154,6 +154,14 @@
     "childTermsOnly": {
       "type": "boolean",
       "default": false
+    },
+    "sortBy": {
+      "type": "string",
+      "default": "date"
+    },
+    "order": {
+      "type": "string",
+      "default": "DESC"
     }
   },
   "supports": {

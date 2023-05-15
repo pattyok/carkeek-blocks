@@ -1,17 +1,13 @@
 
 .ck-columns {
 
-	& .ck-columns__item {
-		margin-bottom: var(--ck-column-gap-vert);
-	}
 
 	& .ck-columns__wrap {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--ck-column-gap);
+		gap: var(--ck-column-gap-vert) var(--ck-column-gap);
 		& > * {
 			flex: 0 1 auto;
-			margin-bottom: var(--ck-column-gap-vert);
 
 			&:last-child {
 				margin-bottom: 0;
