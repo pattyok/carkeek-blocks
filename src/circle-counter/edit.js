@@ -27,8 +27,9 @@
   * @return {WPElement} Element to render.
   */
 function Edit( props ) {
-	const { name, attributes, setAttributes, setColor, setBackgroundColor, color, backgroundColor } = props;
-	const { textBefore, numberVal, max, textAfter, isPercentage, colorHex} = attributes;
+	const { name, attributes, setAttributes, setColor, setBackgroundColor, color, backgroundColor, clientId } = props;
+	const { textBefore, numberVal, max, textAfter, isPercentage, animate } = attributes;
+
 	const maxVal = isPercentage ? 100 : max;
 	const r = 145;
 	const circle = Math.PI * (r * 2);
@@ -80,6 +81,11 @@ function Edit( props ) {
 							label="Text After Number"
 							value={ textAfter }
 							onChange={ ( textAfter ) => setAttributes( { textAfter } ) }
+						/>
+						<ToggleControl
+							label="Animate on Scroll into View"
+							checked={ animate }
+							onChange={ ( animate ) => setAttributes( { animate } ) }
 						/>
 
 						</PanelBody>
