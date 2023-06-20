@@ -83,10 +83,20 @@ if ( isset( $data->addlContentAfter ) ) {
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 
-	?>
+?>
+	<?php if ( false == $data->noLink ) { ?>
 		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
-			<?php echo wp_kses_post( $featured_image ); ?>
+	<?php } else { ?>
+		<div class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>">
+	<?php } ?>
+
+		<?php echo wp_kses_post( $featured_image ); ?>
+
+	<?php if ( false == $data->noLink ) { ?>
 		</a>
+		<?php } else { ?>
+		</div>
+	<?php } ?>
 	<?php } ?>
 	<div class="ck-custom-archive__content-wrap">
 
@@ -114,12 +124,13 @@ if ( ! empty( $featured_image ) ) {
 			<div class="ck-custom-archive-excerpt"><?php echo wp_kses_post( $excerpt ); ?></div>
 		<?php } ?>
 
-		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
+
 		<?php
 		if ( ! empty( $html_after_excerpt ) ) {
 			echo wp_kses_post( $html_after_excerpt );
 		}
 		?>
+		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 		<?php
 		if ( true == $data->showTerms ) {
 			$term_list = '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $data->taxonomySelected, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
