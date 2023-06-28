@@ -55,6 +55,9 @@ function postsInspector(props) {
 		noLink,
         honorStickyPosts,
 		appendPostTitle,
+		headline,
+		morePostsLink,
+		morePostsLinkLabel,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -334,15 +337,40 @@ function postsInspector(props) {
                             setAttributes({ hideIfEmpty: value })
                         }
                     />
-                    {!hideIfEmpty && (
-                        <TextareaControl
-                            label={__("Text to Display if Empty")}
-                            value={emptyMessage}
-                            onChange={value =>
-                                setAttributes({ emptyMessage: value })
-                            }
-                        />
-                    )}
+                    {!hideIfEmpty &&
+						<TextControl
+						label="Empty Result Message"
+						value={ emptyMessage }
+						onChange={value =>
+							setAttributes({ emptyMessage: value })
+						}
+						/>
+					}
+					{hideIfEmpty &&
+					<>
+						<TextControl
+						label="Block Heading"
+						value={ headline }
+						onChange={value =>
+							setAttributes({ headline: value })
+						}
+						/>
+						<TextControl
+						label="More Posts Link"
+						value={ morePostsLink }
+						onChange={value =>
+							setAttributes({ morePostsLink: value })
+						}
+						/>
+						<TextControl
+						label="More Posts Link Label"
+						value={ morePostsLinkLabel }
+						onChange={value =>
+							setAttributes({ morePostsLinkLabel: value })
+						}
+						/>
+					</>
+					}
 
                 </PanelBody>
                 {groupListings &&
