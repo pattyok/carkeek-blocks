@@ -148,6 +148,18 @@
       "type": "boolean",
       "default": true
     },
+    "headline": {
+      "type": "string",
+      "default": ""
+    },
+    "morePostsLink": {
+      "type": "string",
+      "default": ""
+    },
+    "morePostsLinkLabel": {
+      "type": "string",
+      "default": ""
+    },
     "emptyMessage": {
       "type": "string",
       "default": "No posts found."

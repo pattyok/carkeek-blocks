@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.04 =
+* Release 3.2.04 = 06/27/23
+	* Added the ability to set the header and link on the custom archive so we can hide the whole thing when empty
 = 3.2.03 =
 * Release 3.2.03 - 06/20/23
 	* Added Animation to Circle Counter Block
