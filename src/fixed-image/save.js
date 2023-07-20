@@ -27,13 +27,15 @@ export default function save( { attributes } ) {
 		linkStyle,
 		photoCredit,
 		aspectRatio,
+		objectFit
 	} = attributes;
 
 	const newRel = isEmpty( rel ) ? undefined : rel;
 
 	const classes = classnames( {
 		[ `size-${ sizeSlug }` ]: sizeSlug,
-		[ `fixed-image-${ aspectRatio }` ] : aspectRatio
+		[ `fixed-image-${ aspectRatio }` ] : aspectRatio,
+		'is-style-contain': objectFit === 'contain',
 	} );
 
 	let imageStyle = {};
@@ -45,6 +47,7 @@ export default function save( { attributes } ) {
 	const linkClass = classnames( {
 		[ `${ linkStyle }` ]: linkStyle,
 		'ck-fixed-image-wrap': true,
+
 	} );
 
 	const image = (

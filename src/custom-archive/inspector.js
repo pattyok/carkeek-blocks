@@ -58,6 +58,7 @@ function postsInspector(props) {
 		headline,
 		morePostsLink,
 		morePostsLinkLabel,
+		taxTermsIncludeExclude,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -187,6 +188,22 @@ function postsInspector(props) {
                                     help={__("To select multiple [shift]-click", "carkeek-blocks")}
                                 />
                                 : <div className="ck-error">{__("There are no terms assigned to this taxonomy.", "carkeek-blocks")}</div>
+                            }
+							{taxTermsSelected &&
+                                <RadioControl
+                                    label={__("Include or Exclude Terms")}
+                                    selected={taxTermsIncludeExclude}
+                                    options={[
+                                        { label: __("Include"), value: "include" },
+                                        { label: __("Exclude"), value: "exclude" },
+
+                                    ]}
+                                    onChange={value =>
+                                        setAttributes({
+                                            taxTermsIncludeExclude: value
+                                        })
+                                    }
+                                />
                             }
 
                             {taxTermsSelected && (taxTermsSelected.split(',').length > 1) &&

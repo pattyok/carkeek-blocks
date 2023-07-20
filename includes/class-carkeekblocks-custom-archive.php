@@ -318,11 +318,13 @@ class CarkeekBlocks_CustomArchive {
 				);
 
 			} else {
+				$tax_operator = isset( $attributes['taxTermsIncludeExclude'] ) && 'exclude' == $attributes['taxTermsIncludeExclude'] ? 'NOT IN' : 'IN';
 				$args['tax_query'] = array(
 					array(
 						'taxonomy' => $attributes['taxonomySelected'],
 						'field'    => 'term_id',
 						'terms'    => $tax_terms,
+						'operator' => $tax_operator,
 					),
 				);
 			}

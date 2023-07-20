@@ -74,6 +74,7 @@ export function ImageEdit( {
 		height,
 		sizeSlug,
 		aspectRatio,
+		objectFit
 	} = attributes;
 
 	const altRef = useRef();
@@ -202,7 +203,8 @@ export function ImageEdit( {
 		'is-resized': !! width || !! height,
 		'is-focused': isSelected,
 		[ `size-${ sizeSlug }` ]: sizeSlug,
-		[ `fixed-image-${ aspectRatio }` ] : aspectRatio
+		[ `fixed-image-${ aspectRatio }` ] : aspectRatio,
+		'is-style-contain': objectFit === 'contain',
 	} );
 
 	const blockProps = useBlockProps( {
@@ -243,3 +245,5 @@ export function ImageEdit( {
 }
 
 export default withNotices( ImageEdit );
+
+

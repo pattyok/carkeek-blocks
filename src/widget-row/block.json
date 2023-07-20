@@ -17,6 +17,12 @@
 		  "right"
 		]
 	},
+	"styles" : [
+		{ "name": "default", "label": "Default", "isDefault": true },
+		{ "name": "border-solid", "label": "Borders Solid" },
+		{ "name": "border-dashed", "label": "Borders Dashed" },
+		{ "name": "border-dotted", "label": "Borders Dotted" }
+	],
 	"attributes": {
 		"innerBlockType": {
 		  "type": "string"
@@ -50,6 +56,18 @@
 		"alignInnerBlocks": {
 		  "type": "string",
 		  "default": "left"
+		},
+		"customGap": {
+		  "type": "boolean",
+		  "default": false
+		},
+		"rowGap": {
+		  "type": "number",
+		  "default": 3
+		},
+		"columnGap": {
+		  "type": "number",
+		  "default": 3
 		}
 	},
 	"textdomain": "carkeek-blocks",

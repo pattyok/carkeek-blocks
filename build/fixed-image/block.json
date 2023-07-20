@@ -95,6 +95,10 @@
     "aspectRatio": {
       "type": "string"
     },
+    "objectFit": {
+      "type": "string",
+      "default": "cover"
+    },
     "linkDestination": {
       "type": "string"
     },

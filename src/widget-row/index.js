@@ -1,5 +1,5 @@
 import "./editor.scss";
-
+import "./style.scss";
 import icons from "./icons";
 import edit from "./edit";
 import deprecated from "./deprecated";
@@ -27,7 +27,7 @@ registerBlockType(metadata, {
     deprecated,
 
     save({ attributes } ) {
-        const { allowItemsWrap, itemsPerRow, layoutType, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes
+        const { allowItemsWrap, itemsPerRow, layoutType, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks, customGap, columnGap, rowGap } = attributes
         const blockProps = useBlockProps.save();
 
         return (
@@ -40,6 +40,8 @@ registerBlockType(metadata, {
                     [`has-${itemsPerRow}-columns`]: alignInnerBlocks !== 'stretch' || layoutType == 'grid',
                     [`has-${itemsPerRowMobile}-columns-mobile`]: true,
                     [`has-${itemsPerRowTablet}-columns-tablet`]: true,
+					[`ck-columns-col-gap-${columnGap}`]: customGap,
+					[`ck-columns-row-gap-${rowGap}`]: customGap,
                 }) }
                 >
                 <div className={ 'ck-columns__wrap' }>

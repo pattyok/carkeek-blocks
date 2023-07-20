@@ -140,6 +140,10 @@
       "type": "string",
       "default": ""
     },
+    "taxTermsIncludeExclude": {
+      "type": "string",
+      "default": "include"
+    },
     "taxQueryType": {
       "type": "string",
       "default": "AND"

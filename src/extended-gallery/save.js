@@ -12,6 +12,9 @@ function ExtendedGallerySave ({ attributes }) {
         displayAs,
         viewLimit,
         cropImages,
+		containImages,
+		imageHeight,
+		imageWidth,
         linkImages,
         columns,
         columnsMobile,
@@ -113,6 +116,11 @@ function ExtendedGallerySave ({ attributes }) {
                         imageStyle.objectPosition = `${img.focalPointX *
                             100}% ${img.focalPointY * 100}%`;
                     }
+					if (containImages) {
+						imageStyle.objectFit = 'contain';
+						imageStyle.height = imageHeight + 'px';
+						imageStyle.width = imageWidth + 'px';
+					}
                     const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit),

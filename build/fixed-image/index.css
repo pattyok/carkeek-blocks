@@ -1,1 +1,18 @@
-.editor-styles-wrapper .wp-block-carkeek-blocks-fixed-image img{height:100%;position:absolute}.block-editor-block-toolbar__slot{align-items:center}
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/fixed-image/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.editor-styles-wrapper .wp-block-carkeek-blocks-fixed-image img {
+  position: absolute;
+  height: 100%;
+}
+
+.block-editor-block-toolbar__slot {
+  align-items: center;
+}
+
+/*# sourceMappingURL=index.css.map*/

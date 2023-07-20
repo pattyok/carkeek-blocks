@@ -43,6 +43,9 @@ export const GalleryImage = ( props ) => {
 		setAttributes,
 		showCaptions,
 		cropImages,
+		containImages,
+		imageHeight,
+		imageWidth,
 		'aria-label': ariaLabel,
 		onDeselect,
 		inlineEdit,
@@ -105,6 +108,11 @@ export const GalleryImage = ( props ) => {
 	const imageStyle = {
 		objectPosition : `${focalPointX *
 			100}% ${focalPointY * 100}%`
+	}
+	if (containImages) {
+		imageStyle.objectFit = 'contain';
+		imageStyle.height = imageHeight + 'px';
+		imageStyle.width = imageWidth + 'px';
 	}
 
 	const img = (

@@ -11,7 +11,7 @@ import { MediaPlaceholder, MediaUpload, MediaUploadCheck, InspectorControls } fr
 import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { PanelBody, SelectControl, RadioControl, ToggleControl } from "@wordpress/components";
+import { PanelBody, SelectControl, RadioControl, ToggleControl, __experimentalNumberControl as NumberControl }  from "@wordpress/components";
 import { withSelect } from '@wordpress/data';
 import useGetMedia from './use-get-media';
 //import { useMemo } from '@wordpress/element';
@@ -42,6 +42,9 @@ export const Gallery = ( props ) => {
 		columnsTablet,
 		columnGap,
 		cropImages,
+		containImages,
+		imageHeight,
+		imageWidth,
 		imageLayout,
 		linkImages,
 		showCaptions,
@@ -58,7 +61,7 @@ export const Gallery = ( props ) => {
 	const isCarousel = displayAs == 'carousel';
 
 	const galleryStyle = classnames({
-		'blocks-gallery-grid': true,
+		'ck-blocks-gallery-grid': true,
 		[ `columns-${ columns }` ]: isGallery,
 		[ `columns-m-${ columnsMobile }` ]: isGallery,
 		[ `columns-t-${ columnsTablet }` ]: isGallery,
@@ -209,6 +212,31 @@ export const Gallery = ( props ) => {
 						onChange={ ( cropImages ) => setAttributes( { cropImages } ) }
 					/>
 					{!cropImages &&
+					<>
+					<ToggleControl
+						label="Crop Images"
+						help={ "Contain the images within a uniform size"}
+						checked={ containImages }
+						onChange={ ( containImages ) => setAttributes( { containImages } ) }
+					/>
+					{ containImages &&
+						<>
+						<NumberControl
+							label="Image Width"
+							value={ imageWidth }
+							onChange={ ( imageWidth ) => setAttributes( { imageWidth } ) }
+							min={ 0 }
+							>
+						</NumberControl>
+						<NumberControl
+							label="Image Height"
+							value={ imageHeight }
+							onChange={ ( imageHeight ) => setAttributes( { imageHeight } ) }
+							min={ 0 }
+						>
+						</NumberControl>
+						</>
+					}
 					<SelectControl
 						label="Vertically Align Images"
 						selected={ imageAlignment }
@@ -221,6 +249,7 @@ export const Gallery = ( props ) => {
 							setAttributes({ imageAlignment: value })
 						}
 					/>
+					</>
 					}
                     {cropImages && (
 						<RadioControl
@@ -267,7 +296,7 @@ export const Gallery = ( props ) => {
 					);
 
 					const itemStyle = classnames({
-                        'blocks-gallery-item': true,
+                        'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (isCarousel && index >= slidesToShow)
                     })
 
@@ -300,6 +329,9 @@ export const Gallery = ( props ) => {
 								setAttributes={ ( attrs ) =>
 									setImageAttributes( index, attrs )
 								}
+								containImages = { containImages }
+								imageHeight = { imageHeight }
+								imageWidth = { imageWidth }
 								cropImages = { cropImages }
 								linkImages = { linkImages }
 								customLink={img.customLink}

@@ -13,7 +13,7 @@ import { dispatch, useSelect } from "@wordpress/data";
 
 export default function CollapseSectionEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { innerBlockType,  layoutType, allowedBlocks, allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks } = attributes;
+    const { innerBlockType,  layoutType, allowedBlocks, allowItemsWrap, itemsPerRow, itemsPerRowMobile, itemsPerRowTablet, alignInnerBlocks, customGap, columnGap, rowGap } = attributes;
 
 /* for existing blocks we set to flex as that was previously the default */
     if (!layoutType) {
@@ -95,6 +95,34 @@ export default function CollapseSectionEdit( props ) {
                             setAttributes({ alignInnerBlocks: value })
                         }
                     />
+					<ToggleControl
+                        label={__("Customize Gaps")}
+                        checked={customGap}
+                        onChange={value =>
+                            setAttributes({ customGap: value })
+                        }
+                    />
+
+					{ customGap &&
+					<>
+						<RangeControl
+							label={__("Column Gap", "carkeek-blocks")}
+							value={ columnGap }
+							help={"Set the space between each item"}
+							onChange={ ( val ) => setAttributes( { columnGap: parseInt(val) } ) }
+							min={0}
+							max={8}
+						/>
+						<RangeControl
+							label={__("Row Gap", "carkeek-blocks")}
+							value={ rowGap }
+							help={"Set the space between each row"}
+							onChange={ ( val ) => setAttributes( { rowGap: parseInt(val) } ) }
+							min={0}
+							max={8}
+						/>
+					</>
+					}
                     </>
                     }
                     { (allowItemsWrap || alignInnerBlocks !== 'stretch') && (
@@ -163,6 +191,7 @@ export default function CollapseSectionEdit( props ) {
                     [`has-${itemsPerRowTablet}-columns-tablet`]: true,
             })}
             >
+
                 {innerBlockType ?
                     <InnerBlocks
                     allowedBlocks = { myAllowedBlocks }
@@ -174,6 +203,7 @@ export default function CollapseSectionEdit( props ) {
                     orientation="horizontal"
                     />
                 }
+
         </div>
         </>
     )

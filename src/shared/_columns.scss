@@ -1,6 +1,60 @@
 
 .ck-columns {
+	&.ck-columns-col-gap-0 {
+		--ck-column-gap: 0;
+	}
+	&.ck-columns-col-gap-1 {
+		--ck-column-gap: var(--wp--preset--spacing--10);
+	}
+	&.ck-columns-col-gap-2 {
+		--ck-column-gap: var(--wp--preset--spacing--20);
+	}
+	&.ck-columns-col-gap-3 {
+		--ck-column-gap: var(--wp--preset--spacing--30);
+	}
+	&.ck-columns-col-gap-4 {
+		--ck-column-gap: var(--wp--preset--spacing--40);
+	}
+	&.ck-columns-col-gap-5 {
+		--ck-column-gap: var(--wp--preset--spacing--50);
+	}
+	&.ck-columns-col-gap-6 {
+		--ck-column-gap: var(--wp--preset--spacing--60);
+	}
+	&.ck-columns-col-gap-7 {
+		--ck-column-gap: var(--wp--preset--spacing--70);
+	}
+	&.ck-columns-col-gap-8 {
+		--ck-column-gap: var(--wp--preset--spacing--80);
+	}
 
+	&.ck-columns-row-gap-0 {
+		--ck-column-gap-vert: 0;
+	}
+	&.ck-columns-row-gap-1 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--10);
+	}
+	&.ck-columns-row-gap-2 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--20);
+	}
+	&.ck-columns-row-gap-3 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--30);
+	}
+	&.ck-columns-row-gap-4 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--40);
+	}
+	&.ck-columns-row-gap-5 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--50);
+	}
+	&.ck-columns-row-gap-6 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--60);
+	}
+	&.ck-columns-row-gap-7 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--70);
+	}
+	&.ck-columns-row-gap-8 {
+		--ck-column-gap-vert: var(--wp--preset--spacing--80);
+	}
 
 	& .ck-columns__wrap {
 		display: flex;

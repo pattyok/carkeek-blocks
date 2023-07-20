@@ -51,4 +51,11 @@
 
 		}
 	}
+	&.is-style-contain {
+		.ck-fixed-image-wrap {
+			img {
+				object-fit: contain;
+			}
+		}
+	}
 }

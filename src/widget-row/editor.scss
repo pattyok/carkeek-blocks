@@ -8,6 +8,42 @@
 	}
 }
 
+.wp-block-carkeek-blocks-widget-row {
+	&[class*=is-style-border-]{
+		--ck-border-width: 1px;
+		& .block-editor-block-list__layout {
+			gap: var(--ck-column-gap-vert) 0;
+		}
+		&.ck-columns-layout-grid {
+			& .block-editor-block-list__layout {
+				gap: var(--ck-column-gap-vert) 0;
+			}
+		}
+
+		& .block-editor-block-list__layout > * {
+			border: 0;
+			border-right: var(--ck-border-width) solid;
+			padding-left: calc(var(--ck-column-gap)/2);
+			padding-right: calc(var(--ck-column-gap)/2);
+			&:last-child {
+				border: none;
+			}
+		}
+
+	}
+	&.is-style-border-dashed {
+		& .block-editor-block-list__layout > * {
+			border-style: dashed;
+		}
+	}
+	&.is-style-border-dotted {
+		& .block-editor-block-list__layout > * {
+			border-style: dotted;
+		}
+	}
+
+}
+
 
 @media screen and (min-width: 600px) {
 

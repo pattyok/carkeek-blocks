@@ -18,7 +18,8 @@ import {
 	SelectControl,
 	ToggleControl,
 	ToolbarButton,
-	ToolbarItem
+	ToolbarItem,
+	RadioControl
 } from '@wordpress/components';
 import { usePrevious } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
@@ -67,7 +68,8 @@ export default function Image( {
 		useCaption,
 		useLink,
 		photoCredit,
-		aspectRatio
+		aspectRatio,
+		objectFit
 	},
 	setAttributes,
 	isSelected,
@@ -300,6 +302,16 @@ export default function Image( {
 							options={ imageSizeOptions }
 							onChange={ updateImage }
 							value={sizeSlug}
+						/>
+						<RadioControl
+							label={__("Image Fit", "carkeek-blocks")}
+							help={__("How the image should fit within the container. Cover will crop the image to fit, contain, will not", "carkeek-blocks")}
+							selected={objectFit}
+							options={[
+								{ label: __("Cover"), value: "cover"},
+								{ label: __("Contain"), value: "contain"},
+							]}
+							onChange={value => setAttributes({ objectFit: value })}
 						/>
 
                         <FocalPointPicker

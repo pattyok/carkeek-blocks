@@ -129,6 +129,18 @@
       "type": "boolean",
       "default": false
     },
+    "containImages": {
+      "type": "boolean",
+      "default": false
+    },
+    "imageHeight": {
+      "type": "number",
+      "default": 175
+    },
+    "imageWidth": {
+      "type": "number",
+      "default": 250
+    },
     "imageLayout": {
       "type": "string",
       "default": "landscape"
