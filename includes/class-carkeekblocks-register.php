@@ -138,7 +138,7 @@ class CarkeekBlocks_Block_Register {
 		$vendor = 'vendor/';
 
 		// load shared assets for specific blocks only.
-		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' ) ) {
+		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {
 			wp_enqueue_script(
 				'slick-slider',
 				plugins_url( $vendor . 'slick.js', dirname( __FILE__ ) ),

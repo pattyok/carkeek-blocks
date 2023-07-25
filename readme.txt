@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.06 =
+* Release 3.2.06 = 07/25/23
+	* Fix to lightbox gallery to load slick
 = 3.2.05 =
 * Release 3.2.05 = 07/20/23
 	* Added the option to contain (or cover) a fixed image or gallery image
