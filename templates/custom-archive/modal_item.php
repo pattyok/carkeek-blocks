@@ -4,13 +4,13 @@
 	$modal_body_image = '';
 
 	$focal_point = get_post_meta( $post->ID, '_carkeekblocks_featured_image_focal_point', true );
-	$style = '';
-	if ( ! empty( $focal_point ) ) {
-		$x = $focal_point['x'] * 100;
-		$y = $focal_point['y'] * 100;
-		$style = 'object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;';
-	}
-	$image            = get_the_post_thumbnail( $post->ID, 'large', array( 'style' => $style ) );
+	$style       = '';
+if ( ! empty( $focal_point ) ) {
+	$x     = $focal_point['x'] * 100;
+	$y     = $focal_point['y'] * 100;
+	$style = 'object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;';
+}
+	$image = get_the_post_thumbnail( $post->ID, 'large', array( 'style' => $style ) );
 
 if ( ! empty( $image ) ) {
 
@@ -82,6 +82,7 @@ if ( true == $data->useHeadingTitle ) {
 							echo wp_kses_post( $html_before_excerpt );
 						}
 						?>
+						<?php do_action( 'ck_custom_archive_layout_modal_dialog__header_bottom', $data ); ?>
 					</div>
 					<div class="ck-modal-item-details">
 						<?php do_action( 'ck_custom_archive_layout_modal_dialog__before_content', $data ); ?>

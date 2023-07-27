@@ -43,7 +43,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 (or jpg, jpeg, gif).
 2. This is the second screen shot
 
-== Changelog ==
+== Changelog === 3.2.07 =
+* Release 3.2.08 = 07/27/23
+	* Added action to end of header on modal template
 = 3.2.07 =
 * Release 3.2.07 = 07/25/23
 	* Fix to lightbox gallery to load slick
