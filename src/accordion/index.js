@@ -19,9 +19,11 @@ import './style.scss';
  */
 import Edit from './edit';
 import save from './save';
+import deprecated from "./deprecated";
 import metadata from './block.json';
 import icon from './icon';
 
+console.log(deprecated);
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -32,6 +34,7 @@ registerBlockType( metadata, {
 	/**
 	 * @see ./edit.js
 	 */
+	deprecated,
 	edit: Edit,
 
 	/**
