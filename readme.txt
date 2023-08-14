@@ -44,6 +44,8 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog === 3.2.07 =
+* Release 3.2.09 = 08/14/23
+	* Fix to accordion to not open multiple at once.
 * Release 3.2.08 = 07/27/23
 	* Added action to end of header on modal template
 = 3.2.07 =

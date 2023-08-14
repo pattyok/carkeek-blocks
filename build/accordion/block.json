@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
   "name": "carkeek-blocks/accordion",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "title": "Accordion Block",
   "category": "widgets",
   "description": "Accordion block.",

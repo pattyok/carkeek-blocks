@@ -24,10 +24,14 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
  */
 export default function save( {attributes} ) {
 	const{ openMultiple } = attributes;
+	let multi = {};
+	if ( openMultiple ) {
+		multi = {'data-multi' : true };
+	}
 	const blockProps = useBlockProps.save();
         return (
             <div { ...blockProps } >
-                <div data-aria-accordion data-transition data-multi={openMultiple}>
+                <div data-aria-accordion data-transition { ...multi }>
                 <InnerBlocks.Content />
                 </div>
             </div>
