@@ -1,0 +1,11 @@
+.wp-block-carkeek-blocks-video-lite {
+	border: 1px solid #ddd;
+	padding: 1rem;
+	& .wp-block-carkeek-blocks-video-lite {
+		padding: 0;
+	}
+	& .video-lite-wrapper {
+		background-color: #efefef;
+		padding: 1rem;
+	}
+}

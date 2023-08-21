@@ -23,7 +23,6 @@ import deprecated from "./deprecated";
 import metadata from './block.json';
 import icon from './icon';
 
-console.log(deprecated);
 /**
  * Every block starts by registering a new block type definition.
  *

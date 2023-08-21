@@ -74,6 +74,7 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/circle-counter" );
 		register_block_type( "$dir/build/featured-image" );
 		register_block_type( "$dir/build/related-events-archive" );
+		register_block_type( "$dir/build/video-lite" );
 		// register_block_type( "$dir/build/custom-featured" );
 
 		/** Dynamic Blocks */
@@ -166,7 +167,7 @@ class CarkeekBlocks_Block_Register {
 			);
 		}
 
-		if ( !is_admin() && (has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive')) ) {
+		if ( ! is_admin() && ( has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive' ) ) ) {
 			wp_enqueue_script(
 				'bootsrap-modal',
 				plugins_url( $vendor . 'bootstrap.bundle.min.js', dirname( __FILE__ ) ),
