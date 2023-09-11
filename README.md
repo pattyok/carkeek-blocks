@@ -20,6 +20,9 @@ Use with the GitHub Updater Plugin to install and update on sites. https://githu
 ## Releases
 
 == Changelog ==
+= 3.2.13 =
+* Release 3.2.10-13 = 09/11/23
+	* Fix to styles on Widget Row Block
 = 3.2.10 =
 * Release 3.2.10 = 08/21/23
 	* Add new block to use Youtube Lite and Vimeo Lite
