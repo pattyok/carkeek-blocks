@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.11 =
+* Release 3.2.11 = 09/11/23
+	* Style updates to the Widget Row Block with Borders
 = 3.2.10 =
 * Release 3.2.10 = 08/21/23
 	* Add new block to use Youtube Lite and Vimeo Lite

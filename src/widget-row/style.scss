@@ -13,13 +13,17 @@
 		& .ck-columns__wrap > * {
 			border: 0;
 			border-right: var(--ck-border-width) solid;
-			padding-left: calc(var(--ck-column-gap)/2);
-			padding-right: calc(var(--ck-column-gap)/2);
+			padding: calc(var(--ck-column-gap)/2);
 			&:last-child {
 				border: none;
 			}
 		}
 
+	}
+	&.is-style-border-solid {
+		& .ck-columns__wrap > * {
+			border-style: solid;
+		}
 	}
 	&.is-style-border-dashed {
 		& .ck-columns__wrap > * {
@@ -35,6 +39,9 @@
 }
 @media screen and (max-width: 599px) {
 	.wp-block-carkeek-blocks-widget-row {
+		&.ck-columns.ck-columns-align-stretch .ck-columns__wrap > * {
+
+		}
 		&[class*=is-style-border-]{
 			&.ck-columns {
 					&.has-1-columns-mobile {
@@ -42,7 +49,12 @@
 							gap: 0;
 							& > * {
 								border-right: none;
-								border-bottom: 1px solid;
+								border-bottom-width: 1px;
+								padding-left: 0;
+								padding-right: 0;
+								&:first-child {
+									padding-top:  0;
+								}
 								&:last-child {
 									border-bottom: none;
 								}
@@ -53,9 +65,13 @@
 					&.has-2-columns-mobile {
 
 						& .ck-columns__wrap > * {
-
+							margin-right: 0;
 							&:nth-child(2n) {
 								border: none;
+								padding-right: 0;
+							}
+							&:nth-child(2n + 1) {
+								padding-left: 0;
 							}
 						}
 					}
@@ -63,8 +79,13 @@
 					&.has-3-columns-mobile {
 
 						& .ck-columns__wrap > * {
+							margin-right: 0;
 							&:nth-child(3n) {
 								border: none;
+								padding-right: 0;
+							}
+							&:nth-child(3n + 1) {
+								padding-left: 0;
 							}
 						}
 					}
@@ -72,18 +93,26 @@
 					&.has-4-columns-mobile {
 
 						& .ck-columns__wrap > * {
-
+							margin-right: 0;
 							&:nth-child(4n) {
 								border: none;
+								padding-right: 0;
+							}
+							&:nth-child(4n + 1) {
+								padding-left: 0;
 							}
 						}
 					}
 
 					&.has-5-columns-mobile {
-
 						& .ck-columns__wrap > * {
+							margin-right: 0;
 							&:nth-child(5n) {
 								border: none;
+								padding-right: 0;
+							}
+							&:nth-child(5n + 1) {
+								padding-left: 0;
 							}
 						}
 					}
@@ -91,8 +120,13 @@
 					&.has-6-columns-mobile {
 
 						& .ck-columns__wrap > * {
-							&:nth-child(6n+6) {
+							margin-right: 0;
+							&:nth-child(6n) {
 								border: none;
+								padding-right: 0;
+							}
+							&:nth-child(6n + 1) {
+								padding-left: 0;
 							}
 						}
 					}
@@ -127,6 +161,10 @@
 
 						&:nth-child(2n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(2n + 1) {
+							padding-left: 0;
 						}
 
 					}
@@ -138,6 +176,10 @@
 
 						&:nth-child(3n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(3n + 1) {
+							padding-left: 0;
 						}
 
 					}
@@ -149,6 +191,10 @@
 
 						&:nth-child(4n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(4n + 1) {
+							padding-left: 0;
 						}
 					}
 				}
@@ -159,6 +205,10 @@
 
 						&:nth-child(5n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(5n + 1) {
+							padding-left: 0;
 						}
 
 					}
@@ -170,6 +220,10 @@
 
 						&:nth-child(6n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(6n + 1) {
+							padding-left: 0;
 						}
 
 					}
@@ -185,6 +239,14 @@
 	.wp-block-carkeek-blocks-widget-row {
 		&[class*=is-style-border-]{
 			&.ck-columns {
+				& .ck-columns__wrap > * {
+					&:first-child {
+						padding-left: 0;
+					}
+					&:last-child {
+						padding-right: 0;
+					}
+				}
 
 				&.has-1-columns {
 					& .ck-columns__wrap  {
@@ -205,6 +267,10 @@
 					& .ck-columns__wrap > * {
 						&:nth-child(2n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(2n + 1) {
+							padding-left: 0;
 						}
 					}
 				}
@@ -214,6 +280,10 @@
 					& .ck-columns__wrap > * {
 						&:nth-child(3n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(3n + 1) {
+							padding-left: 0;
 						}
 					}
 				}
@@ -224,6 +294,10 @@
 
 						&:nth-child(4n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(4n + 1) {
+							padding-left: 0;
 						}
 					}
 				}
@@ -233,6 +307,10 @@
 					& .ck-columns__wrap > * {
 						&:nth-child(5n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(5n + 1) {
+							padding-left: 0;
 						}
 					}
 				}
@@ -243,6 +321,10 @@
 					& .ck-columns__wrap > * {
 						&:nth-child(5n) {
 							border: none;
+							padding-right: 0;
+						}
+						&:nth-child(5n + 1) {
+							padding-left: 0;
 						}
 					}
 				}
