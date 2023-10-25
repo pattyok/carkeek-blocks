@@ -1,0 +1,64 @@
+.wp-block-carkeek-blocks-line-chart {
+	display: flex;
+	flex-direction: column;
+	&.aligncenter {
+		& > * {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	&.justify-content-center {
+		justify-content: center;
+	}
+	&.justify-content-right {
+		justify-content: flex-end;
+	}
+	&.justify-content-left {
+		justify-content: flex-start;
+	}
+
+	& .ck-line-chart--text {
+		display: flex;
+		justify-content: space-between;
+		& .value {
+			font-weight: var(--font-weight--bold, 700);
+		}
+	}
+	& .ck-line-chart--line {
+		position: relative;
+		width: 100%;
+		& span {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	&.ck-line-chart-vertical {
+		height: 100%;
+		& .ck-line-chart--line {
+			& span {
+				display: block;
+				position: absolute;
+				top: auto;
+				left: 0;
+				bottom: 0;
+			}
+		}
+	}
+	&.is-style-rounded {
+		& .ck-line-chart--line {
+			border-radius: 20px;
+			& span {
+				border-radius: 20px 0 0 20px ;
+			}
+		}
+		&.pct-100 {
+			& .ck-line-chart--line {
+				& span {
+					border-radius: 20px;
+				}
+			}
+		}
+	}
+}

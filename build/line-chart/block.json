@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/line-chart",
+  "version": "0.1.0",
+  "title": "Progress Bar",
+  "category": "widgets",
+  "description": "Create an animated progress or bar chart.",
+  "icon": "chart-bar",
+  "keywords": [
+    "progress",
+    "bar",
+    "chart",
+    "line",
+    "graph"
+  ],
+  "supports": {
+    "html": false,
+    "align": [
+      "left",
+      "center",
+      "right"
+    ]
+  },
+  "styles": [
+    {
+      "name": "default",
+      "label": "Default",
+      "isDefault": true
+    },
+    {
+      "name": "rounded",
+      "label": "Rounded Edges"
+    }
+  ],
+  "textdomain": "carkeek-blocks",
+  "attributes": {
+    "numberVal": {
+      "type": "number",
+      "default": 0
+    },
+    "numberValGoal": {
+      "type": "number",
+      "default": 0
+    },
+    "expressAs": {
+      "type": "string",
+      "default": "dollar"
+    },
+    "textBeforeVal": {
+      "type": "string",
+      "default": ""
+    },
+    "textAfterVal": {
+      "type": "string",
+      "default": ""
+    },
+    "textBeforeGoal": {
+      "type": "string",
+      "default": ""
+    },
+    "textAfterGoal": {
+      "type": "string",
+      "default": ""
+    },
+    "color": {
+      "type": "string"
+    },
+    "customColor": {
+      "type": "string"
+    },
+    "colorHex": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "customBackgroundColor": {
+      "type": "string"
+    },
+    "backgroundColorHex": {
+      "type": "string",
+      "default": "rgba(0, 0, 0, 0)"
+    },
+    "className": {
+      "type": "string"
+    },
+    "animate": {
+      "type": "boolean",
+      "default": true
+    },
+    "barLength": {
+      "type": "string",
+      "default": "300"
+    },
+    "barThickness": {
+      "type": "string",
+      "default": "20"
+    },
+    "direction": {
+      "type": "string",
+      "default": "horizontal"
+    },
+    "align": {
+      "type": "string",
+      "default": "center"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./script.js"
+}
