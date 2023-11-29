@@ -85,7 +85,7 @@ if ( ! empty( $featured_image ) ) {
 
 ?>
 	<?php if ( false == $data->noLink ) { ?>
-		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-hidden="true" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
+		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-hidden="true" tabindex="-1" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 	<?php } else { ?>
 		<div class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>">
 	<?php } ?>
