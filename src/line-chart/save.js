@@ -48,14 +48,14 @@
 		if ( value == 'horizontal' ) {
 			lineStyle = { maxWidth: barLength + 'px', height: barThickness + 'px' };
 			spanStyle = { height: barThickness + 'px', width: pct + '%' };
-			blockStyle = { width: barLength + 'px' };
+			blockStyle = { maxWidth: barLength + 'px' };
 			if (animate) {
 				spanStyle.width = '0';
 			}
 		} else {
 			lineStyle = { width: barThickness + 'px', maxHeight: barLength + 'px' };
 			spanStyle = { width: barThickness + 'px', height: pct + '%' };
-			blockStyle = { height: barLength + 'px' };
+			blockStyle = { maxHeight: barLength + 'px' };
 			if (animate) {
 				spanStyle.height = '0';
 			}

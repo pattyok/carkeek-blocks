@@ -20,6 +20,7 @@
 	& .ck-line-chart--text {
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
 		& .value {
 			font-weight: var(--font-weight--bold, 700);
 		}

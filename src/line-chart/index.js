@@ -13,6 +13,7 @@
  //import icon from './icon';
  import Edit from './edit';
  import Save from './save';
+ import deprecated from './deprecated';
  import metadata from './block.json';
  import icons from './icon';
 
@@ -26,5 +27,6 @@
  registerBlockType( metadata, {
 
 	 edit: Edit,
-	 save: Save
+	 save: Save,
+	 deprecated
  } );
