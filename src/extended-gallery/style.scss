@@ -35,7 +35,7 @@ ul.ck-blocks-gallery-grid {
 	/** use flex not grid so that the danglers can be center aligned **/
 	display: flex;
 	flex-wrap: wrap;
-	gap: 2rem var(--ck-gallery-gutter);
+	gap: var(--ck-gallery-gutter);
 	padding: 0;
 	& img {
 		width: 100%;
@@ -90,6 +90,10 @@ ul.ck-blocks-gallery-grid {
 
 	&.aligncenter {
 		justify-content: center;
+		& img {
+			margin-left: auto;
+			margin-right: auto;
+		}
 	}
 
 	&.alignright {

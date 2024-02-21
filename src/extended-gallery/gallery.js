@@ -214,8 +214,8 @@ export const Gallery = ( props ) => {
 					{!cropImages &&
 					<>
 					<ToggleControl
-						label="Crop Images"
-						help={ "Contain the images within a uniform size"}
+						label="Contain Images"
+						help={ "Contain the images within a uniform size, set height and/or width below."}
 						checked={ containImages }
 						onChange={ ( containImages ) => setAttributes( { containImages } ) }
 					/>
