@@ -134,12 +134,10 @@
       "default": false
     },
     "imageHeight": {
-      "type": "number",
-      "default": 175
+      "type": "string"
     },
     "imageWidth": {
-      "type": "number",
-      "default": 250
+      "type": "string"
     },
     "imageLayout": {
       "type": "string",

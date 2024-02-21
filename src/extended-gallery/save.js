@@ -56,6 +56,7 @@ function ExtendedGallerySave ({ attributes }) {
         [ `columns-t-${ columnsTablet }` ]: isGallery,
         [ `align${ horizontalAlign }` ]: isGallery,
 		'fixed-images': cropImages,
+		'contain-images': containImages,
         [ `fixed-images-${ imageLayout }` ]: cropImages,
         'mobile-scroll': mobileScroll,
         [ `image-align-${ imageAlignment }` ]: !cropImages,
@@ -118,8 +119,13 @@ function ExtendedGallerySave ({ attributes }) {
                     }
 					if (containImages) {
 						imageStyle.objectFit = 'contain';
-						imageStyle.height = imageHeight + 'px';
-						imageStyle.width = imageWidth + 'px';
+						console.log(imageHeight, imageWidth);
+						if (imageHeight) {
+							imageStyle.height = imageHeight + 'px';
+						}
+						if (imageWidth) {
+							imageStyle.width = imageWidth + 'px';
+						}
 					}
                     const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
