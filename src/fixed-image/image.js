@@ -417,14 +417,10 @@ export default function Image( {
 					aria-label={ __( 'Image caption text' ) }
 					placeholder={ __( 'Write caption…' ) }
 					value={ caption }
-					unstableOnFocus={ onFocusCaption }
+					multiline={ true }
+					allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
 					onChange={ ( value ) =>
 						setAttributes( { caption: value } )
-					}
-					isSelected={ captionFocused }
-					inlineToolbar
-					__unstableOnSplitAtEnd={ () =>
-						insertBlocksAfter( createBlock( 'core/paragraph' ) )
 					}
 				/>
 			) }
