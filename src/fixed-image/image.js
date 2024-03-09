@@ -163,6 +163,7 @@ export default function Image( {
 			setCaptionFocused( false );
 		}
 	}
+	console.log(captionFocused);
 	function onRemoveImage() {
 		setAttributes( {
 			url: undefined,
@@ -417,11 +418,13 @@ export default function Image( {
 					aria-label={ __( 'Image caption text' ) }
 					placeholder={ __( 'Write caption…' ) }
 					value={ caption }
-					multiline={ true }
-					allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
 					onChange={ ( value ) =>
 						setAttributes( { caption: value } )
 					}
+					onClick={ onFocusCaption }
+					allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
+					isSelected={ captionFocused }
+
 				/>
 			) }
         </>
