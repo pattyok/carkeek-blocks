@@ -163,7 +163,7 @@ export default function Image( {
 			setCaptionFocused( false );
 		}
 	}
-	console.log(captionFocused);
+
 	function onRemoveImage() {
 		setAttributes( {
 			url: undefined,
