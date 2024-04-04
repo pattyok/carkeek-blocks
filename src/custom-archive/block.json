@@ -53,6 +53,10 @@
             "type": "boolean",
             "default": false
         },
+		"wholeLink": {
+            "type": "boolean",
+            "default": false
+        },
 		"appendPostTitle": {
 			"type": "boolean",
 			"default": false
@@ -221,6 +225,10 @@
             "default": ""
         },
 		"backgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"useWithFilter": {
 			"type": "string",
 			"default": ""
 		}

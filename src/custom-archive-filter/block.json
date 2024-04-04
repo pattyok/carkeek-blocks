@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "carkeek-blocks/custom-archive-filter",
+    "title": "Custom Post Type Archive Filter",
+    "category": "widgets",
+    "description": "Simple filter for the Custom Post Type Archive.",
+    "keywords": [ "archive", "posts", "list", "filter" ],
+    "version": "1.0.0",
+    "textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"icon": "filter",
+    "supports": {
+        "align": ["wide", "full", "left", "center", "right"],
+        "anchor": true,
+		"color": {
+			"background": true,
+			"text": true,
+			"link": true
+		}
+	},
+    "attributes": {
+		"filterLabel": {
+			"type": "string",
+			"default": ""
+		},
+        "taxonomySelected": {
+            "type": "string",
+            "default": ""
+        },
+		"termOption": {
+			"type": "string",
+			"default": "all"
+		},
+        "taxTermsSelected": {
+            "type": "array",
+            "default": ""
+        },
+		"taxTermsIncludeExclude": {
+            "type": "string",
+            "default": "include"
+        }
+    }
+  }

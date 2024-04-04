@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.21 =
+* Release 3.2.21 = 04/04/23
+	* Added option to  link whole item
 = 3.2.19 =
 * Release 3.2.18 = 03/08/23
 	* Fix to fixed image caption

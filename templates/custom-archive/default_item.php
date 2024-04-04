@@ -38,21 +38,31 @@ if ( true == $data->displayPostExcerpt ) {
 	}
 	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
-
+$link_start = '';
+$link_end   = '';
 if ( isset( $data->noLink ) && true == $data->noLink ) {
-	$link_title = '<div class="ck-custom-archive-title">' . get_the_title() . '</div>';
+	$link_title = get_the_title();
 } else {
-	// $permalink        = get_permalink(
 	$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
 	$permalink_target = isset( $data->newWindow ) && true == $data->newWindow ? '_blank' : '_self';
 	$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
-	$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
+	if ( !isset( $data->wholeLink ) || false == $data->wholeLink ) {
+		$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
+	} else {
+		$link_title = get_the_title();
+		$link_start = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '" target="' . esc_attr( $permalink_target ) . '">';
+		$link_end = '</a>';
+	}
 }
+$link_title = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_title', $link_title, $post->ID, $data );
+
 if ( true == $data->useHeadingTitle ) {
 
-	$start      = '<h' . $data->headlineLevel . '>';
+	$start      = '<h' . $data->headlineLevel . ' class="ck-custom-archive-title-header">';
 	$end        = '</h' . $data->headlineLevel . '>';
 	$link_title = $start . $link_title . $end;
+} else {
+	$link_title = '<div class="ck-custom-archive-title">' . $link_title . '</div>';
 }
 
 $meta = array(
@@ -80,11 +90,14 @@ if ( isset( $data->addlContentAfter ) ) {
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
 <?php
+if ( ! empty( $link_start ) ) {
+	echo wp_kses_post( $link_start );
+}
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 
 ?>
-	<?php if ( false == $data->noLink ) { ?>
+	<?php if ( false == $data->noLink && false == $data->wholeLink ) { ?>
 		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-hidden="true" tabindex="-1" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 	<?php } else { ?>
 		<div class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>">
@@ -92,7 +105,7 @@ if ( ! empty( $featured_image ) ) {
 
 		<?php echo wp_kses_post( $featured_image ); ?>
 
-	<?php if ( false == $data->noLink ) { ?>
+	<?php if ( false == $data->noLink && false == $data->wholeLink) { ?>
 		</a>
 		<?php } else { ?>
 		</div>
@@ -151,4 +164,9 @@ if ( ! empty( $featured_image ) ) {
 		}
 		?>
 	</div>
+	<?php
+	if ( ! empty( $link_end ) ) {
+		echo wp_kses_post( $link_end );
+	}
+	?>
 </div>

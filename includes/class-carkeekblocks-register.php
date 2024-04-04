@@ -76,7 +76,7 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/related-events-archive" );
 		register_block_type( "$dir/build/video-lite" );
 		register_block_type( "$dir/build/line-chart" );
-		// register_block_type( "$dir/build/custom-featured" );
+		//register_block_type( "$dir/build/custom-archive-filter" );
 
 		/** Dynamic Blocks */
 		register_block_type(

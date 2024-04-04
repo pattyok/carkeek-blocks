@@ -415,6 +415,14 @@ class CarkeekBlocks_CustomArchive {
 			return self::render_custom_posttype_archive_grouped( $args, $attributes, $block_start, $ck_blocks_template_loader );
 		}
 
+		/** Customize query to work with Filtering Tools
+		 * Currently works with facetwp, value is 'facetwp', syntax for args is facetwp = true;
+		 * Also working with the Carkeek block filter
+		*/
+		if ( !empty( $attributes['useWithFilter'])) {
+			$args[$attributes['useWithFilter']] = true;
+		}
+
 		$args = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
 		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
 		// if sticky posts are enabled, we need to add them to the query.

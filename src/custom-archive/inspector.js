@@ -53,12 +53,14 @@ function postsInspector(props) {
         imageOrientation,
         imageSize,
 		noLink,
+		wholeLink,
         honorStickyPosts,
 		appendPostTitle,
 		headline,
 		morePostsLink,
 		morePostsLinkLabel,
 		taxTermsIncludeExclude,
+		useWithFilter,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -328,15 +330,7 @@ function postsInspector(props) {
                             />
                         </>
                     }
-					{openAsModal == false &&
-					<ToggleControl
-						label={__("No Link to Post")}
-						checked={noLink}
-						onChange={value =>
-							setAttributes({ noLink: value })
-						}
-					/>
-					}
+
                     <ToggleControl
                         label={__("Show Pagination")}
                         checked={showPagination}
@@ -441,6 +435,22 @@ function postsInspector(props) {
                             max={6}
                         />
                     }
+					{openAsModal == false &&
+					<ToggleControl
+						label={__("No Link to Post")}
+						checked={noLink}
+						onChange={value =>
+							setAttributes({ noLink: value })
+						}
+					/>
+					}
+					<ToggleControl
+						label={__("Link Entire Item")}
+						checked={wholeLink}
+						onChange={value =>
+							setAttributes({ wholeLink: value })
+						}
+					/>
                     <ToggleControl
                         label={__("Show Taxonomy Terms")}
                         checked={showTerms}
@@ -633,6 +643,17 @@ function postsInspector(props) {
                         setAttributes({ addlContentAfter: value })
                     }
                 />
+				<RadioControl
+					label={__("Use with Filter")}
+					selected={useWithFilter}
+					options={[
+						{ label: 'None', value: '' },
+						{ label: 'FacetWP', value: 'facetwp' },
+					]}
+					onChange={value =>
+						setAttributes({ useWithFilter: value })
+					}
+				/>
             </InspectorAdvancedControls>
         </>
     );
