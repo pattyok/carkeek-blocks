@@ -106,6 +106,14 @@
       "type": "string",
       "default": ""
     },
+    "noLink": {
+      "type": "boolean",
+      "default": false
+    },
+    "wholeLink": {
+      "type": "boolean",
+      "default": false
+    },
     "useHeadingTitle": {
       "type": "boolean",
       "default": false
