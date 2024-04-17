@@ -30,4 +30,8 @@
 	--ck-modal-image-ratio: 100%;
 	--ck-fixed-image-ratio: 66%;
 
+	--ck-border-color: #ccc;
+	--ck-border-width: 1px;
+	--ck-border-style: solid;
+
 }

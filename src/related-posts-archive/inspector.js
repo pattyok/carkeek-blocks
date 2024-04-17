@@ -44,6 +44,7 @@ function postsInspector( props ){
 		headline,
 		morePostsLink,
 		morePostsLinkLabel,
+		wholeLink,
         showPublishDate,publishDateLocation,showTerms,showPagination,learnMoreLinkTitle,showLearnMoreLink,matchAllTerms
     } = attributes;
 
@@ -281,7 +282,13 @@ function postsInspector( props ){
                     setAttributes({ showTerms: value })
                 }
             />
-
+			<ToggleControl
+				label={__("Link Entire Item")}
+				checked={wholeLink}
+				onChange={value =>
+					setAttributes({ wholeLink: value })
+				}
+			/>
             <ToggleControl
                 label={__("Show Published Date")}
                 checked={showPublishDate}

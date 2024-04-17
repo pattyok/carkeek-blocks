@@ -419,9 +419,11 @@ class CarkeekBlocks_CustomArchive {
 		 * Currently works with facetwp, value is 'facetwp', syntax for args is facetwp = true;
 		 * Also working with the Carkeek block filter
 		*/
+
 		if ( !empty( $attributes['useWithFilter'])) {
 			$args[$attributes['useWithFilter']] = true;
 		}
+
 
 		$args = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
 		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
@@ -444,8 +446,12 @@ class CarkeekBlocks_CustomArchive {
 				$query->posts = array_merge( $query->posts, $query2->posts );
 			}
 		} else {
+			error_log("BLOCKS QUERY ARGS");
+			error_log(print_r($args, true));
 			$query = new WP_Query( $args );
 		}
+		error_log("BLOCKS QUERY");
+		error_log(print_r($query, true));
 
 		$posts = '';
 

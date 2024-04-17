@@ -96,7 +96,27 @@
 
 
 }
+.ck-columns {
 
+	&.is-style-ck-bordered-items {
+
+		& .ck-columns-item {
+
+
+			&::after {
+				content: "";
+				display: block;
+				height: 0;
+				width: 100%;
+				padding-top: var(--ck-column-gap-vert);
+				border-color: var(--ck-border-color);
+				border-style: var(--ck-border-style);
+				border-width: 0;
+				border-bottom-width: var(--ck-border-width);
+			}
+		}
+	}
+}
 @media screen and (max-width: 599px) {
 
 	.ck-columns {
@@ -107,6 +127,16 @@
 
 				&:nth-child(n+2) {
 					display: none;
+				}
+
+			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+1) {
+						&:after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -119,6 +149,15 @@
 					display: none;
 				}
 			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+2) {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 
 		&.limit-mobile-3 {
@@ -127,6 +166,15 @@
 
 				&:nth-child(n+4) {
 					display: none;
+				}
+			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+3) {
+						&:after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -139,6 +187,15 @@
 					display: none;
 				}
 			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+4) {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 
 		&.limit-mobile-5 {
@@ -149,6 +206,15 @@
 					display: none;
 				}
 			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+5) {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 
 		&.limit-mobile-6 {
@@ -157,6 +223,15 @@
 
 				&:nth-child(n+7) {
 					display: none;
+				}
+			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+6) {
+						&:after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -232,6 +307,33 @@
 	}
 }
 
+@media screen and (min-width: 600px) {
+	.ck-columns {
+
+		&.is-style-ck-bordered-items {
+
+			& .ck-columns-item {
+
+				position: relative;
+				&::after {
+					content: "";
+					display: block;
+					position: absolute;
+					top: 0;
+					right: calc(-1*var(--ck-column-gap)/2);
+					height: 100%;
+					width: 0;
+					border-width: 0;
+					border-right-width: var(--ck-border-width);
+				}
+				&:last-child::after {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
 @media screen and (min-width: 600px) and (max-width: 1023px) {
 
 	.ck-columns {
@@ -245,6 +347,15 @@
 				}
 
 			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+1) {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 
 		&.limit-tablet-2 {
@@ -253,6 +364,15 @@
 
 				&:nth-child(n+3) {
 					display: none;
+				}
+			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+2) {
+						&:after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -265,6 +385,15 @@
 					display: none;
 				}
 			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+3) {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 
 		&.limit-tablet-4 {
@@ -273,6 +402,15 @@
 
 				&:nth-child(n+5) {
 					display: none;
+				}
+			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+4) {
+						&:after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
@@ -285,6 +423,15 @@
 					display: none;
 				}
 			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+5) {
+						&:after {
+							display: none;
+						}
+					}
+				}
+			}
 		}
 
 		&.limit-tablet-6 {
@@ -293,6 +440,15 @@
 
 				&:nth-child(n+7) {
 					display: none;
+				}
+			}
+			&.is-style-ck-bordered-items {
+				& .ck-columns__wrap > * {
+					&:nth-child(n+6) {
+						&:after {
+							display: none;
+						}
+					}
 				}
 			}
 		}
