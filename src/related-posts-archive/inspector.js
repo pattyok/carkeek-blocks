@@ -24,6 +24,7 @@ function postsInspector( props ){
         postLayout,
         postTypeSelected,
         taxonomySelected,
+		excludeChildPosts,
         headlineLevel,
         sortBy,
         sortByMeta,
@@ -124,6 +125,14 @@ function postsInspector( props ){
 								setAttributes({ matchAllTerms: value })
 							}
 						/>
+						<ToggleControl
+							label={__("Exclude Child Posts", "carkeek-blocks")}
+							help={__(`If set to true, the block will will only include top-level posts.`)}
+							checked={excludeChildPosts}
+							onChange={value =>
+								setAttributes({ excludeChildPosts: value })
+							}
+						/>
 					</>
 						: <div className="ck-error">{__("There are no taxonomies assigned this post type.", "carkeek-blocks")}</div>
 					}
@@ -194,6 +203,8 @@ function postsInspector( props ){
                 options={[
                     { label: __("Grid"), value: "grid" },
                     { label: __("List"), value: "list"},
+					{ label: __("Fit Posts"), value: "fit" },
+					{ label: __("Simple List (just titles)"), value: "ul" },
                 ]}
                 onChange={value =>
                     setAttributes({
@@ -256,6 +267,7 @@ function postsInspector( props ){
 			}
 
             </PanelBody>
+			{postLayout !== 'ul' &&
             <PanelBody title={__("Item Style", "carkeek-blocks")}  initialOpen={ false }>
             <ToggleControl
                 label={__("Use Heading tag for Titles")}
@@ -370,6 +382,7 @@ function postsInspector( props ){
                     />
                 }
             </PanelBody>
+			}
             <PanelBody title={__("Responsive Layout", "carkeek-blocks")}  initialOpen={ false }>
             {postLayout == 'grid' &&
             <>
@@ -418,6 +431,7 @@ function postsInspector( props ){
                 </>
             }
             </PanelBody>
+
         </InspectorControls>
     );
 }

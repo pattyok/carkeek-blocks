@@ -87,7 +87,8 @@
 		  "default": false
 		},
 		"emptyMessage": {
-		  "type": "string"
+		  "type": "string",
+		  "default": ""
 		},
 		"headline": {
 		  "type": "string",
@@ -120,6 +121,10 @@
 			"type": "string"
 		},
 		"childTermsOnly":{
+			"type": "boolean",
+			"default": false
+		},
+		"hideTitle": {
 			"type": "boolean",
 			"default": false
 		},

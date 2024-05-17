@@ -38,6 +38,7 @@ function postsInspector(props) {
         hideIfEmpty,
         emptyMessage,
         headlineLevel,
+		excludeChildPosts,
         sortBy,
         sortByMeta,
         order,
@@ -248,6 +249,14 @@ function postsInspector(props) {
                         min={-1}
                         max={21}
                     />
+					<ToggleControl
+							label={__("Exclude Child Posts", "carkeek-blocks")}
+							help={__(`If set to true, the block will only include top-level posts.`)}
+							checked={excludeChildPosts}
+							onChange={value =>
+								setAttributes({ excludeChildPosts: value })
+							}
+						/>
                     <SelectControl
                         label={__("Sort By", "carkeek-blocks")}
                         onChange={value =>
@@ -304,6 +313,7 @@ function postsInspector(props) {
                             { label: __("Grid"), value: "grid" },
                             { label: __("List"), value: "list" },
 							{ label: __("Fit Posts"), value: "fit" },
+							{ label: __("Simple List (just titles)"), value: "ul" },
                         ]}
                         onChange={value =>
                             setAttributes({
@@ -416,6 +426,7 @@ function postsInspector(props) {
                         }
                     </PanelBody>
                 }
+				{postLayout !== 'ul' &&
                 <PanelBody title={__("Item Style", "carkeek-blocks")} initialOpen={false}>
                     <ToggleControl
                         label={__("Use Heading tag for Titles")}
@@ -572,6 +583,7 @@ function postsInspector(props) {
 						</>
                     }
                 </PanelBody>
+				}
                 <PanelBody title={__("Responsive Layout", "carkeek-blocks")} initialOpen={false}>
                     {postLayout == 'grid' &&
                         <>

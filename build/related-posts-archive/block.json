@@ -159,6 +159,10 @@
       "type": "boolean",
       "default": true
     },
+    "excludeChildPosts": {
+      "type": "boolean",
+      "default": false
+    },
     "childTermsOnly": {
       "type": "boolean",
       "default": false
