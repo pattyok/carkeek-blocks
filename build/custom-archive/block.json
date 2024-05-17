@@ -44,6 +44,10 @@
       "type": "string",
       "default": "post"
     },
+    "excludeChildPosts": {
+      "type": "boolean",
+      "default": false
+    },
     "displayPostExcerpt": {
       "type": "boolean",
       "default": true

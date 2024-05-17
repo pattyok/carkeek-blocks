@@ -20,16 +20,13 @@ function eventFields(props) {
         setAttributes,
     } = props;
     const {
-
         hideTitle,
-
         displayField1,
         displayField2,
         displayField3,
         dateFormat,
         timeFormat,
         showEndDate,
-
     } = attributes;
 
 //Handling these as individual attributes until I have time to figure out arrays.
@@ -51,7 +48,7 @@ return (
 	<>
 		<ToggleControl
 			label={__("Hide Title")}
-			checked={hideTitle}
+			checked={ hideTitle }
 			onChange={(value) => setAttributes({ hideTitle: value })}
 			help={__("To change the order of the title, hide it add place it with a metafield below.")}
 		/>

@@ -44,18 +44,22 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.23 =
+* Release 3.2.23 = 05/17/24
+	* Added options to Archive and Related Archive to display as simple list, and to exclude children
+	* Some minor tweaks to Related Events block (so as not to error out if TEC is not installed)
 = 3.2.22 =
-* Release 3.2.22 = 04/17/23
+* Release 3.2.22 = 04/17/24
 	* Added option to  link whole item to related posts block
 	* Added styles for bordered grid
 = 3.2.21 =
-* Release 3.2.21 = 04/04/23
+* Release 3.2.21 = 04/04/24
 	* Added option to  link whole item
 = 3.2.19 =
-* Release 3.2.18 = 03/08/23
+* Release 3.2.18 = 03/08/24
 	* Fix to fixed image caption
 = 3.2.18 =
-* Release 3.2.18 = 01/03/23
+* Release 3.2.18 = 01/03/24
 	* Fix to gallery - contained images
 	* Dependency updates
 = 3.2.17 =

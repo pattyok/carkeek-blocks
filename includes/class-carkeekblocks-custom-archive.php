@@ -281,6 +281,9 @@ class CarkeekBlocks_CustomArchive {
 			'post__not_in'        => array( get_the_ID() ),
 			'ignore_sticky_posts' => true, // without this sticky posts add to the count.
 		);
+		if ( $attributes['excludeChildPosts'] ) {
+			$args['post_parent'] = 0;
+		}
 
 		if ( 'meta_value' == $attributes['sortBy'] && ! empty( $attributes['sortByMeta'] ) ) {
 			$args['orderby'] = array(
@@ -446,12 +449,9 @@ class CarkeekBlocks_CustomArchive {
 				$query->posts = array_merge( $query->posts, $query2->posts );
 			}
 		} else {
-			error_log("BLOCKS QUERY ARGS");
-			error_log(print_r($args, true));
 			$query = new WP_Query( $args );
 		}
-		error_log("BLOCKS QUERY");
-		error_log(print_r($query, true));
+
 
 		$posts = '';
 
@@ -513,9 +513,16 @@ class CarkeekBlocks_CustomArchive {
 			}
 
 			$css_classes_list = apply_filters( 'carkeek_block_custom_post_layout__css_classes_list', $css_classes_list, $attributes );
-			$posts           .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
+			if ( 'ul' == $layout ) {
+				$posts .= '<ul class="' . implode( ' ', $css_classes_list ) . '">';
+			} else {
+				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
+			}
 			$count            = 0;
 			$template         = $post_type . '_item';
+			if ( 'ul' == $layout ) {
+				$template = 'list_item';
+			}
 			$template         = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
 
 			while ( $query->have_posts() ) {
@@ -548,7 +555,12 @@ class CarkeekBlocks_CustomArchive {
 				$count++;
 
 			}
-			$posts .= '</div>';
+			if ( 'ul' == $layout ) {
+				$posts .= '</ul>';
+			} else {
+				$posts .= '</div>';
+			}
+
 			if ( isset( $attributes['showPagination'] ) && true == $attributes['showPagination'] ) {
 				$big    = 999999999; // need an unlikely integer.
 				$posts .= '<div class="ck_pagination">';
@@ -814,7 +826,11 @@ class CarkeekBlocks_CustomArchive {
 			}
 
 			$css_classes_list = apply_filters( 'carkeek_block_events_layout__css_classes_list', $css_classes_list, $attributes );
-			$posts           .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
+			if ( 'ul' == $layout ) {
+				$posts .= '<ul class="' . implode( ' ', $css_classes_list ) . '">';
+			} else {
+				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
+			}
 			$count            = 0;
 			$template         = $post_type . '_item';
 			$template         = apply_filters( 'carkeek_block_events_layout__template', $template, $attributes );
@@ -840,7 +856,12 @@ class CarkeekBlocks_CustomArchive {
 				$count++;
 
 			}
-			$posts .= '</div>';
+			if ( 'ul' == $layout ) {
+				$posts .= '</ul>';
+			} else {
+				$posts .= '</div>';
+			}
+
 			if ( true == $attributes['showPagination'] ) {
 				$big    = 999999999; // need an unlikely integer.
 				$posts .= '<div class="ck_pagination">';
