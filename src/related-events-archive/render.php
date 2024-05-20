@@ -2,11 +2,16 @@
 /** Template for Related Events
  */
 global $post;
+
+
+$is_admin = ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ? true : false;
 $ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
 
 if ( function_exists( 'tribe_get_events' ) ) {
-
-
+		$emptyMessage = !empty( $attributes['emptyMessage'] ) ? $attributes['emptyMessage'] : __( 'No related events found.', 'carkeek-blocks' );
+		if ( true === $attributes['hideIfEmpty']  ) {
+			$emptyMessage .= ' ' . __( 'This block will not display on the front end.', 'carkeek-blocks' );
+		}
 		$args = array(
 			'posts_per_page'              => $attributes['numberOfPosts'],
 			'orderby'                     => '_EventStartDate',
@@ -73,7 +78,7 @@ if ( function_exists( 'tribe_get_events' ) ) {
 			}
 			?>
 		<div <?php echo get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ); ?>>
-			<?php if ( $attributes['hideIfEmpty'] && ! empty( $attributes['headline'] ) ) { ?>
+			<?php if ( ! empty( $attributes['headline'] ) ) { ?>
 				<h2 class="ck-custom-archive__headline"><?php echo esc_html( $attributes['headline'] ); ?></h2>
 			<?php } ?>
 			<?php
@@ -98,25 +103,31 @@ if ( function_exists( 'tribe_get_events' ) ) {
 			wp_reset_postdata();
 			?>
 				</div>
-			<?php if ( $attributes['hideIfEmpty'] && ! empty( $attributes['morePostsLink'] ) ) { ?>
+			<?php if (  ! empty( $attributes['morePostsLink'] ) ) { ?>
 				<div class="ck-custom-archive__buttons"><a class="button" href="<?php echo esc_url( $attributes['morePostsLink'] ); ?>"><?php echo esc_html( $attributes['morePostsLinkLabel'] ); ?></a></div>
 			<?php } ?>
 		</div>
 
 			<?php
 		} else {
-			if ( ! $attributes['hideIfEmpty'] ) {
+
+			if ( false == $attributes['hideIfEmpty'] || $is_admin ) {
 				?>
 				<div <?php echo get_block_wrapper_attributes(); ?>>
-				<?php echo esc_html( $attributes['emptyMessage'] ); ?>
-
+				<?php if ( ! empty( $attributes['headline'] ) ) { ?>
+					<h2 class="ck-custom-archive__headline"><?php echo esc_html( $attributes['headline'] ); ?></h2>
+				<?php } ?>
+				<?php echo esc_html( $emptyMessage ); ?>
+				<?php if (  ! empty( $attributes['morePostsLink'] ) ) { ?>
+					<div class="ck-custom-archive__buttons"><a class="button" href="<?php echo esc_url( $attributes['morePostsLink'] ); ?>"><?php echo esc_html( $attributes['morePostsLinkLabel'] ); ?></a></div>
+				<?php } ?>
 				</div>
 				<?php
 			}
 		}
 
 } else {
-	if (is_admin()) {
+	if ($is_admin) {
 	?>
 	<div <?php echo get_block_wrapper_attributes(); ?>>
 		<p><?php esc_html_e( 'The Events Calendar is not active. Please activate the plugin to use this block.', 'carkeek-blocks' ); ?></p>
