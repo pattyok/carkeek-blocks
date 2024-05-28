@@ -26,7 +26,7 @@ $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected 
 
 $excerpt = '';
 if ( true == $data->displayPostExcerpt ) {
-	$excerpt = wp_filter_nohtml_kses( get_the_excerpt() );
+	$excerpt = stripslashes( wp_filter_nohtml_kses( get_the_excerpt() ) );
 	$limit   = $data->excerptLength;
 	if ( -1 !== $limit ) {
 		if ( str_word_count( $excerpt, 0 ) > $limit ) {
