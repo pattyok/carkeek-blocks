@@ -176,6 +176,13 @@ class CarkeekBlocks_Block_Register {
 				filemtime( "$dir/$vendor/bootstrap.bundle.min.js" ),
 				true
 			);
+			wp_enqueue_script(
+				'codyhouse-modal',
+				plugins_url( $vendor . 'codyhouse.modal.js', dirname( __FILE__ ) ),
+				array( ),
+				filemtime( "$dir/$vendor/codyhouse.modal.js" ),
+				true
+			);
 		}
 
 		if ( has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {

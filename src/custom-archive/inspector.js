@@ -50,6 +50,7 @@ function postsInspector(props) {
         itemsTablet,
         displayFeaturedImage,
         openAsModal,
+		modalVersion,
         useHeadingTitle,
         imageOrientation,
         imageSize,
@@ -338,6 +339,21 @@ function postsInspector(props) {
                                     setAttributes({ openAsModal: value })
                                 }
                             />
+							{openAsModal &&
+								<RadioControl
+								label={__("Modal Version")}
+								selected={modalVersion}
+								options={[
+									{ label: __("v1"), value: "v1" },
+									{ label: __("v2"), value: "v2" }
+								]}
+								onChange={value =>
+									setAttributes({
+										modalVersion: value
+									})
+								}
+							/>
+							}
                         </>
                     }
 

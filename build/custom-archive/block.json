@@ -64,6 +64,10 @@
       "type": "boolean",
       "default": false
     },
+    "modalVersion": {
+      "type": "string",
+      "default": "v1"
+    },
     "noLink": {
       "type": "boolean",
       "default": false
