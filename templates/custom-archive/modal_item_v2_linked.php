@@ -44,11 +44,11 @@ if ( ! empty( $image ) ) {
 		'html_before_excerpt' => $html_before_excerpt,
 		'html_after_excerpt'  => $html_after_excerpt,
 	);
-	if (isset($data->template_loader)) {
+	$template_loader = new Carkeek_Blocks_Template_Loader();
+
 	ob_start();
-	$data->template_loader->set_template_data( $template_data )
+	$template_loader->set_template_data( $template_data )
 		->get_template_part( 'custom-archive/modal' );
 	echo ob_get_clean();
-	}
 ?>
 </div>

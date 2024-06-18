@@ -154,11 +154,8 @@ class CarkeekBlocks_CustomArchive {
 				$query->the_post();
 				global $post;
 				if ( true == $attributes['openAsModal'] ) {
-					$attributes['template_loader'] = $template_loader;
 					$modal = 'custom-archive/modal_item';
-					if ( 'v2' == $attributes['modalVersion'] ) {
-						$modal = 'custom-archive/modal_item_v2';
-					}
+
 					if ( true == $attributes['wholeLink'] ) {
 						$modal = 'custom-archive/modal_item_v2_linked';
 					}
@@ -539,12 +536,8 @@ class CarkeekBlocks_CustomArchive {
 				global $post;
 
 				if ( isset( $attributes['openAsModal'] ) && true == $attributes['openAsModal'] ) {
-					$modal = 'custom-archive/modal_item';
-					$attributes['template_loader'] = $ck_blocks_template_loader;
-					if ( 'v2' == $attributes['modalVersion'] ) {
-						$modal = 'custom-archive/modal_item_v2';
+					$modal = 'custom-archive/modal_item_v2';
 
-					}
 					if ( true == $attributes['wholeLink'] ) {
 						$modal = 'custom-archive/modal_item_v2_linked';
 					}
