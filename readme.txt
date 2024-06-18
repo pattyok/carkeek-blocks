@@ -44,6 +44,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.26 =
+* Release 3.2.26 = 06/18/24
+	* Updated the Modal Block/Carkeek Archive Modal to use Codyhouse components
+	* Added a template for whole link to archive
 = 3.2.23 =
 * Release 3.2.23 = 05/17/24
 	* Added options to Archive and Related Archive to display as simple list, and to exclude children

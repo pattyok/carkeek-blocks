@@ -13,9 +13,10 @@ function ModalItemSave ({ attributes }) {
         }) }>
             <div className="ck-modal-item" data-id={blockId}>
             { ! hideImagePreview &&
-            <div className="ck-modal-item-image" data-toggle="modal" data-target={`#dialog-${blockId}`}>
+
+			<a href="javascript:;" class="ck-modal-item-image" aria-controls={`dialog-${blockId}`}>
                 <ImageSave />
-            </div>
+            </a>
             }
                 <RichText.Content
                     className={"ck-modal-item-name"}
@@ -34,13 +35,19 @@ function ModalItemSave ({ attributes }) {
                     />
                 )}
              </div>
-             <div className="ck-modal-item-dialog modal fade" id={`dialog-${blockId}`} tabIndex="-1" role="dialog" aria-labelledby={`title-${blockId}`} aria-hidden="true">
-                 <div className="modal-dialog modal-dialog-centered" role="document">
-                    <div className="modal-content">
+			 <div class="ck-modal-item-dialog modal2 modal--animate-scale js-modal" id={`dialog-${blockId}`} >
+
+                    <div className="modal__content">
                         <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+							<button class="modal__close-btn modal__close-btn--inner mc4-hide@md js-modal__close js-tab-focus">
+								<svg class="mc4-icon mc4-icon--xs" viewBox="0 0 16 16">
+								<title>Close modal window</title>
+								<g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+									<line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+									<line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+								</g>
+								</svg>
+							</button>
                         </div>
                         <div className="modal-body">
                         <div className="ck-modal-item-header">
@@ -69,12 +76,13 @@ function ModalItemSave ({ attributes }) {
                                 <a className="ck-modal-item-mailto arrow-link" href={`mailto:${mailtoLink}`}>Contact</a>
                             )}
                          </div>
-                        <div className="modal-footer">
-                            <button type="button" data-dismiss="modal">{__('Close', 'carkeek-blocks')}</button>
-                        </div>
+						 <footer class="modal-footer">
+							<button class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
+								Close
+							</button>
+						</footer>
                     </div>
                 </div>
-            </div>
         </div>
     )
 }
