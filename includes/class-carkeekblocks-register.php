@@ -170,13 +170,6 @@ class CarkeekBlocks_Block_Register {
 
 		if ( ! is_admin() && ( has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive' ) ) ) {
 			wp_enqueue_script(
-				'bootsrap-modal',
-				plugins_url( $vendor . 'bootstrap.bundle.min.js', dirname( __FILE__ ) ),
-				array( 'jquery' ),
-				filemtime( "$dir/$vendor/bootstrap.bundle.min.js" ),
-				true
-			);
-			wp_enqueue_script(
 				'codyhouse-modal',
 				plugins_url( $vendor . 'codyhouse.modal.js', dirname( __FILE__ ) ),
 				array( ),

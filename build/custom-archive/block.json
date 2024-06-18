@@ -11,7 +11,7 @@
     "list",
     "custom"
   ],
-  "version": "1.0.0",
+  "version": "1.0.2",
   "textdomain": "carkeek-blocks",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
