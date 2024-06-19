@@ -6,7 +6,7 @@
     "category": "widgets",
     "description": "Block showing the latest items by post type.",
     "keywords": [ "archive", "posts", "list", "custom" ],
-    "version": "1.0.2",
+    "version": "1.0.3",
     "textdomain": "carkeek-blocks",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
