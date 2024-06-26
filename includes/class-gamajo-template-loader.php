@@ -135,9 +135,7 @@ if ( ! class_exists( 'Gamajo_Template_Loader' ) ) {
 		 */
 		public function set_template_data( $data, $var_name = 'data' ) {
 			global $wp_query;
-			error_log(print_r($data, true));
 			$wp_query->query_vars[ $var_name ] = (object) $data;
-			error_log(print_r($wp_query->query_vars, true));
 			// Add $var_name to custom variable store if not default value.
 			if ( 'data' !== $var_name ) {
 				$this->template_data_var_names[] = $var_name;
