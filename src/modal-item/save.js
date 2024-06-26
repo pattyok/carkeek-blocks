@@ -23,8 +23,7 @@ function ModalItemSave ({ attributes }) {
                     tagName="a"
                     value={name}
                     id={`title-${blockId}`}
-                    data-toggle="modal"
-                    data-target={`#dialog-${blockId}`}
+					aria-controls={`dialog-${blockId}`}
                 />
 
                 {title && ! hideTitlePreview && (
@@ -77,10 +76,13 @@ function ModalItemSave ({ attributes }) {
                             )}
                          </div>
 						 <footer class="modal-footer">
-							<button class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
-								Close
-							</button>
-						</footer>
+				<button class="modal__close-btn modal__close-btn--outer js-modal__close js-tab-focus">
+
+					Close
+
+
+  				</button>
+				</footer>
                     </div>
                 </div>
         </div>
