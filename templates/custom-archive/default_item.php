@@ -40,10 +40,11 @@ if ( true == $data->displayPostExcerpt ) {
 }
 $link_start = '';
 $link_end   = '';
-if ( isset( $data->noLink ) && true == $data->noLink ) {
+$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
+if ( isset( $data->noLink ) && true == $data->noLink || empty( $permalink ) ) {
 	$link_title = get_the_title();
 } else {
-	$permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
+	
 	$permalink_target = isset( $data->newWindow ) && true == $data->newWindow ? '_blank' : '_self';
 	$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
 	if ( !isset( $data->wholeLink ) || false == $data->wholeLink ) {
@@ -97,7 +98,7 @@ if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 
 ?>
-	<?php if ( false == $data->noLink && false == $data->wholeLink ) { ?>
+	<?php if ( false == $data->noLink && false == $data->wholeLink && !empty($permalink)) { ?>
 		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-hidden="true" tabindex="-1" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
 	<?php } else { ?>
 		<div class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>">
@@ -105,7 +106,7 @@ if ( ! empty( $featured_image ) ) {
 
 		<?php echo wp_kses_post( $featured_image ); ?>
 
-	<?php if ( false == $data->noLink && false == $data->wholeLink) { ?>
+	<?php if ( false == $data->noLink && false == $data->wholeLink && !empty($permalink)) { ?>
 		</a>
 		<?php } else { ?>
 		</div>
