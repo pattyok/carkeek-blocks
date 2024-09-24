@@ -55,7 +55,11 @@
       "center",
       "right"
     ],
-    "anchor": false
+    "anchor": false,
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",

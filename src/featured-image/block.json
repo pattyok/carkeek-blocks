@@ -5,7 +5,10 @@
     "title": "Featured Image",
     "category": "widgets",
     "description": "Place the featured image within your page",
-    "keywords": [ "image", "featured" ],
+    "keywords": [
+        "image",
+        "featured"
+    ],
     "textdomain": "carkeek-blocks",
     "attributes": {
         "focalPoint": {
@@ -45,11 +48,21 @@
         }
     ],
     "supports": {
-      "align": ["wide", "full", "left", "center", "right"],
-      "anchor": false
+        "align": [
+            "wide",
+            "full",
+            "left",
+            "center",
+            "right"
+        ],
+        "anchor": false,
+        "spacing": {
+            "padding": true,
+            "margin": true
+        }
     },
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
-	"render": "file:./render.php"
-  }
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "render": "file:./render.php"
+}

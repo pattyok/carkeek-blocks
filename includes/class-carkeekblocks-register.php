@@ -62,7 +62,7 @@ class CarkeekBlocks_Block_Register {
 	 * @see https://developer.wordpress.org/reference/functions/register_block_type/
 	 */
 	public function create_block_carkeek_blocks_block_init() {
-		$dir = plugin_dir_path( dirname( __FILE__ ) );
+		$dir = plugin_dir_path( __DIR__ );
 		register_block_type( "$dir/build/accordion" );
 		register_block_type( "$dir/build/accordion-panel" );
 		register_block_type( "$dir/build/carkeek-slider" );
@@ -76,7 +76,7 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/related-events-archive" );
 		register_block_type( "$dir/build/video-lite" );
 		register_block_type( "$dir/build/line-chart" );
-		//register_block_type( "$dir/build/custom-archive-filter" );
+		// register_block_type( "$dir/build/custom-archive-filter" );
 
 		/** Dynamic Blocks */
 		register_block_type(
@@ -112,7 +112,6 @@ class CarkeekBlocks_Block_Register {
 				),
 			);
 		}
-
 	}
 
 
@@ -120,7 +119,7 @@ class CarkeekBlocks_Block_Register {
 	 */
 	public function carkeek_blocks_enqueue_global_assets() {
 
-		$dir = plugin_dir_path( dirname( __FILE__ ) );
+		$dir = plugin_dir_path( __DIR__ );
 
 		$script_asset_path = "$dir/build/shared/index.asset.php";
 		if ( ! file_exists( $script_asset_path ) ) {
@@ -132,7 +131,7 @@ class CarkeekBlocks_Block_Register {
 		$shared_css = 'build/shared/style-index.css';
 		wp_enqueue_style(
 			'carkeek-blocks-shared',
-			plugins_url( $shared_css, dirname( __FILE__ ) ),
+			plugins_url( $shared_css, __DIR__ ),
 			array(),
 			filemtime( "$dir/$shared_css" )
 		);
@@ -143,14 +142,14 @@ class CarkeekBlocks_Block_Register {
 		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {
 			wp_enqueue_script(
 				'slick-slider',
-				plugins_url( $vendor . 'slick.js', dirname( __FILE__ ) ),
+				plugins_url( $vendor . 'slick.js', __DIR__ ),
 				array( 'jquery' ),
 				filemtime( "$dir/$vendor/slick.js" ),
 				true
 			);
 			wp_enqueue_script(
 				'mobile-scroll',
-				plugins_url( 'build/lightbox-gallery/script.js', dirname( __FILE__ ) ),
+				plugins_url( 'build/lightbox-gallery/script.js', __DIR__ ),
 				array( 'jquery', 'slick-slider' ),
 				filemtime( "$dir/build/lightbox-gallery/script.js" ),
 				true
@@ -161,7 +160,7 @@ class CarkeekBlocks_Block_Register {
 		if ( has_block( 'carkeek-blocks/accordion' ) || has_block( 'carkeek-blocks/expand-collapse-panel' ) ) {
 			wp_enqueue_script(
 				'aria-accordion',
-				plugins_url( $vendor . 'aria.accordion.min.js', dirname( __FILE__ ) ),
+				plugins_url( $vendor . 'aria.accordion.min.js', __DIR__ ),
 				array( 'jquery' ),
 				filemtime( "$dir/$vendor/aria.accordion.min.js" ),
 				true
@@ -171,8 +170,8 @@ class CarkeekBlocks_Block_Register {
 		if ( ! is_admin() && ( has_block( 'carkeek-blocks/modal-item' ) || has_block( 'carkeek-blocks/custom-archive' ) ) ) {
 			wp_enqueue_script(
 				'codyhouse-modal',
-				plugins_url( $vendor . 'codyhouse.modal.js', dirname( __FILE__ ) ),
-				array( ),
+				plugins_url( $vendor . 'codyhouse.modal.js', __DIR__ ),
+				array(),
 				filemtime( "$dir/$vendor/codyhouse.modal.js" ),
 				true
 			);
@@ -181,14 +180,14 @@ class CarkeekBlocks_Block_Register {
 		if ( has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {
 			wp_enqueue_script(
 				'fancybox-js',
-				plugins_url( $vendor . 'jquery.fancybox.min.js', dirname( __FILE__ ) ),
+				plugins_url( $vendor . 'jquery.fancybox.min.js', __DIR__ ),
 				array( 'jquery' ),
 				filemtime( "$dir/$vendor/jquery.fancybox.min.js" ),
 				true
 			);
 			wp_enqueue_style(
 				'fancybox-css',
-				plugins_url( $vendor . 'jquery.fancybox.min.css', dirname( __FILE__ ) ),
+				plugins_url( $vendor . 'jquery.fancybox.min.css', __DIR__ ),
 				array(),
 				filemtime( "$dir/$vendor/jquery.fancybox.min.css" )
 			);
@@ -198,11 +197,11 @@ class CarkeekBlocks_Block_Register {
 	/** Load Block Editor specific styles */
 	public function carkeek_blocks_enqueue_block_editor_assets() {
 		/** Shared css for editor only */
-		$dir        = plugin_dir_path( dirname( __FILE__ ) );
+		$dir        = plugin_dir_path( __DIR__ );
 		$shared_css = 'build/shared/index.css';
 		wp_enqueue_style(
 			'carkeek-blocks-shared-editor',
-			plugins_url( $shared_css, dirname( __FILE__ ) ),
+			plugins_url( $shared_css, __DIR__ ),
 			array(),
 			filemtime( "$dir/$shared_css" )
 		);
@@ -213,7 +212,7 @@ class CarkeekBlocks_Block_Register {
 			$plugins = 'build/plugins/';
 			wp_enqueue_script(
 				$this->slug . '-plugins-editor-script',
-				plugins_url( $plugins . 'index.js', dirname( __FILE__ ) ),
+				plugins_url( $plugins . 'index.js', __DIR__ ),
 				array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
 				filemtime( "$dir/$plugins/index.js" ),
 				false
@@ -232,7 +231,7 @@ class CarkeekBlocks_Block_Register {
 
 			wp_enqueue_style(
 				$this->slug . '-plugins-editor-style',
-				plugins_url( $plugins . 'index.css', dirname( __FILE__ ) ),
+				plugins_url( $plugins . 'index.css', __DIR__ ),
 				array(),
 				filemtime( "$dir/$plugins/index.css" ),
 			);

@@ -539,6 +539,7 @@ function postsInspector(props) {
                                     { label: __("Portrait 3:2"), value: "portrait" },
                                     { label: __("Portrait 4:3"), value: "portrait-43" },
                                     { label: __("Square 1:1"), value: "square" },
+                                    { label: __("Circle 1:1"), value: "circle" },
                                 ]}
                                 value={imageOrientation}
                             />

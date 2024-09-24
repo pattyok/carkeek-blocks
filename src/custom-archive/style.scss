@@ -15,6 +15,13 @@
 			--ck-archive-image-ratio: 100%;
 		}
 
+		&.layout-circle {
+			--ck-archive-image-ratio: 100%;
+			& img {
+				clip-path: circle();
+			}
+		}
+
 		&.layout-portrait {
 			--ck-archive-image-ratio: 150%;
 		}

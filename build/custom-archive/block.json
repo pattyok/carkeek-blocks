@@ -29,6 +29,10 @@
       "background": true,
       "text": false,
       "link": false
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
     }
   },
   "attributes": {

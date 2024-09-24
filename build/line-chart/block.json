@@ -20,7 +20,11 @@
       "left",
       "center",
       "right"
-    ]
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "styles": [
     {

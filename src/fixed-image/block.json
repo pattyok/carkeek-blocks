@@ -9,106 +9,110 @@
 	"supports": {
 		"html": false,
 		"align": [
-		  "wide",
-		  "full"
+			"wide",
+			"full"
 		],
 		"typography": {
 			"fontSize": true
 		},
 		"color": {
-		  "background": true,
-		  "gradients": false,
-		  "text": true
+			"background": true,
+			"gradients": false,
+			"text": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true
 		}
 	},
 	"textdomain": "carkeek-blocks",
 	"attributes": {
 		"id": {
-		  "type": "number"
+			"type": "number"
 		},
 		"url": {
-		  "type": "string",
-		  "source": "attribute",
-		  "selector": "img",
-		  "attribute": "src"
+			"type": "string",
+			"source": "attribute",
+			"selector": "img",
+			"attribute": "src"
 		},
 		"focalPoint": {
-		  "type": "object"
+			"type": "object"
 		},
 		"alt": {
-		  "type": "string",
-		  "source": "attribute",
-		  "selector": "img",
-		  "attribute": "alt",
-		  "default": ""
+			"type": "string",
+			"source": "attribute",
+			"selector": "img",
+			"attribute": "alt",
+			"default": ""
 		},
 		"title": {
-		  "type": "string",
-		  "source": "attribute",
-		  "selector": "img",
-		  "attribute": "title"
+			"type": "string",
+			"source": "attribute",
+			"selector": "img",
+			"attribute": "title"
 		},
 		"sizeSlug": {
-		  "type": "string",
-		  "default": "large"
+			"type": "string",
+			"default": "large"
 		},
 		"width": {
-		  "type": "string"
+			"type": "string"
 		},
 		"height": {
-		  "type": "string"
+			"type": "string"
 		},
 		"useCaption": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"useLink": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"caption": {
-		  "type": "string",
-		  "source": "html",
-		  "selector": "figcaption"
+			"type": "string",
+			"source": "html",
+			"selector": "figcaption"
 		},
 		"photoCredit": {
-		  "type": "string",
-		  "source": "html",
-		  "selector": ".ck-fixed-image-credit"
+			"type": "string",
+			"source": "html",
+			"selector": ".ck-fixed-image-credit"
 		},
 		"href": {
-		  "type": "string",
-		  "source": "attribute",
-		  "selector": "figure > a",
-		  "attribute": "href"
+			"type": "string",
+			"source": "attribute",
+			"selector": "figure > a",
+			"attribute": "href"
 		},
 		"rel": {
-		  "type": "string",
-		  "source": "attribute",
-		  "selector": "figure > a",
-		  "attribute": "rel"
+			"type": "string",
+			"source": "attribute",
+			"selector": "figure > a",
+			"attribute": "rel"
 		},
 		"linkClass": {
-		  "type": "string",
-		  "source": "attribute"
+			"type": "string",
+			"source": "attribute"
 		},
 		"aspectRatio": {
-		  "type": "string"
+			"type": "string"
 		},
 		"objectFit": {
-		  "type": "string",
-		  "default": "cover"
+			"type": "string",
+			"default": "cover"
 		},
 		"linkDestination": {
-		  "type": "string"
+			"type": "string"
 		},
 		"linkTarget": {
-		  "type": "string",
-		  "source": "attribute",
-		  "selector": "figure > a",
-		  "attribute": "target"
+			"type": "string",
+			"source": "attribute",
+			"selector": "figure > a",
+			"attribute": "target"
 		}
-	  },
+	},
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

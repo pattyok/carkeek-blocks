@@ -7,15 +7,36 @@
 	"category": "widgets",
 	"description": "Create an animated progress or bar chart.",
 	"icon": "chart-bar",
-	"keywords": ["progress", "bar", "chart", "line", "graph"],
+	"keywords": [
+		"progress",
+		"bar",
+		"chart",
+		"line",
+		"graph"
+	],
 	"supports": {
 		"html": false,
-		"align": ["left", "center", "right"]
+		"align": [
+			"left",
+			"center",
+			"right"
+		],
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
 	},
 	"styles": [
-        { "name": "default", "label": "Default", "isDefault": true },
-        { "name": "rounded", "label": "Rounded Edges" }
-    ],
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "rounded",
+			"label": "Rounded Edges"
+		}
+	],
 	"textdomain": "carkeek-blocks",
 	"attributes": {
 		"numberVal": {
@@ -47,7 +68,7 @@
 			"default": ""
 		},
 		"color": {
-		  "type": "string"
+			"type": "string"
 		},
 		"customColor": {
 			"type": "string"
@@ -55,10 +76,10 @@
 		"colorHex": {
 			"type": "string",
 			"default": "#000000"
-		  },
+		},
 		"backgroundColor": {
-		  "type": "string"
-	  	},
+			"type": "string"
+		},
 		"customBackgroundColor": {
 			"type": "string"
 		},
@@ -94,5 +115,4 @@
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
 	"viewScript": "file:./script.js"
-
 }
