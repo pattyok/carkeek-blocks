@@ -1,145 +1,149 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "carkeek-blocks/related-posts-archive",
-    "title": "Related Posts Archive",
-    "category": "widgets",
-    "description": "Related Posts Archive.",
-    "keywords": [ "archive", "posts", "list" ],
-    "version": "1.0.0",
-    "textdomain": "carkeek-blocks",
-    "attributes": {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/related-posts-archive",
+	"title": "Related Posts Archive",
+	"category": "widgets",
+	"description": "Related Posts Archive.",
+	"keywords": [
+		"archive",
+		"posts",
+		"list"
+	],
+	"version": "1.0.0",
+	"textdomain": "carkeek-blocks",
+	"attributes": {
 		"postTypeSelected": {
 			"type": "string",
 			"default": "post"
 		},
 		"numberOfPosts": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"fillTheSlots": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"matchAllTerms": {
 			"type": "boolean",
 			"default": false
 		},
 		"displayPostExcerpt": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"displayFeaturedImage": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"imageOrientation": {
-		  "type": "string",
-		  "default": "landscape"
+			"type": "string",
+			"default": "landscape"
 		},
 		"postLayout": {
-		  "type": "string",
-		  "default": "grid"
+			"type": "string",
+			"default": "grid"
 		},
 		"columns": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"columnsMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"columnsTablet": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"limitItemsMobile": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"itemsMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"itemsTablet": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"excerptLength": {
-		  "type": "number",
-		  "default": 25
+			"type": "number",
+			"default": 25
 		},
 		"filterByTaxonomy": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"taxonomySelected": {
-		  "type": "string"
+			"type": "string"
 		},
 		"taxTermsSelected": {
-		  "type": "string"
+			"type": "string"
 		},
 		"taxQueryType": {
-		  "type": "string",
-		  "default": "AND"
+			"type": "string",
+			"default": "AND"
 		},
 		"hideIfEmpty": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"emptyMessage": {
-		  "type": "string"
+			"type": "string"
 		},
 		"headline": {
-		  "type": "string",
-		  "default": ""
+			"type": "string",
+			"default": ""
 		},
 		"morePostsLink": {
-		  "type": "string",
-		  "default": ""
+			"type": "string",
+			"default": ""
 		},
 		"morePostsLinkLabel": {
 			"type": "string",
 			"default": ""
 		},
 		"noLink": {
-            "type": "boolean",
-            "default": false
-        },
+			"type": "boolean",
+			"default": false
+		},
 		"wholeLink": {
-            "type": "boolean",
-            "default": false
-        },
+			"type": "boolean",
+			"default": false
+		},
 		"useHeadingTitle": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"headlineLevel": {
-		  "type": "number",
-		  "default": 2
+			"type": "number",
+			"default": 2
 		},
 		"showPublishDate": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"showTerms": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"publishDateLocation": {
-		  "type": "string",
-		  "default": "below"
+			"type": "string",
+			"default": "below"
 		},
 		"showLearnMoreLink": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"learnMoreLinkTitle": {
-		  "type": "string",
-		  "default": "Learn More"
+			"type": "string",
+			"default": "Learn More"
 		},
 		"blockId": {
-		  "type": "string"
+			"type": "string"
 		},
 		"className": {
 			"type": "string",
@@ -156,25 +160,39 @@
 			"default": true
 		},
 		"excludeChildPosts": {
-            "type": "boolean",
-            "default": false
-        },
-		"childTermsOnly":{
 			"type": "boolean",
 			"default": false
 		},
-		"sortBy":{
+		"childTermsOnly": {
+			"type": "boolean",
+			"default": false
+		},
+		"sortBy": {
 			"type": "string",
 			"default": "date"
 		},
-		"order":{
+		"order": {
 			"type": "string",
 			"default": "DESC"
 		}
 	},
-    "supports": {
-        "align": ["wide", "full", "left", "center", "right"],
-        "color": {"background":true, "text":true}    },
-    "editorScript": "file:./index.js",
+	"supports": {
+		"align": [
+			"wide",
+			"full",
+			"left",
+			"center",
+			"right"
+		],
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
+	},
+	"editorScript": "file:./index.js",
 	"style": "file:./style-index.css"
-  }
+}

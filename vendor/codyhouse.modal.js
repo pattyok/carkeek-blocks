@@ -24,11 +24,9 @@
 	Modal.prototype.initModal = function() {
 		var self = this;
 		//open modal when clicking on trigger buttons
-		console.log(this.triggers);
 		if ( this.triggers ) {
 			for(var i = 0; i < this.triggers.length; i++) {
 				this.triggers[i].addEventListener('click', function(event) {
-					console.log('click');
 					event.preventDefault();
 					if(self.element.classList.contains(self.showClass)) {
 						self.closeModal();
@@ -59,7 +57,6 @@
 	};
 
 	Modal.prototype.showModal = function() {
-		console.log('showModal');
 		var self = this;
 		this.element.classList.add(this.showClass);;
 		this.getFocusableElements();
@@ -205,7 +202,7 @@
 
 	//initialize the Modal objects
 	var modals = document.getElementsByClassName('js-modal');
-	console.log(modals);
+
 	// generic focusable elements string selector
 	var focusableElString = '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary';
 	if( modals.length > 0 ) {

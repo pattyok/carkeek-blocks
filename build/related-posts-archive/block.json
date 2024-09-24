@@ -187,6 +187,10 @@
     "color": {
       "background": true,
       "text": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
     }
   },
   "editorScript": "file:./index.js",

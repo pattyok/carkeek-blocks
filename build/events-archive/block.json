@@ -165,6 +165,9 @@
       "center",
       "right"
     ],
-    "anchor": false
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   }
 }

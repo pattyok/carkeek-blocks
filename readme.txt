@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.32-33 =
+* Release 3.2.32 = 09/04/24
+	* Allow for circle option for the featured image archive
 = 3.2.31 =
 * Release 3.2.31 = 08/04/24
 	* Made an update to the template that it wont link the title and image if the permalink is empty. (Used on PIP where we are using a custom external link for news.)

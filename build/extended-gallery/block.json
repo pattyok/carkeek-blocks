@@ -12,7 +12,11 @@
     "align": [
       "wide",
       "full"
-    ]
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "attributes": {
     "title": {

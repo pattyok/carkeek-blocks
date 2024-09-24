@@ -10,229 +10,233 @@
 		"reusable": true,
 		"html": false,
 		"align": [
-		  "wide",
-		  "full"
-		]
+			"wide",
+			"full"
+		],
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
 	},
 	"attributes": {
 		"title": {
-		  "type": "string"
+			"type": "string"
 		},
 		"subtitle": {
-		  "type": "string"
+			"type": "string"
 		},
 		"images": {
-		  "type": "array",
-		  "default": [],
-		  "source": "query",
-		  "selector": ".ck-blocks-gallery-grid-item",
-		  "query": {
-			"url": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-full-image"
-			},
-			"thumbUrl": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "src"
-			},
-			"lightUrl": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-light-image"
-			},
-			"link": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-link"
-			},
-			"customLink": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-custom-link"
-			},
-			"linkTarget": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-custom-link-target"
-			},
-			"alt": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "alt",
-			  "default": ""
-			},
-			"id": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-id"
-			},
-			"caption": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-caption"
-			},
-			"focalPointX": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-focalx"
-			},
-			"focalPointY": {
-			  "source": "attribute",
-			  "selector": "img",
-			  "attribute": "data-focaly"
+			"type": "array",
+			"default": [],
+			"source": "query",
+			"selector": ".ck-blocks-gallery-grid-item",
+			"query": {
+				"url": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-full-image"
+				},
+				"thumbUrl": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "src"
+				},
+				"lightUrl": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-light-image"
+				},
+				"link": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-link"
+				},
+				"customLink": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-custom-link"
+				},
+				"linkTarget": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-custom-link-target"
+				},
+				"alt": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "alt",
+					"default": ""
+				},
+				"id": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-id"
+				},
+				"caption": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-caption"
+				},
+				"focalPointX": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-focalx"
+				},
+				"focalPointY": {
+					"source": "attribute",
+					"selector": "img",
+					"attribute": "data-focaly"
+				}
 			}
-		  }
 		},
 		"lightSize": {
-		  "type": "string",
-		  "default": "large"
+			"type": "string",
+			"default": "large"
 		},
 		"thumbSize": {
-		  "type": "string",
-		  "default": "medium"
+			"type": "string",
+			"default": "medium"
 		},
 		"displayAs": {
-		  "type": "string",
-		  "default": "gallery"
+			"type": "string",
+			"default": "gallery"
 		},
 		"linkImages": {
-		  "type": "string",
-		  "default": "custom"
+			"type": "string",
+			"default": "custom"
 		},
 		"horizontalAlign": {
-		  "type": "string",
-		  "default": "center"
+			"type": "string",
+			"default": "center"
 		},
 		"columns": {
-		  "type": "number",
-		  "default": 4
+			"type": "number",
+			"default": 4
 		},
 		"columnsMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"columnsTablet": {
-		  "type": "number",
-		  "default": 2
+			"type": "number",
+			"default": 2
 		},
 		"columnGap": {
 			"type": "number",
 			"default": 3
 		},
 		"showCaptions": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"cropImages": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"containImages": {
 			"type": "boolean",
 			"default": false
 		},
 		"imageHeight": {
-		  "type": "string"
+			"type": "string"
 		},
 		"imageWidth": {
 			"type": "string"
 		},
 		"imageLayout": {
-		  "type": "string",
-		  "default": "landscape"
+			"type": "string",
+			"default": "landscape"
 		},
 		"imageAlignment": {
-		  "type": "string",
-		  "default": "center"
+			"type": "string",
+			"default": "center"
 		},
 		"limitView": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"viewLimit": {
-		  "type": "number",
-		  "default": 4
+			"type": "number",
+			"default": 4
 		},
 		"mobileScroll": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"linkFirstImage": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"hideTitle": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"sizeSlug": {
-		  "type": "string",
-		  "default": "full"
+			"type": "string",
+			"default": "full"
 		},
 		"sizeSlugThumbs": {
-		  "type": "string",
-		  "default": "medium"
+			"type": "string",
+			"default": "medium"
 		},
 		"autoPlay": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"slidesToShow": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"slidesToScroll": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"slidesToShowMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"slidesToScrollMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"slidesToShowTablet": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"slidesToScrollTablet": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"autoPlaySpeed": {
-		  "type": "number",
-		  "default": 3000
+			"type": "number",
+			"default": 3000
 		},
 		"transitionSpeed": {
-		  "type": "number",
-		  "default": 500
+			"type": "number",
+			"default": 500
 		},
 		"showDots": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"blockId": {
-		  "type": "string"
+			"type": "string"
 		},
 		"showOverlay": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"ids": {
-		  "type": "array",
-		  "items": {
-			"type": "number"
-		  },
-		  "default": []
+			"type": "array",
+			"items": {
+				"type": "number"
+			},
+			"default": []
 		}
-	  },
-	  "textdomain": "carkeek-slider",
-	  "editorScript": "file:./index.js",
-	  "editorStyle": "file:./index.css",
-	  "style": "file:./style-index.css",
-	  "viewScript": "file:./script.js"
+	},
+	"textdomain": "carkeek-slider",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./script.js"
 }

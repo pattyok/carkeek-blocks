@@ -5,21 +5,36 @@
     "title": "Custom Post Type Archive",
     "category": "widgets",
     "description": "Block showing the latest items by post type.",
-    "keywords": [ "archive", "posts", "list", "custom" ],
+    "keywords": [
+        "archive",
+        "posts",
+        "list",
+        "custom"
+    ],
     "version": "1.0.3",
     "textdomain": "carkeek-blocks",
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
     "supports": {
-        "align": ["wide", "full", "left", "center", "right"],
+        "align": [
+            "wide",
+            "full",
+            "left",
+            "center",
+            "right"
+        ],
         "anchor": true,
-		"color": {
-			"background": true,
-			"text": false,
-			"link": false
-		}
-	},
+        "color": {
+            "background": true,
+            "text": false,
+            "link": false
+        },
+        "spacing": {
+            "padding": true,
+            "margin": true
+        }
+    },
     "attributes": {
         "numberOfPosts": {
             "type": "number",
@@ -33,7 +48,7 @@
             "type": "string",
             "default": "post"
         },
-		"excludeChildPosts": {
+        "excludeChildPosts": {
             "type": "boolean",
             "default": false
         },
@@ -53,22 +68,22 @@
             "type": "boolean",
             "default": false
         },
-		"modalVersion": {
+        "modalVersion": {
             "type": "string",
             "default": "v1"
         },
-		"noLink": {
+        "noLink": {
             "type": "boolean",
             "default": false
         },
-		"wholeLink": {
+        "wholeLink": {
             "type": "boolean",
             "default": false
         },
-		"appendPostTitle": {
-			"type": "boolean",
-			"default": false
-		  },
+        "appendPostTitle": {
+            "type": "boolean",
+            "default": false
+        },
         "postLayout": {
             "type": "string",
             "default": "grid"
@@ -141,7 +156,7 @@
             "type": "string",
             "default": ""
         },
-		"taxTermsIncludeExclude": {
+        "taxTermsIncludeExclude": {
             "type": "string",
             "default": "include"
         },
@@ -153,18 +168,18 @@
             "type": "boolean",
             "default": true
         },
-		"headline": {
-			"type": "string",
-			"default": ""
-		},
-		"morePostsLink": {
-			"type": "string",
-			"default": ""
-		},
-		"morePostsLinkLabel": {
-			"type": "string",
-			"default": ""
-		},
+        "headline": {
+            "type": "string",
+            "default": ""
+        },
+        "morePostsLink": {
+            "type": "string",
+            "default": ""
+        },
+        "morePostsLinkLabel": {
+            "type": "string",
+            "default": ""
+        },
         "emptyMessage": {
             "type": "string",
             "default": "No posts found."
@@ -232,13 +247,13 @@
             "type": "string",
             "default": ""
         },
-		"backgroundColor": {
-			"type": "string",
-			"default": ""
-		},
-		"useWithFilter": {
-			"type": "string",
-			"default": ""
-		}
+        "backgroundColor": {
+            "type": "string",
+            "default": ""
+        },
+        "useWithFilter": {
+            "type": "string",
+            "default": ""
+        }
     }
-  }
+}

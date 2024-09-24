@@ -10,64 +10,81 @@
 		"anchor": true,
 		"html": false,
 		"align": [
-		  "wide",
-		  "full",
-		  "left",
-		  "center",
-		  "right"
-		]
+			"wide",
+			"full",
+			"left",
+			"center",
+			"right"
+		],
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
 	},
-	"styles" : [
-		{ "name": "default", "label": "Default", "isDefault": true },
-		{ "name": "border-solid", "label": "Borders Solid" },
-		{ "name": "border-dashed", "label": "Borders Dashed" },
-		{ "name": "border-dotted", "label": "Borders Dotted" }
+	"styles": [
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "border-solid",
+			"label": "Borders Solid"
+		},
+		{
+			"name": "border-dashed",
+			"label": "Borders Dashed"
+		},
+		{
+			"name": "border-dotted",
+			"label": "Borders Dotted"
+		}
 	],
 	"attributes": {
 		"innerBlockType": {
-		  "type": "string"
+			"type": "string"
 		},
 		"allowedBlocks": {
-		  "type": "array"
+			"type": "array"
 		},
 		"blocksTemplate": {
-		  "type": "array"
+			"type": "array"
 		},
 		"layoutType": {
-		  "type": "string",
-		  "default": "grid"
+			"type": "string",
+			"default": "grid"
 		},
 		"allowItemsWrap": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"itemsPerRow": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"itemsPerRowMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"itemsPerRowTablet": {
-		  "type": "number",
-		  "default": 2
+			"type": "number",
+			"default": 2
 		},
 		"alignInnerBlocks": {
-		  "type": "string",
-		  "default": "left"
+			"type": "string",
+			"default": "left"
 		},
 		"customGap": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"rowGap": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"columnGap": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		}
 	},
 	"textdomain": "carkeek-blocks",

@@ -52,8 +52,7 @@
 		& .ck-columns {
 
 			& > .block-editor-inner-blocks > .block-editor-block-list__layout {
-				display: flex;
-				flex-wrap: wrap;
+				display: grid;
 				gap: var(--ck-column-gap);
 
 				& > * {
@@ -109,69 +108,43 @@
 
 			&.has-1-columns {
 
-				& > .block-editor-inner-blocks > .block-editor-block-list__layout > * {
-					width: 100%;
-
-					&:first-child {
-						margin-right: 0;
-					}
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					grid-template-columns: 1fr;
 				}
 			}
 
 			&.has-2-columns {
 
-				& > .block-editor-inner-blocks > .block-editor-block-list__layout > * {
-					width: calc((100% - var(--ck-column-gap)) / 2);
-
-					&:nth-child(2n+2) {
-						margin-right: 0;
-					}
-
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					grid-template-columns: 1fr 1fr;
 				}
 			}
 
 			&.has-3-columns {
 
-				& > .block-editor-inner-blocks > .block-editor-block-list__layout > * {
-					width: calc((100% - 2 * var(--ck-column-gap)) / 3);
-
-					&:nth-child(3n+3) {
-						margin-right: 0;
-					}
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					grid-template-columns: 1fr 1fr 1fr;
 				}
 			}
 
 			&.has-4-columns {
 
-				& > .block-editor-inner-blocks > .block-editor-block-list__layout > * {
-					width: calc((100% - 3 * var(--ck-column-gap)) / 4);
-
-					&:nth-child(4n+4) {
-						margin-right: 0;
-					}
-
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					grid-template-columns: 1fr 1fr 1fr 1fr;
 				}
 			}
 
 			&.has-5-columns {
 
-				& > .block-editor-inner-blocks > .block-editor-block-list__layout > * {
-					width: calc((100% - 4 * var(--ck-column-gap) ) / 5);
-
-					&:nth-child(5n+5) {
-						margin-right: 0;
-					}
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 				}
 			}
 
 			&.has-6-columns {
 
-				& > .block-editor-inner-blocks > .block-editor-block-list__layout > * {
-					width: calc((100% - 5 * var(--ck-column-gap) ) / 6);
-
-					&:nth-child(6n+6) {
-						margin-right: 0;
-					}
+				& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+					grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 				}
 			}
 		}

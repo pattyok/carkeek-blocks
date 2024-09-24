@@ -19,6 +19,10 @@
       "background": true,
       "gradients": false,
       "text": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
     }
   },
   "textdomain": "carkeek-blocks",

@@ -1,114 +1,118 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "carkeek-blocks/related-events-archive",
-    "title": "Related Events Archive",
-    "category": "widgets",
-    "description": "Related Events Archive.",
-    "keywords": [ "archive", "posts", "list" ],
-    "version": "1.0.0",
-    "textdomain": "carkeek-blocks",
-    "attributes": {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/related-events-archive",
+	"title": "Related Events Archive",
+	"category": "widgets",
+	"description": "Related Events Archive.",
+	"keywords": [
+		"archive",
+		"posts",
+		"list"
+	],
+	"version": "1.0.0",
+	"textdomain": "carkeek-blocks",
+	"attributes": {
 		"numberOfPosts": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"fillTheSlots": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"postTypeSelected": {
-		  "type": "string"
+			"type": "string"
 		},
 		"displayPostExcerpt": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"displayFeaturedImage": {
-		  "type": "boolean",
-		  "default": true
+			"type": "boolean",
+			"default": true
 		},
 		"imageOrientation": {
-		  "type": "string",
-		  "default": "landscape"
+			"type": "string",
+			"default": "landscape"
 		},
 		"postLayout": {
-		  "type": "string",
-		  "default": "grid"
+			"type": "string",
+			"default": "grid"
 		},
 		"columns": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"columnsMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"columnsTablet": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"limitItemsMobile": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"itemsMobile": {
-		  "type": "number",
-		  "default": 1
+			"type": "number",
+			"default": 1
 		},
 		"itemsTablet": {
-		  "type": "number",
-		  "default": 3
+			"type": "number",
+			"default": 3
 		},
 		"sortBy": {
-		  "type": "string",
-		  "default": "date"
+			"type": "string",
+			"default": "date"
 		},
 		"sortByMeta": {
-		  "type": "string"
+			"type": "string"
 		},
 		"order": {
-		  "type": "string",
-		  "default": "ASC"
+			"type": "string",
+			"default": "ASC"
 		},
 		"excerptLength": {
-		  "type": "number",
-		  "default": 25
+			"type": "number",
+			"default": 25
 		},
 		"filterByTaxonomy": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"taxonomySelected": {
-		  "type": "array"
+			"type": "array"
 		},
 		"hideIfEmpty": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"emptyMessage": {
-		  "type": "string",
-		  "default": ""
+			"type": "string",
+			"default": ""
 		},
 		"headline": {
-		  "type": "string",
-		  "default": ""
+			"type": "string",
+			"default": ""
 		},
 		"morePostsLink": {
-		  "type": "string",
-		  "default": ""
+			"type": "string",
+			"default": ""
 		},
 		"morePostsLinkLabel": {
 			"type": "string",
 			"default": ""
 		},
 		"useHeadingTitle": {
-		  "type": "boolean",
-		  "default": false
+			"type": "boolean",
+			"default": false
 		},
 		"headlineLevel": {
-		  "type": "number",
-		  "default": 2
+			"type": "number",
+			"default": 2
 		},
 		"className": {
 			"type": "string",
@@ -120,7 +124,7 @@
 		"backgroundColor": {
 			"type": "string"
 		},
-		"childTermsOnly":{
+		"childTermsOnly": {
 			"type": "boolean",
 			"default": false
 		},
@@ -132,10 +136,10 @@
 			"type": "string"
 		},
 		"displayField2": {
-		"type": "string"
+			"type": "string"
 		},
 		"displayField3": {
-		"type": "string"
+			"type": "string"
 		},
 		"displayField4": {
 			"type": "string"
@@ -156,16 +160,25 @@
 			"type": "object"
 		}
 	},
-    "supports": {
-        "align": ["wide", "full", "left", "center", "right"],
-        "color": {"background":true, "text":true},
+	"supports": {
+		"align": [
+			"wide",
+			"full",
+			"left",
+			"center",
+			"right"
+		],
+		"color": {
+			"background": true,
+			"text": true
+		},
 		"spacing": {
 			"margin": true,
 			"padding": true,
 			"blockGap": true
 		}
 	},
-    "editorScript": "file:./index.js",
+	"editorScript": "file:./index.js",
 	"style": "file:./style-index.css",
 	"render": "file:./render.php"
-  }
+}
