@@ -8,7 +8,7 @@ import { get, omit, filter } from 'lodash';
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody, ToggleControl, Dropdown } from '@wordpress/components';
+import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody, ToggleControl, Dropdown, RangeControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { RichText, MediaPlaceholder, InspectorControls, URLInput } from '@wordpress/block-editor';
 import { isBlobURL } from '@wordpress/blob';
@@ -31,6 +31,8 @@ export const GalleryImage = ( props ) => {
 		customLink,
 		focalPointX,
 		focalPointY,
+		spanCols,
+		spanRows,
 		linkTarget,
 		isFirstItem,
 		isLastItem,
@@ -43,6 +45,7 @@ export const GalleryImage = ( props ) => {
 		setAttributes,
 		showCaptions,
 		cropImages,
+		isTiled,
 		containImages,
 		imageHeight,
 		imageWidth,
@@ -109,11 +112,13 @@ export const GalleryImage = ( props ) => {
 		objectPosition : `${focalPointX *
 			100}% ${focalPointY * 100}%`
 	}
+
 	if (containImages) {
 		imageStyle.objectFit = 'contain';
 		imageStyle.height = imageHeight + 'px';
 		imageStyle.width = imageWidth + 'px';
 	}
+
 
 	const img = (
 		// Disable reason: Image itself is not meant to be interactive, but should
@@ -145,7 +150,7 @@ export const GalleryImage = ( props ) => {
 		<>
 
 			<InspectorControls>
-			{ isSelected && cropImages && (
+			{ isSelected && (cropImages) && (
 				<PanelBody title={__("Image Settings", "carkeek-blocks")}>
 					<FocalPointPicker
 							label={__("Focal Point", "carkeek-blocks")}
@@ -153,6 +158,26 @@ export const GalleryImage = ( props ) => {
 							onChange={onSetFocalPoint}
 							value={ {x: focalPointX, y: focalPointY }}
 					/>
+					{isTiled && (
+						<>
+					<RangeControl
+						label="Row Span"
+						value={ spanRows }
+						onChange={ ( spanRows ) => setAttributes( { spanRows } ) }
+						min={ 1 }
+						max={ 6 }
+						step={ 1 }
+					/>
+					<RangeControl
+						label="Columns Span"
+						value={ spanCols }
+						onChange={ ( spanCols ) => setAttributes( { spanCols } ) }
+						min={ 1 }
+						max={ 12 }
+						step={ 1 }
+					/>
+					</>
+					)}
 				</PanelBody>
 			)}
 			</InspectorControls>

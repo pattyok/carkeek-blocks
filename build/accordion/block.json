@@ -11,7 +11,11 @@
     "align": [
       "wide",
       "full"
-    ]
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "keywords": [
     "accordion",
@@ -42,6 +46,15 @@
     "openMultiple": {
       "type": "boolean",
       "default": true
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "spacing": {
+          "margin": {},
+          "padding": {}
+        }
+      }
     }
   }
 }

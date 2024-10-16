@@ -17,7 +17,11 @@
     "align": [
       "wide",
       "full"
-    ]
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "textdomain": "carkeek-blocks",
   "attributes": {
@@ -44,6 +48,15 @@
     "innerBlocks_length": {
       "type": "number",
       "default": 0
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "spacing": {
+          "margin": {},
+          "padding": {}
+        }
+      }
     }
   },
   "editorScript": "file:./index.js",

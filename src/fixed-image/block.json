@@ -111,7 +111,18 @@
 			"source": "attribute",
 			"selector": "figure > a",
 			"attribute": "target"
-		}
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
 	},
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",

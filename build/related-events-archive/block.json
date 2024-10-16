@@ -157,7 +157,13 @@
       "default": "show_end_date"
     },
     "style": {
-      "type": "object"
+      "type": "object",
+      "default": {
+        "spacing": {
+          "margin": {},
+          "padding": {}
+        }
+      }
     }
   },
   "supports": {

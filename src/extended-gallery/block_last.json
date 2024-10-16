@@ -90,18 +90,6 @@
 					"source": "attribute",
 					"selector": "img",
 					"attribute": "data-focaly"
-				},
-				"spanCols": {
-					"source": "attribute",
-					"selector": "img",
-					"type": "number",
-					"attribute": "data-spancols"
-				},
-				"spanRows": {
-					"source": "attribute",
-					"selector": "img",
-					"type": "number",
-					"attribute": "data-spanrows"
 				}
 			}
 		},
@@ -111,7 +99,7 @@
 		},
 		"thumbSize": {
 			"type": "string",
-			"default": "large"
+			"default": "medium"
 		},
 		"displayAs": {
 			"type": "string",
@@ -242,7 +230,6 @@
 			"type": "boolean",
 			"default": false
 		},
-
 		"style": {
             "type": "object",
             "default": {
@@ -260,10 +247,6 @@
 				"type": "number"
 			},
 			"default": []
-		},
-		"rowHeight": {
-			"type": "number",
-			"default": 200
 		}
 	},
 	"example": {

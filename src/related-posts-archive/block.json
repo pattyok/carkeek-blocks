@@ -174,7 +174,18 @@
 		"order": {
 			"type": "string",
 			"default": "DESC"
-		}
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
 	},
 	"supports": {
 		"align": [

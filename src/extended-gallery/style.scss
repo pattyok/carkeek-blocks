@@ -1,4 +1,6 @@
-
+:root {
+	--ck-grid-row-height: 200px;
+}
 
 body.admin-bar .fancybox-container {
 	margin-top: 32px;
@@ -388,3 +390,44 @@ ul.ck-blocks-gallery-grid {
 
 
 }
+
+@media screen and (min-width: 768px)  {
+	.wp-block-carkeek-blocks-extended-gallery {
+			& ul.ck-tiled-gallery {
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+				grid-auto-rows: var(--ck-grid-row-height);
+
+				& figure {
+					display: block;
+				}
+
+				& img {
+					object-fit: cover;
+					width: 100%;
+					height: 100%;
+				}
+				& li:nth-child(1) {
+					grid-column: span 8;
+					grid-row: span 2;
+				}
+				& li:nth-child(2) {
+					grid-column: span 4;
+					grid-row: span 1;
+				}
+				& li:nth-child(3) {
+					grid-column: span 4;
+					grid-row: span 1;
+				}
+				& li:nth-child(4) {
+					grid-column: span 3;
+					grid-row: span 2;
+				}
+				& li:nth-child(5) {
+					grid-column: span 4;
+					grid-row: span 1;
+				}
+			}
+	}
+}
+

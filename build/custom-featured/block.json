@@ -15,7 +15,11 @@
       "center",
       "right"
     ],
-    "anchor": false
+    "anchor": false,
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "textdomain": "carkeek-blocks",
   "attributes": {
@@ -34,6 +38,15 @@
     "showCaption": {
       "type": "boolean",
       "default": false
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "spacing": {
+          "margin": {},
+          "padding": {}
+        }
+      }
     }
   },
   "styles": [

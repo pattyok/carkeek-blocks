@@ -8,7 +8,11 @@
 	"description": "Accordion block.",
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full" ]
+		"align": [ "wide", "full" ],
+		"spacing": {
+            "padding": true,
+            "margin": true
+        }
 	},
 	"keywords": [
 		"accordion",
@@ -39,6 +43,17 @@
 		"openMultiple": {
 			"type": "boolean",
 			"default": true
-		}
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
 	}
 }
