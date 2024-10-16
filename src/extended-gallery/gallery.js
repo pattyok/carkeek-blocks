@@ -42,6 +42,8 @@ export const Gallery = ( props ) => {
 		columnsTablet,
 		columnGap,
 		cropImages,
+		mobileScroll,
+		horizontalAlign,
 		containImages,
 		imageHeight,
 		imageWidth,
@@ -59,17 +61,25 @@ export const Gallery = ( props ) => {
 
 	const isGallery = displayAs == 'gallery';
 	const isCarousel = displayAs == 'carousel';
+	const isTiled = displayAs == 'tiled';
 
 	const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': true,
 		[ `columns-${ columns }` ]: isGallery,
-		[ `columns-m-${ columnsMobile }` ]: isGallery,
-		[ `columns-t-${ columnsTablet }` ]: isGallery,
-		'fixed-images': cropImages,
-        [ `fixed-images-${ imageLayout }` ]: cropImages,
-		'ck-blocks-gallery-carousel': isCarousel,
-		[ `columns-${ slidesToShow }` ] : isCarousel,
-		[ `ck-column-gap-${ columnGap }` ]: isGallery,
+        [ `columns-m-${ columnsMobile }` ]: isGallery,
+        [ `columns-t-${ columnsTablet }` ]: isGallery,
+        [ `align${ horizontalAlign }` ]: isGallery,
+		'fixed-images': cropImages && !isTiled,
+		'contain-images': containImages,
+        [ `fixed-images-${ imageLayout }` ]: cropImages && !isTiled,
+        'mobile-scroll': mobileScroll,
+        [ `image-align-${ imageAlignment }` ]: !cropImages,
+        'has-captions': showCaptions && !isLightbox,
+        'ck-carkeek-slider__slide-wrapper': isCarousel,
+       'slider-carousel' : isCarousel,
+	   [ `ck-column-gap-${ columnGap }` ]: isGallery || isTiled,
+	   'ck-tiled-gallery': isTiled,
+	   [ `ck-image-count-${ images.length }` ] : isTiled,
 	})
 
     function setAttributes( newAttrs ) {
@@ -205,12 +215,14 @@ export const Gallery = ( props ) => {
 		<>
             <InspectorControls>
                 <PanelBody title="Gallery Image Settings">
+					{!isTiled &&
 					<ToggleControl
 						label="Crop Images"
 						help={ "Crop the images in the gallery to a uniform size"}
 						checked={ cropImages }
 						onChange={ ( cropImages ) => setAttributes( { cropImages } ) }
 					/>
+			}
 					{!cropImages &&
 					<>
 					<ToggleControl
@@ -251,7 +263,7 @@ export const Gallery = ( props ) => {
 					/>
 					</>
 					}
-                    {cropImages && (
+                    {cropImages && !isTiled && (
 						<RadioControl
 							label="Image Layout"
 							selected={ imageLayout }
@@ -299,10 +311,18 @@ export const Gallery = ( props ) => {
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (isCarousel && index >= slidesToShow)
                     })
+					let figureStyle = {};
+					if (isTiled && img.spanCols) {
+						figureStyle.gridColumn = `span ${img.spanCols}`;
+					}
+					if (isTiled && img.spanRows) {
+						figureStyle.gridRow = `span ${img.spanRows}`;
+					}
 
 					return (
 						<li
 							className={itemStyle}
+							style={figureStyle}
 							key={ img.id || img.url }
 						>
 							{ <GalleryImage
@@ -315,6 +335,8 @@ export const Gallery = ( props ) => {
                                 id={ parseInt( img.id, 10 ) } // make id an integer explicitly
                                 focalPointX={img.focalPointX}
                                 focalPointY={img.focalPointY}
+								spanCols={ parseFloat(img.spanCols)}
+                                spanRows={ parseFloat(img.spanRows)}
 								isFirstItem={ index === 0 }
 								isLastItem={ index + 1 === images.length }
 								isSelected={
@@ -332,7 +354,8 @@ export const Gallery = ( props ) => {
 								containImages = { containImages }
 								imageHeight = { imageHeight }
 								imageWidth = { imageWidth }
-								cropImages = { cropImages }
+								cropImages = { cropImages || isTiled }
+								isTiled = { isTiled }
 								linkImages = { linkImages }
 								customLink={img.customLink}
 								linkTarget={img.linkTarget}

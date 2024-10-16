@@ -40,13 +40,18 @@ function ExtendedGalleryEdit( props ) {
         showDots,
         showOverlay,
 		columnGap,
+		rowHeight
      } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
 
-    const blockProps = useBlockProps();
+	const styles = {
+		"--ck-grid-row-height": rowHeight + 'px',
+	  };
+    const blockProps = useBlockProps({ style: styles });
     const isGallery = displayAs == 'gallery';
+	const isTiled = displayAs == 'tiled';
     const isCarousel = displayAs == 'carousel';
 
 	if( ! columnGap && columnGap !== 0 ) {
@@ -64,7 +69,8 @@ function ExtendedGalleryEdit( props ) {
                         label="Display on page as"
                         selected={ displayAs }
                         options={ [
-                            { label: 'Gallery', value: 'gallery' },
+                            { label: 'Gallery (Grid)', value: 'gallery' },
+							{ label: 'Gallery (tiled)', value: 'tiled' },
                             { label: 'Carousel', value: 'carousel' },
                         ] }
                         onChange={value =>
@@ -154,6 +160,30 @@ function ExtendedGalleryEdit( props ) {
                                 />
                                 </>
                             }
+                            </PanelBody>
+                        </>
+                    }
+					{isTiled &&
+                        <>
+                        <PanelBody title="Gallery Settings">
+                            <RangeControl
+                                label="Row Height"
+                                value={ rowHeight }
+                                onChange={ ( rowHeight ) => setAttributes( { rowHeight } ) }
+                                min={ 50 }
+                                max={ 700 }
+                                step={ 10 }
+                            />
+							<RangeControl
+								label= { colGapLabel }
+								value={ columnGap }
+								onChange={ ( columnGap ) => setAttributes( { columnGap } ) }
+								min={ 0 }
+								max={ 5 }
+								step={ 1 }
+								type="stepper"
+								withInputField={ false }
+							/>
                             </PanelBody>
                         </>
                     }

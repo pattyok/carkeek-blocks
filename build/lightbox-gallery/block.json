@@ -12,7 +12,11 @@
     "align": [
       "wide",
       "full"
-    ]
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "textdomain": "carkeek-blocks",
   "attributes": {
@@ -80,6 +84,15 @@
     },
     "blockId": {
       "type": "string"
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "spacing": {
+          "margin": {},
+          "padding": {}
+        }
+      }
     },
     "ids": {
       "type": "array",

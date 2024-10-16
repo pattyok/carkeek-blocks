@@ -155,6 +155,15 @@
     "align": {
       "type": "string",
       "default": ""
+    },
+    "style": {
+      "type": "object",
+      "default": {
+        "spacing": {
+          "margin": {},
+          "padding": {}
+        }
+      }
     }
   },
   "supports": {

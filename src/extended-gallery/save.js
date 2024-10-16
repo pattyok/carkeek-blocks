@@ -35,11 +35,13 @@ function ExtendedGallerySave ({ attributes }) {
         transitionSpeed,
         showOverlay,
 		columnGap,
+		rowHeight,
         showDots} = attributes;
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
     const galleryId = title ? cleanForSlug(title) : blockId;
     const isGallery = displayAs == 'gallery';
     const isCarousel = displayAs == 'carousel';
+	const isTiled = displayAs == 'tiled';
     const maybeCarousel = isCarousel || mobileScroll;
     const isLightbox = linkImages == 'lightbox';
     const blockStyle = classnames({
@@ -47,7 +49,12 @@ function ExtendedGallerySave ({ attributes }) {
         'lightbox-gallery': isLightbox,
         'image-carousel': isCarousel,
     })
-    const blockProps = useBlockProps.save({className: blockStyle} );
+
+	const styles = {
+		"--ck-grid-row-height": rowHeight + 'px',
+	};
+
+    const blockProps = useBlockProps.save({className: blockStyle, style: styles} );
 
     const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': true,
@@ -55,15 +62,17 @@ function ExtendedGallerySave ({ attributes }) {
         [ `columns-m-${ columnsMobile }` ]: isGallery,
         [ `columns-t-${ columnsTablet }` ]: isGallery,
         [ `align${ horizontalAlign }` ]: isGallery,
-		'fixed-images': cropImages,
+		'fixed-images': cropImages && !isTiled,
 		'contain-images': containImages,
-        [ `fixed-images-${ imageLayout }` ]: cropImages,
+        [ `fixed-images-${ imageLayout }` ]: cropImages && !isTiled,
         'mobile-scroll': mobileScroll,
         [ `image-align-${ imageAlignment }` ]: !cropImages,
         'has-captions': showCaptions && !isLightbox,
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
-	   [ `ck-column-gap-${ columnGap }` ]: isGallery,
+	   [ `ck-column-gap-${ columnGap }` ]: isGallery || isTiled,
+	   'ck-tiled-gallery': isTiled,
+	   [ `ck-image-count-${ images.length }` ] : isTiled,
 	});
 
 
@@ -119,7 +128,6 @@ function ExtendedGallerySave ({ attributes }) {
                     }
 					if (containImages) {
 						imageStyle.objectFit = 'contain';
-						console.log(imageHeight, imageWidth);
 						if (imageHeight) {
 							imageStyle.height = imageHeight + 'px';
 						}
@@ -127,6 +135,14 @@ function ExtendedGallerySave ({ attributes }) {
 							imageStyle.width = imageWidth + 'px';
 						}
 					}
+					let figureStyle = {};
+					if (isTiled && img.spanCols) {
+						figureStyle.gridColumn = `span ${img.spanCols}`;
+					}
+					if (isTiled && img.spanRows) {
+						figureStyle.gridRow = `span ${img.spanRows}`;
+					}
+
                     const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit),
@@ -146,6 +162,8 @@ function ExtendedGallerySave ({ attributes }) {
                             data-caption={img.caption}
                             data-focalx={img.focalPointX}
                             data-focaly={img.focalPointY}
+							data-spancols={img.spanCols}
+							data-spanrows={img.spanRows}
                         />
                     );
                     let imagePack;
@@ -184,7 +202,7 @@ function ExtendedGallerySave ({ attributes }) {
                     }
 
                     return(
-                    <li key={index} className={itemStyle}><figure>{imagePack}</figure></li>
+                    <li key={index} className={itemStyle} style={figureStyle}><figure >{imagePack}</figure></li>
                     )
                 }
                 ) }

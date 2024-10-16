@@ -9,7 +9,11 @@
 	"description": "Example block scaffolded with Create Block tool.",
 	"supports": {
 		"html": false,
-		"align": true
+		"align": true,
+		"spacing": {
+			"padding": true,
+			"margin": true
+		}
 	},
 	"attributes": {
 		"autoPlay": {
@@ -81,7 +85,18 @@
 			"type": "string",
 			"source": "html",
 			"selector": ".desktop-text"
-		}
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
 	},
 	"textdomain": "carkeek-slider",
 	"editorScript": "file:./index.js",

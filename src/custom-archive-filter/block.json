@@ -20,6 +20,10 @@
 			"background": true,
 			"text": true,
 			"link": true
+		},
+        "spacing": {
+			"padding": true,
+			"margin": true
 		}
 	},
     "attributes": {
@@ -42,6 +46,17 @@
 		"taxTermsIncludeExclude": {
             "type": "string",
             "default": "include"
+        },
+        "style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
         }
     }
   }

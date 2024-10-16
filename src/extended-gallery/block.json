@@ -25,6 +25,10 @@
 		"subtitle": {
 			"type": "string"
 		},
+		"preview": {
+			"type": "boolean",
+			"default": false
+		},
 		"images": {
 			"type": "array",
 			"default": [],
@@ -86,6 +90,18 @@
 					"source": "attribute",
 					"selector": "img",
 					"attribute": "data-focaly"
+				},
+				"spanCols": {
+					"source": "attribute",
+					"selector": "img",
+					"type": "number",
+					"attribute": "data-spancols"
+				},
+				"spanRows": {
+					"source": "attribute",
+					"selector": "img",
+					"type": "number",
+					"attribute": "data-spanrows"
 				}
 			}
 		},
@@ -95,7 +111,7 @@
 		},
 		"thumbSize": {
 			"type": "string",
-			"default": "medium"
+			"default": "large"
 		},
 		"displayAs": {
 			"type": "string",
@@ -226,12 +242,33 @@
 			"type": "boolean",
 			"default": false
 		},
+
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        },
 		"ids": {
 			"type": "array",
 			"items": {
 				"type": "number"
 			},
 			"default": []
+		},
+		"rowHeight": {
+			"type": "number",
+			"default": 200
+		}
+	},
+	"example": {
+		"attributes": {
+			"preview" : true
 		}
 	},
 	"textdomain": "carkeek-slider",

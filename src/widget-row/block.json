@@ -85,7 +85,18 @@
 		"columnGap": {
 			"type": "number",
 			"default": 3
-		}
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
 	},
 	"textdomain": "carkeek-blocks",
 	"editorScript": "file:./index.js",
