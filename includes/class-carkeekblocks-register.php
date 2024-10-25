@@ -127,7 +127,7 @@ class CarkeekBlocks_Block_Register {
 				'You need to run `npm start` or `npm run build` for the "carkeek-blocks" plugin first.'
 			);
 		}
-
+		$vendor = 'vendor/';
 		$shared_css = 'build/shared/style-index.css';
 		wp_enqueue_style(
 			'carkeek-blocks-shared',
@@ -136,7 +136,7 @@ class CarkeekBlocks_Block_Register {
 			filemtime( "$dir/$shared_css" )
 		);
 
-		$vendor = 'vendor/';
+
 
 		// load shared assets for specific blocks only.
 		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {
