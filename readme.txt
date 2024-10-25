@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.32-35 =
+* Release 3.2.35 = 10/25/24
+	* Minor tweaks to the youtube block - fix to id parsing and added handle to js script.
 = 3.2.32-33 =
 * Release 3.2.32 = 09/04/24
 	* Allow for circle option for the featured image archive

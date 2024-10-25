@@ -94,28 +94,31 @@ if ( isset( $data->addlContentAfter ) ) {
 if ( ! empty( $link_start ) ) {
 	echo wp_kses_post( $link_start );
 }
+$featured_image_html = '';
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 
+	if ( false == $data->noLink && false == $data->wholeLink && !empty($permalink)) {
+		$featured_image_html =  sprintf('<a class="ck-custom-archive-image-link %s" aria-hidden="true" tabindex="-1" href="%s" target="%s">%s</a>',
+			esc_attr( $image_style ),
+			esc_url( $permalink ),
+			esc_attr( $permalink_target ),
+			$featured_image
+		);
+	} else {
+		$featured_image_html = sprintf('<div class="ck-custom-archive-image-link %s">%s</div>',
+			esc_attr( $image_style ),
+			$featured_image
+		);
+	}
+}
+$featured_image_html = apply_filters( 'ck_custom_archive__featured_image_html', $featured_image_html, $data );
+$featured_image_html = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_html', $featured_image_html, $data );
+echo $featured_image_html;
 ?>
-	<?php if ( false == $data->noLink && false == $data->wholeLink && !empty($permalink)) { ?>
-		<a class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>" aria-hidden="true" tabindex="-1" href="<?php echo esc_url( $permalink ); ?>" target="<?php echo esc_attr( $permalink_target ); ?>">
-	<?php } else { ?>
-		<div class="ck-custom-archive-image-link <?php echo esc_attr( $image_style ); ?>">
-	<?php } ?>
-
-		<?php echo wp_kses_post( $featured_image ); ?>
-
-	<?php if ( false == $data->noLink && false == $data->wholeLink && !empty($permalink)) { ?>
-		</a>
-		<?php } else { ?>
-		</div>
-	<?php } ?>
-	<?php } ?>
 	<div class="ck-custom-archive__content-wrap">
-
-
 		<?php
+
 		// deprecate this in favor of filters.
 		do_action( 'ck_custom_archive_layout__before_title', $data );
 		?>
