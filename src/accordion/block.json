@@ -36,6 +36,14 @@
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
 	"attributes": {
+		"headerStyle": {
+			"type": "string",
+			"default": "h3"
+		},
+		"openMultiple": {
+			"type": "boolean",
+			"default": true
+		},
 		"style": {
             "type": "object",
             "default": {
