@@ -1,0 +1,22 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ .cj1-hide {
+	display: none !important;
+  }
+
+.wp-block-carkeek-blocks-button-expand-collapse {
+	& .wp-block-carkeek-blocks-button-expanded {
+		display: none;
+	}
+	&[aria-expanded="true"] .wp-block-carkeek-blocks-button-expanded {
+		display: block;
+	}
+	&[aria-expanded="true"] .wp-block-carkeek-blocks-button-collapsed {
+		display: none;
+	}
+}

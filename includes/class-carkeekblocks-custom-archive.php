@@ -581,7 +581,9 @@ class CarkeekBlocks_CustomArchive {
 						'format'    => '?paged=%#%',
 						'current'   => max( 1, get_query_var( 'paged' ) ),
 						'total'     => $query->max_num_pages,
-						'prev_next' => false,
+						'prev_next' => true,
+						'prev_text'          => __( '&lsaquo; Prev' ),
+						'next_text'          => __( 'Next &rsaquo;' ),
 						'type'      => 'list',
 					)
 				);

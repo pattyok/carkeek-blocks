@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/button-collapsed",
+	"version": "0.1.0",
+	"title": "Collapsed State Button",
+	"category": "widgets",
+	"description": "Expand button content.",
+	"supports": {
+		"html": false,
+		"spacing": {
+            "padding": true,
+            "margin": true
+        },
+		"color": {
+            "background": true,
+            "text": true,
+            "link": false
+        }
+	},
+	"parent": ["carkeek-blocks/button-expand-collapse"],
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"ariaCollapsed": {
+			"type": "string",
+			"default": "Open [target]"
+		}
+	}
+}

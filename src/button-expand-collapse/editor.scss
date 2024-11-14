@@ -1,0 +1,25 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-carkeek-blocks-button-expand-collapse {
+	&.has-child-selected,
+	&.is-selected {
+		& .wp-block-carkeek-blocks-button-expanded {
+			display: block;
+		}
+		& .wp-block-carkeek-blocks-button-collapsed {
+			display: block;
+		}
+	}
+}
+
+.wp-block-carkeek-blocks-button-collapsed,
+.wp-block-carkeek-blocks-button-expanded {
+	& .screen-reader {
+		font-size: 14px;
+		font-weight: 400;
+	}
+}
