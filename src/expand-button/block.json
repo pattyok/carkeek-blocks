@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/expand-button",
+	"version": "2.0.1",
+	"title": "Expand Button",
+	"category": "widgets",
+	"description": "Simple button to expand or collapse a section.",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+            "padding": true,
+            "margin": true
+        },
+		"color": {
+            "background": true,
+            "text": true,
+            "link": false
+        }
+	},
+	"keywords": [
+		"accordion",
+		"toggle",
+		"expand",
+		"colllapse"
+	],
+	"styles": [
+		{
+			"name": "default",
+			"label": "Standard Accordion",
+			"isDefault": true
+		},
+		{
+			"name": "mini",
+			"label": "Mini Style"
+		}
+	],
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"headerStyle": {
+			"type": "string",
+			"default": "h3"
+		},
+		"openMultiple": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
+	}
+}

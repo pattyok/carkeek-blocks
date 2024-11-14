@@ -1,0 +1,70 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/button-expand-collapse",
+	"version": "2.0.1",
+	"title": "Expand Collapse Button",
+	"category": "widgets",
+	"description": "Place a button that expands and collapses a section.",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+            "padding": true,
+            "margin": true
+        },
+		"color": {
+            "background": true,
+            "text": true,
+            "link": false
+        }
+	},
+	"keywords": [
+		"toggle",
+		"expand",
+		"colllapse"
+	],
+
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"target": {
+			"type": "string",
+			"default": ""
+		},
+		"ariaExpanded": {
+			"type": "string",
+			"default": "Close [target]"
+		},
+		"ariaCollapsed": {
+			"type": "string",
+			"default": "Open [target]"
+		},
+		"expandedMobile": {
+			"type": "boolean",
+			"default": false
+		},
+		"expandedTablet": {
+			"type": "boolean",
+			"default": false
+		},
+		"expandedDesktop": {
+			"type": "boolean",
+			"default": false
+		},
+		"style": {
+            "type": "object",
+            "default": {
+                "spacing":{
+                    "margin": {
+                    },
+                    "padding": {
+                    }
+                }
+            }
+        }
+	}
+}
