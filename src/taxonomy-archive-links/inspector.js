@@ -24,7 +24,14 @@ function postsInspector( props ){
 		displayAs,
 		separator,
 		showBullets,
-		listLabel
+		listLabel,
+		archiveType,
+		archivePage,
+		archiveFacet,
+		tileImageField,
+		tileImageStyle,
+		excludeChildTerms
+
           } = attributes;
 
 
@@ -106,6 +113,13 @@ function postsInspector( props ){
                         setAttributes({ linkToCategory: value })
                     }
                 />
+				<ToggleControl
+                    label="Exclude Child Terms"
+                    checked={ excludeChildTerms }
+                    onChange={value =>
+                        setAttributes({ excludeChildTerms: value })
+                    }
+                />
             </PanelBody>
 			<PanelBody title={__("Layout Style", "carkeek-blocks")}>
 			<TextControl
@@ -125,6 +139,7 @@ function postsInspector( props ){
 				options={[
 					{ label: __("Vertical List"), value: "list"},
 					{ label: __("Horizontal (inline) List"), value: "inline"},
+					{ label: __("Link Tile"), value: "tile"},
 				]}
 				value={displayAs}
 			/>
@@ -153,8 +168,69 @@ function postsInspector( props ){
 					}
 				/>
 			}
+			</PanelBody>
+			{ displayAs === 'tile' &&
+
+			<PanelBody title={__("Tile Settings", "carkeek-blocks")}>
+				<TextControl
+					label="Image Field"
+					value={ tileImageField }
+					onChange={value =>
+						setAttributes({ tileImageField: value })
+					}
+				/>
+				<SelectControl
+					label={__("Image Style", "carkeek-blocks")}
+					onChange={value =>
+						setAttributes({
+							tileImageStyle: value
+						})
+					}
+					options={[
+						{ label: __("Icon"), value: "icon"},
+						{ label: __("Cover"), value: "cover"},
+					]}
+					value={tileImageStyle}
+				/>
+			</PanelBody>
+			}
+			{ linkToCategory  &&
+			<PanelBody title={__("Archive Settings", "carkeek-blocks")}>
+				<SelectControl
+					label={__("Archive Type", "carkeek-blocks")}
+					onChange={value =>
+						setAttributes({
+							archiveType: value
+						})
+					}
+					options={[
+						{ label: __("WordPress"), value: "wordpress"},
+						{ label: __("FacetWP"), value: "facetwp"},
+					]}
+					value={archiveType}
+				/>
+				{ archiveType === 'facetwp' &&
+				<>
+				<TextControl
+					label="Archive URL"
+					value={ archivePage }
+					onChange={value =>
+						setAttributes({ archivePage: value })
+					}
+				/>
+				<TextControl
+					label="Taxonomy Facet"
+					value={ archiveFacet }
+					onChange={value =>
+						setAttributes({ archiveFacet: value })
+					}
+				/>
+			</>
+		}
 
 			</PanelBody>
+		}
+
 
 
 

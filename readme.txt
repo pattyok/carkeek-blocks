@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.37 =
+* Release 3.2.37 = 12/04/24
+	* Made some updates to the taxonomy block to support a link tile style taxonomy layout
 = 3.2.36 =
 * Release 3.2.35 = 10/25/24
 	* Added a expand/collapse button block.
