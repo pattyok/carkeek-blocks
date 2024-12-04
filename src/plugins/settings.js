@@ -1,4 +1,4 @@
-import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
+import { PluginDocumentSettingPanel } from "@wordpress/editor";
 import { __ } from "@wordpress/i18n";
 import { CheckboxControl, FocalPointPicker, Button, RangeControl } from "@wordpress/components";
 import { withSelect, withDispatch } from "@wordpress/data";

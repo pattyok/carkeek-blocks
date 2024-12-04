@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.38 =
+* Release 3.2.38 = 12/04/24
+	* Fixes for updates made in WP6.7 (change from @wordpress/post-editor to @wordpress/editor for sidebar components)
 = 3.2.37 =
 * Release 3.2.37 = 12/04/24
 	* Made some updates to the taxonomy block to support a link tile style taxonomy layout
