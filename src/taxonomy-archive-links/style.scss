@@ -1,3 +1,17 @@
+:root {
+	--ck-blocks-tax-link-border: 1px solid #C6C6C6;
+	--ck-blocks-tax-link-border-radius: 0;
+	--ck-blocks-tax-link-gap: 1.5rem;
+	--ck-blocks-tax-link-padding: 2.5rem 1.5rem;
+	--ck-blocks-tax-link-text-color: var(--wp--preset--color--primary, #000);
+	--ck-blocks-tax-link-background-color: var(--wp--preset--color--white, #fff);
+	--ck-blocks-tax-link-hover-text-color: var(--wp--preset--color--white, #fff);
+	--ck-blocks-tax-link-hover-background-color: var(--wp--preset--color--primary, #000);
+	--ck-blocks-tax-link-icon-width: 100px;
+	--ck-blocks-tax-link-icon-height: 72px;
+	--ck-blocks-tax-link-aspect-ratio: 1.223;
+}
+
 .wp-block-carkeek-blocks-taxonomy-terms {
 
 	&.aligncenter {
@@ -47,6 +61,64 @@
 					padding-right: 5px;
 				}
 			}
+		}
+	}
+}
+
+.wp-block-carkeek-blocks-taxonomy-terms ul.tile-list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--ck-blocks-tax-link-gap);
+
+	& li {
+		border: var(--ck-blocks-tax-link-border);
+		border-radius: var(--ck-blocks-tax-link-border-radius);
+		background-color: var(--ck-blocks-tax-link-background-color);
+		& a {
+			color: var(--ck-blocks-tax-link-text-color);
+			padding: var(--ck-blocks-tax-link-padding);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			gap: 1rem;
+			position: relative;
+			overflow: hidden;
+			aspect-ratio: var(--ck-blocks-tax-link-aspect-ratio);
+
+
+		}
+		& img.icon {
+			width: var(--ck-blocks-tax-link-icon-width);
+			height: var(--ck-blocks-tax-link-icon-height);
+			object-fit: contain;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		& img.cover {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			object-fit: cover;
+		}
+		& .tile-hover {
+			background-color: var(--ck-blocks-tax-link-hover-background-color);
+			color: var(--ck-blocks-tax-link-hover-text-color);
+			padding: var(--ck-blocks-tax-link-padding);
+			position: absolute;
+			top: 100%;
+			transition: top 0.3s;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		&:hover .tile-hover {
+			top: 0;
 		}
 	}
 }

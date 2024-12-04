@@ -33,6 +33,10 @@
             "type": "boolean",
             "default": false
         },
+		"excludeChildTerms": {
+			"type": "boolean",
+			"default": false
+		},
         "className": {
             "type": "string"
         },
@@ -58,6 +62,26 @@
 		"listLabel": {
 			"type": "string",
 			"default": ""
+		},
+		"archiveType": {
+			"type": "string",
+			"default": "wordpress"
+		},
+		"archivePage": {
+			"type": "string",
+			"default": ""
+		},
+		"archiveFacet": {
+			"type": "string",
+			"default": ""
+		},
+		"tileImageField": {
+			"type": "string",
+			"default": ""
+		},
+		"tileImageStyle": {
+			"type": "string",
+			"default": "icon"
 		}
     },
     "supports": {

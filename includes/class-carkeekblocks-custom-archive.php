@@ -458,7 +458,6 @@ class CarkeekBlocks_CustomArchive {
 			$query = new WP_Query( $args );
 		}
 
-
 		$posts = '';
 
 		if ( true == $related && true == $attributes['fillTheSlots'] && -1 !== $attributes['numberOfPosts'] ) {

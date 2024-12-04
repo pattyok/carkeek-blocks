@@ -7,9 +7,14 @@
 
 global $post;
 $term_list = '';
-$list_style = $attributes['showBullets'] == true ? '' : 'no-bullets ';
-$list_style .= $attributes['displayAs'] == 'inline' ? 'list-inline ' : '';
-$list_style .= 'separator-' . $attributes['separator'];
+if ( $attributes['displayAs'] == 'tile' ) {
+	$list_style = 'tile-list no-bullets';
+} else {
+	$list_style = $attributes['showBullets'] == true ? '' : 'no-bullets ';
+	$list_style .= $attributes['displayAs'] == 'inline' ? 'list-inline ' : '';
+	$list_style .= 'separator-' . $attributes['separator'];
+}
+
 $aria_title = $attributes['listLabel'] ? $attributes['listLabel'] : 'Taxonomy List for ' . $attributes['taxonomySelected'];
 if ( true == $attributes['relevantToPost'] ) {
 	$terms = get_the_terms( $post->ID, $attributes['taxonomySelected'] );
@@ -19,19 +24,53 @@ if ( true == $attributes['relevantToPost'] ) {
 		'orderby'  => $attributes['sortBy'],
 		'order'    => $attributes['order'],
 	);
+	if ( $attributes['excludeChildTerms']  ) {
+		$args['parent'] = 0;
+	}
 	$terms = get_terms( $args );
 }
+
 if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 	$term_list = '<ul class="term-archive ' . $list_style . '" aria-label="' . $aria_title . '">';
 	foreach ( $terms as $term ) {
-		$term_link_url  = apply_filters( 'ck_tax_archive_term_link', get_term_link( $term ), $term, $post );
-		$term_link_text = apply_filters( 'ck_tax_archive_term_text', $term->name, $term, $post );
+		$term_link_url = '';
+		$term_link_text = $term->name;
 		if ( true == $attributes['linkToCategory'] ) {
-			$term_link = '<a href="' . esc_url( $term_link_url ) . '" alt="' . esc_attr( sprintf( __( 'View all items filed under %s', 'my_localization_domain' ), $term->name ) ) . '">' . $term_link_text . '</a>';
-		} else {
-			$term_link = $term_link_text;
+			if ( 'wordpress' == $attributes['archiveType'] ) {
+				$term_link_url = get_term_link( $term );
+			} else if ( 'facetwp' == $attributes['archiveType'] ) {
+				$term_link_url = add_query_arg(
+					array(
+						$attributes['archiveFacet'] => $term->slug,
+					),
+					$attributes['archivePage']);
+			}
 		}
-		$term_list .= '<li>' . $term_link . '</li>';
+		$term_content = '';
+		$term_icon = '';
+		$tile_hover = '';
+		if ( $attributes['displayAs'] == 'tile' ) {
+			$img_field = $attributes['tileImageField'];
+			if ( ! empty( $img_field ) ) {
+				$term_image = get_field( $img_field, $term );
+				$img_style = $attributes['tileImageStyle'];
+				if ( ! empty( $term_image ) ) {
+					$term_icon = wp_get_attachment_image( $term_image, array('600', '600'), "", array( "class" => $img_style ) );
+				}
+			}
+			$tile_hover = '<div class="tile-hover"><span>' . esc_html( $term->description ) . '</span></div>';
+		}
+
+		$term_link_url  = apply_filters( 'ck_tax_archive_term_link', $term_link_url, $term, $post );
+		$term_link_text = apply_filters( 'ck_tax_archive_term_text', $term->name, $term, $post );
+		if ( empty( $term_link_url ) ) {
+			$term_content .= esc_html( $term_link_text );
+		} else {
+			$term_content .= '<a href="' . esc_url( $term_link_url ) . '">' . $term_icon . esc_html( $term_link_text ) . $tile_hover . '</a>';
+		}
+
+		//$term_content .= $tile_hover;
+		$term_list .= '<li>' . $term_content . '</li>';
 	}
 	$term_list .= '</ul>';
 }
