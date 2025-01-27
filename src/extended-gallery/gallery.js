@@ -51,6 +51,8 @@ export const Gallery = ( props ) => {
 		linkImages,
 		showCaptions,
 		slidesToShow,
+		slidesToShowMobile,
+		slidesToShowTablet,
 		imageAlignment,
 	} = attributes;
 
@@ -68,6 +70,9 @@ export const Gallery = ( props ) => {
 		[ `columns-${ columns }` ]: isGallery,
         [ `columns-m-${ columnsMobile }` ]: isGallery,
         [ `columns-t-${ columnsTablet }` ]: isGallery,
+		[ `columns-${ slidesToShow }` ]: isCarousel,
+        [ `columns-m-${ slidesToShowMobile }` ]: isCarousel,
+        [ `columns-t-${ slidesToShowTablet }` ]: isCarousel,
         [ `align${ horizontalAlign }` ]: isGallery,
 		'fixed-images': cropImages && !isTiled,
 		'contain-images': containImages,

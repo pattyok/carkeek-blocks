@@ -13,7 +13,7 @@ import jQuery from "jquery";
             const scrollmobile = $(this).data("scrollmobile");
             const slidestablet = $(this).data("slidestablet");
             const scrolltablet = $(this).data("scrolltablet");
-            const fade = $(this).data("transition");
+            const fade = $(this).data("transitiontype");
             const transSpeed = $(this).data("transitionspd");
             const dots = $(this).data("showdots");
             const options = {

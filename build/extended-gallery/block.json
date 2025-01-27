@@ -231,6 +231,10 @@
       "type": "number",
       "default": 500
     },
+    "transitionType": {
+      "type": "string",
+      "default": ""
+    },
     "showDots": {
       "type": "boolean",
       "default": false

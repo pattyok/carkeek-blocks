@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/search-button",
+  "version": "0.1.0",
+  "title": "Header Search Button",
+  "category": "widgets",
+  "description": "Search Button to be used in header template parts.",
+  "icon": "search",
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    }
+  },
+  "textdomain": "carkeek-blocks",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "Search"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "before"
+    }
+  }
+}

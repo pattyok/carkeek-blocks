@@ -37,6 +37,7 @@ function ExtendedGalleryEdit( props ) {
         slidesToShowTablet,
         autoPlaySpeed,
         transitionSpeed,
+		transitionType,
         showDots,
         showOverlay,
 		columnGap,
@@ -269,7 +270,17 @@ function ExtendedGalleryEdit( props ) {
                                 max={10000}
                             />
                             }
-
+						<RadioControl
+							label="Transition Type"
+							selected={ transitionType }
+							options={ [
+								{ label: 'Slide', value: '' },
+								{ label: 'Fade', value: 'fade' },
+							] }
+							onChange={value =>
+								setAttributes({ transitionType: value })
+							}
+						/>
                              <RangeControl
                                 label={__("Transition speed", "carkeek-blocks")}
                                 value={transitionSpeed}

@@ -33,6 +33,7 @@ function ExtendedGallerySave ({ attributes }) {
         slidesToShowTablet,
         autoPlaySpeed,
         transitionSpeed,
+		transitionType,
         showOverlay,
 		columnGap,
 		rowHeight,
@@ -112,6 +113,7 @@ function ExtendedGallerySave ({ attributes }) {
                 data-autoplay={ maybeCarousel ? autoPlay : undefined}
                 data-speed={ maybeCarousel ? autoPlaySpeed : undefined}
                 data-slides={ maybeCarousel ? slidesToShow : undefined}
+				data-transitiontype={ maybeCarousel ? transitionType : undefined}
                 data-slidesmobile={ maybeCarousel ? slidesToShowMobile : undefined}
                 data-slidestablet={ maybeCarousel ? slidesToShowTablet : undefined}
                 data-transitionspd={ maybeCarousel ? transitionSpeed : undefined}

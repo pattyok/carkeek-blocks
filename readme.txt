@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.39 =
+* Release 3.2.39 = 01/27/25
+	* Add two new blocks to allow search and member menu be available within the templates.
 = 3.2.38 =
 * Release 3.2.38 = 12/04/24
 	* Fixes for updates made in WP6.7 (change from @wordpress/post-editor to @wordpress/editor for sidebar components)

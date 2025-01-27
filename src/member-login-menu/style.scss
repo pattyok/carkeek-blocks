@@ -1,0 +1,26 @@
+.wp-block-carkeek-blocks-member-login-menu {
+	position: relative;
+	& .member-menu-toggle {
+		display: flex;
+		gap: 10px;
+	}
+	& .member-menu {
+		visibility: hidden;
+		max-height: 0;
+		transform: translate3d(0, 0, 0);
+		overflow: hidden;
+		width: 300px;
+		transition: max-height 0.5s ease-in;
+		position: absolute;
+		top: 100%;
+		left: auto;
+		right: 0;
+		z-index: 1000;
+	}
+	&.nav--toggled-on .member-menu {
+		display: block;
+		transform: translate3d(0, 0, 0);
+		visibility: visible;
+		max-height: 600px;
+	}
+}

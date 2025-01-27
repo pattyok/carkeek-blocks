@@ -12,7 +12,7 @@
          ( select ) => {
 
              if ( imageIds.length === 0 ) {
-                 return currentImageMedia;
+                 return [ ...currentImageMedia ];
              }
              const getMedia = select( coreStore ).getMedia;
              const newImageMedia = imageIds.map( ( img ) => {
@@ -20,7 +20,7 @@
              } );
 
              if ( newImageMedia.some( ( img ) => ! img ) ) {
-                 return currentImageMedia;
+                 return [ ...currentImageMedia ];
              }
 
              return newImageMedia;

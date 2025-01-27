@@ -1,8 +1,10 @@
 .wp-block-carkeek-blocks-extended-gallery {
 
-	& .ck-blocks-gallery-hidden {
-		display: none;
+	& ul.ck-blocks-gallery-grid.mobile-scroll,
+	& ul.ck-blocks-gallery-grid.slider-carousel {
+		display: flex;
 	}
+
 
 	& .blocks-gallery-item {
 
@@ -17,7 +19,7 @@
 		}
 	}
 
-	& .is-selected {
+	&.is-selected {
 
 		& .ck-blocks-gallery-hidden {
 			display: flex;
