@@ -17,6 +17,7 @@ function postsInspector(props) {
     const {
         taxonomies,
         taxTerms,
+		taxTerms2,
         postTypes,
         attributes,
         setAttributes,
@@ -63,6 +64,12 @@ function postsInspector(props) {
 		morePostsLinkLabel,
 		taxTermsIncludeExclude,
 		useWithFilter,
+		addAnotherTaxonomy,
+		taxonomySelected2,
+		taxTermsSelected2,
+		taxTermsIncludeExclude2,
+		taxQueryType2,
+		taxQueryTypeCombined,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -97,6 +104,7 @@ function postsInspector(props) {
         const selectAnItem = { value: null, label: 'Select a Taxonomy' };
         taxOptions.unshift(selectAnItem);
     }
+
     const postTypeSelect = (
         <SelectControl
             label={__("Post Type", "carkeek-blocks")}
@@ -226,6 +234,96 @@ function postsInspector(props) {
                                     }
                                 />
                             }
+							{ taxOptions.length > 1 && taxTermsSelected &&
+								<>
+								<ToggleControl
+									label={__("Add a Taxonomy Filter")}
+									checked={addAnotherTaxonomy}
+									onChange={(addAnotherTaxonomy) => setAttributes( {addAnotherTaxonomy} )}
+								/>
+								{ addAnotherTaxonomy &&
+									<>
+									<SelectControl
+										label={__("Select Taxonomy", "carkeek-blocks")}
+										onChange={(taxonomySelected2) => setAttributes({ taxonomySelected2 })}
+										options={taxOptions}
+										value={taxonomySelected2}
+									/>
+									{taxonomySelected2 &&
+										<>
+										{taxTerms2 && taxTerms2.length > 0
+											? <SelectControl
+												multiple
+												label={__("Select Terms", "carkeek-blocks")}
+												onChange={(terms) => setAttributes({ taxTermsSelected2: terms.join(",") })}
+												options={
+													taxTerms2 &&
+													taxTerms2.map(type => ({
+														value: type.id,
+														label: type.name
+													}))
+												}
+												value={taxTermsSelected2 && taxTermsSelected2.split(',')}
+												help={__("To select multiple [shift]-click", "carkeek-blocks")}
+											/>
+											: <div className="ck-error">{__("There are no terms assigned to this taxonomy.", "carkeek-blocks")}</div>
+										}
+										{taxTermsSelected2 &&
+											<RadioControl
+												label={__("Include or Exclude Terms")}
+												selected={taxTermsIncludeExclude2}
+												options={[
+													{ label: __("Include"), value: "include" },
+													{ label: __("Exclude"), value: "exclude" },
+
+												]}
+												onChange={value =>
+													setAttributes({
+														taxTermsIncludeExclude2: value
+													})
+												}
+											/>
+										}
+
+										{taxTermsSelected2 && (taxTermsSelected2.split(',').length > 1) &&
+											<RadioControl
+												label={__("Taxonomy Query Type For Second Taxonomy")}
+												selected={taxQueryType2}
+												options={[
+													{ label: __("AND"), value: "AND" },
+													{ label: __("OR"), value: "OR" },
+
+												]}
+												onChange={value =>
+													setAttributes({
+														taxQueryType2: value
+													})
+												}
+											/>
+										}
+										{addAnotherTaxonomy && (taxTermsSelected2) &&
+											<RadioControl
+												label={__("Taxonomy Query Type For Both Taxonomies")}
+												selected={taxQueryTypeCombined}
+												options={[
+													{ label: __("AND"), value: "AND" },
+													{ label: __("OR"), value: "OR" },
+
+												]}
+												onChange={value =>
+													setAttributes({
+														taxQueryTypeCombined: value
+													})
+												}
+											/>
+										}
+									</>
+									}
+									</>
+								}
+								</>
+							}
+
                         </>
                     )}
                 </>
@@ -237,11 +335,13 @@ function postsInspector(props) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__("Posts Settings", "carkeek-blocks")}>
+                <PanelBody title={__("Filter Settings", "carkeek-blocks")}>
                     {postTypeSelect}
                     {postTypeSelected && (
                         <> {taxonomySelect} </>
                     )}
+				</PanelBody>
+				<PanelBody title={__("Post Settings", "carkeek-blocks")} initialOpen={false}>
                     <RangeControl
                         label={__("Number of Posts", "carkeek-blocks")}
                         value={numberOfPosts}

@@ -10,6 +10,7 @@ namespace WP_Rig\WP_Rig;
 
 
 $menu_style = is_user_logged_in() ? 'member-menu-logged-in' : 'member-menu-logged-out';
+$menu_style .= ' layout-' . $attributes['layout'];
 $icon_loggedin_before = '';
 $icon_loggedout_before = '';
 $icon_loggedin_after = '';
@@ -37,17 +38,17 @@ if ( $attributes['showIcon']) {
 			<?php
 			$label = '';
 			if ($attributes['alignment'] !== 'hidden') {
-				$label = $attributes['label'];
+				$label = $attributes['loggedinLabel'];
 				if ( $attributes['showUserName'] ) {
 					$label = __( 'Hi, ', 'wp-rig' ) . '<span>' . wp_get_current_user()->display_name . '</span>';
 				}
 			}
 
-			echo wp_kses_post( $icon_loggedin_before . ' <span class="overflow-ellipses">' . $label . '</span> ' . $icon_loggedin_after); ?>
+			echo wp_kses_post( $icon_loggedin_before . ' <span class="overflow-ellipsis">' . $label . '</span> ' . $icon_loggedin_after); ?>
 
 		<?php else : ?>
 
-			<?php echo wp_kses_post( $icon_loggedout_before . '<span class="login-label">' .  __( 'Login', 'wp-rig' ) . '</span>' . $icon_loggedout_after); ?>
+			<?php echo wp_kses_post( $icon_loggedout_before . '<span class="login-label">' . $label = $attributes['label'] . '</span>' . $icon_loggedout_after); ?>
 		<?php endif; ?>
 	</button>
 	<div class="member-menu" id="member-menu">

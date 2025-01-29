@@ -321,7 +321,8 @@ class CarkeekBlocks_CustomArchive {
 						'terms'    => $tax_term,
 					);
 				}
-				$args['tax_query'] = array(
+				$args['tax_query'] = array();
+				$args['tax_query'][] = array(
 					'relation' => 'AND',
 					$tax_query,
 				);
@@ -337,6 +338,40 @@ class CarkeekBlocks_CustomArchive {
 					),
 				);
 			}
+			// Add secondary taxonomy filter.
+			if ( true === $attributes['addAnotherTaxonomy'] && ! empty( $attributes['taxonomySelected2'] ) && ! empty( $attributes['taxTermsSelected2'] ) ) {
+				$tax_terms = explode( ',', $attributes['taxTermsSelected2'] );
+				error_log(print_r($attributes['taxQueryTypeCombined'], true));
+				if ( $attributes['taxQueryTypeCombined'] === 'OR') {
+					$args['tax_query']['relation'] = 'OR';
+				}
+				if ( count( $tax_terms ) > 1 && 'AND' === $attributes['taxQueryType2'] ) {
+					$tax_query = array();
+					foreach ( $tax_terms as $tax_term ) {
+						$tax_query[] = array(
+							'taxonomy' => $attributes['taxonomySelected2'],
+							'field'    => 'term_id',
+							'terms'    => $tax_term,
+						);
+					}
+					$args['tax_query'][] = array(
+						'relation' => 'AND',
+						$tax_query,
+					);
+
+				} else {
+					$tax_operator = isset( $attributes['taxTermsIncludeExclude2'] ) && 'exclude' == $attributes['taxTermsIncludeExclude2'] ? 'NOT IN' : 'IN';
+					$args['tax_query'][] = array(
+						array(
+							'taxonomy' => $attributes['taxonomySelected2'],
+							'field'    => 'term_id',
+							'terms'    => $tax_terms,
+							'operator' => $tax_operator,
+						),
+					);
+				}
+			}
+			error_log(print_r($args, true));
 		} elseif ( true == $related ) {
 
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {

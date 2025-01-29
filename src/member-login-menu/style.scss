@@ -4,6 +4,10 @@
 		display: flex;
 		gap: 10px;
 	}
+	&.layout-vertical .member-menu-toggle {
+		flex-direction: column;
+		height: 100%;
+	}
 	& .member-menu {
 		visibility: hidden;
 		max-height: 0;
@@ -22,5 +26,12 @@
 		transform: translate3d(0, 0, 0);
 		visibility: visible;
 		max-height: 600px;
+	}
+	& .overflow-ellipsis {
+		max-width: var(--member-menu-btn-max-width, 75px);
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }

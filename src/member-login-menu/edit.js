@@ -15,10 +15,14 @@ function Edit( props ) {
             label,
 			alignment,
 			showIcon,
-			showUserName
+			showUserName,
+			loggedinLabel,
+			layout
         } = attributes;
 
-		const blockProps = useBlockProps();
+		const blockProps = useBlockProps( {
+			className: 'layout-' + layout
+		});
         return (
             <>
 
@@ -26,6 +30,11 @@ function Edit( props ) {
 
                     <InspectorControls>
                         <PanelBody title={ __( 'Button settings' ) }>
+							<TextControl
+								label={ __( 'Button Label' ) }
+								value={ label }
+								onChange={ ( label ) => setAttributes( { label } ) }
+							/>
 							<ToggleControl
 								label="Show User Name when Logged In"
 								checked={ showUserName }
@@ -34,8 +43,8 @@ function Edit( props ) {
 							{ !showUserName &&
                             <TextControl
 								label={ __( 'Logged In Label' ) }
-								value={ label }
-								onChange={ ( value ) => setAttributes( { label: value } ) }
+								value={ loggedinLabel }
+								onChange={ ( loggedinLabel ) => setAttributes( { loggedinLabel } ) }
 							/>
 			}
 							<ToggleControl
@@ -52,15 +61,24 @@ function Edit( props ) {
 										{ label: 'After Icon', value: 'after' },
 										{ label: 'Hidden', value: 'hidden' },
 									] }
-									onChange={ ( value ) => setAttributes( { alignment: value } ) }
+									onChange={ ( alignment ) => setAttributes( { alignment } ) }
 								/>
-						}
+							}
+							<RadioControl
+								label={ __( 'Layout' ) }
+								selected={ layout }
+								options={ [
+									{ label: 'Horizontal', value: 'horizontal' },
+									{ label: 'Vertical', value: 'vertical' }
+								] }
+								onChange={ ( layout ) => setAttributes( { layout } ) }
+							/>
                         </PanelBody>
                     </InspectorControls>
                     { label && alignment === 'before' &&
 					<span class="member-menu-label">{ label }</span>
 					}
-					<span class="header-search-icon">{ icons.user }</span>
+					<span class="header-user-icon">{ icons.user }</span>
 					{ label && alignment === 'after' &&
 					<span class="member-menu-label">{ label }</span>
 					}

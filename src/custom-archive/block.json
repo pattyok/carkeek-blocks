@@ -156,11 +156,35 @@
             "type": "string",
             "default": ""
         },
+		"addAnotherTaxonomy": {
+			"type": "boolean",
+			"default": false
+		},
+		"taxonomySelected2": {
+            "type": "string",
+            "default": ""
+        },
+        "taxTermsSelected2": {
+            "type": "string",
+            "default": ""
+        },
+		"taxTermsIncludeExclude2": {
+            "type": "string",
+            "default": "include"
+        },
+		"taxQueryType2": {
+            "type": "string",
+            "default": "AND"
+        },
         "taxTermsIncludeExclude": {
             "type": "string",
             "default": "include"
         },
         "taxQueryType": {
+            "type": "string",
+            "default": "AND"
+        },
+		"taxQueryTypeCombined": {
             "type": "string",
             "default": "AND"
         },

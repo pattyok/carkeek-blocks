@@ -6,7 +6,7 @@
   "title": "Header Member Login Button",
   "category": "widgets",
   "description": "Menu Button to be used in header template parts.",
-  "icon": "user",
+  "icon": "admin-users",
   "supports": {
     "html": false,
     "color": {
@@ -26,6 +26,10 @@
     },
     "label": {
       "type": "string",
+      "default": "Login"
+    },
+    "loggedinLabel": {
+      "type": "string",
       "default": "Account"
     },
     "showIcon": {
@@ -39,6 +43,10 @@
     "menuTemplate": {
       "type": "string",
       "default": "member-menu"
+    },
+    "layout": {
+      "type": "string",
+      "default": "horizontal"
     }
   }
 }

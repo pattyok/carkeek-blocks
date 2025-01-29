@@ -1,8 +1,11 @@
-.wp-block-carkeek-blocks-search-button {
+.wp-block-carkeek-blocks-member-login-menu {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	& .header-search-icon {
+	&.layout-vertical {
+		flex-direction: column;
+	}
+	& .header-user-icon {
 		display: inline-block;
 		height: 20px;
 		width: 20px;

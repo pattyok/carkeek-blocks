@@ -77,10 +77,11 @@ function customArchiveEdit( props ) {
 export default withSelect((select, props) => {
 
     const { attributes } = props;
-    const { postTypeSelected, taxonomySelected } = attributes;
+    const { postTypeSelected, taxonomySelected, taxonomySelected2 } = attributes;
     const { getEntityRecords,  getPostTypes, getTaxonomies } = select("core");
     const { getSettings } = select( 'core/block-editor' );
     const taxTerms = getEntityRecords('taxonomy', taxonomySelected, { per_page: -1 } );
+	const taxTerms2 = getEntityRecords('taxonomy', taxonomySelected2, { per_page: -1 } );
     const { imageSizes } = getSettings();
 
     let taxonomies = getTaxonomies({ per_page: -1 });
@@ -94,6 +95,7 @@ export default withSelect((select, props) => {
         taxonomies: taxonomies,
         taxSelected:  Array.isArray(taxonomies) && taxonomies.length == 1 ? taxonomies[0] : taxonomySelected,
         taxTerms: taxTerms,
+		taxTerms2: taxTerms2,
         imageSizes: imageSizes,
     };
 })(customArchiveEdit);
