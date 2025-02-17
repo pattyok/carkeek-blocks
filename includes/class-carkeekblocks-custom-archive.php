@@ -287,6 +287,9 @@ class CarkeekBlocks_CustomArchive {
 			'post__not_in'        => array( get_the_ID() ),
 			'ignore_sticky_posts' => true, // without this sticky posts add to the count.
 		);
+		if ( isset( $attributes['postOffset'] ) && 0 !== $attributes['postOffset'] && $attributes['numberOfPosts'] > 0) {
+			$args['offset'] = $attributes['postOffset'];
+		}
 		if ( $attributes['excludeChildPosts'] ) {
 			$args['post_parent'] = 0;
 		}
@@ -341,7 +344,6 @@ class CarkeekBlocks_CustomArchive {
 			// Add secondary taxonomy filter.
 			if ( true === $attributes['addAnotherTaxonomy'] && ! empty( $attributes['taxonomySelected2'] ) && ! empty( $attributes['taxTermsSelected2'] ) ) {
 				$tax_terms = explode( ',', $attributes['taxTermsSelected2'] );
-				error_log(print_r($attributes['taxQueryTypeCombined'], true));
 				if ( $attributes['taxQueryTypeCombined'] === 'OR') {
 					$args['tax_query']['relation'] = 'OR';
 				}
@@ -371,7 +373,7 @@ class CarkeekBlocks_CustomArchive {
 					);
 				}
 			}
-			error_log(print_r($args, true));
+
 		} elseif ( true == $related ) {
 
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {

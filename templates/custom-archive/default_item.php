@@ -20,6 +20,9 @@ if ( ! empty( $focal_point ) ) {
 
 if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, $image_size, array( 'style' => $style ) );
+	if ( empty( $featured_image ) && !empty($data->defaultFeaturedImage)) {
+		$featured_image = apply_filters( 'ck_custom_archive__featured_image_default', '<img class="ck-image-default" src="' . esc_url( $data->defaultFeaturedImage ) . '" alt="' . esc_attr( $data->defaultAltText ) . '" />', $post->ID, $data );
+	}
 }
 
 $featured_image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image', $featured_image, $post->ID, $data );
@@ -150,7 +153,16 @@ echo $featured_image_html;
 		<?php do_action( 'ck_custom_archive_layout__after_excerpt', $data ); ?>
 		<?php
 		if ( true == $data->showTerms ) {
-			$term_list = '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $data->taxonomySelected, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
+			$taxlist = $data->showTermsTax;
+			if ( empty( $taxlist ) ) {
+				$taxlist = $data->taxonomySelected;
+			}
+			$taxlist = explode( ',', $taxlist );
+			$term_list = '';
+			foreach( $taxlist as $tax ) {
+				$term_list .= '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $tax, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
+			}
+
 			$term_list = apply_filters( 'ck_custom_archive_layout__term_list', $term_list, $data );
 			$term_list = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_term_list', $term_list, $data );
 			echo wp_kses_post( $term_list );

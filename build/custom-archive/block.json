@@ -228,6 +228,10 @@
       "type": "boolean",
       "default": false
     },
+    "showTermsTax": {
+      "type": "string",
+      "default": ""
+    },
     "publishDateLocation": {
       "type": "string",
       "default": "below"
@@ -276,6 +280,18 @@
       "default": ""
     },
     "useWithFilter": {
+      "type": "string",
+      "default": ""
+    },
+    "postOffset": {
+      "type": "number",
+      "default": 0
+    },
+    "defaultFeaturedImage": {
+      "type": "string",
+      "default": ""
+    },
+    "defaultAltText": {
       "type": "string",
       "default": ""
     },
