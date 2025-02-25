@@ -70,6 +70,10 @@ function postsInspector(props) {
 		taxTermsIncludeExclude2,
 		taxQueryType2,
 		taxQueryTypeCombined,
+		postOffset,
+		defaultFeaturedImage,
+		defaultAltText,
+		showTermsTax,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -350,14 +354,17 @@ function postsInspector(props) {
                         min={-1}
                         max={21}
                     />
-					<ToggleControl
-							label={__("Exclude Child Posts", "carkeek-blocks")}
-							help={__(`If set to true, the block will only include top-level posts.`)}
-							checked={excludeChildPosts}
-							onChange={value =>
-								setAttributes({ excludeChildPosts: value })
-							}
-						/>
+					{numberOfPosts > 0 &&
+					<RangeControl
+                        label={__("Offset Count", "carkeek-blocks")}
+                        value={postOffset}
+						help={__("Number of posts to skip before displaying", "carkeek-blocks")}
+                        onChange={(postOffset) => setAttributes({ postOffset })}
+                        min={0}
+                        max={99}
+                    />
+				}
+
                     <SelectControl
                         label={__("Sort By", "carkeek-blocks")}
                         onChange={value =>
@@ -585,6 +592,16 @@ function postsInspector(props) {
                             setAttributes({ showTerms: value })
                         }
                     />
+					{showTerms && (
+						<SelectControl
+							label={__("Select Taxonomy to Show", "carkeek-blocks")}
+							onChange={(taxes) => setAttributes({ showTermsTax: taxes.join(",") })}
+							options={taxOptions}
+							value={showTermsTax?.split(',')}
+							multiple
+						/>
+
+					)}
 
                     <ToggleControl
                         label={__("Show Published Date")}
@@ -653,6 +670,24 @@ function postsInspector(props) {
                                 options={sizeOptions}
                                 value={imageSize}
                             />
+							<TextControl
+								label="Default Featured Image"
+								help={__("Enter the URL of the default image to use if no featured image is set on the post.", "carkeek-blocks")}
+								value={ defaultFeaturedImage }
+								onChange={value =>
+									setAttributes({ defaultFeaturedImage: value })
+								}
+							/>
+							{defaultFeaturedImage &&
+							<TextControl
+								label="Default Image Alt Text"
+								help={__("Enter the Alt text for the default image", "carkeek-blocks")}
+								value={ defaultAltText }
+								onChange={value =>
+									setAttributes({ defaultAltText: value })
+								}
+							/>
+							}
                         </>
                     }
                     <ToggleControl
@@ -751,6 +786,14 @@ function postsInspector(props) {
                 </PanelBody>
             </InspectorControls>
             <InspectorAdvancedControls>
+			<ToggleControl
+							label={__("Exclude Child Posts", "carkeek-blocks")}
+							help={__(`If set to true, the block will only include top-level posts.`)}
+							checked={excludeChildPosts}
+							onChange={value =>
+								setAttributes({ excludeChildPosts: value })
+							}
+						/>
                 <ToggleControl
                     label={__("Open Links in New Window")}
                     checked={newWindow}
