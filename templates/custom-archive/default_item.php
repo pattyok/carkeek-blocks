@@ -44,12 +44,14 @@ if ( true == $data->displayPostExcerpt ) {
 $link_start = '';
 $link_end   = '';
 $permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
+$permalink_target = isset( $data->newWindow ) && true == $data->newWindow ? '_blank' : '_self';
+$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
+
+
 if ( isset( $data->noLink ) && true == $data->noLink || empty( $permalink ) ) {
 	$link_title = get_the_title();
 } else {
 	
-	$permalink_target = isset( $data->newWindow ) && true == $data->newWindow ? '_blank' : '_self';
-	$permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
 	if ( !isset( $data->wholeLink ) || false == $data->wholeLink ) {
 		$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
 	} else {
