@@ -44,7 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
-= 3.2.41 =
+= 3.2.42 =
+* Release 3.2.41 = 02/25/25
+	* Updated modal behavior so it adds a class to the Html element for more control
 * Release 3.2.41 = 02/24/25
 	* Added options to archive block to select multiple taxonomies, display taxonomy terms and to add a default image.
 = 3.2.39 =
