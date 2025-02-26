@@ -71,6 +71,8 @@
 		this.emitModalEvents('modalIsOpen');
 		// change the overflow of the preventScrollEl
 		if(this.preventScrollEl) this.preventScrollEl.style.overflow = 'hidden';
+		// set the parameter on body to manage the nav and overlay
+		document.documentElement.classList.add('ck-modal-open');
 	};
 
 	Modal.prototype.closeModal = function() {
@@ -85,6 +87,7 @@
 		this.emitModalEvents('modalIsClose');
 		// change the overflow of the preventScrollEl
 		if(this.preventScrollEl) this.preventScrollEl.style.overflow = '';
+		document.documentElement.classList.remove('ck-modal-open');
 	};
 
 	Modal.prototype.initModalEvents = function() {
