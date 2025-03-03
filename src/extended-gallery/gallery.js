@@ -64,6 +64,9 @@ export const Gallery = ( props ) => {
 	const isGallery = displayAs == 'gallery';
 	const isCarousel = displayAs == 'carousel';
 	const isTiled = displayAs == 'tiled';
+	const isLightbox = linkImages == 'lightbox';
+	console.log(linkImages);
+	console.log(isLightbox);
 
 	const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': true,
