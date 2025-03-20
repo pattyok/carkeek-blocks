@@ -37,7 +37,10 @@ function ExtendedGallerySave ({ attributes }) {
         showOverlay,
 		columnGap,
 		rowHeight,
-        showDots} = attributes;
+        showDots,
+		rowSpans,
+		colSpans
+	} = attributes;
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
     const galleryId = title ? cleanForSlug(title) : blockId;
     const isGallery = displayAs == 'gallery';
@@ -138,11 +141,11 @@ function ExtendedGallerySave ({ attributes }) {
 						}
 					}
 					let figureStyle = {};
-					if (isTiled && img.spanCols) {
-						figureStyle.gridColumn = `span ${img.spanCols}`;
+					if (isTiled ) {
+						figureStyle.gridColumn = `span ${colSpans[index]}`;
 					}
-					if (isTiled && img.spanRows) {
-						figureStyle.gridRow = `span ${img.spanRows}`;
+					if (isTiled ) {
+						figureStyle.gridRow = `span ${rowSpans[index]}`;
 					}
 
                     const itemStyle = classnames({

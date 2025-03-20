@@ -10,7 +10,7 @@ import classnames from 'classnames';
 import { MediaPlaceholder, MediaUpload, MediaUploadCheck, InspectorControls } from '@wordpress/block-editor';
 import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { PanelBody, SelectControl, RadioControl, ToggleControl, __experimentalNumberControl as NumberControl }  from "@wordpress/components";
 import { withSelect } from '@wordpress/data';
 import useGetMedia from './use-get-media';
@@ -54,9 +54,28 @@ export const Gallery = ( props ) => {
 		slidesToShowMobile,
 		slidesToShowTablet,
 		imageAlignment,
+		rowSpans,
+		colSpans,
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
+
+	const expandArray = (arr, targetLength, fillValue = null) => {
+		return [...Array(targetLength)].map((_, i) => arr[i] !== undefined ? arr[i] : fillValue);
+	};
+
+
+	useEffect( () => {
+		if ( images.length > rowSpans.length ) {
+			const newSpans = expandArray( rowSpans, images.length, 2 );
+			setAttributes( { rowSpans: newSpans } );
+		}
+		if ( images.length > colSpans.length ) {
+			const newSpans = expandArray( colSpans, images.length, 6 );
+			setAttributes( { colSpans: newSpans } );
+		}
+	}, [ images ] );
+
 
 	const imageData = useGetMedia( ids );
 
@@ -65,8 +84,6 @@ export const Gallery = ( props ) => {
 	const isCarousel = displayAs == 'carousel';
 	const isTiled = displayAs == 'tiled';
 	const isLightbox = linkImages == 'lightbox';
-	console.log(linkImages);
-	console.log(isLightbox);
 
 	const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': true,
@@ -216,6 +233,9 @@ export const Gallery = ( props ) => {
 		)
 	}
 
+
+
+
     const imageSizeOptions = getImagesSizeOptions();
 	const shouldShowSizeOptions = hasImages && ! isEmpty( imageSizeOptions );
 
@@ -320,11 +340,13 @@ export const Gallery = ( props ) => {
                         'ck-blocks-gallery-hidden': (isCarousel && index >= slidesToShow)
                     })
 					let figureStyle = {};
-					if (isTiled && img.spanCols) {
-						figureStyle.gridColumn = `span ${img.spanCols}`;
+					if (isTiled) {
+						const colSpan = colSpans[ index ];
+						figureStyle.gridColumn = `span ${colSpan}`;
 					}
-					if (isTiled && img.spanRows) {
-						figureStyle.gridRow = `span ${img.spanRows}`;
+					if (isTiled) {
+						const rowSpan = rowSpans[index];
+						figureStyle.gridRow = `span ${rowSpan}`;
 					}
 
 					return (
@@ -337,14 +359,13 @@ export const Gallery = ( props ) => {
 								//{ ...props }
 								key={ img.id || img.url }
 								url={ img.url }
+								imageIndex={ index }
 								thumbUrl = { img.thumbUrl }
 								lightUrl = { img.lightUrl }
 								alt={ img.alt }
                                 id={ parseInt( img.id, 10 ) } // make id an integer explicitly
                                 focalPointX={img.focalPointX}
                                 focalPointY={img.focalPointY}
-								spanCols={ parseFloat(img.spanCols)}
-                                spanRows={ parseFloat(img.spanRows)}
 								isFirstItem={ index === 0 }
 								isLastItem={ index + 1 === images.length }
 								isSelected={
@@ -371,6 +392,8 @@ export const Gallery = ( props ) => {
 								caption={ img.caption }
 								aria-label={ ariaLabel }
 								lightSize={ lightSize }
+								colSpans={ colSpans }
+								rowSpans={ rowSpans }
 							/>
 				}
 						</li>

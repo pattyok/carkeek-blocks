@@ -7,7 +7,7 @@ import { get, omit, filter } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody, ToggleControl, Dropdown, RangeControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { RichText, MediaPlaceholder, InspectorControls, URLInput } from '@wordpress/block-editor';
@@ -31,8 +31,6 @@ export const GalleryImage = ( props ) => {
 		customLink,
 		focalPointX,
 		focalPointY,
-		spanCols,
-		spanRows,
 		linkTarget,
 		isFirstItem,
 		isLastItem,
@@ -54,7 +52,10 @@ export const GalleryImage = ( props ) => {
 		inlineEdit,
 		lightSize,
 		thumbSize,
-		linkImages
+		linkImages,
+		imageIndex,
+		colSpans,
+		rowSpans
 	} = props;
 
 	const [isEditing, setIsEditing] = useState( false );
@@ -145,6 +146,29 @@ export const GalleryImage = ( props ) => {
 		'is-transient': isBlobURL( url ),
 	} );
 
+	const [spanCols, setSpanCols] = useState( colSpans[ imageIndex ] );
+	const [spanRows, setSpanRows] = useState( rowSpans[ imageIndex ] );
+
+	function updateSpanCols ( value, index ) {
+		const newSpans= colSpans;
+		newSpans[ index ] = value;
+		setAttributes( { colSpans : newSpans } );
+		setSpanCols( value );
+	}
+
+	function updateSpanRows ( value, index ) {
+		const newSpans= rowSpans;
+		newSpans[ index ] = value;
+		setAttributes( { rowSpans : newSpans } );
+		setSpanRows( value );
+	}
+
+	useEffect( () => {
+		setSpanCols( colSpans[ imageIndex ] );
+		setSpanRows( rowSpans[ imageIndex ] );
+	}
+	, [colSpans, rowSpans] );
+
 
 	return (
 		<>
@@ -163,15 +187,15 @@ export const GalleryImage = ( props ) => {
 					<RangeControl
 						label="Row Span"
 						value={ spanRows }
-						onChange={ ( spanRows ) => setAttributes( { spanRows } ) }
+						onChange={ ( spanRows ) => updateSpanRows( spanRows, imageIndex ) }
 						min={ 1 }
 						max={ 6 }
 						step={ 1 }
 					/>
 					<RangeControl
-						label="Columns Span"
+						label="Columns Span (out of 12)"
 						value={ spanCols }
-						onChange={ ( spanCols ) => setAttributes( { spanCols } ) }
+						onChange={ ( spanCols ) => updateSpanCols( spanCols, imageIndex ) }
 						min={ 1 }
 						max={ 12 }
 						step={ 1 }
@@ -201,18 +225,16 @@ export const GalleryImage = ( props ) => {
 					onClick={ isFirstItem ? undefined : onMoveBackward }
 					label={ __( 'Move image backward' ) }
 					aria-disabled={ isFirstItem }
-					disabled={ ! isSelected }
 				/>
 				<Button
 					icon={ icons.chevronRight }
 					onClick={ isLastItem ? undefined : onMoveForward }
 					label={ __( 'Move image forward' ) }
 					aria-disabled={ isLastItem }
-					disabled={ ! isSelected }
 				/>
 				{linkImages == 'custom' && (
 				<Dropdown
-					position="bottom right"
+					popoverProps={{placement: 'bottom-end'}}
 					renderToggle={ ( { isOpen, onToggle } ) => (
 						<Button
 							icon={ icons.link }
@@ -247,7 +269,6 @@ export const GalleryImage = ( props ) => {
 					icon={ icons.closeSmall }
 					onClick={ onRemove }
 					label={ __( 'Remove image' ) }
-					disabled={ ! isSelected }
 				/>
 
 			</ButtonGroup>
