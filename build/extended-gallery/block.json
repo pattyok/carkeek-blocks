@@ -264,7 +264,33 @@
     },
     "rowHeight": {
       "type": "number",
-      "default": 200
+      "default": 100
+    },
+    "rowSpans": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "default": [
+        4,
+        2,
+        2,
+        3,
+        3
+      ]
+    },
+    "colSpans": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "default": [
+        8,
+        4,
+        4,
+        6,
+        6
+      ]
     }
   },
   "example": {

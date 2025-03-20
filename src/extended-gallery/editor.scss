@@ -105,6 +105,23 @@
 			background-color: #007cba;
 		}
 	}
+	& .components-button:hover:not(:disabled,[aria-disabled=true]) {
+		background-color: #000;
+		color: #fff;
+		& svg {
+			fill: #fff;
+		}
+	}
+	& .components-button {
+		height: 41px;
+		&:disabled,
+		&[aria-disabled=true] {
+			background-color: #ececec;
+			& svg {
+				fill: #aaa;
+			}
+		}
+	}
 }
 
 @media (min-width: 600px) {

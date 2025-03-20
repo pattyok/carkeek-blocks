@@ -1700,7 +1700,6 @@ v5.attributes.imageWidth = {
 							}
 							if (containImages) {
 								imageStyle.objectFit = 'contain';
-								console.log(imageHeight, imageWidth);
 								if (imageHeight) {
 									imageStyle.height = imageHeight + 'px';
 								}
