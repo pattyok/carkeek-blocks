@@ -168,6 +168,7 @@ ul.ck-blocks-gallery-grid {
 				aspect-ratio: var(--gallery-image-ratio);
 				object-fit: cover;
 				object-position: 50% 50%;
+				overflow-clip-margin: unset;
 			}
 		}
 	}
@@ -416,6 +417,7 @@ ul.ck-blocks-gallery-grid {
 					object-fit: cover;
 					width: 100%;
 					height: 100%;
+					overflow-clip-margin: unset;
 				}
 				& li:nth-child(1) {
 					grid-column: span 8;

@@ -1366,7 +1366,6 @@ var Collapse = function ($$$1) {
     if (event.currentTarget.tagName === 'A') {
       event.preventDefault();
     }
-    console.log(event);
     var $trigger = $$$1(this);
     var selector = Util.getSelectorFromElement(this);
     $$$1(selector).each(function () {

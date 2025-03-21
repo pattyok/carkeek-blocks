@@ -16,8 +16,6 @@
 
 	function evaluateMediaQuery(element) {
 		var expanded;
-		console.log('evaluateMediaQuery');
-		console.log(element);
 		if (window.innerWidth < 768) {
 			expanded = element.trigger.getAttribute('data-expanded-mobile') == 'true' ? true : false;
 		} else if (window.innerWidth < 1024) {
@@ -25,7 +23,6 @@
 		} else {
 			expanded = element.trigger.getAttribute('data-expanded-desktop') == 'true' ? true : false;
 		}
-		console.log("expanded: " + expanded);
 		return expanded;
 	}
 
@@ -38,7 +35,6 @@
 			// detect click on trigger elements
 			element.trigger.addEventListener('click', function(event) {
 				event.preventDefault();
-				console.log('collapseToggle');
 				toggleVisibility(element);
 			});
 		}
@@ -46,7 +42,6 @@
 		updateTarget(element, element.expanded);
 		// custom event
 		element.target.addEventListener('collapseToggle', function(event){
-			console.log('collapseToggle');
 			toggleVisibility(element);
 		});
 
@@ -54,11 +49,9 @@
 		throttled = false, // are we currently throttled?
 		prevWidth = window.innerWidth;
 		window.addEventListener('resize', function() {
-			console.log('resize');
 			// only run if we're not throttled
 			if (!throttled) {
 
-				console.log('resize');
 				// actual callback action
 				var expanded = evaluateMediaQuery(element);
 				updateTriggers(element, expanded);
@@ -109,8 +102,6 @@
 		expanded ? element.trigger.setAttribute('aria-expanded', 'true') : element.trigger.removeAttribute('aria-expanded');
 	};
 	function updateTarget(element, expanded) {
-		console.log('updateTarget');
-		console.log("collapsed: " + expanded);
 		expanded ? element.target.classList.remove('cj1-hide') : element.target.classList.add('cj1-hide');
 	}
   
