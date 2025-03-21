@@ -90,3 +90,15 @@ import jQuery from "jquery";
 
     });
 })(jQuery);
+
+function setGalleryHeight() {
+	const tiledGalleries = document.querySelectorAll('.wp-block-carkeek-blocks-extended-gallery .ck-tiled-gallery');
+	tiledGalleries?.forEach(gallery => {
+		const width = gallery.offsetWidth;
+		const rowHeight = width / 12;
+		gallery.style.setProperty('--ck-grid-row-height', `${rowHeight}px`);
+	});
+}
+
+setGalleryHeight();
+window.addEventListener('resize', setGalleryHeight);

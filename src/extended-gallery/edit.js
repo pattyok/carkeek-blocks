@@ -7,6 +7,7 @@ import {
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import { PanelBody, CheckboxControl, RadioControl, RangeControl, TextControl, ToggleControl, SelectControl } from "@wordpress/components";
+import { useState, useEffect, useLayoutEffect } from '@wordpress/element';
 import Gallery from './gallery';
 import './editor.scss';
 
@@ -40,16 +41,34 @@ function ExtendedGalleryEdit( props ) {
 		transitionType,
         showDots,
         showOverlay,
-		columnGap,
-		rowHeight
+		columnGap
      } = attributes;
     if ( ! blockId ) {
         setAttributes( { blockId: clientId } );
     }
 
-	const styles = {
-		"--ck-grid-row-height": rowHeight + 'px',
-	  };
+
+	const [styles, setStyles] = useState({});
+
+
+	function updateStyles() {
+		const el = document.getElementById( 'block-' + clientId );
+		if ( ! el ) {
+			return;
+		}
+		const elWidth = el.offsetWidth;
+		const rowHeight = Math.floor( elWidth / 12 );
+		const styles = {
+			"--ck-grid-row-height": rowHeight + 'px'
+		};
+		setStyles( styles );
+	}
+	useLayoutEffect(() => {
+		window.addEventListener('resize', updateStyles);
+		updateStyles();
+		return () => window.removeEventListener('resize', updateStyles);
+	  }, []);
+
     const blockProps = useBlockProps({ style: styles });
     const isGallery = displayAs == 'gallery';
 	const isTiled = displayAs == 'tiled';
@@ -167,14 +186,6 @@ function ExtendedGalleryEdit( props ) {
 					{isTiled &&
                         <>
                         <PanelBody title="Gallery Settings">
-                            <RangeControl
-                                label="Row Height"
-                                value={ rowHeight }
-                                onChange={ ( rowHeight ) => setAttributes( { rowHeight } ) }
-                                min={ 50 }
-                                max={ 700 }
-                                step={ 10 }
-                            />
 							<RangeControl
 								label= { colGapLabel }
 								value={ columnGap }

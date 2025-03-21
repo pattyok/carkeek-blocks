@@ -185,11 +185,11 @@ export const GalleryImage = ( props ) => {
 					{isTiled && (
 						<>
 					<RangeControl
-						label="Row Span"
+						label="Row Span (out of 12)"
 						value={ spanRows }
 						onChange={ ( spanRows ) => updateSpanRows( spanRows, imageIndex ) }
 						min={ 1 }
-						max={ 6 }
+						max={ 12 }
 						step={ 1 }
 					/>
 					<RangeControl
