@@ -56,6 +56,8 @@ export const Gallery = ( props ) => {
 		imageAlignment,
 		rowSpans,
 		colSpans,
+		limitView,
+		viewLimit,
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
@@ -337,7 +339,7 @@ export const Gallery = ( props ) => {
 
 					const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
-                        'ck-blocks-gallery-hidden': (isCarousel && index >= slidesToShow)
+                        'ck-blocks-gallery-hidden': (isCarousel && index >= slidesToShow) || limitView && index >= viewLimit,
                     })
 					let figureStyle = {};
 					if (isTiled) {

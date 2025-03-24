@@ -11,6 +11,7 @@ import {
     TextControl
 } from "@wordpress/components";
 import { useEffect, useState } from "@wordpress/element";
+import marks from '../resources/marks';
 
 
 function postsInspector(props) {
@@ -74,6 +75,9 @@ function postsInspector(props) {
 		defaultFeaturedImage,
 		defaultAltText,
 		showTermsTax,
+		setGridGap,
+		gridGapColumn,
+		gridGapRow,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
     } = attributes;
 
@@ -439,6 +443,37 @@ function postsInspector(props) {
                                 min={1}
                                 max={6}
                             />
+							<ToggleControl
+                                label={__("Set Grid Gap")}
+                                checked={setGridGap}
+                                onChange={value =>
+                                    setAttributes({ setGridGap: value })
+                                }
+                            />
+							{setGridGap &&
+								<>
+								<RangeControl
+									label={__("Column Gap", "carkeek-blocks")}
+									value={gridGapColumn}
+									onChange={(gridGapColumn) => setAttributes({ gridGapColumn })}
+									min={0}
+									max={8}
+									marks={ marks['gridGap'] }
+									type="stepper"
+									withInputField={ false }
+								/>
+								<RangeControl
+									label={__("Row Gap", "carkeek-blocks")}
+									value={gridGapRow}
+									onChange={(gridGapRow) => setAttributes({ gridGapRow })}
+									min={0}
+									max={8}
+									marks={marks['gridGap']}
+									type="stepper"
+									withInputField={ false }
+								/>
+								</>
+							}
                             <ToggleControl
                                 label={__("Open Content as Modal")}
                                 checked={openAsModal}

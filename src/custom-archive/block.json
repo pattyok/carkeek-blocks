@@ -295,6 +295,18 @@
             "type": "string",
             "default": ""
         },
+		"setGridGap": {
+			"type": "boolean",
+			"default": false
+		},
+		"gridGapColumn": {
+			"type": "number",
+			"default": 3
+		},
+		"gridGapRow": {
+			"type": "number",
+			"default": 3
+		},
         "style": {
             "type": "object",
             "default": {

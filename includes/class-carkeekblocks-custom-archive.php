@@ -545,6 +545,7 @@ class CarkeekBlocks_CustomArchive {
 
 		if ( $query->have_posts() ) {
 			$posts           .= $block_start;
+			$inline_styles    = '';
 			$css_classes_list = array(
 				$inner_el_class . '__list',
 				'alignwide',
@@ -552,13 +553,16 @@ class CarkeekBlocks_CustomArchive {
 
 			if ( 'grid' === $layout ) {
 				$css_classes_list[] = 'ck-columns__wrap';
+				if ( $attributes['setGridGap'] ) {
+					$inline_styles = 'style="--ck-column-gap-vert: var(--wp--preset--spacing--' . $attributes['gridGapRow'] . '0); --ck-column-gap: var(--wp--preset--spacing--' . $attributes['gridGapColumn'] . '0);"';
+				}
 			}
 
 			$css_classes_list = apply_filters( 'carkeek_block_custom_post_layout__css_classes_list', $css_classes_list, $attributes );
 			if ( 'ul' == $layout ) {
-				$posts .= '<ul class="' . implode( ' ', $css_classes_list ) . '">';
+				$posts .= '<ul class="' . implode( ' ', $css_classes_list ) . '" ' . $inline_styles . '>';
 			} else {
-				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
+				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '" ' . $inline_styles .  '>';
 			}
 			$count            = 0;
 			$template         = $post_type . '_item';

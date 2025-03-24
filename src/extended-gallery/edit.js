@@ -9,6 +9,7 @@ import { __ } from "@wordpress/i18n";
 import { PanelBody, CheckboxControl, RadioControl, RangeControl, TextControl, ToggleControl, SelectControl } from "@wordpress/components";
 import { useState, useEffect, useLayoutEffect } from '@wordpress/element';
 import Gallery from './gallery';
+import marks from '../resources/marks';
 import './editor.scss';
 
 function ExtendedGalleryEdit( props ) {
@@ -48,6 +49,8 @@ function ExtendedGalleryEdit( props ) {
     }
 
 
+
+
 	const [styles, setStyles] = useState({});
 
 
@@ -78,8 +81,6 @@ function ExtendedGalleryEdit( props ) {
 		setAttributes( { columnGap: 3 } );
 	}
 
-	const colGapLabels =['None', 'X-Small', 'Small', 'Medium (Default)', 'Large', 'X-Large'];
-	const colGapLabel = 'Column Gap: ' + colGapLabels[columnGap];
 
     return(
         <div {...blockProps} >
@@ -130,14 +131,15 @@ function ExtendedGalleryEdit( props ) {
                                 step={ 1 }
                             />
 							<RangeControl
-								label= { colGapLabel }
+								label= "Grid Gap"
 								value={ columnGap }
 								onChange={ ( columnGap ) => setAttributes( { columnGap } ) }
 								min={ 0 }
-								max={ 5 }
+								max={ 8 }
 								step={ 1 }
 								type="stepper"
 								withInputField={ false }
+								marks={ marks['gridGap'] }
 							/>
 
                             <SelectControl
@@ -187,14 +189,15 @@ function ExtendedGalleryEdit( props ) {
                         <>
                         <PanelBody title="Gallery Settings">
 							<RangeControl
-								label= { colGapLabel }
+								label= "Grid Gap"
 								value={ columnGap }
 								onChange={ ( columnGap ) => setAttributes( { columnGap } ) }
 								min={ 0 }
-								max={ 5 }
+								max={ 8 }
 								step={ 1 }
 								type="stepper"
 								withInputField={ false }
+								marks={ marks['gridGap'] }
 							/>
                             </PanelBody>
                         </>
@@ -324,8 +327,8 @@ function ExtendedGalleryEdit( props ) {
                             label="Number of images to show on page"
                             value={ viewLimit }
                             onChange={ ( viewLimit ) => setAttributes( { viewLimit } ) }
-                            min={ columns }
-                            step={ columns }
+                            min={ 1 }
+                            step={ 1 }
                         />
                         }
                     <TextControl

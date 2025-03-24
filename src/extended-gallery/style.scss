@@ -47,16 +47,28 @@ ul.ck-blocks-gallery-grid {
 		--ck-gallery-gutter: 0;
 	}
 	&.ck-column-gap-1 {
-		--ck-gallery-gutter: 1vw;
+		--ck-gallery-gutter: var(--wp--preset--spacing--10, 1vw);
 	}
 	&.ck-column-gap-2 {
-		--ck-gallery-gutter: 2vw;
+		--ck-gallery-gutter: var(--wp--preset--spacing--20, 2vw);
+	}
+	&.ck-column-gap-3 {
+		--ck-gallery-gutter: var(--wp--preset--spacing--30, 3vw);
 	}
 	&.ck-column-gap-4 {
-		--ck-gallery-gutter: 5vw;
+		--ck-gallery-gutter: var(--wp--preset--spacing--40, 4vw);
 	}
 	&.ck-column-gap-5 {
-		--ck-gallery-gutter: 8vw;
+		--ck-gallery-gutter: var(--wp--preset--spacing--50, 5vw);
+	}
+	&.ck-column-gap-6 {
+		--ck-gallery-gutter: var(--wp--preset--spacing--60, 6vw);
+	}
+	&.ck-column-gap-7 {
+		--ck-gallery-gutter: var(--wp--preset--spacing--70, 7vw);
+	}
+	&.ck-column-gap-8 {
+		--ck-gallery-gutter: var(--wp--preset--spacing--80, 8vw);
 	}
 
 	& .ck-blocks-gallery-grid-item {
