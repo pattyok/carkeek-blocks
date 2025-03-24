@@ -33,10 +33,6 @@ marks.gridGap = [
 		{
 			value: 7,
 			label: '70',
-		},
-		{
-			value: 8,
-			label: '80',
 		}
 	];
 
