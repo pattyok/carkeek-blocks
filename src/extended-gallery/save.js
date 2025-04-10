@@ -79,9 +79,7 @@ function ExtendedGallerySave ({ attributes }) {
 	   [ `ck-image-count-${ images.length }` ] : isTiled,
 	});
 
-	console.log('blockProps', blockProps);
-	console.log('saving rowspans', rowSpans);
-	console.log('saving colspans', colSpans);
+
     return (
         <div { ...blockProps }>
                 {!hideTitle &&
