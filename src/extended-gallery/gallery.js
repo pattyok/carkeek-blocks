@@ -78,6 +78,18 @@ export const Gallery = ( props ) => {
 		}
 	}, [ images ] );
 
+	/** update row/colspans - setAttributes inside img is special*/
+	const setSpans = ( index, value, type ) => {
+		if ( type == 'row' ) {
+			const newSpans = [ ...rowSpans ];
+			newSpans[ index ] = value;
+			setAttributes( { rowSpans: newSpans } );
+		} else {
+			const newSpans = [ ...colSpans ];
+			newSpans[ index ] = value;
+			setAttributes( { colSpans: newSpans } );
+		}
+	}
 
 	const imageData = useGetMedia( ids );
 
@@ -394,6 +406,7 @@ export const Gallery = ( props ) => {
 								caption={ img.caption }
 								aria-label={ ariaLabel }
 								lightSize={ lightSize }
+								setSpans={ setSpans }
 								colSpans={ colSpans }
 								rowSpans={ rowSpans }
 							/>

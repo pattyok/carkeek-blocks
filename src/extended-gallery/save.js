@@ -79,7 +79,9 @@ function ExtendedGallerySave ({ attributes }) {
 	   [ `ck-image-count-${ images.length }` ] : isTiled,
 	});
 
-
+	console.log('blockProps', blockProps);
+	console.log('saving rowspans', rowSpans);
+	console.log('saving colspans', colSpans);
     return (
         <div { ...blockProps }>
                 {!hideTitle &&
@@ -127,7 +129,7 @@ function ExtendedGallerySave ({ attributes }) {
                 >
                 { images.map( ( img, index ) => {
                     let imageStyle = {};
-                    if (cropImages && img.focalPointX && img.focalPointY) {
+                    if ((cropImages || isTiled) && img.focalPointX && img.focalPointY) {
                         imageStyle.objectPosition = `${img.focalPointX *
                             100}% ${img.focalPointY * 100}%`;
                     }
@@ -167,8 +169,6 @@ function ExtendedGallerySave ({ attributes }) {
                             data-caption={img.caption}
                             data-focalx={img.focalPointX}
                             data-focaly={img.focalPointY}
-							data-spancols={img.spanCols}
-							data-spanrows={img.spanRows}
                         />
                     );
                     let imagePack;

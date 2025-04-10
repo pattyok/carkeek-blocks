@@ -55,7 +55,8 @@ export const GalleryImage = ( props ) => {
 		linkImages,
 		imageIndex,
 		colSpans,
-		rowSpans
+		rowSpans,
+		setSpans
 	} = props;
 
 	const [isEditing, setIsEditing] = useState( false );
@@ -150,16 +151,12 @@ export const GalleryImage = ( props ) => {
 	const [spanRows, setSpanRows] = useState( rowSpans[ imageIndex ] );
 
 	function updateSpanCols ( value, index ) {
-		const newSpans= colSpans;
-		newSpans[ index ] = value;
-		setAttributes( { colSpans : newSpans } );
+		setSpans( index, value, 'cols' );
 		setSpanCols( value );
 	}
 
 	function updateSpanRows ( value, index ) {
-		const newSpans= rowSpans;
-		newSpans[ index ] = value;
-		setAttributes( { rowSpans : newSpans } );
+		setSpans( index, value, 'rows' );
 		setSpanRows( value );
 	}
 
