@@ -90,18 +90,6 @@
 					"source": "attribute",
 					"selector": "img",
 					"attribute": "data-focaly"
-				},
-				"spanCols": {
-					"source": "attribute",
-					"selector": "img",
-					"type": "number",
-					"attribute": "data-spancols"
-				},
-				"spanRows": {
-					"source": "attribute",
-					"selector": "img",
-					"type": "number",
-					"attribute": "data-spanrows"
 				}
 			}
 		},
@@ -258,6 +246,16 @@
                 }
             }
         },
+		"rowSpans": {
+			"type": "array",
+
+			"default": [4, 2, 2, 3, 3]
+		},
+		"colSpans": {
+			"type": "array",
+
+			"default": [8, 4, 4, 6, 6]
+		},
 		"ids": {
 			"type": "array",
 			"items": {
@@ -268,21 +266,8 @@
 		"rowHeight": {
 			"type": "number",
 			"default": 100
-		},
-		"rowSpans": {
-			"type": "array",
-			"items": {
-				"type": "number"
-			},
-			"default": [4, 2, 2, 3, 3]
-		},
-		"colSpans": {
-			"type": "array",
-			"items": {
-				"type": "number"
-			},
-			"default": [8, 4, 4, 6, 6]
 		}
+
 	},
 	"example": {
 		"attributes": {
