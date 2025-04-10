@@ -80,7 +80,7 @@ export const Gallery = ( props ) => {
 
 	/** update row/colspans - setAttributes inside img is special*/
 	const setSpans = ( index, value, type ) => {
-		if ( type == 'row' ) {
+		if ( type == 'rows' ) {
 			const newSpans = [ ...rowSpans ];
 			newSpans[ index ] = value;
 			setAttributes( { rowSpans: newSpans } );
