@@ -8,7 +8,11 @@ import { get, omit, filter } from 'lodash';
  * WordPress dependencies
  */
 import { useState } from '@wordpress/element';
-import { Button, Spinner, ButtonGroup, FocalPointPicker, PanelBody } from '@wordpress/components';
+import { Button, Spinner, FocalPointPicker, PanelBody } from '@wordpress/components';
+import {
+    __experimentalToggleGroupControl as ToggleGroupControl,
+    __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { RichText, MediaPlaceholder, InspectorControls, URLInputButton } from '@wordpress/block-editor';
 import { isBlobURL } from '@wordpress/blob';
@@ -113,8 +117,7 @@ export const GalleryImage = ( props ) => {
 				src={ url }
 				alt={ alt }
 				data-id={ id }
-				onClick={ onSelect }
-				onFocus={ onSelect }
+
 				onKeyDown={ onRemoveImage }
 				tabIndex="0"
 				aria-label={ ariaLabel }
@@ -147,7 +150,10 @@ export const GalleryImage = ( props ) => {
 			)}
 			</InspectorControls>
 
-			<figure className={ className }>
+			<figure className={ className }
+			onClick={ onSelect}
+			onFocus={ onSelect }
+			>
 				{ ! isEditing && ( img ) }
 				{ isEditing && (
 					<MediaPlaceholder
@@ -159,8 +165,7 @@ export const GalleryImage = ( props ) => {
 						value={ { id, src: url } }
 					/>
 				) }
-
-			<ButtonGroup className="block-library-gallery-item__inline-menu carkeek-edit is-left">
+			<ToggleGroupControl className="carkeek-edit__inline-menu carkeek-edit is-left">
 				<Button
 					icon={ icons.chevronLeft }
 					onClick={ isFirstItem ? undefined : onMoveBackward }
@@ -175,9 +180,10 @@ export const GalleryImage = ( props ) => {
 					aria-disabled={ isLastItem }
 					disabled={ ! isSelected }
 				/>
-			</ButtonGroup>
+			</ToggleGroupControl>
 			{inlineEdit &&
-			<ButtonGroup className="block-library-gallery-item__inline-menu carkeek-edit is-right">
+			<ToggleGroupControl className="carkeek-edit__inline-menu carkeek-edit is-right">
+
 
 				<URLInputButton
 					url={ linksto }
@@ -197,7 +203,7 @@ export const GalleryImage = ( props ) => {
 					disabled={ ! isSelected }
 				/>
 
-			</ButtonGroup>
+			</ToggleGroupControl>
 			}
 			{ ! isEditing && ( isSelected || caption ) && (
 				<RichText

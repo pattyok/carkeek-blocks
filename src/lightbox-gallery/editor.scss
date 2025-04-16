@@ -5,6 +5,9 @@
 		}
 		& .ck-blocks-gallery-grid-item {
 			margin-bottom: var(--ck-gallery-gutter);
+			& figure {
+				position: relative;
+			}
 			&.ck-blocks-gallery-hidden {
 
 				display: none;

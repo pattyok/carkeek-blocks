@@ -51,6 +51,7 @@ export const Gallery = ( props ) => {
         id: parseInt( newImage.id, 10 ),
         caption: newImage.caption,
     } ) ));
+	console.log(imageSelected);
 
 	const isGallery = displayAs == 'gallery';
 
