@@ -87,7 +87,19 @@
 
 }
 
-.block-library-gallery-item__inline-menu.carkeek-edit {
+.components-base-control .carkeek-edit__inline-menu {
+	display: none;
+	position: absolute;
+	top: 10px;
+	&.is-left {
+		left: 10px;
+	}
+	&.is-right {
+		right: 10px;
+	}
+	.is-selected & {
+		display: flex;
+	}
 
 	& .components-button.is-primary {
 		background-color: #fff;

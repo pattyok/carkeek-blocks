@@ -52,6 +52,7 @@ export const Gallery = ( props ) => {
         caption: newImage.caption,
     } ) ));
 
+
 	const isGallery = displayAs == 'gallery';
 
 	const galleryStyle = classnames({

@@ -44,7 +44,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
-= 3.2.44 - 51 =
+= 3.2.53 =
+* Release 3.2.53 = 04/16/25
+	* Replace ButtonGroup to support deprecation in WP 6.8
+= 3.2.44 - 52 =
 * Release 3.2.44 = 03/20/25
 	* Updates to extended gallery block to support tiled layout
 = 3.2.43 =

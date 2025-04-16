@@ -135,7 +135,6 @@
 	//initialize the Collapse objects
 	function initCollapseBlock() {
 		var collapses = document.getElementsByClassName('js-collapse-btn');
-		console.log(collapses);
 		if( collapses.length > 0 ) {
 			for( var i = 0; i < collapses.length; i++) {
 				new Collapse(collapses[i]);
