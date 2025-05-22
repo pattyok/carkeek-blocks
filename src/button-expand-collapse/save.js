@@ -23,12 +23,14 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save( {attributes} ) {
-	const{ target, expandedMobile, expandedTablet, expandedDesktop } = attributes;
+	const{ target, expandedMobile, expandedTablet, expandedDesktop, parent } = attributes;
 
 	const blockProps = useBlockProps.save({className: 'js-collapse-btn'});
+	if (parent) {
         return (
             <button { ...blockProps }
 			aria-controls={target}
+			data-parent={parent}
 			data-collapse-animate="on"
 			data-expanded-mobile={expandedMobile}
 			data-expanded-tablet={expandedTablet}
@@ -37,4 +39,17 @@ export default function save( {attributes} ) {
                 <InnerBlocks.Content />
             </button>
         );
+	} else {
+		return (
+			<button { ...blockProps }
+			aria-controls={target}
+			data-collapse-animate="on"
+			data-expanded-mobile={expandedMobile}
+			data-expanded-tablet={expandedTablet}
+			data-expanded-desktop={expandedDesktop}
+			>
+				<InnerBlocks.Content />
+			</button>
+		);
+	}
 }

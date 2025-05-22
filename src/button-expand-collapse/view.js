@@ -69,6 +69,7 @@
   
 	function toggleVisibility(element) {
 		var bool = element.target.classList.contains('cj1-hide');
+
 		if(element.animating) return;
 		element.animating = true;
 		animateElement(element, bool);
@@ -100,6 +101,12 @@
   
 	function updateTriggers(element, expanded) {
 		expanded ? element.trigger.setAttribute('aria-expanded', 'true') : element.trigger.removeAttribute('aria-expanded');
+
+		var parent = element.trigger.getAttribute('data-parent');
+		if (parent) {
+			const parentEl = document.getElementById(parent);
+			expanded ? parentEl.classList.add('ck-button-expanded') : parentEl.classList.remove('ck-button-expanded');
+		}
 	};
 	function updateTarget(element, expanded) {
 		expanded ? element.target.classList.remove('cj1-hide') : element.target.classList.add('cj1-hide');
