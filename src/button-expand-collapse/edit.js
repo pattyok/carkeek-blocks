@@ -32,7 +32,7 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { target, ariaExpanded, ariaCollapsed, expandedMobile, expandedTablet, expandedDesktop } = attributes;
+	const { target, ariaExpanded, ariaCollapsed, expandedMobile, expandedTablet, expandedDesktop, parent } = attributes;
 
 	const blockProps = useBlockProps();
 	// Update the child block's attributes
@@ -47,6 +47,15 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						onChange={ ( target ) => setAttributes( { target } ) }
 						help={__(
 							"Add the id of the targeted block.",
+							"carkeek-blocks"
+						)}
+					/>
+					<TextControl
+						label="Parent ID"
+						value={ parent }
+						onChange={ ( parent ) => setAttributes( { parent } ) }
+						help={__(
+							"Add the id of the parent of the button if you want to style it differently when open.",
 							"carkeek-blocks"
 						)}
 					/>

@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.55 =
+* Release 3.2.55 - 54 = 05/22/25
+	* Add a field to expand collapse to support active state for the parent
 = 3.2.54 =
 * Release 3.2.53 - 54 = 04/16/25
 	* Replace ButtonGroup to support deprecation in WP 6.8

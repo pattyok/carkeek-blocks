@@ -35,6 +35,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"parent": {
+			"type": "string",
+			"default": ""
+		},
 		"ariaExpanded": {
 			"type": "string",
 			"default": "Close [target]"
