@@ -675,7 +675,8 @@ function postsInspector(props) {
                             setAttributes({ displayFeaturedImage: value })
                         }
                     />
-                    {displayFeaturedImage &&
+
+                    { (displayFeaturedImage) &&
                         <>
                             <SelectControl
                                 label={__("Image Orientation", "carkeek-blocks")}

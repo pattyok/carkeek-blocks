@@ -17,6 +17,9 @@ body.admin-bar .fancybox-container {
 	margin-right: 10px;
 
 }
+body.compensate-for-scrollbar {
+    margin: 0;
+}
 
 :root {
 	--ck-gallery-gutter: 1.875rem; //this is the original and used as the default
@@ -39,6 +42,7 @@ ul.ck-blocks-gallery-grid {
 	flex-wrap: wrap;
 	gap: var(--ck-gallery-gutter);
 	padding: 0;
+	margin: 0;
 	& img {
 		width: 100%;
 	}
@@ -116,7 +120,7 @@ ul.ck-blocks-gallery-grid {
 
 	&.mobile-scroll,
 	&.slider-carousel {
-		display: none;
+		visibility: hidden;
 
 		& .ck-blocks-gallery-grid-item {
 			margin-bottom: 0;
@@ -124,7 +128,7 @@ ul.ck-blocks-gallery-grid {
 	}
 
 	&.slick-slider {
-		display: block;
+		visibility: visible;
 	}
 
 	& .slick-slide > div {
@@ -324,7 +328,6 @@ ul.ck-blocks-gallery-grid {
 
 		&.columns-1 {
 			--columns: 1;
-			--ck-gallery-gutter: 2rem
 		}
 
 		&.columns-2 {
@@ -394,6 +397,14 @@ ul.ck-blocks-gallery-grid {
 				justify-content: center;
 			}
 
+		}
+	}
+
+	&.alignfull {
+		& ul.slick-slider {
+			list-style: none;
+			margin: 0;
+			padding: 0;
 		}
 	}
 
