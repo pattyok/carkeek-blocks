@@ -60,10 +60,6 @@
       "type": "boolean",
       "default": true
     },
-    "displayFeaturedImageInPopup": {
-      "type": "boolean",
-      "default": true
-    },
     "imageOrientation": {
       "type": "string",
       "default": "landscape"

@@ -51,7 +51,6 @@ function postsInspector(props) {
         itemsMobile,
         itemsTablet,
         displayFeaturedImage,
-		displayFeaturedImageInPopup,
         openAsModal,
 		modalVersion,
         useHeadingTitle,
@@ -676,16 +675,8 @@ function postsInspector(props) {
                             setAttributes({ displayFeaturedImage: value })
                         }
                     />
-					{!displayFeaturedImage && (
-					<ToggleControl
-                        label={__("Include Featured Image in Popup")}
-                        checked={displayFeaturedImageInPopup}
-                        onChange={value =>
-                            setAttributes({ displayFeaturedImageInPopup: value })
-                        }
-                    />
-					)}
-                    { (displayFeaturedImage || displayFeaturedImageInPopup) &&
+
+                    { (displayFeaturedImage) &&
                         <>
                             <SelectControl
                                 label={__("Image Orientation", "carkeek-blocks")}
