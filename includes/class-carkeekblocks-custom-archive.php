@@ -553,7 +553,7 @@ class CarkeekBlocks_CustomArchive {
 
 			if ( 'grid' === $layout ) {
 				$css_classes_list[] = 'ck-columns__wrap';
-				if ( $attributes['setGridGap'] ) {
+				if ( isset($attributes['setGridGap']) && true == $attributes['setGridGap'] ) {
 					$inline_styles = 'style="--ck-column-gap-vert: var(--wp--preset--spacing--' . $attributes['gridGapRow'] . '0); --ck-column-gap: var(--wp--preset--spacing--' . $attributes['gridGapColumn'] . '0);"';
 				}
 			}

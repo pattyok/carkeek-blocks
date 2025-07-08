@@ -57,6 +57,18 @@
 			"type": "number",
 			"default": 3
 		},
+		"setGridGap": {
+			"type": "boolean",
+			"default": false
+		},
+		"gridGapColumn": {
+			"type": "number",
+			"default": 3
+		},
+		"gridGapRow": {
+			"type": "number",
+			"default": 3
+		},
 		"limitItemsMobile": {
 			"type": "boolean",
 			"default": false

@@ -65,6 +65,7 @@ export default function SliderEdit( props ) {
         { label: 'Media Text', value: 'core/media-text'},
         { label: 'Group', value: 'core/group'},
         { label: 'Quote', value: 'core/quote'},
+		{ label: 'Pull Quote', value: 'core/pullquote'},
     ];
 
     const classes = classnames( {
