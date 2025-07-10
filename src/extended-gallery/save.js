@@ -9,6 +9,7 @@ function ExtendedGallerySave ({ attributes }) {
         blockId,
         hideTitle,
         showCaptions,
+		overlayCaptions,
         displayAs,
         viewLimit,
         cropImages,
@@ -72,11 +73,13 @@ function ExtendedGallerySave ({ attributes }) {
         'mobile-scroll': mobileScroll,
         [ `image-align-${ imageAlignment }` ]: !cropImages,
         'has-captions': showCaptions && !isLightbox,
+		'has-caption-under': (showCaptions && !overlayCaptions),
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
 	   [ `ck-column-gap-${ columnGap }` ]: isGallery || isTiled,
 	   'ck-tiled-gallery': isTiled,
 	   [ `ck-image-count-${ images.length }` ] : isTiled,
+
 	});
 
 
@@ -141,17 +144,24 @@ function ExtendedGallerySave ({ attributes }) {
 						}
 					}
 					let figureStyle = {};
+
 					if (isTiled ) {
 						figureStyle.gridColumn = `span ${colSpans[index]}`;
 					}
 					if (isTiled ) {
-						figureStyle.gridRow = `span ${rowSpans[index]}`;
+						if (!overlayCaptions) {
+							imageStyle.aspectRatio = colSpans[index] + '/' + rowSpans[index];
+						} else {
+							figureStyle.gridRow = `span ${rowSpans[index]}`;
+						}
 					}
 
                     const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
                         'ck-blocks-gallery-hidden': (limitView && index >= viewLimit),
-                        'has-link': ((linkImages == 'custom' && img.customLink) || isLightbox )
+                        'has-link': ((linkImages == 'custom' && img.customLink) || isLightbox ),
+
+
                     })
                     const image = (
                         <img

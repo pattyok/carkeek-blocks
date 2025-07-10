@@ -27,6 +27,7 @@ function ExtendedGalleryEdit( props ) {
         columnsTablet,
         horizontalAlign,
         showCaptions,
+		overlayCaptions,
         limitView,
         viewLimit,
         mobileScroll,
@@ -117,11 +118,17 @@ function ExtendedGalleryEdit( props ) {
                         checked={ showCaptions }
                         onChange={ ( showCaptions ) => setAttributes( { showCaptions } ) }
                     />
+					<ToggleControl
+                        label="Overlay Captions"
+                        help={ "Overlay captions on the images in the gallery view"}
+                        checked={ overlayCaptions }
+                        onChange={ ( overlayCaptions ) => setAttributes( { overlayCaptions } ) }
+                    />
 
                     </PanelBody>
                     {isGallery &&
                         <>
-                        <PanelBody title="Gallery Settings">
+                        <PanelBody title="Gallery Layout">
                             <RangeControl
                                 label="Columns"
                                 value={ columns }

@@ -93,6 +93,19 @@ ul.ck-blocks-gallery-grid {
 			right: 0;
 			text-align: center;
 		}
+
+	}
+	&.has-caption-under {
+		& .ck-blocks-gallery-grid-item {
+			& figcaption {
+				position: relative;
+				bottom: unset;
+				left: unset;
+				right: unset;
+				text-align: center;
+				margin-top: 0.5em;
+			}
+		}
 	}
 
 	& > li {
@@ -430,7 +443,7 @@ ul.ck-blocks-gallery-grid {
 			& ul.ck-tiled-gallery {
 				display: grid;
 				grid-template-columns: repeat(12, 1fr);
-				grid-auto-rows: var(--ck-grid-row-height);
+
 
 				& figure {
 					display: block;
@@ -439,7 +452,7 @@ ul.ck-blocks-gallery-grid {
 				& img {
 					object-fit: cover;
 					width: 100%;
-					height: 100%;
+					height: auto;
 					overflow-clip-margin: unset;
 				}
 				& li:nth-child(1) {
@@ -461,6 +474,12 @@ ul.ck-blocks-gallery-grid {
 				& li:nth-child(5) {
 					grid-column: span 4;
 					grid-row: span 1;
+				}
+			}
+			& ul.ck-tiled-gallery:not(.has-caption-under) {
+				grid-auto-rows: var(--ck-grid-row-height);
+				& img {
+					height: 100%;
 				}
 			}
 	}

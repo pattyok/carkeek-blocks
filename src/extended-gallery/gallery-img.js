@@ -150,6 +150,9 @@ export const GalleryImage = ( props ) => {
 		'is-transient': isBlobURL( url ),
 	} );
 
+	/** We save as an array so that we can set up templates with default values, not dependent on the image selected
+	 * Also so that if you change the order of images, the ratios are preserved.
+	 */
 	const [spanCols, setSpanCols] = useState( colSpans[ imageIndex ] );
 	const [spanRows, setSpanRows] = useState( rowSpans[ imageIndex ] );
 
