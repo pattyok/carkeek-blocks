@@ -50,6 +50,7 @@ export const Gallery = ( props ) => {
 		imageLayout,
 		linkImages,
 		showCaptions,
+		overlayCaptions,
 		slidesToShow,
 		slidesToShowMobile,
 		slidesToShowTablet,
@@ -114,6 +115,7 @@ export const Gallery = ( props ) => {
         'mobile-scroll': mobileScroll,
         [ `image-align-${ imageAlignment }` ]: !cropImages,
         'has-captions': showCaptions && !isLightbox,
+		'has-caption-under': (showCaptions && !overlayCaptions),
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
 	   [ `ck-column-gap-${ columnGap }` ]: isGallery || isTiled,
@@ -403,6 +405,7 @@ export const Gallery = ( props ) => {
 								customLink={img.customLink}
 								linkTarget={img.linkTarget}
 								showCaptions = {showCaptions}
+								overlayCaptions = {overlayCaptions}
 								caption={ img.caption }
 								aria-label={ ariaLabel }
 								lightSize={ lightSize }

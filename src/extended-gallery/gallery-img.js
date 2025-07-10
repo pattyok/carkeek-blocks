@@ -46,6 +46,7 @@ export const GalleryImage = ( props ) => {
 		onSelect,
 		setAttributes,
 		showCaptions,
+		overlayCaptions,
 		cropImages,
 		isTiled,
 		containImages,
@@ -123,6 +124,9 @@ export const GalleryImage = ( props ) => {
 		imageStyle.objectFit = 'contain';
 		imageStyle.height = imageHeight + 'px';
 		imageStyle.width = imageWidth + 'px';
+	}
+	if (showCaptions && !overlayCaptions && isTiled) {
+		imageStyle.aspectRatio = colSpans[ imageIndex ] + '/' + rowSpans[ imageIndex ];
 	}
 
 
