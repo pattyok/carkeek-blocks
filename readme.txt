@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.56 =
+* Release 3.2.56 - 57 = 07/10/25
+	* Updates to gallery to support captions in the tiled layout
 = 3.2.55 =
 * Release 3.2.55 - 54 = 05/22/25
 	* Add a field to expand collapse to support active state for the parent

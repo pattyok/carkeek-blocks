@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
 	"name": "carkeek-blocks/extended-gallery",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"title": "Extended Gallery",
 	"category": "widgets",
 	"description": "Create a carousel or slider from a gallery of images.",
@@ -132,6 +132,10 @@
 		"showCaptions": {
 			"type": "boolean",
 			"default": false
+		},
+		"overlayCaptions": {
+			"type": "boolean",
+			"default": true
 		},
 		"cropImages": {
 			"type": "boolean",

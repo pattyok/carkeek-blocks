@@ -46,6 +46,7 @@ export const GalleryImage = ( props ) => {
 		onSelect,
 		setAttributes,
 		showCaptions,
+		overlayCaptions,
 		cropImages,
 		isTiled,
 		containImages,
@@ -124,6 +125,9 @@ export const GalleryImage = ( props ) => {
 		imageStyle.height = imageHeight + 'px';
 		imageStyle.width = imageWidth + 'px';
 	}
+	if (showCaptions && !overlayCaptions && isTiled) {
+		imageStyle.aspectRatio = colSpans[ imageIndex ] + '/' + rowSpans[ imageIndex ];
+	}
 
 
 	const img = (
@@ -150,6 +154,9 @@ export const GalleryImage = ( props ) => {
 		'is-transient': isBlobURL( url ),
 	} );
 
+	/** We save as an array so that we can set up templates with default values, not dependent on the image selected
+	 * Also so that if you change the order of images, the ratios are preserved.
+	 */
 	const [spanCols, setSpanCols] = useState( colSpans[ imageIndex ] );
 	const [spanRows, setSpanRows] = useState( rowSpans[ imageIndex ] );
 
