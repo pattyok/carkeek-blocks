@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "carkeek-blocks/page-header",
+  "version": "2.0.0",
+  "title": "Page Header Settings",
+  "category": "widgets",
+  "description": "Additional settings relevant to Carkeek Blocks page headers and sidebar.",
+  "textdomain": "carkeek-blocks",
+  "editorScript": "file:./index.js",
+  "editorStyle": [
+    "file:./editor.scss",
+    "file:./styles.global.editor.css"
+  ]
+}

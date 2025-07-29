@@ -217,9 +217,9 @@ class CarkeekBlocks_Block_Register {
 			$plugins = 'build/plugins/';
 			wp_enqueue_script(
 				$this->slug . '-plugins-editor-script',
-				plugins_url( $plugins . 'index.js', __DIR__ ),
+				plugins_url( $plugins . '/page-header/index.js', __DIR__ ),
 				array( 'wp-data', 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-components' ),
-				filemtime( "$dir/$plugins/index.js" ),
+				filemtime( "$dir/$plugins/page-header/index.js" ),
 				false
 			);
 			// add script to pass options variables (cannot access via rest);
@@ -242,6 +242,7 @@ class CarkeekBlocks_Block_Register {
 			);
 
 		}
+
 	}
 }
 

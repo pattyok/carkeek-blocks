@@ -1,0 +1,52 @@
+/**
+ * Frontend styles for list columns
+ */
+ @media screen and (max-width: 600px) {
+	.wp-block-list.has-2-columns-mobile {
+		columns: 2;
+	}
+	.wp-block-list.has-3-columns-mobile {
+		columns: 3;
+	}
+
+}
+
+
+ @media screen and (min-width: 600px) and (max-width: 1023px) {
+	.wp-block-list.has-2-columns-tablet {
+		columns: 2;
+	}
+	.wp-block-list.has-3-columns-tablet {
+		columns: 3;
+	}
+	.wp-block-list.has-4-columns-tablet {
+		columns: 4;
+	}
+}
+@media screen and (min-width: 1024px) {
+	.wp-block-list.has-2-columns-desktop {
+		columns: 2;
+	}
+	.wp-block-list.has-3-columns-desktop {
+		columns: 3;
+	}
+	.wp-block-list.has-4-columns-desktop {
+		columns: 4;
+	}
+	.wp-block-list.has-5-columns-desktop {
+		columns: 5;
+	}
+	.wp-block-list.has-6-columns-desktop {
+		columns: 6;
+	}
+}
+
+/* Improve spacing */
+.wp-block-list[class*="has-2-columns"] li,
+.wp-block-list[class*="has-3-columns"] li,
+.wp-block-list[class*="has-4-columns"] li,
+.wp-block-list[class*="has-5-columns"] li,
+.wp-block-list[class*="has-6-columns"] li {
+	margin-bottom: 0.5rem;
+	break-inside: avoid;
+}

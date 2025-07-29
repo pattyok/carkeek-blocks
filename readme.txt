@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.58 =
+* Release 3.2.58 = 07/28/25
+	* Adding multicolumns support to lists, also rearranged files in the plugins folder
 = 3.2.56 =
 * Release 3.2.56 - 57 = 07/10/25
 	* Updates to gallery to support captions in the tiled layout

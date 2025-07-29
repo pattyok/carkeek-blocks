@@ -8,7 +8,7 @@
  * Primary Branch: main
  * Description: Series of blocks designed to work with this site's custom Theme
  * Author: Patty O'Hara
- * Version: 3.2.57
+ * Version: 3.2.58
  * Author URI https://carkeekstudios.com/
  * Text Domain: carkeek-blocks
  */
@@ -120,12 +120,12 @@ if ( ! class_exists( 'CarkeekBlocks' ) ) :
 		 * @return void
 		 */
 		private function includes() {
-
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-register.php'; // phpcs:ignore
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custom-archive.php'; // phpcs:ignore
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-editor-plugins.php'; // phpcs:ignore
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-helpers.php'; // phpcs:ignore
-			require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-template-loader.php'; // phpcs:ignore
+		require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-register.php'; // phpcs:ignore
+		require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-custom-archive.php'; // phpcs:ignore
+		require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-editor-plugins.php'; // phpcs:ignore
+		require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-helpers.php'; // phpcs:ignore
+		require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-template-loader.php'; // phpcs:ignore
+		require_once CARKEEKBLOCKS_PLUGIN_DIR . 'includes/class-carkeekblocks-block-filters.php'; // phpcs:ignore
 		}
 
 		/**

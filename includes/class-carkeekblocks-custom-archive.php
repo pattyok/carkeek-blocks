@@ -281,6 +281,7 @@ class CarkeekBlocks_CustomArchive {
 		$args = array(
 			'posts_per_page'      => $attributes['numberOfPosts'],
 			'post_type'           => $attributes['postTypeSelected'],
+			'post_status'         => 'publish',
 			'order'               => $attributes['order'],
 			'orderby'             => $attributes['sortBy'],
 			'paged'               => $paged,
@@ -375,12 +376,12 @@ class CarkeekBlocks_CustomArchive {
 			}
 
 		} elseif ( true == $related ) {
-
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
 				$tax          = $attributes['taxonomySelected'];
 				$my_id        = get_the_ID();
 				$my_terms     = get_the_terms( $my_id, $tax );
 				$tax_operator = isset( $attributes['matchAllTerms'] ) && true == $attributes['matchAllTerms'] ? 'AND' : 'IN';
+
 				if ( ! is_wp_error( $my_terms ) && is_array( $my_terms ) ) {
 					if ( isset( $attributes['childTermsOnly'] ) && true == $attributes['childTermsOnly'] ) {
 						$children = wp_list_filter( $my_terms, array( 'parent' => 0 ), 'NOT' );

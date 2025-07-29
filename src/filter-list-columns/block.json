@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "carkeek-blocks/list-columns",
+	"version": "1.0.0",
+	"title": "List Columns Filter",
+	"category": "design",
+	"description": "Adds column support to the core/list block.",
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}
