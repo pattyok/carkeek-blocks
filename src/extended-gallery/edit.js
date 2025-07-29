@@ -74,7 +74,8 @@ function ExtendedGalleryEdit( props ) {
 	  }, []);
 
     const blockProps = useBlockProps({ style: styles });
-    const isGallery = displayAs == 'gallery';
+    const isGallery = (displayAs == 'gallery');
+	const isLogoGrid = displayAs == 'logo-grid';
 	const isTiled = displayAs == 'tiled';
     const isCarousel = displayAs == 'carousel';
 
@@ -126,17 +127,35 @@ function ExtendedGalleryEdit( props ) {
                     />
 
                     </PanelBody>
-                    {isGallery &&
+                    {(isGallery || isLogoGrid ) &&
                         <>
                         <PanelBody title="Gallery Layout">
-                            <RangeControl
-                                label="Columns"
-                                value={ columns }
-                                onChange={ ( columns ) => setAttributes( { columns } ) }
-                                min={ 1 }
-                                max={ 6 }
-                                step={ 1 }
-                            />
+							{!isLogoGrid && (
+								<>
+								<RangeControl
+									label="Columns"
+									value={ columns }
+									onChange={ ( columns ) => setAttributes( { columns } ) }
+									min={ 1 }
+									max={ 6 }
+									step={ 1 }
+								/>
+								 <SelectControl
+									label="Align Columns"
+									value={ horizontalAlign }
+									help={ "When there are fewer images than columns in a row, how to align the columns."}
+									options={ [
+										{ label: 'Center', value: 'center' },
+										{ label: 'Left', value: 'left' },
+										{ label: 'Right', value: 'right' },
+									] }
+									onChange={value =>
+										setAttributes({ horizontalAlign: value })
+									}
+								/>
+								</>
+							)}
+
 							<RangeControl
 								label= "Grid Gap"
 								value={ columnGap }
@@ -148,28 +167,13 @@ function ExtendedGalleryEdit( props ) {
 								withInputField={ false }
 								marks={ marks['gridGap'] }
 							/>
-
-                            <SelectControl
-                                label="Align Columns"
-                                value={ horizontalAlign }
-                                help={ "When there are fewer images than columns in a row, how to align the columns."}
-                                options={ [
-                                    { label: 'Center', value: 'center' },
-                                    { label: 'Left', value: 'left' },
-                                    { label: 'Right', value: 'right' },
-                                ] }
-                                onChange={value =>
-                                    setAttributes({ horizontalAlign: value })
-                                }
-                            />
-
                             <ToggleControl
                                 label="Horizontal scroll on mobile"
                                 help={ "Scroll gallery items horizontally on mobile"}
                                 checked={ mobileScroll }
                                 onChange={ ( mobileScroll ) => setAttributes( { mobileScroll } ) }
                             />
-                            {!mobileScroll &&
+                            {!mobileScroll && !isLogoGrid &&
                                 <>
                                 <RangeControl
                                     label="Columns Mobile"

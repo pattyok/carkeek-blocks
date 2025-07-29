@@ -96,12 +96,14 @@ export const Gallery = ( props ) => {
 
 
 	const isGallery = displayAs == 'gallery';
+	const isLogoGrid = displayAs == 'logo-grid';
 	const isCarousel = displayAs == 'carousel';
 	const isTiled = displayAs == 'tiled';
 	const isLightbox = linkImages == 'lightbox';
 
 	const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': true,
+		'is-layout-grid': isLogoGrid,
 		[ `columns-${ columns }` ]: isGallery,
         [ `columns-m-${ columnsMobile }` ]: isGallery,
         [ `columns-t-${ columnsTablet }` ]: isGallery,

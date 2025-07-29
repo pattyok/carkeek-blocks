@@ -1,0 +1,34 @@
+/**
+ * Frontend styles for list columns
+ */
+
+.wp-block-list.has-2-columns {
+	columns: 2;
+}
+
+.wp-block-list.has-3-columns {
+	columns: 3;
+}
+
+.wp-block-list.has-4-columns {
+	columns: 4;
+}
+
+.wp-block-list.has-5-columns {
+	columns: 5;
+}
+
+.wp-block-list.has-6-columns {
+	columns: 6;
+}
+
+
+/* Improve spacing */
+.wp-block-list.has-2-columns li,
+.wp-block-list.has-3-columns li,
+.wp-block-list.has-4-columns li,
+.wp-block-list.has-5-columns li,
+.wp-block-list.has-6-columns li {
+	margin-bottom: 0.5rem;
+	break-inside: avoid;
+}

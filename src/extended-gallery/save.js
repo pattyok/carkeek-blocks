@@ -45,6 +45,7 @@ function ExtendedGallerySave ({ attributes }) {
     //if we use blockId for the gallery id, and they duplicate the block, we get into trouble, so only use the blockId if they have not specified a title
     const galleryId = title ? cleanForSlug(title) : blockId;
     const isGallery = displayAs == 'gallery';
+	const isLogoGrid = displayAs == 'logo-grid';
     const isCarousel = displayAs == 'carousel';
 	const isTiled = displayAs == 'tiled';
     const maybeCarousel = isCarousel || mobileScroll;
@@ -63,6 +64,7 @@ function ExtendedGallerySave ({ attributes }) {
 
     const galleryStyle = classnames({
 		'ck-blocks-gallery-grid': true,
+		'is-layout-grid': isLogoGrid,
 		[ `columns-${ columns }` ]: isGallery,
         [ `columns-m-${ columnsMobile }` ]: isGallery,
         [ `columns-t-${ columnsTablet }` ]: isGallery,

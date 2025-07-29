@@ -3,9 +3,9 @@
 	"apiVersion": 2,
 	"name": "carkeek-blocks/plugins",
 	"version": "2.0.0",
-	"title": "Plugins",
+	"title": "Carkeek Blocks Plugins",
 	"category": "widgets",
-	"description": "Additional settings relevant to Carkeek Blocks Sites.",
+	"description": "Plugin collection for Carkeek Blocks including page header settings and block filters.",
 	"textdomain": "carkeek-blocks",
 	"editorScript": "file:./index.js"
 }

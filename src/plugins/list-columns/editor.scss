@@ -1,0 +1,93 @@
+/**
+ * Editor styles for list columns
+ */
+
+.wp-block-list {
+    &.has-2-columns {
+        ul, ol {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            list-style-position: inside;
+        }
+    }
+
+    &.has-3-columns {
+        ul, ol {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            list-style-position: inside;
+        }
+    }
+
+    &.has-4-columns {
+        ul, ol {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            list-style-position: inside;
+        }
+    }
+
+    &.has-5-columns {
+        ul, ol {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            list-style-position: inside;
+        }
+    }
+
+    &.has-6-columns {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            list-style-position: inside;
+    }
+}
+
+// Editor specific styles
+.block-editor-block-list__layout {
+    .wp-block-list {
+        &.has-2-columns,
+        &.has-3-columns,
+        &.has-4-columns,
+        &.has-5-columns,
+        &.has-6-columns {
+            ul, ol {
+                li {
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+// Responsive behavior in editor
+@media (max-width: 782px) {
+    .wp-block-list {
+        &.has-3-columns,
+        &.has-4-columns,
+        &.has-5-columns,
+        &.has-6-columns {
+            ul, ol {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .wp-block-list {
+        &.has-2-columns,
+        &.has-3-columns,
+        &.has-4-columns,
+        &.has-5-columns,
+        &.has-6-columns {
+            ul, ol {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}

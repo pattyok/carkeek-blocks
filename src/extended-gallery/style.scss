@@ -46,7 +46,8 @@ ul.ck-blocks-gallery-grid {
 	& img {
 		width: 100%;
 	}
-	/** update the variable as it is used in the calculation **/
+
+
 	&.ck-column-gap-0 {
 		--ck-gallery-gutter: 0;
 	}
