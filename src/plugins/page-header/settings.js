@@ -1,6 +1,6 @@
 import { PluginDocumentSettingPanel } from "@wordpress/editor";
 import { __ } from "@wordpress/i18n";
-import { CheckboxControl, FocalPointPicker, Button, RangeControl } from "@wordpress/components";
+import { CheckboxControl, FocalPointPicker, Button, RangeControl, ColorPalette } from "@wordpress/components";
 import { withSelect, withDispatch } from "@wordpress/data";
 import { compose } from "@wordpress/compose";
 /* global ckBlocksVars */
@@ -18,10 +18,13 @@ function PageHeaderSettings( props ) {
             supportsOpacity,
             setFeaturedImageOpacity,
             featuredImageOpacity,
+			setFeaturedImageColor,
+			featuredImageColor,
+			supportsColor,
+            themeColors,
         } = props;
-        const titleBlock = document.querySelector(".editor-post-title__block");
+        const titleBlock = document.querySelector(".editor-visual-editor__post-title-wrapper");
         const defaultFocal = { x: 0.5, y: 0.5 }
-
         if (supportsOpacity && ( !featuredImageFocalPoint || typeof featuredImageFocalPoint !== 'object' ) ){
             setFeaturedImageFocalPoint( defaultFocal );
         }
@@ -44,6 +47,19 @@ function PageHeaderSettings( props ) {
             }
 
             document.body.classList.add(bodyClass);
+
+            // Set title background color class from featured image color
+            // Remove any existing background color classes
+            Array.from(titleBlock.classList).forEach(className => {
+                if (className.startsWith('has-') && className.includes('-background')) {
+                    titleBlock.classList.remove(className);
+                }
+            });
+            if (featuredImageColor) {
+                // Add the background color class
+                titleBlock.classList.add(`has-${featuredImageColor}-background-color`);
+				titleBlock.classList.add(`has-background`);
+            }
         }
 
         // console.log(featuredImageOpacity);
@@ -93,7 +109,32 @@ function PageHeaderSettings( props ) {
                 )
             }
         }
+		let headerColorPicker;
+		if (supportsColor) {
+			headerColorPicker = (
+				<>
+					<label style={{marginTop: '12px'}} class="components-base-control__label css-2o4jwd ej5x27r2" for="components-circular-option-picker-0">Header Color</label>
+					<ColorPalette
+						colors={themeColors}
+						disableCustomColors={true}
+						value={featuredImageColor ? themeColors.find(color => color.slug === featuredImageColor)?.color : null}
+						onChange={(colorValue) => {
 
+							if (colorValue === undefined || colorValue === null) {
+								// Color was cleared
+								setFeaturedImageColor(null);
+							} else {
+								// Find the color object by hex value
+								const selectedColor = themeColors.find(color => color.color === colorValue);
+								// Save the slug/name instead of hex value
+								setFeaturedImageColor(selectedColor ? selectedColor.slug : null);
+							}
+						}}
+						clearable={true}
+					/>
+				</>
+			);
+		}
         const hideImageCheckbox = (
             <CheckboxControl
                 className="carkeek-hide-featured-image-label"
@@ -115,6 +156,7 @@ function PageHeaderSettings( props ) {
         );
 
         return (
+
             <PluginDocumentSettingPanel
                 name="page-header-settings-panel"
                 title="Page Header Settings"
@@ -139,6 +181,7 @@ function PageHeaderSettings( props ) {
                 {hideImageCheckbox}
                 {focalPoint}
                 {opacityPicker}
+				{headerColorPicker}
                 <p></p>
                 <p>
                     These settings may not be applied on all pages/posts.
@@ -155,10 +198,14 @@ function PageHeaderSettings( props ) {
 const applyWithSelect = withSelect( ( select )=> {
     const { getEditedPostAttribute } = select( 'core/editor' );
     const { getMedia, getPostType } = select( 'core' );
+    const { getSettings } = select( 'core/block-editor' );
+    const settings = getSettings();
+    const themeColors = settings.colors || [];
+    
     const type = getEditedPostAttribute('type');
     const postType = getPostType( type );
     let supportsOpacity = false;
-    let supportsMeta = false, hideTitle, hideFeaturedImage, featuredImageFocalPoint, featuredImageId, featuredMedia, featuredImageOpacity;
+    let supportsMeta = false, hideTitle, hideFeaturedImage, featuredImageFocalPoint, featuredImageId, featuredMedia, featuredImageOpacity, featuredImageColor, supportsColor = false;
     if (postType && postType.supports['custom-fields'] && postType.supports['custom-fields']){
         supportsMeta = true;
     }
@@ -183,6 +230,11 @@ const applyWithSelect = withSelect( ( select )=> {
             }
         }
 
+		if (ckBlocksVars && ckBlocksVars.supportsColor == 1) {
+			supportsColor = true;
+			featuredImageColor = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_color' ];
+		}
+
     }
     return {
             hideTitle,
@@ -191,7 +243,10 @@ const applyWithSelect = withSelect( ( select )=> {
             featuredImageFocalPoint,
             supportsMeta,
             featuredImageOpacity,
-            supportsOpacity
+            supportsOpacity,
+			supportsColor,
+			featuredImageColor,
+            themeColors,
         };
 });
 const applyWithDispatch = withDispatch( ( dispatch ) => {
@@ -215,6 +270,9 @@ const applyWithDispatch = withDispatch( ( dispatch ) => {
             },
             setFeaturedImageOpacity: focalPoint => {
                 editPost( { meta: { _carkeekblocks_featured_image_opacity: focalPoint } } );
+            },
+			setFeaturedImageColor: color => {;
+                editPost( { meta: { _carkeekblocks_featured_image_color: color } } );
             }
         };
 });

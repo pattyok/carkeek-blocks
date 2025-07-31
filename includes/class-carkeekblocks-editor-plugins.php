@@ -94,6 +94,15 @@ class CarkeekBlocks_Plugins {
 			)
 		);
 
+		register_meta( 'post', '_carkeekblocks_featured_image_color', array(
+			'show_in_rest' => true,
+			'single' => true,
+			'type' => 'string',
+			'auth_callback' => function() {
+				return current_user_can( 'edit_posts' );
+			},
+		));
+
 		register_meta(
 			'post',
 			'_carkeekblocks_featured_image_focal_point',

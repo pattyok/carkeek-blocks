@@ -44,6 +44,12 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.60 =
+* Release 3.2.60 = 07/31/25
+	* Added color picker to page header options, to be activated in the theme
+= 3.2.59 =
+* Release 3.2.59 = 07/29/25
+	* Added replaceable [author] to archive block
 = 3.2.58 =
 * Release 3.2.58 = 07/28/25
 	* Adding multicolumns support to lists, also rearranged files in the plugins folder
