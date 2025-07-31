@@ -76,7 +76,13 @@ $meta = array(
 	'after'  => '',
 );
 if ( isset( $data->showPublishDate ) && true == $data->showPublishDate ) {
-	$prefix                             = isset( $data->publishDatePrefix ) && true == $data->publishDatePrefix ? '<span class="publish-date-prefix">' . $data->publishDatePrefix . '</span>' : '';
+	$prefix = '';
+	if ( isset( $data->publishDatePrefix ) && ! empty( $data->publishDatePrefix ) ) {
+		// look for [author] and replace with the author name
+		$prefix = str_replace( '[author]', get_the_author(), $data->publishDatePrefix );
+
+		$prefix = '<span class="publish-date-prefix">' . $prefix . '</span>';
+	}
 	$meta[ $data->publishDateLocation ] = wp_sprintf( '<span class="ck-custom-archive-item-date">%1s %1s</span>', $prefix, get_the_date() );
 }
 // deprecate this in favor of dynamic titles

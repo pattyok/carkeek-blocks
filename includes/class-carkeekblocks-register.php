@@ -228,6 +228,7 @@ class CarkeekBlocks_Block_Register {
 				'const ckBlocksVars = ' . json_encode(
 					array(
 						'supportsOpacity' => get_option( '_carkeekblocks_featuredimage_use_opacity' ),
+						'supportsColor'   => get_option( '_carkeekblocks_featuredimage_use_color' ),
 						'opacityDefault'  => get_option( '_carkeekblocks_featuredimage_opacity_default', 0 ),
 					)
 				),
