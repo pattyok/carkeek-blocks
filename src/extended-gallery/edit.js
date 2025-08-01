@@ -119,13 +119,14 @@ function ExtendedGalleryEdit( props ) {
                         checked={ showCaptions }
                         onChange={ ( showCaptions ) => setAttributes( { showCaptions } ) }
                     />
+					{showCaptions &&
 					<ToggleControl
                         label="Overlay Captions"
                         help={ "Overlay captions on the images in the gallery view"}
                         checked={ overlayCaptions }
                         onChange={ ( overlayCaptions ) => setAttributes( { overlayCaptions } ) }
                     />
-
+					}
                     </PanelBody>
                     {(isGallery || isLogoGrid ) &&
                         <>

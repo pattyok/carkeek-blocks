@@ -283,7 +283,8 @@ export const GalleryImage = ( props ) => {
 			</ToggleGroupControl>
 			</>
 			}
-			{ ! isEditing && (showCaptions || linkImages == 'lightbox' ) && ( isSelected || caption ) && (
+			{ !isEditing && (( showCaptions ) || ( isSelected && linkImages == 'lightbox')) && (
+
 				<RichText
 					tagName="figcaption"
 					placeholder={
