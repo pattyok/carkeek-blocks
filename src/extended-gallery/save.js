@@ -151,7 +151,7 @@ function ExtendedGallerySave ({ attributes }) {
 						figureStyle.gridColumn = `span ${colSpans[index]}`;
 					}
 					if (isTiled ) {
-						if (!overlayCaptions) {
+						if (showCaptions && !overlayCaptions) {
 							imageStyle.aspectRatio = colSpans[index] + '/' + rowSpans[index];
 						} else {
 							figureStyle.gridRow = `span ${rowSpans[index]}`;
