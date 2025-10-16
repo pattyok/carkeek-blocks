@@ -78,7 +78,7 @@ function postsInspector(props) {
 		setGridGap,
 		gridGapColumn,
 		gridGapRow,
-        showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter,
+        showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter, addlContentBeforeSep, addlContentAfterSep
     } = attributes;
 
     let ptOptions = [];
@@ -843,12 +843,28 @@ function postsInspector(props) {
                         setAttributes({ addlContentBefore: value })
                     }
                 />
+				<TextControl
+                    label="Custom Meta Field Before Separator"
+                    value={addlContentBeforeSep}
+					help={__("If multiple values are entered and they should appear on the same line, set a separator.", "carkeek-blocks")}
+                    onChange={value =>
+                        setAttributes({ addlContentBeforeSep: value })
+                    }
+                />
                 <TextControl
                     label="Custom Meta Field After Excerpt"
                     value={addlContentAfter}
                     help={__("Enter the name of the metafield to display, enter multiples separated by a comma. Ask your developer for help identifying the correct meta field.", "carkeek-blocks")}
                     onChange={value =>
                         setAttributes({ addlContentAfter: value })
+                    }
+                />
+				<TextControl
+                    label="Custom Meta Field After Separator"
+                    value={addlContentAfterSep}
+					help={__("If multiple values are entered and they should appear on the same line, set a separator.", "carkeek-blocks")}
+                    onChange={value =>
+                        setAttributes({ addlContentAfterSep: value })
                     }
                 />
 				<RadioControl
