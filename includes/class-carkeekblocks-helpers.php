@@ -54,13 +54,17 @@ class CarkeekBlocks_Helpers {
 	 *
 	 * @return string html for each field.
 	 */
-	public static function make_meta_fields( $addl_data, $post_id, $location, $posttype ) {
+	public static function make_meta_fields( $addl_data, $post_id, $location, $posttype, $sep = '' ) {
 		$meta_html = '';
 		if ( ! empty( $addl_data ) ) {
 			$meta_fields = array_filter( explode( ',', $addl_data ) );
-
-			foreach ( $meta_fields as $key ) {
-
+			if ( count( $meta_fields ) > 1 && !empty($sep) ) {
+				$meta_html = '<div class="ck-custom-archive-item-meta-' . $location . '-excerpt-wrapper" data-meta="multiple" >';
+			}
+			foreach ( $meta_fields as $n => $key ) {
+				if ( $n > 0 && !empty($sep) ) {
+					$meta_html .= '<span class="ck-custom-archive-item-meta-' . $location . '-excerpt-sep">' .  $sep  . '</span>';
+				}
 				$key   = trim( $key );
 				$value = get_post_meta( $post_id, $key, true );
 				if ( ! empty( $value ) ) {
@@ -70,6 +74,9 @@ class CarkeekBlocks_Helpers {
 					$field      = '<div class="ck-custom-archive-item-meta-' . $location . '-excerpt" data-meta="' . esc_attr( $key ) . '">' . wp_kses_post( $value ) . '</div>';
 					$meta_html .= apply_filters( 'ck_custom_archive_layout__' . $posttype . '_meta_' . $location . '_excerpt', $field, $key );
 				}
+			}
+			if ( count( $meta_fields ) > 1 && !empty($sep) ) {
+				$meta_html .= '</div>';
 			}
 		}
 		return $meta_html;

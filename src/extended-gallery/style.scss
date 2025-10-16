@@ -371,7 +371,8 @@ ul.ck-blocks-gallery-grid {
 	--slick-arrow-color: #ccc;
 	--slick-arrow-pos-mobile: -24px;
 	--slick-arrow-pos: -30px;
-	--slide-gutter: 1rem;
+	--slide-gutter: 0;
+	position: relative;
 
 	& .ck-blocks-gallery-grid-item {
 		list-style: none;
@@ -424,8 +425,12 @@ ul.ck-blocks-gallery-grid {
 
 	& .ck-lightbox-overlay {
 		position: absolute;
-		bottom: 20px;
-		right: 20px;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		padding-left: var(--gutter-width-page);
+		padding-right: var(--gutter-width-page);
+		transform: translate(-50%, -50%);
 		z-index: 200;
 	}
 

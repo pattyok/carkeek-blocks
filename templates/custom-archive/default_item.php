@@ -94,10 +94,12 @@ $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '
 $html_before_excerpt = '';
 $html_after_excerpt  = '';
 if ( isset( $data->addlContentBefore ) ) {
-	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected );
+	$sep = !empty($data->addlContentBeforeSep) ? $data->addlContentBeforeSep : '';
+	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected, $sep);
 }
 if ( isset( $data->addlContentAfter ) ) {
-	$html_after_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected );
+	$sep = !empty($data->addlContentAfterSep) ? $data->addlContentAfterSep : '';
+	$html_after_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected, $sep);
 }
 ?>
 <div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">

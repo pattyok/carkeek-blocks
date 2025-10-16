@@ -209,6 +209,7 @@ export default function SliderEdit( props ) {
                 <ToggleControl
                     label="Text Overlay"
                     checked={ showOverlay }
+					description={__("Add some text that overlays all of the slides.")}
                     onChange={value =>
                         setAttributes({ showOverlay: value })
                     }
