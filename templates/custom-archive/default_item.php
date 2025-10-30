@@ -127,7 +127,10 @@ if ( ! empty( $featured_image ) ) {
 }
 $featured_image_html = apply_filters( 'ck_custom_archive__featured_image_html', $featured_image_html, $data );
 $featured_image_html = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_html', $featured_image_html, $data );
-echo $featured_image_html;
+if ( !$data->featuredImageBelowTitle ) {
+	echo wp_kses_post( $featured_image_html );
+}
+
 ?>
 	<div class="ck-custom-archive__content-wrap">
 		<?php
@@ -139,6 +142,9 @@ echo $featured_image_html;
 		<?php echo wp_kses_post( $meta_before ); ?>
 		<?php echo wp_kses_post( $link_title ); ?>
 		<?php echo wp_kses_post( $meta_after ); ?>
+		<?php if ( $data->featuredImageBelowTitle ) {
+			echo wp_kses_post( $featured_image_html );
+		} ?>
 		<?php
 		// deprecate this in favor of filters.
 		do_action( 'ck_custom_archive_layout__after_title', $data );

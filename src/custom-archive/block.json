@@ -60,6 +60,10 @@
             "type": "boolean",
             "default": true
         },
+		"featuredImageBelowTitle": {
+            "type": "boolean",
+            "default": false
+        },
         "imageOrientation": {
             "type": "string",
             "default": "landscape"

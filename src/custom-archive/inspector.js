@@ -52,6 +52,7 @@ function postsInspector(props) {
         itemsTablet,
         displayFeaturedImage,
         openAsModal,
+		featuredImageBelowTitle,
 		modalVersion,
         useHeadingTitle,
         imageOrientation,
@@ -721,6 +722,15 @@ function postsInspector(props) {
 								value={ defaultAltText }
 								onChange={value =>
 									setAttributes({ defaultAltText: value })
+								}
+							/>
+							}
+							{postLayout == 'grid' &&
+							<ToggleControl
+								label={__("Featured Image Below Title")}
+								checked={featuredImageBelowTitle}
+								onChange={value =>
+									setAttributes({ featuredImageBelowTitle: value })
 								}
 							/>
 							}
