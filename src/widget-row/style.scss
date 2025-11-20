@@ -49,7 +49,7 @@
 							gap: 0;
 							& > * {
 								border-right: none;
-								border-bottom-width: 1px;
+								border-bottom-width: var(--ck-border-width);
 								padding-left: 0;
 								padding-right: 0;
 								&:first-child {
@@ -146,7 +146,7 @@
 						gap: 0;
 						& > * {
 							border-right: none;
-							border-bottom: 1px solid;
+							border-bottom: var(--ck-border-width) solid;
 							&:last-child {
 								border-bottom: none;
 							}
@@ -253,7 +253,7 @@
 						gap: 0;
 						& > * {
 							border-right: none;
-							border-bottom: 1px solid;
+							border-bottom: var(--ck-border-width) solid;
 							&:last-child {
 								border-bottom: none;
 							}

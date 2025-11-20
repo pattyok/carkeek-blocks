@@ -35,6 +35,8 @@ function postsInspector(props) {
         displayField1,
         displayField2,
         displayField3,
+		displayField4,
+		displayField5,
         dateFormat,
         timeFormat,
         showEndDate,
@@ -60,15 +62,13 @@ function postsInspector(props) {
         { label: 'Select a Field', value: '' },
         { label: 'Event Title', value: 'title' },
         { label: 'Event Date/Time', value: 'startdate' },
+		{ label: 'Event Date', value: 'startdate_only' },
+		{ label: 'Event Time', value: 'starttime' },
         { label: 'Organizer', value: 'organizer' },
         { label: 'Venue', value: 'venue' },
         { label: 'Excerpt', value: 'excerpt' },
     ];
 
-    let showDateFormat = false;
-    if (displayField1 == "startdate" || displayField2 == 'startdate' || displayField3 == 'startdate') {
-        showDateFormat = true;
-    }
 
     const fieldSelect = (
         <>
@@ -103,8 +103,27 @@ function postsInspector(props) {
                 }
                 value={displayField3}
             />
-            {showDateFormat &&
-                <>
+			{displayField3 &&
+				<SelectControl
+					label={__("Select Metafield 4", "carkeek-blocks")}
+					onChange={(value) => setAttributes({ displayField4: value })}
+					options={
+						availFields
+					}
+					value={displayField4}
+				/>
+			}
+			{displayField4 &&
+				<SelectControl
+					label={__("Select Metafield 5", "carkeek-blocks")}
+					onChange={(value) => setAttributes({ displayField5: value })}
+					options={
+						availFields
+					}
+					value={displayField5}
+				/>
+			}
+
                     <RadioControl
                         label={__("End Date/Time")}
                         selected={showEndDate}
@@ -132,8 +151,8 @@ function postsInspector(props) {
                         help='Leave blank to hide the time'
                     />
 
-                </>
-            }
+
+
         </>
     )
     const taxonomySelect = (
