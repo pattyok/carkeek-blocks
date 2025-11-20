@@ -62,6 +62,9 @@ class CarkeekBlocks_Helpers {
 				$meta_html = '<div class="ck-custom-archive-item-meta-' . $location . '-excerpt-wrapper" data-meta="multiple" >';
 			}
 			foreach ( $meta_fields as $n => $key ) {
+				if ( empty( trim($key) ) ) {
+					continue;
+				}
 				if ( $n > 0 && !empty($sep) ) {
 					$meta_html .= '<span class="ck-custom-archive-item-meta-' . $location . '-excerpt-sep">' .  $sep  . '</span>';
 				}
@@ -70,6 +73,11 @@ class CarkeekBlocks_Helpers {
 				if ( ! empty( $value ) ) {
 					if ( strpos( $key, 'email' ) !== false ) {
 						$value = '<a href="mailto:' . antispambot( $value ) . '" class="arrow-link">Contact</a>';
+					}
+					if ( strpos ($key, 'date') !== false) {
+						//default to Wordpress Date format
+						$default_date_format = get_option('date_format');
+						$value = date( $default_date_format, strtotime( $value ) );
 					}
 					$field      = '<div class="ck-custom-archive-item-meta-' . $location . '-excerpt" data-meta="' . esc_attr( $key ) . '">' . wp_kses_post( $value ) . '</div>';
 					$meta_html .= apply_filters( 'ck_custom_archive_layout__' . $posttype . '_meta_' . $location . '_excerpt', $field, $key );

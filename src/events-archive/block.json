@@ -37,6 +37,9 @@
 		"displayField4": {
 			"type": "string"
 		},
+		"displayField5": {
+			"type": "string"
+		},
 		"dateFormat": {
 			"type": "string",
 			"default": "F j"
