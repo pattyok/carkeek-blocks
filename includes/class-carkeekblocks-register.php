@@ -180,6 +180,12 @@ class CarkeekBlocks_Block_Register {
 				filemtime( "$dir/$vendor/codyhouse.modal.js" ),
 				true
 			);
+			wp_enqueue_style(
+				$this->slug . '-codyhouse-modal-style',
+				plugins_url( 'build/modal-item/style-index.css', __DIR__ ),
+				array(),
+				filemtime( "$dir/build/modal-item/style-index.css" ),
+			);
 		}
 
 		if ( has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {

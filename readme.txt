@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.64 =
+* Release 3.2.64 = 12/4/25
+	* Fix to load modal style with archive
 = 3.2.63 =
 * Release 3.2.63 = 10/30/25
 	* Added option to put the featured image below the title in a grid view of the archive
