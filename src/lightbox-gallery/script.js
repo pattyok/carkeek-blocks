@@ -12,6 +12,7 @@ import jQuery from 'jquery';
                 autoStart : true
                 },
                 beforeLoad : function( instance, slide ) {
+
                     //gets the data-title attribute of the parent gallery
                     if (!titleAdded) {
                         const gallery = slide.opts.fancybox;

@@ -144,7 +144,7 @@ class CarkeekBlocks_Block_Register {
 
 
 		// load shared assets for specific blocks only.
-		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' ) || has_block( 'carkeek-blocks/lightbox-gallery' ) ) {
+		if ( has_block( 'carkeek-blocks/carkeek-slider' ) || has_block( 'carkeek-blocks/extended-gallery' ) || has_block( 'carkeek-blocks/custom-archive' )  ) {
 			wp_enqueue_script(
 				'slick-slider',
 				plugins_url( $vendor . 'slick.js', __DIR__ ),
@@ -153,7 +153,7 @@ class CarkeekBlocks_Block_Register {
 				true
 			);
 			wp_enqueue_script(
-				'mobile-scroll',
+				'carkeek-blocks-lightbox-gallery-view-script-js',
 				plugins_url( 'build/lightbox-gallery/script.js', __DIR__ ),
 				array( 'jquery', 'slick-slider' ),
 				filemtime( "$dir/build/lightbox-gallery/script.js" ),
@@ -201,6 +201,21 @@ class CarkeekBlocks_Block_Register {
 				plugins_url( $vendor . 'jquery.fancybox.min.css', __DIR__ ),
 				array(),
 				filemtime( "$dir/$vendor/jquery.fancybox.min.css" )
+			);
+		}
+		if ( has_block( 'carkeek-blocks/lightbox-gallery' ) ) {
+			wp_enqueue_script(
+				'slick-slider',
+				plugins_url( $vendor . 'slick.js', __DIR__ ),
+				array( 'jquery' ),
+				filemtime( "$dir/$vendor/slick.js" ),
+				true
+			);
+			wp_enqueue_style(
+				$this->slug . '-extended-gallery-style-inline-css',
+				plugins_url( 'build/extended-gallery/style-index.css', __DIR__ ),
+				array(),
+				filemtime( "$dir/build/extended-gallery/style-index.css" ),
 			);
 		}
 	}
