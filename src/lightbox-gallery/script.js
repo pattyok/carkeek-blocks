@@ -3,16 +3,17 @@ import jQuery from 'jquery';
 (function($) {
 
     $(function(){
-        if (typeof $().fancybox !== "undefined") {
+		if (typeof $().fancybox !== "undefined") {
 
             let titleAdded = false;
             let galleryTitle = '';
+			let loading = false;
             $('[data-fancybox^="gallery-"]').fancybox({
                 thumbs : {
                 autoStart : true
                 },
-                beforeLoad : function( instance, slide ) {
-
+                beforeShow : function( instance, slide ) {
+                    loading = true;
                     //gets the data-title attribute of the parent gallery
                     if (!titleAdded) {
                         const gallery = slide.opts.fancybox;
@@ -23,8 +24,8 @@ import jQuery from 'jquery';
                         }
                         titleAdded = true;
                     }
-                },
-                afterClose : function() {
+				},
+				afterClose : function() {
                     titleAdded = false;
                 }
             });
@@ -99,3 +100,4 @@ import jQuery from 'jquery';
 
     });
 })(jQuery);
+
