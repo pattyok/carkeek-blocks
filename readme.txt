@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.67 =
+* Release 3.2.67 - 12/8/25
+	* Minor fix to lightbox gallery to prevent calling load 2x.
 = 3.2.66 =
 * Release 3.2.65 - .66 = 12/7/25
 	* Fix to load styles with the appropriate blocks to solve 6.9 issues

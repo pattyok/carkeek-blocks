@@ -39,7 +39,7 @@ function LighboxGallerySave ({ attributes }) {
     return (
         <div { ...blockProps }>
                 {hasImages && linkFirstImage && !isGallery &&
-                <a className="ck-lightbox-featured-image" data-title={title} data-fancybox-trigger={`gallery-${galleryId}`} href='#fancybox'>
+                <a className="ck-lightbox-featured-image" data-title={title} data-fancybox-trigger={`gallery-${galleryId}`} href='javascript:;'>
                     <img src={images[0].thumbUrl} alt={images[0].alt}></img>
                 </a>
                 }

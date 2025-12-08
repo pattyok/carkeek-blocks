@@ -196,6 +196,7 @@ class CarkeekBlocks_Block_Register {
 				filemtime( "$dir/$vendor/jquery.fancybox.min.js" ),
 				true
 			);
+
 			wp_enqueue_style(
 				'fancybox-css',
 				plugins_url( $vendor . 'jquery.fancybox.min.css', __DIR__ ),
