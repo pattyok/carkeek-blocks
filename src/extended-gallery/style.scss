@@ -318,6 +318,22 @@ ul.ck-blocks-gallery-grid {
 
 	}
 }
+@media screen and (max-width: 1023px) {
+
+	ul.ck-blocks-gallery-grid.mobile-scroll {
+		& .slick-track .ck-blocks-gallery-grid-item {
+			padding-left: calc(var(--ck-gallery-gutter) / 2);
+			padding-right: calc(var(--ck-gallery-gutter) / 2);
+		}
+	}
+}
+
+ul.ck-blocks-gallery-grid.slider-carousel {
+	& .slick-track .ck-blocks-gallery-grid-item {
+		padding-left: calc(var(--ck-gallery-gutter) / 2);
+		padding-right: calc(var(--ck-gallery-gutter) / 2);
+	}
+}
 
 @media screen and (min-width: 1024px) {
 
@@ -328,6 +344,7 @@ ul.ck-blocks-gallery-grid {
 		padding: 0;
 
 		&.mobile-scroll {
+			visibility: visible;
 			display: flex;
 		}
 
