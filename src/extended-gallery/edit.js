@@ -42,6 +42,7 @@ function ExtendedGalleryEdit( props ) {
         transitionSpeed,
 		transitionType,
         showDots,
+		showArrows,
         showOverlay,
 		columnGap
      } = attributes;
@@ -128,10 +129,11 @@ function ExtendedGalleryEdit( props ) {
                     />
 					}
                     </PanelBody>
+					<PanelBody title="Gallery Layout">
                     {(isGallery || isLogoGrid ) &&
                         <>
-                        <PanelBody title="Gallery Layout">
-							{!isLogoGrid && (
+
+							{isGallery && (
 								<>
 								<RangeControl
 									label="Columns"
@@ -157,17 +159,7 @@ function ExtendedGalleryEdit( props ) {
 								</>
 							)}
 
-							<RangeControl
-								label= "Grid Gap"
-								value={ columnGap }
-								onChange={ ( columnGap ) => setAttributes( { columnGap } ) }
-								min={ 0 }
-								max={ 8 }
-								step={ 1 }
-								type="stepper"
-								withInputField={ false }
-								marks={ marks['gridGap'] }
-							/>
+
                             <ToggleControl
                                 label="Horizontal scroll on mobile"
                                 help={ "Scroll gallery items horizontally on mobile"}
@@ -194,12 +186,12 @@ function ExtendedGalleryEdit( props ) {
                                 />
                                 </>
                             }
-                            </PanelBody>
+
                         </>
                     }
-					{isTiled &&
-                        <>
-                        <PanelBody title="Gallery Settings">
+
+
+
 							<RangeControl
 								label= "Grid Gap"
 								value={ columnGap }
@@ -211,10 +203,8 @@ function ExtendedGalleryEdit( props ) {
 								withInputField={ false }
 								marks={ marks['gridGap'] }
 							/>
-                            </PanelBody>
-                        </>
-                    }
 
+</PanelBody>
                     { (isCarousel || mobileScroll ) &&
                         <PanelBody title="Carousel Settings">
                             <>
@@ -323,7 +313,13 @@ function ExtendedGalleryEdit( props ) {
                                     setAttributes({ showDots: value })
                                 }
                             />
-
+							<ToggleControl
+                                label="Show Arrow Navigation"
+                                checked={ showArrows }
+                                onChange={value =>
+                                    setAttributes({ showArrows: value })
+                                }
+                            />
                         </PanelBody>
                     }
                     { linkImages == 'lightbox' &&

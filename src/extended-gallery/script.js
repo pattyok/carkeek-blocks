@@ -16,8 +16,10 @@ import jQuery from "jquery";
             const fade = $(this).data("transitiontype");
             const transSpeed = $(this).data("transitionspd");
             const dots = $(this).data("showdots");
+			const arrows = $(this).data("showarrows");
             const options = {
                 dots: dots,
+				arrows: arrows,
                 speed: transSpeed,
             };
             if (true == autoPlay) {

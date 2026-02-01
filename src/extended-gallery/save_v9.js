@@ -39,7 +39,6 @@ function ExtendedGallerySave ({ attributes }) {
 		columnGap,
 		rowHeight,
         showDots,
-		showArrows,
 		rowSpans,
 		colSpans
 	} = attributes;
@@ -79,7 +78,7 @@ function ExtendedGallerySave ({ attributes }) {
 		'has-caption-under': (showCaptions && !overlayCaptions),
         'ck-carkeek-slider__slide-wrapper': isCarousel,
        'slider-carousel' : isCarousel,
-	   [ `ck-column-gap-${ columnGap }` ]: true,
+	   [ `ck-column-gap-${ columnGap }` ]: isGallery || isTiled,
 	   'ck-tiled-gallery': isTiled,
 	   [ `ck-image-count-${ images.length }` ] : isTiled,
 
@@ -130,7 +129,6 @@ function ExtendedGallerySave ({ attributes }) {
                 data-scrollmobile={ maybeCarousel ? slidesToScrollMobile : undefined}
                 data-scrolltablet={ maybeCarousel ? slidesToScrollTablet : undefined}
                 data-showdots={ maybeCarousel ? showDots : undefined}
-				data-showarrows={ maybeCarousel ? showArrows : undefined}
                 >
                 { images.map( ( img, index ) => {
                     let imageStyle = {};
