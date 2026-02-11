@@ -24,13 +24,14 @@ import { select } from "@wordpress/data";
  * @return {WPElement} Element to render.
  */
 export default function Edit( props ) {
-	const { attributes, setAttributes, clientId } = props;
-    const { title, inheritedHeaderStyle, layout } = attributes;
-	if (!inheritedHeaderStyle) {
-        var parent = select('core/block-editor').getBlockParents(clientId);
-        const parentAtts = select('core/block-editor').getBlockAttributes(parent);
-        setAttributes( { inheritedHeaderStyle: parentAtts.headerStyle } )
-    }
+	const { attributes, setAttributes, context } = props;
+    const { title, layout, inheritedHeaderStyle, inheritedisFAQ } = attributes;
+	if ( !inheritedHeaderStyle ) {
+		setAttributes({ inheritedHeaderStyle: context['carkeek-blocks/headerStyle'] || 'h3' });
+	}
+	if ( inheritedisFAQ === undefined ) {
+		setAttributes({ inheritedisFAQ: context['carkeek-blocks/isFAQ'] || false });
+	}
 
     const template = [
         [ 'core/paragraph', { placeholder: 'Enter panel content...' } ],
@@ -54,7 +55,7 @@ export default function Edit( props ) {
             <RichText
                 tagName = { inheritedHeaderStyle }
                 value={ title }
-                className={'ck-accordion-button'}
+                className={'accordion__trigger ck-accordion-header'}
                 onChange={ ( title ) => setAttributes( { title } ) }
                 placeholder={ __('Section Heading...')}
             />

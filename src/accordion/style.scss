@@ -17,6 +17,7 @@
 	--ck-accordion-borders: 1px solid #ccc;
 	--ck-accordion-header-padding: 1rem;
 	--ck-accordion-expand: "\F138";
+	--ck-accordion-border-radius: 0;
  }
 
 .wp-block-carkeek-blocks-accordion {
@@ -66,7 +67,7 @@
 		background-color: var(--ck-color-accordion-header-bg);
 		color: var(--ck-color-accordion-header-text);
 		border: var(--ck-accordion-borders);
-		border-radius: 0;
+		border-radius: var(--ck-accordion-border-radius);
 		padding: var(--ck-accordion-header-padding);
 		box-shadow: none;
 		display: flex;

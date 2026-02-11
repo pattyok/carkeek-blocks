@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "carkeek-blocks/accordion",
   "version": "2.0.1",
   "title": "Accordion Block",
@@ -34,6 +34,10 @@
       "label": "Mini Style"
     }
   ],
+  "providesContext": {
+    "carkeek-blocks/isFAQ": "isFAQ",
+    "carkeek-blocks/headerStyle": "headerStyle"
+  },
   "textdomain": "carkeek-blocks",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
@@ -46,6 +50,10 @@
     "openMultiple": {
       "type": "boolean",
       "default": true
+    },
+    "isFAQ": {
+      "type": "boolean",
+      "default": false
     },
     "style": {
       "type": "object",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "carkeek-blocks/accordion-panel",
   "version": "0.1.0",
   "title": "Accordion Panel",
@@ -20,7 +20,8 @@
     "carkeek-blocks/accordion"
   ],
   "usesContext": [
-    "carkeek-blocks/headerStyle"
+    "carkeek-blocks/headerStyle",
+    "carkeek-blocks/isFAQ"
   ],
   "textdomain": "carkeek-blocks",
   "editorScript": "file:./index.js",
@@ -32,6 +33,9 @@
     },
     "inheritedHeaderStyle": {
       "type": "string"
+    },
+    "inheritedisFAQ": {
+      "type": "boolean"
     },
     "layout": {
       "type": "object",

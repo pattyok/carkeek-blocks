@@ -4,7 +4,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 
- .block-editor-block-list__block {
+ .wp-block-carkeek-blocks-accordion {
 
 	& .ck-accordion-button {
 		background-color: var(--ck-color-accordion-header-bg);
@@ -18,8 +18,22 @@
 	& .ck-accordion-panel {
 		border: 1px solid #ccc;
 		padding: 1rem;
+
+		background-color: var(--ck-accordion-panel-bg);
+		display: none;
 	}
 
+
+}
+.wp-block-carkeek-blocks-accordion-panel {
+	margin-bottom: var(--ck-accordion-panel-spacing);
+	&.has-child-selected,
+	&.is-selected {
+
+		& .ck-accordion-panel {
+			display: block;
+		}
+	}
 }
 
 .wp-block-carkeek-blocks-accordion {
