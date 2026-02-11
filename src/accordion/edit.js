@@ -33,7 +33,8 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { headerStyle, openMultiple } = attributes;
+	const { headerStyle, openMultiple, isFAQ } = attributes;
+	console.log(attributes);
 	const updateHeaderStyle = function( value ) {
 		setAttributes({ headerStyle: value });
 
@@ -41,6 +42,16 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		var children = select('core/block-editor').getBlocksByClientId(clientId)[0].innerBlocks;
 		children.forEach(function(child){
 			dispatch('core/block-editor').updateBlockAttributes(child.clientId, {inheritedHeaderStyle: value})
+		});
+	}
+
+	const updateIsFAQ = function( value ) {
+		setAttributes({ isFAQ: value });
+
+		//pass value to children
+		var children = select('core/block-editor').getBlocksByClientId(clientId)[0].innerBlocks;
+		children.forEach(function(child){
+			dispatch('core/block-editor').updateBlockAttributes(child.clientId, {inheritedisFAQ: value})
 		});
 	}
 
@@ -60,6 +71,17 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						}
 						help={__(
 							"If selected, multiple panels can be opened at once.",
+							"carkeek-blocks"
+						)}
+					/>
+
+					<CheckboxControl
+						className="carkeek-accordion-style-label"
+						label="Is FAQ"
+						checked={ attributes.isFAQ }
+						onChange={updateIsFAQ}
+						help={__(
+							"If selected, the FAQ Schema will be applied.",
 							"carkeek-blocks"
 						)}
 					/>

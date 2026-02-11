@@ -15,10 +15,26 @@ import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
  *
  * @return {WPElement} Element to render.
  */
+
+
 export default function save( {attributes} ) {
-	const{ title, inheritedHeaderStyle } = attributes;
+
+	const{ title, inheritedHeaderStyle, inheritedisFAQ } = attributes;
+
 
         const HeaderEl = `${inheritedHeaderStyle}`;
+		if (inheritedisFAQ) {
+			return (
+				<>
+					<HeaderEl data-aria-accordion-heading className='ck-accordion-header faq-header' itemscope="" itemprop="mainEntity" itemtype="https://schema.org/Question">
+						<RichText.Content value={ title } />
+					</HeaderEl>
+					<div data-aria-accordion-panel className='ck-accordion-panel' itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<InnerBlocks.Content />
+					</div>
+				</>
+			);
+		}
         return (
             <>
                 <HeaderEl data-aria-accordion-heading className='ck-accordion-header'>
