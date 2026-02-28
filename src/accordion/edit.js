@@ -34,7 +34,6 @@ import './editor.scss';
  */
 export default function Edit( { attributes, setAttributes, clientId } ) {
 	const { headerStyle, openMultiple, isFAQ } = attributes;
-	console.log(attributes);
 	const updateHeaderStyle = function( value ) {
 		setAttributes({ headerStyle: value });
 

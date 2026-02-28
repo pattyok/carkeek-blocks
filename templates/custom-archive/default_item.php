@@ -101,8 +101,12 @@ if ( isset( $data->addlContentAfter ) ) {
 	$sep = !empty($data->addlContentAfterSep) ? $data->addlContentAfterSep : '';
 	$html_after_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected, $sep);
 }
+
+$item_classes = array( 'ck-columns-item', 'ck-custom-archive-item', 'archive-item-id-' . $post->ID );
+$item_classes = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_item_classes', $item_classes, $data );
+$item_class_string = implode( ' ', $item_classes );
 ?>
-<div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?> archive-item-id-<?php echo esc_attr( $post->ID ); ?>">
+<div class="<?php echo esc_attr( $item_class_string ); ?>">
 <?php
 if ( ! empty( $link_start ) ) {
 	echo wp_kses_post( $link_start );

@@ -12,6 +12,7 @@ if ( ! empty( $focal_point ) ) {
 	$style = 'object-position:' . esc_attr( $x ) . '% ' . esc_attr( $y ) . '%;';
 }
 $image = get_the_post_thumbnail( $post->ID, 'large', array( 'style' => $style ) );
+$image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_html', $image, $data );
 if ( empty( $image ) && ! empty( $data->defaultFeaturedImage ) ) {
 	$image = apply_filters( 'ck_custom_archive__featured_image_default', '<img src="' . esc_url( $data->defaultFeaturedImage ) . '" alt="' . esc_attr( $data->defaultAltText ) . '" />', $post->ID, $data );
 }
