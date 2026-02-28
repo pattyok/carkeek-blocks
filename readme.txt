@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.71 =
+* Release 3.2.71 - 02/27/26
+	* Added some filters for images to allow for image rollovers
 = 3.2.70 =
 * Release 3.2.70 - 02/11/26
 	* Added schema to Accordion for FAQ

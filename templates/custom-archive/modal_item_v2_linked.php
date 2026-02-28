@@ -5,7 +5,7 @@
 	$image            = '';
 	$modal_body_image = '';
 	$image            = get_the_post_thumbnail( $post->ID, 'large' );
-
+	$image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_html', $image, $data );
 if ( ! empty( $image ) ) {
 	$modal_body_image = '<div class="ck-modal-item-image">' . $image . '</div>';
 }
