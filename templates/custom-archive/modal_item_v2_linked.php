@@ -15,7 +15,11 @@
 	$image = get_the_post_thumbnail( $post->ID, 'large', array( 'style' => $style ) );
 	$image = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_html', $image, $data );
 
+	if ( ! empty( $image ) ) {
 
+	$modal_body_image = '<div class="ck-modal-item-image">' . $image . '</div>';
+}
+	$modal_body_image = apply_filters( 'ck_custom_archive_layout_modal_dialog__image', $modal_body_image );
 	$modal_body_image = apply_filters( 'ck_custom_archive_layout_modal_dialog__image', $modal_body_image );
 
 	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected );
