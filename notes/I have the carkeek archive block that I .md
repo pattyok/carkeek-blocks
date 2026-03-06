@@ -1,0 +1,2 @@
+I have the carkeek archive block that I will like to add an ajax load more option.
+When clicking load more we would load x more items of how many are displayed at once (numberofposts). This would be an option on the block, and the actual layout of the item changes based on other settings and hooks on the items. I know how to get the data via ajax, but is it possible to get the items run through all the php functions and return the html via ajax? Here is the Carkeek Blocks block /Users/pok/Local Sites/aashared/carkeek-blocks/src/custom-archive

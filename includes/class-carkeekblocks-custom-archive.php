@@ -62,6 +62,8 @@ class CarkeekBlocks_CustomArchive {
 	 */
 	private function __construct() {
 		add_filter( 'rest_post_collection_params', array( $this, 'ckb_prefix_add_rest_orderby_params' ), 10, 1 );
+		add_action( 'wp_ajax_ckb_custom_archive_load_more', array( $this, 'ajax_load_more_custom_archive' ) );
+		add_action( 'wp_ajax_nopriv_ckb_custom_archive_load_more', array( $this, 'ajax_load_more_custom_archive' ) );
 	}
 
 	/**
@@ -255,6 +257,263 @@ class CarkeekBlocks_CustomArchive {
 		$post_html .= '</div>';
 		return $post_html;
 	}
+
+	/**
+	 * Build query args for custom archive.
+	 *
+	 * @param array      $attributes Block attributes.
+	 * @param int        $paged Paged value.
+	 * @param int|null   $offset_override Optional explicit offset.
+	 * @return array
+	 */
+	private static function build_custom_archive_query_args( $attributes, $paged = 1, $offset_override = null ) {
+		$related = isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ? true : false;
+
+		$args = array(
+			'posts_per_page'      => $attributes['numberOfPosts'],
+			'post_type'           => $attributes['postTypeSelected'],
+			'post_status'         => 'publish',
+			'order'               => $attributes['order'],
+			'orderby'             => $attributes['sortBy'],
+			'paged'               => $paged,
+			'post__not_in'        => array( get_the_ID() ),
+			'ignore_sticky_posts' => true,
+		);
+
+		if ( null !== $offset_override ) {
+			$args['offset'] = absint( $offset_override );
+		} elseif ( isset( $attributes['postOffset'] ) && 0 !== $attributes['postOffset'] && $attributes['numberOfPosts'] > 0 ) {
+			$args['offset'] = $attributes['postOffset'];
+		}
+
+		if ( $attributes['excludeChildPosts'] ) {
+			$args['post_parent'] = 0;
+		}
+
+		if ( 'meta_value' == $attributes['sortBy'] && ! empty( $attributes['sortByMeta'] ) ) {
+			$args['orderby'] = array(
+				$attributes['sortBy'] => $attributes['order'],
+				'title'               => $attributes['order'],
+			);
+			$args['meta_query'] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => $attributes['sortByMeta'],
+					'compare' => 'EXISTS',
+				),
+				array(
+					'key'     => $attributes['sortByMeta'],
+					'compare' => 'NOT EXISTS',
+				),
+			);
+		}
+
+		if ( true === $attributes['filterByTaxonomy'] && ! empty( $attributes['taxonomySelected'] ) && ! empty( $attributes['taxTermsSelected'] ) ) {
+			$tax_terms = explode( ',', $attributes['taxTermsSelected'] );
+			if ( count( $tax_terms ) > 1 && 'AND' === $attributes['taxQueryType'] ) {
+				$tax_query = array();
+				foreach ( $tax_terms as $tax_term ) {
+					$tax_query[] = array(
+						'taxonomy' => $attributes['taxonomySelected'],
+						'field'    => 'term_id',
+						'terms'    => $tax_term,
+					);
+				}
+				$args['tax_query'] = array();
+				$args['tax_query'][] = array(
+					'relation' => 'AND',
+					$tax_query,
+				);
+
+			} else {
+				$tax_operator = isset( $attributes['taxTermsIncludeExclude'] ) && 'exclude' == $attributes['taxTermsIncludeExclude'] ? 'NOT IN' : 'IN';
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => $attributes['taxonomySelected'],
+						'field'    => 'term_id',
+						'terms'    => $tax_terms,
+						'operator' => $tax_operator,
+					),
+				);
+			}
+
+			if ( true === $attributes['addAnotherTaxonomy'] && ! empty( $attributes['taxonomySelected2'] ) && ! empty( $attributes['taxTermsSelected2'] ) ) {
+				$tax_terms = explode( ',', $attributes['taxTermsSelected2'] );
+				if ( $attributes['taxQueryTypeCombined'] === 'OR' ) {
+					$args['tax_query']['relation'] = 'OR';
+				}
+				if ( count( $tax_terms ) > 1 && 'AND' === $attributes['taxQueryType2'] ) {
+					$tax_query = array();
+					foreach ( $tax_terms as $tax_term ) {
+						$tax_query[] = array(
+							'taxonomy' => $attributes['taxonomySelected2'],
+							'field'    => 'term_id',
+							'terms'    => $tax_term,
+						);
+					}
+					$args['tax_query'][] = array(
+						'relation' => 'AND',
+						$tax_query,
+					);
+
+				} else {
+					$tax_operator = isset( $attributes['taxTermsIncludeExclude2'] ) && 'exclude' == $attributes['taxTermsIncludeExclude2'] ? 'NOT IN' : 'IN';
+					$args['tax_query'][] = array(
+						array(
+							'taxonomy' => $attributes['taxonomySelected2'],
+							'field'    => 'term_id',
+							'terms'    => $tax_terms,
+							'operator' => $tax_operator,
+						),
+					);
+				}
+			}
+
+		} elseif ( true == $related ) {
+			if ( ! empty( $attributes['taxonomySelected'] ) ) {
+				$tax          = $attributes['taxonomySelected'];
+				$my_id        = get_the_ID();
+				$my_terms     = get_the_terms( $my_id, $tax );
+				$tax_operator = isset( $attributes['matchAllTerms'] ) && true == $attributes['matchAllTerms'] ? 'AND' : 'IN';
+
+				if ( ! is_wp_error( $my_terms ) && is_array( $my_terms ) ) {
+					if ( isset( $attributes['childTermsOnly'] ) && true == $attributes['childTermsOnly'] ) {
+						$children = wp_list_filter( $my_terms, array( 'parent' => 0 ), 'NOT' );
+						if ( ! empty( $children ) ) {
+							$my_terms = $children;
+						}
+					}
+					$term_ids          = array_map(
+						function( $t ) {
+							return $t->term_id;
+						},
+						$my_terms
+					);
+					$args['tax_query'] = array(
+						array(
+							'taxonomy' => $tax,
+							'field'    => 'term_id',
+							'terms'    => $term_ids,
+							'operator' => $tax_operator,
+						),
+					);
+				}
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Render a single custom archive item using existing template logic.
+	 *
+	 * @param string $post_type Post type slug.
+	 * @param string $layout Layout slug.
+	 * @param array  $attributes Block attributes.
+	 * @param object $template_loader Template loader.
+	 * @return string
+	 */
+	private static function render_custom_archive_post_item( $post_type, $layout, $attributes, $template_loader ) {
+		$template = $post_type . '_item';
+		if ( 'ul' == $layout ) {
+			$template = 'list_item';
+		}
+		$template = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
+
+		if ( isset( $attributes['openAsModal'] ) && true == $attributes['openAsModal'] ) {
+			$modal = 'custom-archive/modal_item_v2';
+
+			if ( true == $attributes['wholeLink'] ) {
+				$modal = 'custom-archive/modal_item_v2_linked';
+			}
+			ob_start();
+			$template_loader
+				->set_template_data( $attributes )
+				->get_template_part( $modal );
+			$post_html = ob_get_clean();
+
+		} else {
+			ob_start();
+			$template_loader
+				->set_template_data( $attributes )
+				->get_template_part( 'custom-archive/' . $template );
+			$post_html = ob_get_clean();
+		}
+
+		if ( empty( $post_html ) ) {
+			ob_start();
+			$template_loader
+				->set_template_data( $attributes )
+				->get_template_part( 'custom-archive/default_item' );
+			$post_html = ob_get_clean();
+		}
+
+		return apply_filters( 'carkeek_block_custom_post_layout', $post_html, get_post(), $attributes );
+	}
+
+	/**
+	 * AJAX handler for custom archive load more.
+	 *
+	 * @return void
+	 */
+	public function ajax_load_more_custom_archive() {
+		if ( ! check_ajax_referer( 'ckb_custom_archive_load_more', 'nonce', false ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid nonce.' ), 403 );
+		}
+
+		$attributes_json = isset( $_POST['attributes'] ) ? wp_unslash( $_POST['attributes'] ) : ''; // phpcs:ignore
+		$attributes      = json_decode( $attributes_json, true );
+		$page            = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 1; // phpcs:ignore
+
+		if ( ! is_array( $attributes ) || empty( $attributes['postTypeSelected'] ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid attributes.' ), 400 );
+		}
+
+		if ( $page < 2 ) {
+			$page = 2;
+		}
+
+		$per_page = isset( $attributes['numberOfPosts'] ) ? intval( $attributes['numberOfPosts'] ) : 0;
+		if ( $per_page <= 0 ) {
+			wp_send_json_error( array( 'message' => 'Invalid posts per page.' ), 400 );
+		}
+
+		$base_offset = isset( $attributes['postOffset'] ) ? absint( $attributes['postOffset'] ) : 0;
+		$offset      = $base_offset + ( ( $page - 1 ) * $per_page );
+
+		$args = self::build_custom_archive_query_args( $attributes, 1, $offset );
+		if ( ! empty( $attributes['useWithFilter'] ) ) {
+			$args[ $attributes['useWithFilter'] ] = true;
+		}
+
+		$post_type = $attributes['postTypeSelected'];
+		$args      = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
+		$args      = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
+
+		$query      = new WP_Query( $args );
+		$items_html = '';
+		$layout     = $attributes['postLayout'];
+		$loader     = new Carkeek_Blocks_Template_Loader();
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$items_html .= self::render_custom_archive_post_item( $post_type, $layout, $attributes, $loader );
+			}
+		}
+
+		$has_more = ( $offset + $per_page ) < (int) $query->found_posts;
+		wp_reset_postdata();
+
+		wp_send_json_success(
+			array(
+				'itemsHtml' => $items_html,
+				'nextPage'  => $page,
+				'hasMore'   => $has_more,
+			)
+		);
+	}
+
 	/**
 	 * Render Custom Post Type Archive
 	 *
@@ -445,6 +704,24 @@ class CarkeekBlocks_CustomArchive {
 
 		/** we only include headline and link if the whole block is hidden on empty */
 		$view_more_link = '';
+		$show_ajax_load_more = isset( $attributes['enableAjaxLoadMore'] )
+			&& true == $attributes['enableAjaxLoadMore'];
+
+		if ( isset( $attributes['showPagination'] ) && true == $attributes['showPagination'] ) {
+			$show_ajax_load_more = false;
+		}
+
+		if ( isset( $attributes['numberOfPosts'] ) && $attributes['numberOfPosts'] <= 0 ) {
+			$show_ajax_load_more = false;
+		}
+
+		if ( isset( $attributes['groupListings'] ) && true == $attributes['groupListings'] ) {
+			$show_ajax_load_more = false;
+		}
+
+		if ( true == $related || ( isset( $attributes['honorStickyPosts'] ) && true == $attributes['honorStickyPosts'] ) ) {
+			$show_ajax_load_more = false;
+		}
 		if ( true === $attributes['hideIfEmpty'] ) {
 			$headline = '';
 			if ( ! empty( $attributes['headline'] ) ) {
@@ -565,46 +842,9 @@ class CarkeekBlocks_CustomArchive {
 			} else {
 				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '" ' . $inline_styles .  '>';
 			}
-			$count            = 0;
-			$template         = $post_type . '_item';
-			if ( 'ul' == $layout ) {
-				$template = 'list_item';
-			}
-			$template         = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
-
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				global $post;
-
-				if ( isset( $attributes['openAsModal'] ) && true == $attributes['openAsModal'] ) {
-					$modal = 'custom-archive/modal_item_v2';
-
-					if ( true == $attributes['wholeLink'] ) {
-						$modal = 'custom-archive/modal_item_v2_linked';
-					}
-					ob_start();
-					$ck_blocks_template_loader
-						->set_template_data( $attributes )
-						->get_template_part( $modal );
-					$post_html = ob_get_clean();
-
-				} else {
-					ob_start();
-					$ck_blocks_template_loader
-						->set_template_data( $attributes )
-						->get_template_part( 'custom-archive/' . $template );
-					$post_html = ob_get_clean();
-				}
-
-				if ( empty( $post_html ) ) {
-					ob_start();
-					$ck_blocks_template_loader
-						->set_template_data( $attributes )
-						->get_template_part( 'custom-archive/default_item' );
-					$post_html = ob_get_clean();
-				}
-				$posts .= apply_filters( 'carkeek_block_custom_post_layout', $post_html, $post, $attributes );
-				$count++;
+				$posts .= self::render_custom_archive_post_item( $post_type, $layout, $attributes, $ck_blocks_template_loader );
 
 			}
 			if ( 'ul' == $layout ) {
@@ -631,6 +871,20 @@ class CarkeekBlocks_CustomArchive {
 				$posts .= '</div>';
 
 			}
+
+			if ( true == $show_ajax_load_more && isset( $attributes['numberOfPosts'] ) && $attributes['numberOfPosts'] > 0 ) {
+				$initial_count = (int) $attributes['numberOfPosts'];
+				$has_more      = $query->found_posts > $initial_count;
+				if ( $has_more ) {
+					$load_more_attrs                    = $attributes;
+					$load_more_attrs['showPagination'] = false;
+					$load_more_label                    = isset( $attributes['ajaxLoadMoreLabel'] ) && ! empty( $attributes['ajaxLoadMoreLabel'] ) ? $attributes['ajaxLoadMoreLabel'] : __( 'Load More', 'carkeek-blocks' );
+					$loading_label                      = __( 'Loading...', 'carkeek-blocks' );
+					$error_label                        = __( 'Unable to load more posts. Please try again.', 'carkeek-blocks' );
+					$posts                             .= '<div class="ck-custom-archive__buttons ck-custom-archive__load-more-wrap"><button type="button" class="button js-ck-custom-archive-load-more" data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" data-nonce="' . esc_attr( wp_create_nonce( 'ckb_custom_archive_load_more' ) ) . '" data-current-page="1" data-default-label="' . esc_attr( $load_more_label ) . '" data-loading-label="' . esc_attr( $loading_label ) . '" data-error-label="' . esc_attr( $error_label ) . '" data-attributes="' . esc_attr( wp_json_encode( $load_more_attrs ) ) . '">' . esc_html( $load_more_label ) . '</button><div class="ck-custom-archive__load-more-status js-ck-custom-archive-load-more-status" aria-live="polite"></div></div>';
+				}
+			}
+
 			$posts .= $view_more_link;
 			$posts .= '</div>';
 			wp_reset_postdata();
