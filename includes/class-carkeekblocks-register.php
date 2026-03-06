@@ -109,7 +109,7 @@ class CarkeekBlocks_Block_Register {
 		// )
 		// );
 
-		if ( post_type_exists( 'tribe_events' ) ) {
+		if ( post_type_exists( 'tribe_events' )  ) {
 			register_block_type(
 				"$dir/build/events-archive",
 				array(

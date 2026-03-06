@@ -79,6 +79,8 @@ function postsInspector(props) {
 		setGridGap,
 		gridGapColumn,
 		gridGapRow,
+        enableAjaxLoadMore,
+        ajaxLoadMoreLabel,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter, addlContentBeforeSep, addlContentAfterSep
     } = attributes;
 
@@ -151,6 +153,9 @@ function postsInspector(props) {
 
     function handleGroupSettingChange(value) {
         setAttributes({ groupListings: value });
+        if (value) {
+            setAttributes({ enableAjaxLoadMore: false });
+        }
         if (Array.isArray(taxonomies) && typeof taxonomies[0] === 'object' && taxonomies[0] !== null && taxonomies[0].slug !== undefined) {
             setAttributes({ groupTaxSelected: taxonomies[0].slug });
         }
@@ -158,6 +163,16 @@ function postsInspector(props) {
     function handlePaginationSettingChange(value) {
         setAttributes({ showPagination: value })
         setAttributes({ limitItemsMobile: false })
+        if (value) {
+            setAttributes({ enableAjaxLoadMore: false })
+        }
+    }
+
+    function handleAjaxLoadMoreSettingChange(value) {
+        setAttributes({ enableAjaxLoadMore: value })
+        if (value) {
+            setAttributes({ showPagination: false })
+        }
     }
 
 
@@ -505,6 +520,24 @@ function postsInspector(props) {
                         checked={showPagination}
                         onChange={(value) => handlePaginationSettingChange(value)}
                     />
+                    {numberOfPosts > 0 && !groupListings && (
+                        <>
+                            <ToggleControl
+                                label={__("Enable AJAX Load More")}
+                                checked={enableAjaxLoadMore}
+                                onChange={(value) => handleAjaxLoadMoreSettingChange(value)}
+                            />
+                            {enableAjaxLoadMore && (
+                                <TextControl
+                                    label="Load More Button Label"
+                                    value={ajaxLoadMoreLabel}
+                                    onChange={value =>
+                                        setAttributes({ ajaxLoadMoreLabel: value })
+                                    }
+                                />
+                            )}
+                        </>
+                    )}
                     <ToggleControl
                         label={__("Group by Taxonomy Terms")}
                         checked={groupListings}

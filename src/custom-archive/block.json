@@ -14,6 +14,7 @@
     "version": "1.0.3",
     "textdomain": "carkeek-blocks",
     "editorScript": "file:./index.js",
+    "viewScript": "file:./view.js",
     "editorStyle": "file:./index.css",
     "style": "file:./style-index.css",
     "supports": {
@@ -227,6 +228,14 @@
         "showPagination": {
             "type": "boolean",
             "default": false
+        },
+        "enableAjaxLoadMore": {
+            "type": "boolean",
+            "default": false
+        },
+        "ajaxLoadMoreLabel": {
+            "type": "string",
+            "default": "Load More"
         },
         "showTerms": {
             "type": "boolean",
