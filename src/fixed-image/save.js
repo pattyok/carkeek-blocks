@@ -47,7 +47,6 @@ export default function save( { attributes } ) {
 		minHeightMobile,
 		minHeightDesktop,
 	} );
-	console.log( blockStyle );
 
 	let imageStyle = {};
 	if (focalPoint) {
