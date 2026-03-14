@@ -84,6 +84,7 @@ function postsInspector(props) {
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter, addlContentBeforeSep, addlContentAfterSep
     } = attributes;
 
+
     let ptOptions = [];
     if (postTypes) {
         ptOptions = postTypes.map(type => ({

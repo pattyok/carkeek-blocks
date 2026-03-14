@@ -1,42 +1,57 @@
-.wp-block-carkeek-blocks-fixed-image:not(.is-placeholder) {
+.wp-block-carkeek-blocks-fixed-image {
+	// Default to landscape
+	--ck-fixed-image-ratio: 1.5;
 
 	&.fixed-image-square {
-		--ck-fixed-image-ratio: 100%;
+		--ck-fixed-image-ratio: 1;
 	}
 
 	&.fixed-image-portrait-43 {
-		--ck-fixed-image-ratio: 100%;
+		--ck-fixed-image-ratio: 0.75;
 	}
 
 	&.fixed-image-portrait {
-		--ck-fixed-image-ratio: 133%;
+		--ck-fixed-image-ratio: 0.66;
 	}
 
 	&.fixed-image-landscape-34 {
-		--ck-fixed-image-ratio: 75%;
+		--ck-fixed-image-ratio: 1.33;
+	}
+
+	&.fixed-image-fit-container {
+		--ck-fixed-image-ratio: 1;
 	}
 
 	.ck-fixed-image-wrap {
 		position: relative;
 		display: block;
 
-		&::before {
-			content: "";
-			width: 100%;
-			height: 0;
-			padding-top: var(--ck-fixed-image-ratio);
-			display: block;
-		}
-
 		img {
-			position: absolute;
-			left: 0;
-			top: 0;
+			display: block;
 			width: 100%;
-			height: 100%;
+			height: auto;
+			aspect-ratio: var(--ck-fixed-image-ratio);
 			object-fit: cover;
 			object-position: 50% 50%;
 		}
+
+		// &::before {
+		// 	content: "";
+		// 	width: 100%;
+		// 	height: 0;
+		// 	padding-top: var(--ck-fixed-image-ratio);
+		// 	display: block;
+		// }
+
+		// img {
+		// 	position: absolute;
+		// 	left: 0;
+		// 	top: 0;
+		// 	width: 100%;
+		// 	height: 100%;
+		// 	object-fit: cover;
+		// 	object-position: 50% 50%;
+		// }
 
 		.ck-fixed-image-credit {
 			position: absolute;
@@ -51,6 +66,32 @@
 
 		}
 	}
+	&.fixed-image-fit-container {
+		height: 100%;
+		.ck-fixed-image-wrap {
+			height: 100%;
+			min-height: var(--ck-fixed-image-min-height-mobile, 300px);
+			& img {
+				aspect-ratio: unset;
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+		}
+	}
+
+	@media screen and (min-width: 768px) {
+		&.fixed-image-fit-container {
+			min-height: var(
+				--ck-fixed-image-min-height-desktop,
+				var(--ck-fixed-image-min-height-mobile, 300px)
+			);
+		}
+	}
+
 	&.is-style-contain {
 		.ck-fixed-image-wrap {
 			img {

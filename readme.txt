@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 3.2.75 =
+* Release 3.2.75 - 03/14/26
+	* Update to fixed image to use aspect ratio instead of absolute + padding
 = 3.2.74 =
 * Release 3.2.74 - 03/05/26
 	* Added an ajax load more option to the custom archive

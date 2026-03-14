@@ -4,6 +4,8 @@
 import classnames from 'classnames';
 import { isEmpty } from 'lodash';
 
+import { getFitContainerStyles } from './styles';
+
 /**
  * WordPress dependencies
  */
@@ -27,7 +29,9 @@ export default function save( { attributes } ) {
 		linkStyle,
 		photoCredit,
 		aspectRatio,
-		objectFit
+		objectFit,
+		minHeightDesktop,
+		minHeightMobile,
 	} = attributes;
 
 	const newRel = isEmpty( rel ) ? undefined : rel;
@@ -37,6 +41,13 @@ export default function save( { attributes } ) {
 		[ `fixed-image-${ aspectRatio }` ] : aspectRatio,
 		'is-style-contain': objectFit === 'contain',
 	} );
+
+	const blockStyle = getFitContainerStyles( {
+		aspectRatio,
+		minHeightMobile,
+		minHeightDesktop,
+	} );
+	console.log( blockStyle );
 
 	let imageStyle = {};
 	if (focalPoint) {
@@ -96,7 +107,7 @@ export default function save( { attributes } ) {
 	return (
 		<>
 		{url &&
-		<figure { ...useBlockProps.save( { className: classes } ) }>
+		<figure { ...useBlockProps.save( { className: classes, style: blockStyle } ) }>
 			{ figure }
 		</figure>
 		}
