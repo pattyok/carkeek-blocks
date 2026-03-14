@@ -21,6 +21,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import Image from './image';
+import { getFitContainerStyles } from './styles';
 import './editor.scss';
 
 
@@ -54,6 +55,11 @@ const isTemporaryImage = ( id, url ) => ! id && isBlobURL( url );
  * @return {boolean} Is the url an externally hosted url?
  */
 export const isExternalImage = ( id, url ) => url && ! id && ! isBlobURL( url );
+
+const GENERATED_ASPECT_RATIO_CLASS_PATTERN = /\bfixed-image-[^\s]+/g;
+
+const removeGeneratedAspectRatioClasses = ( className = '' ) =>
+	className.replace( GENERATED_ASPECT_RATIO_CLASS_PATTERN, '' ).replace( /\s+/g, ' ' ).trim();
 
 export function ImageEdit( {
 	attributes,
@@ -197,7 +203,9 @@ export function ImageEdit( {
 		/>
 	);
 
-	const classes = classnames( className, {
+	const sanitizedClassName = removeGeneratedAspectRatioClasses( className );
+
+	const classes = classnames( sanitizedClassName, {
 		'is-transient': isBlobURL( url ),
 		'is-placeholder': !url,
 		'is-resized': !! width || !! height,
@@ -207,9 +215,12 @@ export function ImageEdit( {
 		'is-style-contain': objectFit === 'contain',
 	} );
 
+	const blockStyle = getFitContainerStyles( attributes );
+
 	const blockProps = useBlockProps( {
 		ref,
 		className: classes,
+		style: blockStyle,
 	} );
 
 

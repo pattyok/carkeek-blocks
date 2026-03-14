@@ -69,7 +69,9 @@ export default function Image( {
 		useLink,
 		photoCredit,
 		aspectRatio,
-		objectFit
+		objectFit,
+		minHeightDesktop,
+		minHeightMobile,
 	},
 	setAttributes,
 	isSelected,
@@ -261,9 +263,44 @@ export default function Image( {
 							{ label: __("Portrait 3:2"), value: "portrait"},
 							{ label: __("Portrait 4:3"), value: "portrait-43"},
 							{ label: __("Square 1:1"), value: "square"},
+							{ label: __("Fit Container"), value: "fit-container"},
 						]}
 						value={aspectRatio}
 					/>
+					{ aspectRatio === "fit-container" && (
+						<>
+						<TextControl
+							label={ __( 'Min Height (Mobile)' ) }
+							value={ minHeightMobile || '' }
+							onChange={ value =>
+                                setAttributes({
+                                    minHeightMobile: value
+                                }) }
+							help={
+								<>
+									{ __(
+										'Set a minimum height for the image on mobile devices. Accepts CSS lengths such as 320px, 40vh, or clamp(...).'
+									) }
+								</>
+							}
+						/>
+						<TextControl
+							label={ __( 'Min Height (Desktop)' ) }
+							value={ minHeightDesktop || '' }
+							onChange={ value =>
+                                setAttributes({
+                                    minHeightDesktop: value
+                                }) }
+							help={
+								<>
+									{ __(
+										'Set a minimum height for the image on desktop devices. Accepts CSS lengths such as 480px, 60vh, or clamp(...).'
+									) }
+								</>
+							}
+						/>
+						</>
+					) }
 					{ ! multiImageSelection && (
                         <>
 						<TextareaControl
