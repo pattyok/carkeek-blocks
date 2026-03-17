@@ -1,0 +1,89 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "carkeek-blocks/image-compare",
+	"version": "1.0.0",
+	"title": "Image Compare",
+	"category": "media",
+	"description": "Before/after image comparison slider with focal point control.",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ]
+	},
+	"keywords": [
+		"before",
+		"after",
+		"compare",
+		"slider",
+		"image"
+	],
+	"textdomain": "carkeek-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./script.js",
+	"attributes": {
+		"beforeImageId": {
+			"type": "integer"
+		},
+		"beforeImageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"beforeImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"beforeFocalX": {
+			"type": "number",
+			"default": 0.5
+		},
+		"beforeFocalY": {
+			"type": "number",
+			"default": 0.5
+		},
+		"afterImageId": {
+			"type": "integer"
+		},
+		"afterImageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"afterImageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"afterFocalX": {
+			"type": "number",
+			"default": 0.5
+		},
+		"afterFocalY": {
+			"type": "number",
+			"default": 0.5
+		},
+		"showLabels": {
+			"type": "boolean",
+			"default": true
+		},
+		"beforeLabel": {
+			"type": "string",
+			"default": "Image 1"
+		},
+		"afterLabel": {
+			"type": "string",
+			"default": "Image 2"
+		},
+		"initialPosition": {
+			"type": "number",
+			"default": 50
+		},
+		"blockHeight": {
+			"type": "number",
+			"default": 400
+		},
+		"sliderColor": {
+			"type": "string",
+			"default": "#dc717d"
+		}
+	}
+}

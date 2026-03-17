@@ -1,0 +1,120 @@
+.wp-block-carkeek-blocks-image-compare {
+	// In the editor, always show the handle and labels
+	.cd-image-label {
+		opacity: 1;
+		transform: translateY(0);
+		transition: none;
+	}
+
+	// Force the "modified" label visible in preview (skip the is-hidden logic)
+	.cd-image-label--visible {
+		opacity: 1 !important;
+		visibility: visible !important;
+		transform: translateY(0) !important;
+	}
+
+	// Handle is always visible in editor preview
+	.cd-handle--preview {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+		transition: none;
+		pointer-events: none;
+	}
+
+	// Setup state (one or both images missing)
+	.ck-ic-setup {
+		display: flex;
+		gap: 8px;
+		padding: 8px;
+		background: #f0f0f0;
+		min-height: 200px;
+
+		.ck-ic-setup-panel {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			border: 2px dashed #ccc;
+			background: #fff;
+			position: relative;
+			overflow: hidden;
+			min-height: 180px;
+
+			// Let MediaPlaceholder fill the panel
+			.block-editor-media-placeholder {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+			}
+		}
+
+		.ck-ic-setup-thumb {
+			width: 100%;
+			height: 180px;
+			object-fit: cover;
+			display: block;
+		}
+
+		.ck-ic-setup-label {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: 0;
+			padding: 4px 8px;
+			background: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			font-size: 12px;
+			text-align: center;
+		}
+	}
+
+	// Sidebar helper text
+	.ck-ic-no-image {
+		color: #757575;
+		font-style: italic;
+		font-size: 12px;
+	}
+
+	// Inline replace buttons overlaid on each image half in preview mode
+	.ck-ic-replace-btn {
+		position: absolute;
+		top: 8px;
+		z-index: 20;
+		opacity: 0;
+		transition: opacity 0.15s ease;
+		pointer-events: none;
+		font-size: 12px;
+
+		&--before {
+			right: 8px;
+		}
+
+		&--after {
+			left: 8px;
+		}
+	}
+
+	// Show replace buttons when the block is selected (has focus within)
+	&:focus-within .ck-ic-replace-btn,
+	&.is-selected .ck-ic-replace-btn {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	// Setup panel replace button (wraps the thumbnail)
+	.ck-ic-setup-replace {
+		display: block;
+		width: 100%;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		position: relative;
+
+		&:hover .ck-ic-setup-label {
+			background: rgba(0, 119, 190, 0.85);
+		}
+	}
+}

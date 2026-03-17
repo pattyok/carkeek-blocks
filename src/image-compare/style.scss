@@ -1,0 +1,108 @@
+// Arrows SVG data URI for the handle button
+$arrows-svg: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon fill='%23FFFFFF' points='13,21 8,16 13,11'/%3E%3Cpolygon fill='%23FFFFFF' points='19,11 24,16 19,21'/%3E%3C%2Fsvg%3E";
+
+.wp-block-carkeek-blocks-image-compare {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	// height is set inline from blockHeight attribute
+
+	// Base (before) image fills the container
+	> img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.cd-image-label {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		color: #ffffff;
+		padding: 1em;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: transform 0.3s 0.7s, opacity 0.3s 0.7s;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+		pointer-events: none;
+
+		&.is-hidden {
+			visibility: hidden;
+		}
+	}
+
+	&.is-visible .cd-image-label {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.cd-resize-img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 100%;
+		overflow: hidden;
+		transform: translateZ(0);
+		backface-visibility: hidden;
+
+		img {
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: block;
+			height: 100%;
+			// Width is set to --ck-ic-width by script.js so focal point
+			// renders correctly across the full container (not just the clip div)
+			width: var(--ck-ic-width, auto);
+			max-width: none;
+			object-fit: cover;
+		}
+
+		.cd-image-label {
+			right: auto;
+			left: 0;
+		}
+	}
+
+	&.is-visible .cd-resize-img {
+		// Width is controlled by JS based on data-initial-position.
+		// We use a CSS custom property set by JS before adding is-visible.
+		width: var(--ck-ic-initial, 50%);
+	}
+
+	.cd-handle {
+		position: absolute;
+		height: 44px;
+		width: 44px;
+		left: 50%;
+		top: 50%;
+		margin-left: -22px;
+		margin-top: -22px;
+		border-radius: 50%;
+		background-color: var(--ck-ic-slider-color, #dc717d);
+		background-image: url($arrows-svg);
+		background-repeat: no-repeat;
+		background-position: center center;
+		cursor: move;
+		box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		opacity: 0;
+		transform: translate3d(0, 0, 0) scale(0);
+		z-index: 10;
+		user-select: none;
+		touch-action: none;
+
+		&.draggable {
+			background-color: #445b7c;
+		}
+	}
+
+	&.is-visible .cd-handle {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+		transition: transform 0.3s 0.7s, opacity 0s 0.7s;
+	}
+}
