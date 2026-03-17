@@ -73,7 +73,7 @@ export default function save( { attributes } ) {
 				</span>
 			) }
 			{ /* Image 1 — clip layer, left side */ }
-			<div className="cd-resize-img">
+			<div className="cd-resize-img" style={ { width: initialPosition + '%' } }>
 				<img
 					src={ beforeImageUrl }
 					alt={ beforeImageAlt }
@@ -85,8 +85,8 @@ export default function save( { attributes } ) {
 					</span>
 				) }
 			</div>
-			<span className="cd-divider"></span>
-		<span className="cd-handle"></span>
+			<span className="cd-divider" style={ { left: initialPosition + '%' } }></span>
+				<span className="cd-handle" style={ { left: initialPosition + '%' } }></span>
 		</figure>
 	);
 }

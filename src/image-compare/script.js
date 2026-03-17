@@ -6,7 +6,7 @@
 		if ( ! containers.length ) return;
 
 		/**
-		 * Set --ck-ic-width on the container so the after image can be sized
+		 * Set --ck-ic-width on the container so the before image can be sized
 		 * to the full container width (not just the clipped .cd-resize-img width),
 		 * allowing object-fit + object-position (focal point) to work correctly.
 		 */
@@ -15,28 +15,6 @@
 				'--ck-ic-width',
 				container.offsetWidth + 'px'
 			);
-		}
-
-		/**
-		 * Apply the initial slider position from data-initial-position attribute.
-		 * Called once when the container becomes visible.
-		 */
-		function applyInitialPosition( container ) {
-			var pos = parseInt(
-				container.dataset.initialPosition || '50',
-				10
-			);
-			var resizeImg = container.querySelector( '.cd-resize-img' );
-			var handle = container.querySelector( '.cd-handle' );
-			var divider = container.querySelector( '.cd-divider' );
-
-			// Set the CSS custom property used by the is-visible rule
-			container.style.setProperty( '--ck-ic-initial', pos + '%' );
-
-			// Also apply directly for instant feedback
-			if ( resizeImg ) resizeImg.style.width = pos + '%';
-			if ( handle ) handle.style.left = pos + '%';
-			if ( divider ) divider.style.left = pos + '%';
 		}
 
 		/**
@@ -174,44 +152,13 @@
 			} );
 		}
 
-		/**
-		 * Check if the container has scrolled into the viewport.
-		 * When it becomes visible, add is-visible and apply the initial position.
-		 */
-		function checkVisibility() {
-			var windowMid = window.scrollY + window.innerHeight * 0.5;
-			containers.forEach( function ( container ) {
-				if ( container.classList.contains( 'is-visible' ) ) return;
-				var top =
-					container.getBoundingClientRect().top + window.scrollY;
-				if ( windowMid > top ) {
-					applyInitialPosition( container );
-					container.classList.add( 'is-visible' );
-					updateLabels( container );
-				}
-			} );
-		}
-
 		// Initialise each container
 		containers.forEach( function ( container ) {
 			applySliderColor( container );
 			applyDividerStyles( container );
 			updateContainerWidth( container );
 			setupDrag( container );
-		} );
-
-		// Check visibility on load
-		checkVisibility();
-
-		// Throttled scroll handler
-		var scrollPending = false;
-		window.addEventListener( 'scroll', function () {
-			if ( scrollPending ) return;
-			scrollPending = true;
-			requestAnimationFrame( function () {
-				checkVisibility();
-				scrollPending = false;
-			} );
+			updateLabels( container );
 		} );
 
 		// Throttled resize handler
