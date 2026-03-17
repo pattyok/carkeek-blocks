@@ -50,18 +50,19 @@ export default function Edit( { attributes, setAttributes } ) {
 		height: hasBothImages ? blockHeight + 'px' : 'auto',
 	};
 
-	const beforeImgStyle = {
+	// Image 2 (after) is the base layer — right side, full cover.
+	const img2BaseStyle = {
 		objectFit: 'cover',
-		objectPosition: `${ beforeFocalX * 100 }% ${ beforeFocalY * 100 }%`,
+		objectPosition: `${ afterFocalX * 100 }% ${ afterFocalY * 100 }%`,
 		width: '100%',
 		height: '100%',
 		display: 'block',
 	};
 
-	// Width matches the full container so focal point renders correctly in preview
-	const afterImgStyle = {
+	// Image 1 (before) is the clip layer — left side, absolute + containerWidth for focal point.
+	const img1ClipStyle = {
 		objectFit: 'cover',
-		objectPosition: `${ afterFocalX * 100 }% ${ afterFocalY * 100 }%`,
+		objectPosition: `${ beforeFocalX * 100 }% ${ beforeFocalY * 100 }%`,
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -93,6 +94,23 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	function removeAfter() {
 		setAttributes( { afterImageId: undefined, afterImageUrl: '', afterImageAlt: '' } );
+	}
+
+	function swapImages() {
+		setAttributes( {
+			beforeImageId: afterImageId,
+			beforeImageUrl: afterImageUrl,
+			beforeImageAlt: afterImageAlt,
+			beforeFocalX: afterFocalX,
+			beforeFocalY: afterFocalY,
+			beforeLabel: afterLabel,
+			afterImageId: beforeImageId,
+			afterImageUrl: beforeImageUrl,
+			afterImageAlt: beforeImageAlt,
+			afterFocalX: beforeFocalX,
+			afterFocalY: beforeFocalY,
+			afterLabel: beforeLabel,
+		} );
 	}
 
 	return (
@@ -132,6 +150,11 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</MediaUploadCheck>
+						<ToolbarButton
+							icon="randomize"
+							label={ __( 'Swap Images', 'carkeek-blocks' ) }
+							onClick={ swapImages }
+						/>
 					</ToolbarGroup>
 				</BlockControls>
 			) }
@@ -354,60 +377,62 @@ export default function Edit( { attributes, setAttributes } ) {
 			{ /* Preview state: both images set */ }
 			{ hasBothImages && (
 				<>
+					{ /* Image 2 — base layer, right side */ }
 					<img
-						src={ beforeImageUrl }
-						alt={ beforeImageAlt }
-						style={ beforeImgStyle }
+						src={ afterImageUrl }
+						alt={ afterImageAlt }
+						style={ img2BaseStyle }
 					/>
 					{ showLabels && (
 						<span className="cd-image-label" data-type="original">
-							{ beforeLabel }
+							{ afterLabel }
 						</span>
 					) }
-					{ /* Inline replace button for the "before" image — sits on the exposed right half */ }
+					{ /* Replace Image 2 button — right side */ }
 					<MediaUploadCheck>
 						<MediaUpload
-							onSelect={ onSelectBefore }
+							onSelect={ onSelectAfter }
 							allowedTypes={ [ 'image' ] }
-							value={ beforeImageId }
+							value={ afterImageId }
 							render={ ( { open } ) => (
 								<Button
-									className="ck-ic-replace-btn ck-ic-replace-btn--before"
+									className="ck-ic-replace-btn ck-ic-replace-btn--right"
 									onClick={ open }
 									variant="secondary"
 								>
-									{ __( 'Replace Image 1', 'carkeek-blocks' ) }
+									{ __( 'Replace Image 2', 'carkeek-blocks' ) }
 								</Button>
 							) }
 						/>
 					</MediaUploadCheck>
+					{ /* Image 1 — clip layer, left side */ }
 					<div
 						className="cd-resize-img is-preview"
 						style={ { width: initialPosition + '%' } }
 					>
 						<img
-							src={ afterImageUrl }
-							alt={ afterImageAlt }
-							style={ afterImgStyle }
+							src={ beforeImageUrl }
+							alt={ beforeImageAlt }
+							style={ img1ClipStyle }
 						/>
 						{ showLabels && (
 							<span className="cd-image-label cd-image-label--visible" data-type="modified">
-								{ afterLabel }
+								{ beforeLabel }
 							</span>
 						) }
-						{ /* Inline replace button for the "after" image — sits inside the clip div */ }
+						{ /* Replace Image 1 button — left side */ }
 						<MediaUploadCheck>
 							<MediaUpload
-								onSelect={ onSelectAfter }
+								onSelect={ onSelectBefore }
 								allowedTypes={ [ 'image' ] }
-								value={ afterImageId }
+								value={ beforeImageId }
 								render={ ( { open } ) => (
 									<Button
-										className="ck-ic-replace-btn ck-ic-replace-btn--after"
+										className="ck-ic-replace-btn ck-ic-replace-btn--left"
 										onClick={ open }
 										variant="secondary"
 									>
-										{ __( 'Replace Image 2', 'carkeek-blocks' ) }
+										{ __( 'Replace Image 1', 'carkeek-blocks' ) }
 									</Button>
 								) }
 							/>
