@@ -16,6 +16,8 @@ export default function save( { attributes } ) {
 		initialPosition,
 		blockHeight,
 		sliderColor,
+		dividerWidth,
+		dividerColor,
 	} = attributes;
 
 	if ( ! beforeImageUrl || ! afterImageUrl ) {
@@ -26,6 +28,8 @@ export default function save( { attributes } ) {
 		className: 'cd-image-container',
 		'data-initial-position': initialPosition,
 		'data-slider-color': sliderColor,
+		'data-divider-width': dividerWidth,
+		'data-divider-color': dividerColor,
 		style: {
 			height: blockHeight + 'px',
 		},
@@ -81,7 +85,8 @@ export default function save( { attributes } ) {
 					</span>
 				) }
 			</div>
-			<span className="cd-handle"></span>
+			<span className="cd-divider"></span>
+		<span className="cd-handle"></span>
 		</figure>
 	);
 }

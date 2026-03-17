@@ -87,6 +87,14 @@
     "sliderColor": {
       "type": "string",
       "default": "#dc717d"
+    },
+    "dividerWidth": {
+      "type": "number",
+      "default": 10
+    },
+    "dividerColor": {
+      "type": "string",
+      "default": "#ffffff"
     }
   }
 }
