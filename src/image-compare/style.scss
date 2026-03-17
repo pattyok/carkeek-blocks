@@ -74,6 +74,19 @@ $arrows-svg: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
 		width: var(--ck-ic-initial, 50%);
 	}
 
+	// Divider line — sits between the images and the handle (z-index 5 vs handle z-index 10)
+	.cd-divider {
+		position: absolute;
+		top: 0;
+		left: 50%; // overridden by JS / inline style
+		transform: translateX( -50% );
+		width: var( --ck-ic-divider-width, 0px );
+		height: 100%;
+		background-color: var( --ck-ic-divider-color, #ffffff );
+		z-index: 5;
+		pointer-events: none;
+	}
+
 	.cd-handle {
 		position: absolute;
 		height: 44px;
@@ -96,7 +109,7 @@ $arrows-svg: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
 		touch-action: none;
 
 		&.draggable {
-			background-color: #445b7c;
+			background-color: #3c3b3b;
 		}
 	}
 

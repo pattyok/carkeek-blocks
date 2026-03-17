@@ -23,6 +23,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		initialPosition,
 		blockHeight,
 		sliderColor,
+		dividerWidth,
+		dividerColor,
 	} = attributes;
 
 	const containerRef = useRef( null );
@@ -48,6 +50,8 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const containerStyle = {
 		height: hasBothImages ? blockHeight + 'px' : 'auto',
+		'--ck-ic-divider-width': dividerWidth + 'px',
+		'--ck-ic-divider-color': dividerColor,
 	};
 
 	// Image 2 (after) is the base layer — right side, full cover.
@@ -262,6 +266,15 @@ export default function Edit( { attributes, setAttributes } ) {
 						max={ 800 }
 						step={ 10 }
 					/>
+					<RangeControl
+						label={ __( 'Divider Width (px)', 'carkeek-blocks' ) }
+						value={ dividerWidth }
+						onChange={ ( value ) => setAttributes( { dividerWidth: value } ) }
+						min={ 0 }
+						max={ 30 }
+						step={ 1 }
+						help={ __( 'Set to 0 to hide the divider line.', 'carkeek-blocks' ) }
+					/>
 					<ToggleControl
 						label={ __( 'Show Labels', 'carkeek-blocks' ) }
 						checked={ showLabels }
@@ -284,13 +297,18 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				<PanelColorSettings
-					title={ __( 'Slider Color', 'carkeek-blocks' ) }
+					title={ __( 'Colors', 'carkeek-blocks' ) }
 					initialOpen={ false }
 					colorSettings={ [
 						{
 							value: sliderColor,
 							onChange: ( value ) => setAttributes( { sliderColor: value || '#dc717d' } ),
 							label: __( 'Handle Color', 'carkeek-blocks' ),
+						},
+						{
+							value: dividerColor,
+							onChange: ( value ) => setAttributes( { dividerColor: value || '#ffffff' } ),
+							label: __( 'Divider Color', 'carkeek-blocks' ),
 						},
 					] }
 				/>
@@ -438,6 +456,10 @@ export default function Edit( { attributes, setAttributes } ) {
 							/>
 						</MediaUploadCheck>
 					</div>
+					<span
+						className="cd-divider cd-divider--preview"
+						style={ { left: initialPosition + '%' } }
+					></span>
 					<span
 						className="cd-handle cd-handle--preview"
 						style={ {

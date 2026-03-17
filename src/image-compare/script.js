@@ -28,6 +28,7 @@
 			);
 			var resizeImg = container.querySelector( '.cd-resize-img' );
 			var handle = container.querySelector( '.cd-handle' );
+			var divider = container.querySelector( '.cd-divider' );
 
 			// Set the CSS custom property used by the is-visible rule
 			container.style.setProperty( '--ck-ic-initial', pos + '%' );
@@ -35,6 +36,7 @@
 			// Also apply directly for instant feedback
 			if ( resizeImg ) resizeImg.style.width = pos + '%';
 			if ( handle ) handle.style.left = pos + '%';
+			if ( divider ) divider.style.left = pos + '%';
 		}
 
 		/**
@@ -44,6 +46,20 @@
 			var color = container.dataset.sliderColor;
 			if ( color ) {
 				container.style.setProperty( '--ck-ic-slider-color', color );
+			}
+		}
+
+		/**
+		 * Apply divider line styles from data-divider-* attributes.
+		 */
+		function applyDividerStyles( container ) {
+			var width = container.dataset.dividerWidth;
+			var color = container.dataset.dividerColor;
+			if ( width !== undefined ) {
+				container.style.setProperty( '--ck-ic-divider-width', width + 'px' );
+			}
+			if ( color ) {
+				container.style.setProperty( '--ck-ic-divider-color', color );
 			}
 		}
 
@@ -126,6 +142,8 @@
 
 						handle.style.left = pct;
 						resizeImg.style.width = pct;
+						var divider = container.querySelector( '.cd-divider' );
+						if ( divider ) divider.style.left = pct;
 						updateLabels( container );
 						dragging = false;
 					} );
@@ -177,6 +195,7 @@
 		// Initialise each container
 		containers.forEach( function ( container ) {
 			applySliderColor( container );
+			applyDividerStyles( container );
 			updateContainerWidth( container );
 			setupDrag( container );
 		} );
