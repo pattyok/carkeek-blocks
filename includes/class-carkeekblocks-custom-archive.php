@@ -891,9 +891,13 @@ class CarkeekBlocks_CustomArchive {
 		if ( isset( $attributes['className'] ) && ! empty( $attributes['className'] ) ) {
 			$css_classes_outer[] = $attributes['className'];
 		}
+		$block_id = '';
+		if ( isset( $attributes['anchor'] ) && ! empty( $attributes['anchor'] ) ) {
+			$block_id = $attributes['anchor'];
+		}
 
 		$css_classes_outer = apply_filters( 'carkeek_block_custom_post_layout__css_classes_outer', $css_classes_outer, $attributes );
-		$block_start       = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ) . '">';
+		$block_start       = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ), 'id' => $block_id ) ) . '">';
 
 		/** we only include headline and link if the whole block is hidden on empty */
 		$view_more_link = '';
@@ -1313,7 +1317,11 @@ class CarkeekBlocks_CustomArchive {
 			}
 			$css_classes_outer[] = 'limit-mobile-' . $attributes['itemsMobile'];
 		}
-		$block_start = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ) ) ) . '">';
+		$block_id = '';
+		if ( isset( $attributes['anchor'] ) && ! empty( $attributes['anchor'] ) ) {
+			$block_id = $attributes['anchor'];
+		}
+		$block_start = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ), 'id' => $block_id ) ) . '">';
 
 		if ( $query->have_posts() ) {
 			$posts           .= $block_start;

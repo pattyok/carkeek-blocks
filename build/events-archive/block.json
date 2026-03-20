@@ -168,6 +168,10 @@
       "type": "string",
       "default": ""
     },
+    "anchor": {
+      "type": "string",
+      "default": ""
+    },
     "style": {
       "type": "object",
       "default": {
@@ -189,6 +193,7 @@
     "spacing": {
       "padding": true,
       "margin": true
-    }
+    },
+    "anchor": true
   }
 }

@@ -525,6 +525,7 @@ function postsInspector(props) {
                         <>
                             <ToggleControl
                                 label={__("Enable AJAX Load More")}
+								help={__("Adds a button that loads the next batch of events via AJAX. Disabled when Pagination is on or Show All is selected.", "carkeek-blocks")}
                                 checked={enableAjaxLoadMore}
                                 onChange={(value) => handleAjaxLoadMoreSettingChange(value)}
                             />
