@@ -64,6 +64,8 @@ class CarkeekBlocks_CustomArchive {
 		add_filter( 'rest_post_collection_params', array( $this, 'ckb_prefix_add_rest_orderby_params' ), 10, 1 );
 		add_action( 'wp_ajax_ckb_custom_archive_load_more', array( $this, 'ajax_load_more_custom_archive' ) );
 		add_action( 'wp_ajax_nopriv_ckb_custom_archive_load_more', array( $this, 'ajax_load_more_custom_archive' ) );
+		add_action( 'wp_ajax_ckb_events_archive_load_more', array( $this, 'ajax_load_more_events_archive' ) );
+		add_action( 'wp_ajax_nopriv_ckb_events_archive_load_more', array( $this, 'ajax_load_more_events_archive' ) );
 	}
 
 	/**
@@ -499,6 +501,197 @@ class CarkeekBlocks_CustomArchive {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$items_html .= self::render_custom_archive_post_item( $post_type, $layout, $attributes, $loader );
+			}
+		}
+
+		$has_more = ( $offset + $per_page ) < (int) $query->found_posts;
+		wp_reset_postdata();
+
+		wp_send_json_success(
+			array(
+				'itemsHtml' => $items_html,
+				'nextPage'  => $page,
+				'hasMore'   => $has_more,
+			)
+		);
+	}
+
+	/**
+	 * Build WP_Query args for the events archive.
+	 *
+	 * Extracted from carkeek_blocks_render_events_archive() so the same query
+	 * logic can be reused by the AJAX load-more handler.
+	 *
+	 * @param array $attributes Block attributes.
+	 * @param int   $offset     Row offset for load-more pagination (0 = first page).
+	 * @return array WP_Query args (filter applied).
+	 */
+	private static function build_events_archive_query_args( $attributes, $offset = 0 ) {
+		$post_type = 'tribe_events';
+		$paged     = ( $offset > 0 ) ? 1 : ( ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1 );
+
+		$args = array(
+			'posts_per_page' => $attributes['numberOfPosts'],
+			'post_type'      => $post_type,
+			'orderby'        => 'meta_value',
+			'meta_key'       => '_EventStartDate',
+			'post__not_in'   => array( get_the_ID() ),
+			'order'          => 'ASC',
+			'paged'          => $paged,
+			'post_status'    => array( 'publish' ),
+			'meta_query'     => array(
+				'relation' => 'AND',
+			),
+		);
+
+		if ( $offset > 0 ) {
+			$args['offset'] = absint( $offset );
+			unset( $args['paged'] );
+		}
+
+		if ( false == $attributes['includeHiddenEvents'] ) {
+			$args['meta_query'][] = array(
+				'key'     => '_EventHideFromUpcoming',
+				'compare' => 'NOT EXISTS',
+			);
+		}
+
+		if ( true !== $attributes['includePastEvents'] ) {
+			$args['meta_query'][] = array(
+				'key'     => '_EventEndDateUTC',
+				'value'   => gmdate( 'Y-m-d H:i' ),
+				'compare' => '>=',
+				'type'    => 'DATETIME',
+			);
+		} else {
+			$args['order'] = $attributes['sortOrder'];
+			if ( true == $attributes['onlyPastEvents'] ) {
+				$args['meta_query'][] = array(
+					'key'     => '_EventEndDateUTC',
+					'value'   => gmdate( 'Y-m-d H:i' ),
+					'compare' => '<=',
+					'type'    => 'DATETIME',
+				);
+			}
+		}
+
+		if ( true === $attributes['filterByCategory'] && ! empty( $attributes['catTermsSelected'] ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'tribe_events_cat',
+					'field'    => 'term_id',
+					'terms'    => explode( ',', $attributes['catTermsSelected'] ),
+				),
+			);
+		}
+
+		if ( true === $attributes['filterByTag'] && ! empty( $attributes['catTagsSelected'] ) ) {
+			if ( isset( $args['tax_query'] ) && is_array( $args['tax_query'] ) ) {
+				$args['tax_query'][] = array(
+					'taxonomy' => 'post_tag',
+					'field'    => 'term_id',
+					'terms'    => explode( ',', $attributes['catTagsSelected'] ),
+				);
+			} else {
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'post_tag',
+						'field'    => 'term_id',
+						'terms'    => explode( ',', $attributes['catTagsSelected'] ),
+					),
+				);
+			}
+		}
+
+		if ( true === $attributes['filterByVenue'] ) {
+			$args['meta_query'][] = array(
+				'key'     => '_EventVenueID',
+				'value'   => $attributes['venueSelected'],
+				'compare' => '=',
+			);
+		}
+
+		if ( true === $attributes['featuredEvents'] ) {
+			$args['meta_query'][] = array(
+				'key'     => '_tribe_featured',
+				'value'   => true,
+				'compare' => '=',
+			);
+		}
+
+		return apply_filters( 'carkeek_block_events_layout_query_args', $args, $attributes );
+	}
+
+	/**
+	 * Render a single events-archive item using the template loader.
+	 *
+	 * @param string $template         Template slug (e.g. 'tribe_events_item').
+	 * @param array  $attributes       Block attributes.
+	 * @param object $template_loader  Template loader instance.
+	 * @return string HTML for one event card.
+	 */
+	private static function render_events_archive_item( $template, $attributes, $template_loader ) {
+		ob_start();
+		$template_loader
+			->set_template_data( $attributes )
+			->get_template_part( 'events/' . $template );
+		$post_html = ob_get_clean();
+
+		if ( empty( $post_html ) ) {
+			ob_start();
+			$template_loader
+				->set_template_data( $attributes )
+				->get_template_part( 'events/default_item' );
+			$post_html = ob_get_clean();
+		}
+
+		return apply_filters( 'carkeek_block_events_layout', $post_html, get_post(), $attributes );
+	}
+
+	/**
+	 * AJAX handler for events archive load more.
+	 *
+	 * @return void
+	 */
+	public function ajax_load_more_events_archive() {
+		if ( ! check_ajax_referer( 'ckb_events_archive_load_more', 'nonce', false ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid nonce.' ), 403 );
+		}
+
+		$attributes_json = isset( $_POST['attributes'] ) ? wp_unslash( $_POST['attributes'] ) : ''; // phpcs:ignore
+		$attributes      = json_decode( $attributes_json, true );
+		$page            = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 2; // phpcs:ignore
+
+		if ( ! is_array( $attributes ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid attributes.' ), 400 );
+		}
+
+		$page     = max( 2, $page );
+		$per_page = isset( $attributes['numberOfPosts'] ) ? intval( $attributes['numberOfPosts'] ) : 0;
+
+		if ( $per_page <= 0 ) {
+			wp_send_json_error( array( 'message' => 'Invalid posts per page.' ), 400 );
+		}
+
+		// Cap per-page to prevent DoS via inflated numberOfPosts from client payload.
+		$per_page = min( $per_page, 100 );
+
+		// Whitelist sortOrder.
+		if ( isset( $attributes['sortOrder'] ) && ! in_array( strtoupper( $attributes['sortOrder'] ), array( 'ASC', 'DESC' ), true ) ) {
+			$attributes['sortOrder'] = 'ASC';
+		}
+
+		$offset     = ( $page - 1 ) * $per_page;
+		$args       = self::build_events_archive_query_args( $attributes, $offset );
+		$query      = new WP_Query( $args );
+		$items_html = '';
+		$template   = apply_filters( 'carkeek_block_events_layout__template', 'tribe_events_item', $attributes );
+		$loader     = new Carkeek_Blocks_Template_Loader();
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$items_html .= self::render_events_archive_item( $template, $attributes, $loader );
 			}
 		}
 
@@ -1139,30 +1332,12 @@ class CarkeekBlocks_CustomArchive {
 			} else {
 				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '">';
 			}
-			$count            = 0;
-			$template         = $post_type . '_item';
-			$template         = apply_filters( 'carkeek_block_events_layout__template', $template, $attributes );
+			$template = $post_type . '_item';
+			$template = apply_filters( 'carkeek_block_events_layout__template', $template, $attributes );
 
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				global $post;
-
-				ob_start();
-				$ck_blocks_template_loader
-					->set_template_data( $attributes )
-					->get_template_part( 'events/' . $template );
-				$post_html = ob_get_clean();
-
-				if ( empty( $post_html ) ) {
-					ob_start();
-					$ck_blocks_template_loader
-						->set_template_data( $attributes )
-						->get_template_part( 'events/default_item' );
-					$post_html = ob_get_clean();
-				}
-				$posts .= apply_filters( 'carkeek_block_events_layout', $post_html, $post, $attributes );
-				$count++;
-
+				$posts .= self::render_events_archive_item( $template, $attributes, $ck_blocks_template_loader );
 			}
 			if ( 'ul' == $layout ) {
 				$posts .= '</ul>';
@@ -1185,6 +1360,33 @@ class CarkeekBlocks_CustomArchive {
 				);
 				$posts .= '</div>';
 
+			}
+
+			$show_ajax_load_more = isset( $attributes['enableAjaxLoadMore'] )
+				&& true == $attributes['enableAjaxLoadMore']
+				&& empty( $attributes['showPagination'] )
+				&& isset( $attributes['numberOfPosts'] )
+				&& $attributes['numberOfPosts'] > 0
+				&& empty( $attributes['prioritizeRelated'] );
+
+			if ( $show_ajax_load_more && $query->found_posts > (int) $attributes['numberOfPosts'] ) {
+				$load_more_label                   = ! empty( $attributes['ajaxLoadMoreLabel'] ) ? $attributes['ajaxLoadMoreLabel'] : __( 'Load More', 'carkeek-blocks' );
+				$loading_label                     = __( 'Loading...', 'carkeek-blocks' );
+				$error_label                       = __( 'Unable to load more events. Please try again.', 'carkeek-blocks' );
+				$load_more_attrs                   = $attributes;
+				$load_more_attrs['showPagination'] = false;
+				$posts .= '<div class="ck-custom-archive__buttons ck-events-archive__load-more-wrap">'
+					. '<button type="button" class="button js-ck-events-archive-load-more"'
+					. ' data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '"'
+					. ' data-nonce="' . esc_attr( wp_create_nonce( 'ckb_events_archive_load_more' ) ) . '"'
+					. ' data-current-page="1"'
+					. ' data-default-label="' . esc_attr( $load_more_label ) . '"'
+					. ' data-loading-label="' . esc_attr( $loading_label ) . '"'
+					. ' data-error-label="' . esc_attr( $error_label ) . '"'
+					. ' data-attributes="' . esc_attr( wp_json_encode( $load_more_attrs ) ) . '"'
+					. '>' . esc_html( $load_more_label ) . '</button>'
+					. '<div class="ck-events-archive__load-more-status js-ck-events-archive-load-more-status" aria-live="polite"></div>'
+					. '</div>';
 			}
 
 			$posts .= '</div>';

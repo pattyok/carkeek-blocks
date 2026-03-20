@@ -54,7 +54,9 @@ function postsInspector(props) {
         includeHiddenEvents,
         onlyPastEvents,
         sortOrder,
-        prioritizeRelated
+        prioritizeRelated,
+        enableAjaxLoadMore,
+        ajaxLoadMoreLabel,
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
@@ -263,8 +265,11 @@ function postsInspector(props) {
     );
 
     function handlePaginationSettingChange(value) {
-        setAttributes({ showPagination: value })
-        setAttributes({ limitItemsMobile: false })
+        setAttributes({ showPagination: value });
+        setAttributes({ limitItemsMobile: false });
+        if (value) {
+            setAttributes({ enableAjaxLoadMore: false });
+        }
     }
 
 
@@ -351,6 +356,21 @@ function postsInspector(props) {
                         checked={showPagination}
                         onChange={(value) => handlePaginationSettingChange(value)}
                     />
+                    <ToggleControl
+                        label={__("Enable Load More Button", "carkeek-blocks")}
+                        help={__("Adds a button that loads the next batch of events via AJAX. Disabled when Pagination is on or Show All is selected.", "carkeek-blocks")}
+                        checked={enableAjaxLoadMore}
+                        disabled={showPagination || numberOfPosts === -1}
+                        onChange={(value) => setAttributes({ enableAjaxLoadMore: value })}
+                    />
+                    {enableAjaxLoadMore && (
+                        <TextControl
+                            label={__("Load More Button Label", "carkeek-blocks")}
+                            value={ajaxLoadMoreLabel}
+                            placeholder={__("Load More", "carkeek-blocks")}
+                            onChange={(value) => setAttributes({ ajaxLoadMoreLabel: value })}
+                        />
+                    )}
                     <ToggleControl
                         label={__("Hide Block if Empty")}
                         checked={hideIfEmpty}
