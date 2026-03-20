@@ -44,7 +44,11 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
-= 3.2.76 =
+= 3.2.80 - 3.2.81 =
+* Release 3.2.80 - 03/17/26
+	* Added Load more button to Event Archive
+	* Fixed anchor on Event archive and Custom Archive
+= 3.2.76 - 3.2.80=
 * Release 3.2.76 - 03/17/26
 	* Added an Image Compare Block
 = 3.2.75 =
