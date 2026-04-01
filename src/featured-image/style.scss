@@ -1,6 +1,6 @@
 :root {
-	--ck-featured-image-ratio: 3 /4;
-	--ck-featured-image-ratio-portrait: 125%;
+	--ck-featured-image-ratio: 4 / 3;
+	--ck-featured-image-ratio-portrait: 3 / 4;
 }
 
 .wp-block-carkeek-blocks-featured-image:not(.is-style-no-crop) {
@@ -11,6 +11,7 @@
 	& img {
 		aspect-ratio: var(--ck-featured-image-ratio);
 		object-fit: cover;
+		overflow-clip-margin: unset;
 		object-position: 50% 50%;
 	}
 
