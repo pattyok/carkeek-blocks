@@ -1,1 +1,43 @@
-.wp-block-list.has-2-columns{-moz-columns:2;column-count:2}.wp-block-list.has-3-columns{-moz-columns:3;column-count:3}.wp-block-list.has-4-columns{-moz-columns:4;column-count:4}.wp-block-list.has-5-columns{-moz-columns:5;column-count:5}.wp-block-list.has-6-columns{-moz-columns:6;column-count:6}.wp-block-list.has-2-columns li,.wp-block-list.has-3-columns li,.wp-block-list.has-4-columns li,.wp-block-list.has-5-columns li,.wp-block-list.has-6-columns li{-moz-column-break-inside:avoid;break-inside:avoid;margin-bottom:.5rem}
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/plugins/list-columns/style.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Frontend styles for list columns
+ */
+.wp-block-list.has-2-columns {
+  -moz-columns: 2;
+       columns: 2;
+}
+
+.wp-block-list.has-3-columns {
+  -moz-columns: 3;
+       columns: 3;
+}
+
+.wp-block-list.has-4-columns {
+  -moz-columns: 4;
+       columns: 4;
+}
+
+.wp-block-list.has-5-columns {
+  -moz-columns: 5;
+       columns: 5;
+}
+
+.wp-block-list.has-6-columns {
+  -moz-columns: 6;
+       columns: 6;
+}
+
+/* Improve spacing */
+.wp-block-list.has-2-columns li,
+.wp-block-list.has-3-columns li,
+.wp-block-list.has-4-columns li,
+.wp-block-list.has-5-columns li,
+.wp-block-list.has-6-columns li {
+  margin-bottom: 0.5rem;
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

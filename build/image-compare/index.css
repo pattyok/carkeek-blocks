@@ -1,1 +1,100 @@
-.wp-block-carkeek-blocks-image-compare .cd-image-label{opacity:1;transform:translateY(0);transition:none}.wp-block-carkeek-blocks-image-compare .cd-image-label--visible{opacity:1!important;transform:translateY(0)!important;visibility:visible!important}.wp-block-carkeek-blocks-image-compare .cd-handle--preview{opacity:1;pointer-events:none;transform:translateZ(0) scale(1);transition:none}.wp-block-carkeek-blocks-image-compare .ck-ic-setup{background:#f0f0f0;display:flex;gap:8px;min-height:200px;padding:8px}.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-panel{align-items:center;background:#fff;border:2px dashed #ccc;display:flex;flex:1;flex-direction:column;justify-content:center;min-height:180px;overflow:hidden;position:relative}.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-panel .block-editor-media-placeholder{height:100%;margin:0;width:100%}.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-thumb{display:block;height:180px;-o-object-fit:cover;object-fit:cover;width:100%}.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-label{background:rgba(0,0,0,.5);bottom:0;color:#fff;font-size:12px;left:0;margin:0;padding:4px 8px;position:absolute;right:0;text-align:center}.wp-block-carkeek-blocks-image-compare .ck-ic-no-image{color:#757575;font-size:12px;font-style:italic}.wp-block-carkeek-blocks-image-compare .ck-ic-replace-btn{font-size:12px;opacity:0;pointer-events:none;position:absolute;top:8px;transition:opacity .15s ease;z-index:20}.wp-block-carkeek-blocks-image-compare .ck-ic-replace-btn--right{right:8px}.wp-block-carkeek-blocks-image-compare .ck-ic-replace-btn--left{left:8px}.wp-block-carkeek-blocks-image-compare.is-selected .ck-ic-replace-btn,.wp-block-carkeek-blocks-image-compare:focus-within .ck-ic-replace-btn{opacity:1;pointer-events:auto}.wp-block-carkeek-blocks-image-compare .ck-ic-setup-replace{background:none;border:none;cursor:pointer;display:block;padding:0;position:relative;width:100%}.wp-block-carkeek-blocks-image-compare .ck-ic-setup-replace:hover .ck-ic-setup-label{background:rgba(0,119,190,.85)}
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/image-compare/editor.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+.wp-block-carkeek-blocks-image-compare .cd-image-label {
+  opacity: 1;
+  transform: translateY(0);
+  transition: none;
+}
+.wp-block-carkeek-blocks-image-compare .cd-image-label--visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+.wp-block-carkeek-blocks-image-compare .cd-handle--preview {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: none;
+  pointer-events: none;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #f0f0f0;
+  min-height: 200px;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 180px;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-panel .block-editor-media-placeholder {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-thumb {
+  width: 100%;
+  height: 180px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup .ck-ic-setup-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-no-image {
+  color: #757575;
+  font-style: italic;
+  font-size: 12px;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-replace-btn {
+  position: absolute;
+  top: 8px;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  font-size: 12px;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-replace-btn--right {
+  right: 8px;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-replace-btn--left {
+  left: 8px;
+}
+.wp-block-carkeek-blocks-image-compare:focus-within .ck-ic-replace-btn, .wp-block-carkeek-blocks-image-compare.is-selected .ck-ic-replace-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup-replace {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+.wp-block-carkeek-blocks-image-compare .ck-ic-setup-replace:hover .ck-ic-setup-label {
+  background: rgba(0, 119, 190, 0.85);
+}
+
+/*# sourceMappingURL=index.css.map*/

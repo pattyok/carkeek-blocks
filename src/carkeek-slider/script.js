@@ -15,9 +15,15 @@ import jQuery from 'jquery';
             const transSpeed = $(this).data("transitionspd");
             const dots = $(this).data("showdots");
             const arrows = $(this).data("arrows");
+			const infiniteScroll = $(this).data("infinite");
+			let infinite = true;
+			if (infiniteScroll === false) {
+				infinite = false;
+			}
             const options = {
                 dots: dots,
                 speed: transSpeed,
+				infinite: infinite
             };
             if (true == autoPlay) {
                 options.autoplay = true;
@@ -70,4 +76,11 @@ import jQuery from 'jquery';
         });
 
     });
+	$(".wp-block-carkeek-blocks-carkeek-slider .ck-carkeek-slider__slide-wrapper").on('click', '.slick-arrow', function(){
+		const $this = $(this);
+		$this.addClass('arrow-button-active');
+		setTimeout(function(){
+			$this.removeClass('arrow-button-active');
+		}, 500);
+	});
 })(jQuery);

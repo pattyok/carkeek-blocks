@@ -1,1 +1,118 @@
-!function(){const t=()=>{const t=document.querySelectorAll(".js-ck-custom-archive-load-more");t.length&&t.forEach((t=>{"1"!==t.dataset.ckLoadMoreInit&&(t.dataset.ckLoadMoreInit="1",t.addEventListener("click",(async e=>{if(e.preventDefault(),t.disabled)return;const a=t.closest(".carkeek-archive"),n=null==a?void 0:a.querySelector(".ck-custom-archive__list");if(!a||!n)return;const o=t.dataset.ajaxUrl,r=t.dataset.nonce,s=t.dataset.attributes,d=parseInt(t.dataset.currentPage||"1",10),i=t.dataset.defaultLabel||t.textContent.trim(),c=t.dataset.loadingLabel||"Loading...",l=t.dataset.errorLabel||"Unable to load more posts.",u=a.querySelector(".js-ck-custom-archive-load-more-status");if(!o||!r||!s)return;t.disabled=!0,t.classList.add("is-loading"),t.textContent=c,t.setAttribute("aria-busy","true"),u&&(u.textContent="");const m=new FormData;m.append("action","ckb_custom_archive_load_more"),m.append("nonce",r),m.append("attributes",s),m.append("page",String(d+1));try{const e=await fetch(o,{method:"POST",credentials:"same-origin",body:m}),a=await e.json();if(null==a||!a.success||null==a||!a.data)throw new Error("Invalid response");if(a.data.itemsHtml&&n.insertAdjacentHTML("beforeend",a.data.itemsHtml),t.dataset.currentPage=String(a.data.nextPage||d+1),!a.data.hasMore){const e=t.closest(".ck-custom-archive__load-more-wrap");return void(e?e.remove():t.remove())}}catch(e){return t.disabled=!1,t.classList.remove("is-loading"),t.removeAttribute("aria-busy"),t.textContent=i,void(u&&(u.textContent=l))}t.disabled=!1,t.classList.remove("is-loading"),t.removeAttribute("aria-busy"),t.textContent=i})))}))};"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t()}();
+/******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!************************************!*\
+  !*** ./src/custom-archive/view.js ***!
+  \************************************/
+const initCustomArchiveLoadMore = () => {
+  const buttons = document.querySelectorAll('.js-ck-custom-archive-load-more');
+
+  if (!buttons.length) {
+    return;
+  }
+
+  buttons.forEach(button => {
+    if (button.dataset.ckLoadMoreInit === '1') {
+      return;
+    }
+
+    button.dataset.ckLoadMoreInit = '1';
+    button.addEventListener('click', async event => {
+      event.preventDefault();
+
+      if (button.disabled) {
+        return;
+      }
+
+      const container = button.closest('.carkeek-archive');
+      const list = container === null || container === void 0 ? void 0 : container.querySelector('.ck-custom-archive__list');
+
+      if (!container || !list) {
+        return;
+      }
+
+      const ajaxUrl = button.dataset.ajaxUrl;
+      const nonce = button.dataset.nonce;
+      const attributes = button.dataset.attributes;
+      const currentPage = parseInt(button.dataset.currentPage || '1', 10);
+      const defaultLabel = button.dataset.defaultLabel || button.textContent.trim();
+      const loadingLabel = button.dataset.loadingLabel || 'Loading...';
+      const errorLabel = button.dataset.errorLabel || 'Unable to load more posts.';
+      const statusNode = container.querySelector('.js-ck-custom-archive-load-more-status');
+
+      if (!ajaxUrl || !nonce || !attributes) {
+        return;
+      }
+
+      button.disabled = true;
+      button.classList.add('is-loading');
+      button.textContent = loadingLabel;
+      button.setAttribute('aria-busy', 'true');
+
+      if (statusNode) {
+        statusNode.textContent = '';
+      }
+
+      const formData = new FormData();
+      formData.append('action', 'ckb_custom_archive_load_more');
+      formData.append('nonce', nonce);
+      formData.append('attributes', attributes);
+      formData.append('page', String(currentPage + 1));
+
+      try {
+        const response = await fetch(ajaxUrl, {
+          method: 'POST',
+          credentials: 'same-origin',
+          body: formData
+        });
+        const payload = await response.json();
+
+        if (!(payload !== null && payload !== void 0 && payload.success) || !(payload !== null && payload !== void 0 && payload.data)) {
+          throw new Error('Invalid response');
+        }
+
+        if (payload.data.itemsHtml) {
+          list.insertAdjacentHTML('beforeend', payload.data.itemsHtml);
+        }
+
+        button.dataset.currentPage = String(payload.data.nextPage || currentPage + 1);
+
+        if (!payload.data.hasMore) {
+          const wrapper = button.closest('.ck-custom-archive__load-more-wrap');
+
+          if (wrapper) {
+            wrapper.remove();
+          } else {
+            button.remove();
+          }
+
+          return;
+        }
+      } catch (error) {
+        button.disabled = false;
+        button.classList.remove('is-loading');
+        button.removeAttribute('aria-busy');
+        button.textContent = defaultLabel;
+
+        if (statusNode) {
+          statusNode.textContent = errorLabel;
+        }
+
+        return;
+      }
+
+      button.disabled = false;
+      button.classList.remove('is-loading');
+      button.removeAttribute('aria-busy');
+      button.textContent = defaultLabel;
+    });
+  });
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCustomArchiveLoadMore);
+} else {
+  initCustomArchiveLoadMore();
+}
+/******/ })()
+;
+//# sourceMappingURL=view.js.map

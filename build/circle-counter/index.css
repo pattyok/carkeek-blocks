@@ -1,1 +1,12 @@
-.wp-block-carkeek-blocks-circle-counter .components-number-control{height:auto!important}.wp-block-carkeek-blocks-circle-counter .rich-text [data-rich-text-placeholder]{color:#a6a6a6;font-style:italic}
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/circle-counter/editor.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+.wp-block-carkeek-blocks-circle-counter .components-number-control {
+  height: auto !important;
+}
+.wp-block-carkeek-blocks-circle-counter .rich-text [data-rich-text-placeholder] {
+  font-style: italic;
+  color: #a6a6a6;
+}
+
+/*# sourceMappingURL=index.css.map*/

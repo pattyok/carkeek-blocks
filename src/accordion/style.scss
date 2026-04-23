@@ -17,10 +17,15 @@
 	--ck-accordion-borders: 1px solid #ccc;
 	--ck-accordion-header-padding: 1rem;
 	--ck-accordion-expand: "\F138";
+	--ck-accordion-collapse: "\F138";
 	--ck-accordion-border-radius: 0;
  }
 
 .wp-block-carkeek-blocks-accordion {
+	&.has-expand-icon-plus {
+		--ck-accordion-expand: "\e808";
+		--ck-accordion-collapse: "\e809";
+	}
 	/**
 	* Accordion container element
 	*/
@@ -76,8 +81,8 @@
 
 		&::after {
 			font-family: var(--ck-icon-font-family);
-			content: var(--ck-accordion-expand);
-
+			content: var(--ck-accordion-collapse);
+			font-weight: 400;
 			transition: transform 0.2s ease-in-out;
 			transform-origin: center center;
 			transform: rotate(0deg);
@@ -85,6 +90,9 @@
 
 		&[aria-expanded="false"] {
 			margin-bottom: var(--ck-accordion-panel-spacing);
+			&::after {
+				content: var(--ck-accordion-expand);
+			}
 		}
 	}
 

@@ -1,1 +1,574 @@
-!function(){"use strict";var e=window.wp.element,t=window.wp.editor,o=window.wp.i18n,a=window.wp.components,l=window.wp.data,s=window.wp.compose;const c=(0,l.withSelect)((e=>{const{getEditedPostAttribute:t}=e("core/editor"),{getMedia:o,getPostType:a}=e("core"),{getSettings:l}=e("core/block-editor"),s=l().colors||[],c=a(t("type"));let i,r,n,d,u,m,k,p=!1,g=!1,_=!1;return c&&c.supports["custom-fields"]&&c.supports["custom-fields"]&&(g=!0),g&&(i=t("meta")._carkeekblocks_title_hidden,r=t("meta")._carkeekblocks_featuredimage_hidden,n=t("meta")._carkeekblocks_featured_image_focal_point,d=t("featured_media"),u=d?o(d):null,p=!(!ckBlocksVars||1!=ckBlocksVars.supportsOpacity),p&&(m=t("meta")._carkeekblocks_featured_image_opacity,101===m&&(m=parseInt(ckBlocksVars.opacityDefault))),ckBlocksVars&&1==ckBlocksVars.supportsColor&&(_=!0,k=t("meta")._carkeekblocks_featured_image_color)),{hideTitle:i,hideFeaturedImage:r,featuredMedia:u,featuredImageFocalPoint:n,supportsMeta:g,featuredImageOpacity:m,supportsOpacity:p,supportsColor:_,featuredImageColor:k,themeColors:s}})),i=(0,l.withDispatch)((e=>{const{editPost:t}=e("core/editor");return{setHideTitle:e=>{t({meta:{_carkeekblocks_title_hidden:e}})},setHideFeaturedImage:e=>{t({meta:{_carkeekblocks_featuredimage_hidden:e}})},setFeaturedImageFocalPoint:e=>{t({meta:{_carkeekblocks_featured_image_focal_point:e}})},setFeaturedImageOpacity:e=>{t({meta:{_carkeekblocks_featured_image_opacity:e}})},setFeaturedImageColor:e=>{t({meta:{_carkeekblocks_featured_image_color:e}})}}}));var r=(0,s.compose)(c,i)((function(l){const{hideTitle:s,setHideTitle:c,hideFeaturedImage:i,setHideFeaturedImage:r,featuredMedia:n,featuredImageFocalPoint:d,setFeaturedImageFocalPoint:u,supportsMeta:m,supportsOpacity:k,setFeaturedImageOpacity:p,featuredImageOpacity:g,setFeaturedImageColor:_,featuredImageColor:h,supportsColor:b,themeColors:f}=l,y=document.querySelector(".editor-visual-editor__post-title-wrapper"),w={x:.5,y:.5};if(!k||d&&"object"==typeof d||u(w),y){const e=void 0!==s&&void 0!==s&&s,t=e?"carkeek-blocks-title-hidden":"carkeek-blocks-title-visible";e?document.body.classList.remove("carkeek-blocks-title-visible"):document.body.classList.remove("carkeek-blocks-title-hidden"),document.body.classList.add(t),Array.from(y.classList).forEach((e=>{e.startsWith("has-")&&e.includes("-background")&&y.classList.remove(e)})),h&&(y.classList.add(`has-${h}-background-color`),y.classList.add("has-background"))}let C,v,F;if(!i&&n&&n.source_url){const t=n.source_url,{width:l,height:s}=n.media_details,c=k?"ck-focal-point-wrapper has-opacity":"";C=(0,e.createElement)("div",{className:c,style:{"--focal-opacity":g}},(0,e.createElement)(a.FocalPointPicker,{label:(0,o.__)("Featured Image Focal Point"),url:t,dimensions:{width:l,height:s},value:d,onChange:e=>u(e)}),(0,e.createElement)(a.Button,{variant:"secondary",className:"is-secondary",onClick:function(){u(w)}},"Reset FocalPoint")),k&&(v=(0,e.createElement)(e.Fragment,null,(0,e.createElement)(a.RangeControl,{label:"Overlay Opacity",value:g,onChange:e=>p(e),min:0,max:50,step:5})))}var E;b&&(F=(0,e.createElement)(e.Fragment,null,(0,e.createElement)("label",{style:{marginTop:"12px"},class:"components-base-control__label css-2o4jwd ej5x27r2",for:"components-circular-option-picker-0"},"Header Color"),(0,e.createElement)(a.ColorPalette,{colors:f,disableCustomColors:!0,value:h?null===(E=f.find((e=>e.slug===h)))||void 0===E?void 0:E.color:null,onChange:e=>{if(null==e)_(null);else{const t=f.find((t=>t.color===e));_(t?t.slug:null)}},clearable:!0})));const I=(0,e.createElement)(a.CheckboxControl,{className:"carkeek-hide-featured-image-label",label:"Hide Featured Image",checked:i,onChange:e=>r(e),help:i?(0,o.__)("The Featured Image is hidden on the rendered page.","carkeek-blocks"):(0,o.__)("The Featured Image is visible on the rendered page.","carkeek-blocks")});return(0,e.createElement)(t.PluginDocumentSettingPanel,{name:"page-header-settings-panel",title:"Page Header Settings",className:"page-header-settings-panel"},m&&(0,e.createElement)(e.Fragment,null,(0,e.createElement)(a.CheckboxControl,{className:"carkeek-hide-title-label",label:(0,o.__)("Hide Page Title","carkeek-blocks"),checked:s,onChange:e=>c(e),help:s?(0,o.__)("Title is hidden on the rendered page.","carkeek-blocks"):null}),I,C,v,F,(0,e.createElement)("p",null),(0,e.createElement)("p",null,"These settings may not be applied on all pages/posts.")),!m&&(0,e.createElement)("p",null,"Not supported for this post type. If you want to use this feature on this post, let your site admin know that this post type must support 'custom-fields'."))})),n=window.wp.plugins;(0,n.registerPlugin)("carkeek-blocks-pageheader",{icon:!1,render:r}),(0,n.registerPlugin)("carkeek-blocks-sidebar",{icon:!1,render:function(){const s=(0,l.useSelect)((e=>e("core/edit-post").isFeatureActive("ckGroupOutlines"))),c=(0,l.useSelect)((e=>e("core/edit-post").isFeatureActive("ckColumnOutlines"))),i=(0,l.useSelect)((e=>e("core/edit-post").isFeatureActive("ckBlockOutlines"))),{toggleFeature:r}=(0,l.useDispatch)("core/edit-post");return s?document.body.classList.add("is-group-lines-on"):document.body.classList.remove("is-group-lines-on"),c?document.body.classList.add("is-column-lines-on"):document.body.classList.remove("is-column-lines-on"),i?document.body.classList.add("is-block-lines-on"):document.body.classList.remove("is-block-lines-on"),(0,e.createElement)(t.PluginSidebar,{name:"carkeek-blocks-sidebar",icon:"admin-settings",title:(0,o.__)("Carkeek Blocks")},(0,e.createElement)(a.PanelBody,{title:(0,o.__)("Editor Controls")},(0,e.createElement)(a.ToggleControl,{label:(0,o.__)("Outline Groups"),checked:s,help:(0,o.__)("Show outlines on Group Blocks in edit view"),onChange:()=>{r("ckGroupOutlines")}}),(0,e.createElement)(a.ToggleControl,{label:(0,o.__)("Outline Columns"),checked:c,help:(0,o.__)("Show outlines on Column Blocks in edit view"),onChange:()=>{r("ckColumnOutlines")}}),(0,e.createElement)(a.ToggleControl,{label:(0,o.__)("Outline All Blocks"),checked:i,help:(0,o.__)("Show outlines on all Blocks in edit view"),onChange:()=>{r("ckBlockOutlines")}})))}})}();
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/plugins/page-header/settings.js":
+/*!*********************************************!*\
+  !*** ./src/plugins/page-header/settings.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/editor */ "@wordpress/editor");
+/* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+/* global ckBlocksVars */
+
+function PageHeaderSettings(props) {
+  const {
+    hideTitle,
+    setHideTitle,
+    hideFeaturedImage,
+    setHideFeaturedImage,
+    featuredMedia,
+    featuredImageFocalPoint,
+    setFeaturedImageFocalPoint,
+    supportsMeta,
+    supportsOpacity,
+    setFeaturedImageOpacity,
+    featuredImageOpacity,
+    setFeaturedImageColor,
+    featuredImageColor,
+    supportsColor,
+    themeColors
+  } = props;
+  const titleBlock = document.querySelector(".editor-visual-editor__post-title-wrapper");
+  const defaultFocal = {
+    x: 0.5,
+    y: 0.5
+  };
+
+  if (supportsOpacity && (!featuredImageFocalPoint || typeof featuredImageFocalPoint !== 'object')) {
+    setFeaturedImageFocalPoint(defaultFocal);
+  }
+
+  if (titleBlock) {
+    const isHidden = typeof hideTitle !== "undefined" && typeof hideTitle !== "undefined" ? hideTitle : false;
+    const bodyClass = isHidden ? "carkeek-blocks-title-hidden" : "carkeek-blocks-title-visible"; //remove existing class
+
+    if (isHidden) {
+      document.body.classList.remove("carkeek-blocks-title-visible");
+    } else {
+      document.body.classList.remove("carkeek-blocks-title-hidden");
+    }
+
+    document.body.classList.add(bodyClass); // Set title background color class from featured image color
+    // Remove any existing background color classes
+
+    Array.from(titleBlock.classList).forEach(className => {
+      if (className.startsWith('has-') && className.includes('-background')) {
+        titleBlock.classList.remove(className);
+      }
+    });
+
+    if (featuredImageColor) {
+      // Add the background color class
+      titleBlock.classList.add(`has-${featuredImageColor}-background-color`);
+      titleBlock.classList.add(`has-background`);
+    }
+  } // console.log(featuredImageOpacity);
+  // console.log(ckBlocksVars);
+  // if (!featuredImageOpacity && featuredImageOpacity !== 0 ) {
+  //     setFeaturedImageOpacity(ckBlocksVars.opacityDefault);
+  // }
+
+
+  function resetFocalPoint() {
+    setFeaturedImageFocalPoint(defaultFocal);
+  }
+
+  let focalPoint, opacityPicker;
+
+  if (!hideFeaturedImage && featuredMedia && featuredMedia.source_url) {
+    const url = featuredMedia.source_url;
+    const {
+      width,
+      height
+    } = featuredMedia.media_details;
+    const imageClasses = supportsOpacity ? `ck-focal-point-wrapper has-opacity` : '';
+    focalPoint = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: imageClasses,
+      style: {
+        "--focal-opacity": featuredImageOpacity
+      }
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FocalPointPicker, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Featured Image Focal Point'),
+      url: url,
+      dimensions: {
+        width,
+        height
+      },
+      value: featuredImageFocalPoint,
+      onChange: newFocalPoint => setFeaturedImageFocalPoint(newFocalPoint)
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+      variant: "secondary",
+      className: 'is-secondary',
+      onClick: resetFocalPoint
+    }, "Reset FocalPoint"));
+
+    if (supportsOpacity) {
+      opacityPicker = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+        label: "Overlay Opacity",
+        value: featuredImageOpacity,
+        onChange: value => setFeaturedImageOpacity(value),
+        min: 0,
+        max: 50,
+        step: 5
+      }));
+    }
+  }
+
+  let headerColorPicker;
+
+  if (supportsColor) {
+    var _themeColors$find;
+
+    headerColorPicker = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+      style: {
+        marginTop: '12px'
+      },
+      class: "components-base-control__label css-2o4jwd ej5x27r2",
+      for: "components-circular-option-picker-0"
+    }, "Header Color"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
+      colors: themeColors,
+      disableCustomColors: true,
+      value: featuredImageColor ? (_themeColors$find = themeColors.find(color => color.slug === featuredImageColor)) === null || _themeColors$find === void 0 ? void 0 : _themeColors$find.color : null,
+      onChange: colorValue => {
+        if (colorValue === undefined || colorValue === null) {
+          // Color was cleared
+          setFeaturedImageColor(null);
+        } else {
+          // Find the color object by hex value
+          const selectedColor = themeColors.find(color => color.color === colorValue); // Save the slug/name instead of hex value
+
+          setFeaturedImageColor(selectedColor ? selectedColor.slug : null);
+        }
+      },
+      clearable: true
+    }));
+  }
+
+  const hideImageCheckbox = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CheckboxControl, {
+    className: "carkeek-hide-featured-image-label",
+    label: "Hide Featured Image",
+    checked: hideFeaturedImage,
+    onChange: value => setHideFeaturedImage(value),
+    help: hideFeaturedImage ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("The Featured Image is hidden on the rendered page.", "carkeek-blocks") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("The Featured Image is visible on the rendered page.", "carkeek-blocks")
+  });
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_editor__WEBPACK_IMPORTED_MODULE_1__.PluginDocumentSettingPanel, {
+    name: "page-header-settings-panel",
+    title: "Page Header Settings",
+    className: "page-header-settings-panel"
+  }, supportsMeta && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CheckboxControl, {
+    className: "carkeek-hide-title-label",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Hide Page Title", "carkeek-blocks"),
+    checked: hideTitle,
+    onChange: value => setHideTitle(value),
+    help: hideTitle ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Title is hidden on the rendered page.", "carkeek-blocks") : null
+  }), hideImageCheckbox, focalPoint, opacityPicker, headerColorPicker, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "These settings may not be applied on all pages/posts.")), !supportsMeta && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Not supported for this post type. If you want to use this feature on this post, let your site admin know that this post type must support 'custom-fields'."));
+}
+
+const applyWithSelect = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withSelect)(select => {
+  const {
+    getEditedPostAttribute
+  } = select('core/editor');
+  const {
+    getMedia,
+    getPostType
+  } = select('core');
+  const {
+    getSettings
+  } = select('core/block-editor');
+  const settings = getSettings();
+  const themeColors = settings.colors || [];
+  const type = getEditedPostAttribute('type');
+  const postType = getPostType(type);
+  let supportsOpacity = false;
+  let supportsMeta = false,
+      hideTitle,
+      hideFeaturedImage,
+      featuredImageFocalPoint,
+      featuredImageId,
+      featuredMedia,
+      featuredImageOpacity,
+      featuredImageColor,
+      supportsColor = false;
+
+  if (postType && postType.supports['custom-fields'] && postType.supports['custom-fields']) {
+    supportsMeta = true;
+  }
+
+  if (supportsMeta) {
+    //post types need to support custom fields for this to work - if missing or js errors check for that
+    hideTitle = getEditedPostAttribute('meta')['_carkeekblocks_title_hidden'];
+    hideFeaturedImage = getEditedPostAttribute('meta')['_carkeekblocks_featuredimage_hidden'];
+    featuredImageFocalPoint = getEditedPostAttribute('meta')['_carkeekblocks_featured_image_focal_point'];
+    featuredImageId = getEditedPostAttribute('featured_media');
+    featuredMedia = featuredImageId ? getMedia(featuredImageId) : null; //ckBlockVars are stored in site options and passed via wp_add_inline_script
+
+    supportsOpacity = ckBlocksVars && ckBlocksVars.supportsOpacity == 1 ? true : false;
+
+    if (supportsOpacity) {
+      featuredImageOpacity = getEditedPostAttribute('meta')['_carkeekblocks_featured_image_opacity']; //we set the default to 101 so we can distinguish 0 from false.
+
+      if (featuredImageOpacity === 101) {
+        featuredImageOpacity = parseInt(ckBlocksVars.opacityDefault);
+      }
+    }
+
+    if (ckBlocksVars && ckBlocksVars.supportsColor == 1) {
+      supportsColor = true;
+      featuredImageColor = getEditedPostAttribute('meta')['_carkeekblocks_featured_image_color'];
+    }
+  }
+
+  return {
+    hideTitle,
+    hideFeaturedImage,
+    featuredMedia,
+    featuredImageFocalPoint,
+    supportsMeta,
+    featuredImageOpacity,
+    supportsOpacity,
+    supportsColor,
+    featuredImageColor,
+    themeColors
+  };
+});
+const applyWithDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.withDispatch)(dispatch => {
+  const {
+    editPost
+  } = dispatch('core/editor');
+  return {
+    setHideTitle: hideTitle => {
+      editPost({
+        meta: {
+          _carkeekblocks_title_hidden: hideTitle
+        }
+      });
+    },
+    setHideFeaturedImage: hideFeaturedImage => {
+      editPost({
+        meta: {
+          _carkeekblocks_featuredimage_hidden: hideFeaturedImage
+        }
+      });
+    },
+    setFeaturedImageFocalPoint: focalPoint => {
+      editPost({
+        meta: {
+          _carkeekblocks_featured_image_focal_point: focalPoint
+        }
+      });
+    },
+    setFeaturedImageOpacity: focalPoint => {
+      editPost({
+        meta: {
+          _carkeekblocks_featured_image_opacity: focalPoint
+        }
+      });
+    },
+    setFeaturedImageColor: color => {
+      ;
+      editPost({
+        meta: {
+          _carkeekblocks_featured_image_color: color
+        }
+      });
+    }
+  };
+});
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__.compose)(applyWithSelect, applyWithDispatch)(PageHeaderSettings));
+
+/***/ }),
+
+/***/ "./src/plugins/page-header/sidebar.js":
+/*!********************************************!*\
+  !*** ./src/plugins/page-header/sidebar.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/editor */ "@wordpress/editor");
+/* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+function CarkeekSidebar() {
+  const groupOutlines = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    return select('core/edit-post').isFeatureActive('ckGroupOutlines');
+  });
+  const columnOutlines = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    return select('core/edit-post').isFeatureActive('ckColumnOutlines');
+  });
+  const blockOutlines = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+    return select('core/edit-post').isFeatureActive('ckBlockOutlines');
+  });
+  const {
+    toggleFeature
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useDispatch)('core/edit-post');
+
+  if (groupOutlines) {
+    document.body.classList.add('is-group-lines-on');
+  } else {
+    document.body.classList.remove('is-group-lines-on');
+  }
+
+  if (columnOutlines) {
+    document.body.classList.add('is-column-lines-on');
+  } else {
+    document.body.classList.remove('is-column-lines-on');
+  }
+
+  if (blockOutlines) {
+    document.body.classList.add('is-block-lines-on');
+  } else {
+    document.body.classList.remove('is-block-lines-on');
+  }
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_editor__WEBPACK_IMPORTED_MODULE_1__.PluginSidebar, {
+    name: "carkeek-blocks-sidebar",
+    icon: "admin-settings",
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Carkeek Blocks")
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Editor Controls")
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Outline Groups"),
+    checked: groupOutlines,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Show outlines on Group Blocks in edit view"),
+    onChange: () => {
+      toggleFeature('ckGroupOutlines');
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Outline Columns"),
+    checked: columnOutlines,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Show outlines on Column Blocks in edit view"),
+    onChange: () => {
+      toggleFeature('ckColumnOutlines');
+    }
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Outline All Blocks"),
+    checked: blockOutlines,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Show outlines on all Blocks in edit view"),
+    onChange: () => {
+      toggleFeature('ckBlockOutlines');
+    }
+  })));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (CarkeekSidebar);
+
+/***/ }),
+
+/***/ "./src/plugins/page-header/editor.scss":
+/*!*********************************************!*\
+  !*** ./src/plugins/page-header/editor.scss ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/compose":
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["compose"];
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/editor":
+/*!********************************!*\
+  !*** external ["wp","editor"] ***!
+  \********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["editor"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "@wordpress/plugins":
+/*!*********************************!*\
+  !*** external ["wp","plugins"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["plugins"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!******************************************!*\
+  !*** ./src/plugins/page-header/index.js ***!
+  \******************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor.scss */ "./src/plugins/page-header/editor.scss");
+/* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settings */ "./src/plugins/page-header/settings.js");
+/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sidebar */ "./src/plugins/page-header/sidebar.js");
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/plugins */ "@wordpress/plugins");
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__);
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+ //This was breaking Events when we turned off the block editor
+
+(0,_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__.registerPlugin)("carkeek-blocks-pageheader", {
+  icon: false,
+  render: _settings__WEBPACK_IMPORTED_MODULE_1__["default"]
+});
+(0,_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__.registerPlugin)("carkeek-blocks-sidebar", {
+  icon: false,
+  render: _sidebar__WEBPACK_IMPORTED_MODULE_2__["default"]
+});
+}();
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

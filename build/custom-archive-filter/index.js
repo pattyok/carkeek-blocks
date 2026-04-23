@@ -1,1 +1,478 @@
-!function(){"use strict";var e,t={122:function(){var e=window.wp.blocks,t=window.wp.element,l=window.wp.components,r=window.wp.data,n=window.wp.i18n,a=window.wp.blockEditor,o=(0,r.withSelect)(((e,t)=>{const{attributes:l}=t,{taxonomySelected:r}=l,{getEntityRecords:n,getTaxonomies:a}=e("core"),o=n("taxonomy",r,{per_page:-1});let c=a({per_page:-1});return{taxonomies:c,taxSelected:Array.isArray(c)&&1==c.length?c[0]:r,taxTerms:o}}))((function(e){const{attributes:r,setAttributes:o,clientId:c,name:i,taxonomies:s,taxTerms:m}=e,{taxonomySelected:u,taxTermsSelected:d,taxTermsIncludeExclude:p,termOption:k,filterLabel:f}=r;let g=[];if(s&&(g=s.map((e=>({value:e.slug,label:e.name})))),!u){const e={value:null,label:"Select a Taxonomy"};g.unshift(e)}const[b,h]=(0,t.useState)(m);(0,t.useEffect)((()=>{m&&m.length>0&&("some"==k&&d&&d.length>0?h("include"==p?m.filter((e=>d.includes(e.id.toString()))):m.filter((e=>!d.includes(e.id.toString())))):h(m))}),[d,k,p,m]);const v=(0,t.createElement)(t.Fragment,null,s&&s.length>0?(0,t.createElement)(t.Fragment,null,(0,t.createElement)(l.SelectControl,{label:(0,n.__)("Select Taxonomy","carkeek-blocks"),onChange:e=>o({taxonomySelected:e}),options:g,value:u})):(0,t.createElement)("div",{className:"ck-error"},(0,n.__)("There are no taxonomies assigned this post type.","carkeek-blocks")),u&&(0,t.createElement)(t.Fragment,null,(0,t.createElement)(l.RadioControl,{label:(0,n.__)("All Terms or Specific Terms?"),selected:k,options:[{label:(0,n.__)("All"),value:"all"},{label:(0,n.__)("Some"),value:"some"}],onChange:e=>o({termOption:e})}),"some"==k&&(0,t.createElement)(t.Fragment,null,m&&m.length>0?(0,t.createElement)(l.SelectControl,{multiple:!0,label:(0,n.__)("Select Terms","carkeek-blocks"),onChange:e=>o({taxTermsSelected:e}),options:m&&m.map((e=>({value:e.id,label:e.name}))),value:d,help:(0,n.__)("To select multiple [shift]-click","carkeek-blocks")}):(0,t.createElement)("div",{className:"ck-error"},(0,n.__)("There are no terms assigned to this taxonomy.","carkeek-blocks")),d&&(0,t.createElement)(l.RadioControl,{label:(0,n.__)("Include or Exclude Terms"),selected:p,options:[{label:(0,n.__)("Include"),value:"include"},{label:(0,n.__)("Exclude"),value:"exclude"}],onChange:e=>o({taxTermsIncludeExclude:e})})))),x=(0,a.useBlockProps)();return(0,t.createElement)("div",x,(0,t.createElement)(a.InspectorControls,null,(0,t.createElement)(l.PanelBody,{title:(0,n.__)("Filter Settings","carkeek-blocks")},v),(0,t.createElement)(l.PanelBody,{title:(0,n.__)("Layout Settings","carkeek-blocks")},(0,t.createElement)(l.TextControl,{label:"Filter Label",value:f,onChange:e=>o({filterLabel:e})}))),(0,t.createElement)("div",{className:"ck-filter-label"},f),(0,t.createElement)("div",null,u?(0,t.createElement)(t.Fragment,null,b&&b.length>0?(0,t.createElement)("div",{className:"ck-term-filters"},b.map((e=>(0,t.createElement)("span",{key:e.id,className:"ck-term-filter"},e.name)))):(0,t.createElement)("div",{className:"ck-error"},(0,n.__)("There are no terms assigned to this taxonomy.","carkeek-blocks"))):(0,t.createElement)("div",{className:"ck-error"},(0,n.__)("Please select a taxonomy.","carkeek-blocks"))))})),c=JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"carkeek-blocks/custom-archive-filter","title":"Custom Post Type Archive Filter","category":"widgets","description":"Simple filter for the Custom Post Type Archive.","keywords":["archive","posts","list","filter"],"version":"1.0.0","textdomain":"carkeek-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","icon":"filter","supports":{"align":["wide","full","left","center","right"],"anchor":true,"color":{"background":true,"text":true,"link":true},"spacing":{"padding":true,"margin":true}},"attributes":{"filterLabel":{"type":"string","default":""},"taxonomySelected":{"type":"string","default":""},"termOption":{"type":"string","default":"all"},"taxTermsSelected":{"type":"array","default":""},"taxTermsIncludeExclude":{"type":"string","default":"include"},"style":{"type":"object","default":{"spacing":{"margin":{},"padding":{}}}}}}');(0,e.registerBlockType)(c,{edit:o})}},l={};function r(e){var n=l[e];if(void 0!==n)return n.exports;var a=l[e]={exports:{}};return t[e](a,a.exports,r),a.exports}r.m=t,e=[],r.O=function(t,l,n,a){if(!l){var o=1/0;for(m=0;m<e.length;m++){l=e[m][0],n=e[m][1],a=e[m][2];for(var c=!0,i=0;i<l.length;i++)(!1&a||o>=a)&&Object.keys(r.O).every((function(e){return r.O[e](l[i])}))?l.splice(i--,1):(c=!1,a<o&&(o=a));if(c){e.splice(m--,1);var s=n();void 0!==s&&(t=s)}}return t}a=a||0;for(var m=e.length;m>0&&e[m-1][2]>a;m--)e[m]=e[m-1];e[m]=[l,n,a]},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},function(){var e={4703:0,4025:0};r.O.j=function(t){return 0===e[t]};var t=function(t,l){var n,a,o=l[0],c=l[1],i=l[2],s=0;if(o.some((function(t){return 0!==e[t]}))){for(n in c)r.o(c,n)&&(r.m[n]=c[n]);if(i)var m=i(r)}for(t&&t(l);s<o.length;s++)a=o[s],r.o(e,a)&&e[a]&&e[a][0](),e[a]=0;return r.O(m)},l=self.webpackChunkcarkeek_blocks_v2=self.webpackChunkcarkeek_blocks_v2||[];l.forEach(t.bind(null,0)),l.push=t.bind(null,l.push.bind(l))}();var n=r.O(void 0,[4025],(function(){return r(122)}));n=r.O(n)}();
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/custom-archive-filter/edit.js":
+/*!*******************************************!*\
+  !*** ./src/custom-archive-filter/edit.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+
+
+function customArchiveFilterEdit(props) {
+  const {
+    attributes,
+    setAttributes,
+    clientId,
+    name,
+    taxonomies,
+    taxTerms
+  } = props;
+  const {
+    taxonomySelected,
+    taxTermsSelected,
+    taxTermsIncludeExclude,
+    termOption,
+    filterLabel
+  } = attributes;
+  let taxOptions = [];
+
+  if (taxonomies) {
+    taxOptions = taxonomies.map(type => ({
+      value: type.slug,
+      label: type.name
+    }));
+  }
+
+  if (!taxonomySelected) {
+    const selectAnItem = {
+      value: null,
+      label: 'Select a Taxonomy'
+    };
+    taxOptions.unshift(selectAnItem);
+  }
+
+  const [showTerms, setShowTerms] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(taxTerms);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (taxTerms && taxTerms.length > 0) {
+      if (termOption == "some" && taxTermsSelected && taxTermsSelected.length > 0) {
+        if (taxTermsIncludeExclude == "include") {
+          setShowTerms(taxTerms.filter(term => taxTermsSelected.includes(term.id.toString())));
+        } else {
+          setShowTerms(taxTerms.filter(term => !taxTermsSelected.includes(term.id.toString())));
+        }
+      } else {
+        setShowTerms(taxTerms);
+      }
+    }
+  }, [taxTermsSelected, termOption, taxTermsIncludeExclude, taxTerms]);
+  const taxonomySelect = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, taxonomies && taxonomies.length > 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Select Taxonomy", "carkeek-blocks"),
+    onChange: taxonomySelected => setAttributes({
+      taxonomySelected
+    }),
+    options: taxOptions,
+    value: taxonomySelected
+  })) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ck-error"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("There are no taxonomies assigned this post type.", "carkeek-blocks")), taxonomySelected && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RadioControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("All Terms or Specific Terms?"),
+    selected: termOption,
+    options: [{
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("All"),
+      value: "all"
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Some"),
+      value: "some"
+    }],
+    onChange: value => setAttributes({
+      termOption: value
+    })
+  }), termOption == "some" && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, taxTerms && taxTerms.length > 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+    multiple: true,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Select Terms", "carkeek-blocks"),
+    onChange: terms => setAttributes({
+      taxTermsSelected: terms
+    }),
+    options: taxTerms && taxTerms.map(type => ({
+      value: type.id,
+      label: type.name
+    })),
+    value: taxTermsSelected,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("To select multiple [shift]-click", "carkeek-blocks")
+  }) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ck-error"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("There are no terms assigned to this taxonomy.", "carkeek-blocks")), taxTermsSelected && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RadioControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Include or Exclude Terms"),
+    selected: taxTermsIncludeExclude,
+    options: [{
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Include"),
+      value: "include"
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Exclude"),
+      value: "exclude"
+    }],
+    onChange: value => setAttributes({
+      taxTermsIncludeExclude: value
+    })
+  }))));
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.useBlockProps)();
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Filter Settings", "carkeek-blocks")
+  }, taxonomySelect), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Layout Settings", "carkeek-blocks")
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: "Filter Label",
+    value: filterLabel,
+    onChange: value => setAttributes({
+      filterLabel: value
+    })
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ck-filter-label"
+  }, filterLabel), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, taxonomySelected ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, showTerms && showTerms.length > 0 ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ck-term-filters"
+  }, showTerms.map(term => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    key: term.id,
+    className: "ck-term-filter"
+  }, term.name))) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ck-error"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("There are no terms assigned to this taxonomy.", "carkeek-blocks"))) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ck-error"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Please select a taxonomy.", "carkeek-blocks"))));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.withSelect)((select, props) => {
+  const {
+    attributes
+  } = props;
+  const {
+    taxonomySelected
+  } = attributes;
+  const {
+    getEntityRecords,
+    getTaxonomies
+  } = select("core");
+  const taxTerms = getEntityRecords('taxonomy', taxonomySelected, {
+    per_page: -1
+  });
+  let taxonomies = getTaxonomies({
+    per_page: -1
+  });
+  return {
+    taxonomies: taxonomies,
+    taxSelected: Array.isArray(taxonomies) && taxonomies.length == 1 ? taxonomies[0] : taxonomySelected,
+    taxTerms: taxTerms
+  };
+})(customArchiveFilterEdit));
+
+/***/ }),
+
+/***/ "./src/custom-archive-filter/index.js":
+/*!********************************************!*\
+  !*** ./src/custom-archive-filter/index.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/custom-archive-filter/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/custom-archive-filter/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/custom-archive-filter/block.json");
+/**
+ * Registers a new block provided a unique name and an object defining its behavior.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
+
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * All files containing `style` keyword are bundled together. The code used
+ * gets applied both to the front of your site and to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Every block starts by registering a new block type definition.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__, {
+  /**
+   * @see ./edit.js
+   */
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+});
+
+/***/ }),
+
+/***/ "./src/custom-archive-filter/style.scss":
+/*!**********************************************!*\
+  !*** ./src/custom-archive-filter/style.scss ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ }),
+
+/***/ "@wordpress/blocks":
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "./src/custom-archive-filter/block.json":
+/*!**********************************************!*\
+  !*** ./src/custom-archive-filter/block.json ***!
+  \**********************************************/
+/***/ (function(module) {
+
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"carkeek-blocks/custom-archive-filter","title":"Custom Post Type Archive Filter","category":"widgets","description":"Simple filter for the Custom Post Type Archive.","keywords":["archive","posts","list","filter"],"version":"1.0.0","textdomain":"carkeek-blocks","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","icon":"filter","supports":{"align":["wide","full","left","center","right"],"anchor":true,"color":{"background":true,"text":true,"link":true},"spacing":{"padding":true,"margin":true}},"attributes":{"filterLabel":{"type":"string","default":""},"taxonomySelected":{"type":"string","default":""},"termOption":{"type":"string","default":"all"},"taxTermsSelected":{"type":"array","default":""},"taxTermsIncludeExclude":{"type":"string","default":"include"},"style":{"type":"object","default":{"spacing":{"margin":{},"padding":{}}}}}}');
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	!function() {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = function(result, chunkIds, fn, priority) {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var chunkIds = deferred[i][0];
+/******/ 				var fn = deferred[i][1];
+/******/ 				var priority = deferred[i][2];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every(function(key) { return __webpack_require__.O[key](chunkIds[j]); })) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	!function() {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"custom-archive-filter/index": 0,
+/******/ 			"custom-archive-filter/style-index": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = function(chunkId) { return installedChunks[chunkId] === 0; };
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = function(parentChunkLoadingFunction, data) {
+/******/ 			var chunkIds = data[0];
+/******/ 			var moreModules = data[1];
+/******/ 			var runtime = data[2];
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some(function(id) { return installedChunks[id] !== 0; })) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunkcarkeek_blocks_v2"] = self["webpackChunkcarkeek_blocks_v2"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["custom-archive-filter/style-index"], function() { return __webpack_require__("./src/custom-archive-filter/index.js"); })
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

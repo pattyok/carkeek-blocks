@@ -1,1 +1,195 @@
-!function(){"use strict";var t,e={n:function(t){var s=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(s,{a:s}),s},d:function(t,s){for(var i in s)e.o(s,i)&&!e.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:s[i]})},o:function(t,e){return Object.prototype.hasOwnProperty.call(t,e)}},s=window.jQuery;function i(){const t=document.querySelectorAll(".wp-block-carkeek-blocks-extended-gallery .ck-tiled-gallery");null==t||t.forEach((t=>{const e=t.offsetWidth/12;t.style.setProperty("--ck-grid-row-height",`${e}px`)}))}(t=e.n(s)())((function(){t(".wp-block-carkeek-blocks-extended-gallery ul.slider-carousel").each((function(){const e=t(this).data("autoplay"),s=t(this).data("speed"),i=t(this).data("type"),a=t(this).data("slides"),o=t(this).data("scroll"),n=t(this).data("slidesmobile"),d=t(this).data("scrollmobile"),l=t(this).data("slidestablet"),r=t(this).data("scrolltablet"),c=t(this).data("transitiontype"),h=t(this).data("transitionspd"),u={dots:t(this).data("showdots"),arrows:t(this).data("showarrows"),speed:h};if(1==e&&(u.autoplay=!0,u.autoplaySpeed=s),"carousel"==i&&(u.slidesToShow=a,u.slidesToScroll=o,a===n&&a===n||(u.responsive=[{breakpoint:600,settings:{slidesToShow:n,slidesToScroll:d}},{breakpoint:1023,settings:{slidesToShow:l,slidesToScroll:r}}])),"fade"==c&&(u.fade=!0,u.cssEase="linear"),t(this).children().each((function(){t(this).wrap('<div class="slide-'+i+'"></div>')})),t(this).find("img").addClass("skip-lazy"),t(this).hasClass("fix-height-true")){const e=t(this).data("minheight"),s=t(this).data("maxheight");t(this).find("img").css({minHeight:e+"px",maxHeight:s+"px"})}t(this).on("init",(function(e,s){s.$slider.find(".slick-cloned a").each((function(){var e=t(this),i=e.attr("data-fancybox"),a=parseInt(e.attr("data-slick-index")),o=a<0?a+s.$slides.length:a-s.$slides.length;e.attr("data-index",o),e.attr("data-trigger",i),e.removeAttr("data-fancybox")}))})).slick(u)}))})),i(),window.addEventListener("resize",i)}();
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ (function(module) {
+
+module.exports = window["jQuery"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!****************************************!*\
+  !*** ./src/extended-gallery/script.js ***!
+  \****************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
+(function ($) {
+  $(function () {
+    $(".wp-block-carkeek-blocks-extended-gallery ul.slider-carousel").each(function () {
+      //collect slider settings
+      const autoPlay = $(this).data("autoplay");
+      const speed = $(this).data("speed");
+      const type = $(this).data("type");
+      const slides = $(this).data("slides");
+      const scroll = $(this).data("scroll");
+      const slidesmobile = $(this).data("slidesmobile");
+      const scrollmobile = $(this).data("scrollmobile");
+      const slidestablet = $(this).data("slidestablet");
+      const scrolltablet = $(this).data("scrolltablet");
+      const fade = $(this).data("transitiontype");
+      const transSpeed = $(this).data("transitionspd");
+      const dots = $(this).data("showdots");
+      const arrows = $(this).data("showarrows");
+      const options = {
+        dots: dots,
+        arrows: arrows,
+        speed: transSpeed
+      };
+
+      if (true == autoPlay) {
+        options.autoplay = true;
+        options.autoplaySpeed = speed;
+      }
+
+      if (type == "carousel") {
+        options.slidesToShow = slides;
+        options.slidesToScroll = scroll;
+
+        if (slides !== slidesmobile || slides !== slidesmobile) {
+          options.responsive = [{
+            breakpoint: 600,
+            settings: {
+              slidesToShow: slidesmobile,
+              slidesToScroll: scrollmobile
+            }
+          }, {
+            breakpoint: 1023,
+            settings: {
+              slidesToShow: slidestablet,
+              slidesToScroll: scrolltablet
+            }
+          }];
+        }
+      }
+
+      if (fade == 'fade') {
+        options.fade = true;
+        options.cssEase = 'linear';
+      } //wrap each inner block in a div so as not to mess with the inner block styling
+
+
+      $(this).children().each(function () {
+        $(this).wrap('<div class="slide-' + type + '"></div>');
+      });
+      $(this).find("img").addClass("skip-lazy");
+
+      if ($(this).hasClass("fix-height-true")) {
+        const minHeight = $(this).data("minheight");
+        const maxHeight = $(this).data("maxheight");
+        $(this).find('img').css({
+          minHeight: minHeight + 'px',
+          maxHeight: maxHeight + 'px'
+        });
+      }
+
+      $(this).on("init", function (e, slick) {
+        // we remove the data-fancybox attribute from the cloned slides,
+        // and add a data-trigger attribute with the same value,
+        // and add a data-index attribute to indicate which slide to open
+        slick.$slider.find(".slick-cloned a").each(function () {
+          var $slide = $(this),
+              trigger = $slide.attr("data-fancybox"),
+              clonedIndex = parseInt($slide.attr("data-slick-index")),
+              originalIndex = clonedIndex < 0 ? clonedIndex + slick.$slides.length : clonedIndex - slick.$slides.length;
+          $slide.attr("data-index", originalIndex);
+          $slide.attr("data-trigger", trigger);
+          $slide.removeAttr("data-fancybox");
+        });
+      }).slick(options);
+    });
+  });
+})((jquery__WEBPACK_IMPORTED_MODULE_0___default()));
+
+function setGalleryHeight() {
+  const tiledGalleries = document.querySelectorAll('.wp-block-carkeek-blocks-extended-gallery .ck-tiled-gallery');
+  tiledGalleries === null || tiledGalleries === void 0 ? void 0 : tiledGalleries.forEach(gallery => {
+    const width = gallery.offsetWidth;
+    const rowHeight = width / 12;
+    gallery.style.setProperty('--ck-grid-row-height', `${rowHeight}px`);
+  });
+}
+
+setGalleryHeight();
+window.addEventListener('resize', setGalleryHeight);
+}();
+/******/ })()
+;
+//# sourceMappingURL=script.js.map

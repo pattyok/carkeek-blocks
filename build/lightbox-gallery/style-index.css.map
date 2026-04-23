@@ -1,0 +1,1 @@
+{"version":3,"file":"lightbox-gallery/style-index.css","mappings":";;;AACC;EACC;EACA;AAAF,C","sources":["webpack://carkeek-blocks-v2/./src/lightbox-gallery/style.scss"],"sourcesContent":[".wp-block-carkeek-blocks-lightbox-gallery {\n\t& ul.slick-slider {\n\t\tpadding-left: 1rem;\n\t\tpadding-right: 1rem;\n\t}\n}\n"],"names":[],"sourceRoot":""}

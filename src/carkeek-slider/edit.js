@@ -49,7 +49,7 @@ function AddABlock( props ) {
 
 export default function SliderEdit( props ) {
     const { attributes, setAttributes, clientId } = props;
-    const { alignSlideContent, showOverlay, innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile } = attributes;
+    const { alignSlideContent, showOverlay, innerBlockType, arrowNavigation, transitionType, transitionSpeed, showDots, autoPlay, autoPlaySpeed, sliderType, slidesToScroll, slidesToShow, slidesToScrollMobile, slidesToShowMobile, infiniteScroll } = attributes;
 
     if ( ! arrowNavigation ) {
         setAttributes( { arrowNavigation: 'desktop-only' } );
@@ -145,6 +145,13 @@ export default function SliderEdit( props ) {
                             checked={ autoPlay }
                             onChange={value =>
                                 setAttributes({ autoPlay: value })
+                            }
+                        />
+						<ToggleControl
+                            label="Allow Infinite Scrolling"
+                            checked={ infiniteScroll }
+                            onChange={value =>
+                                setAttributes({ infiniteScroll: value })
                             }
                         />
                          <RadioControl

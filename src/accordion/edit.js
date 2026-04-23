@@ -33,7 +33,7 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { headerStyle, openMultiple, isFAQ } = attributes;
+	const { headerStyle, openMultiple, isFAQ, expandIcon } = attributes;
 	const updateHeaderStyle = function( value ) {
 		setAttributes({ headerStyle: value });
 
@@ -83,6 +83,15 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 							"If selected, the FAQ Schema will be applied.",
 							"carkeek-blocks"
 						)}
+					/>
+					<RadioControl
+						label="Expand Icon"
+						selected = {expandIcon}
+						options = { [
+							{ label: '>', value: '' },
+							{ label: '+', value: 'plus' },
+						]}
+						onChange= {value => setAttributes({ expandIcon: value })}
 					/>
 
 					<RadioControl

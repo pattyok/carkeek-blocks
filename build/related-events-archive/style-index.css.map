@@ -1,0 +1,1 @@
+{"version":3,"file":"related-events-archive/style-index.css","mappings":";;;AACC;EACC;AAAF,C","sources":["webpack://carkeek-blocks-v2/./src/related-events-archive/style.scss"],"sourcesContent":[".wp-block-carkeek-blocks-related-events-archive {\n\t& .ck-custom-archive-headline {\n\t\ttext-align: left;\n\t}\n}\n\n\n"],"names":[],"sourceRoot":""}

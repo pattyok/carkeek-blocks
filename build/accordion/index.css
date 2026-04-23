@@ -1,1 +1,42 @@
-.wp-block-carkeek-blocks-accordion .ck-accordion-button{background-color:var(--ck-color-accordion-header-bg);border:var(--ck-accordion-borders);color:var(--ck-color-accordion-header-text);padding:var(--ck-accordion-header-padding);text-align:left;width:100%}.wp-block-carkeek-blocks-accordion .ck-accordion-panel{background-color:var(--ck-accordion-panel-bg);border:1px solid #ccc;display:none;padding:1rem}.wp-block-carkeek-blocks-accordion-panel{margin-bottom:var(--ck-accordion-panel-spacing)}.wp-block-carkeek-blocks-accordion-panel.has-child-selected .ck-accordion-panel,.wp-block-carkeek-blocks-accordion-panel.is-selected .ck-accordion-panel{display:block}.wp-block-carkeek-blocks-accordion .block-list-appender{position:relative}.block-editor-block-styles__item-preview .wp-block-carkeek-blocks-accordion.is-style-mini .ck-accordion-button{border:none}.block-editor-block-styles__item-preview .ck-accordion-panel{display:none}
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/accordion/editor.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-carkeek-blocks-accordion .ck-accordion-button {
+  background-color: var(--ck-color-accordion-header-bg);
+  border: var(--ck-accordion-borders);
+  padding: var(--ck-accordion-header-padding);
+  text-align: left;
+  color: var(--ck-color-accordion-header-text);
+  width: 100%;
+}
+.wp-block-carkeek-blocks-accordion .ck-accordion-panel {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background-color: var(--ck-accordion-panel-bg);
+  display: none;
+}
+
+.wp-block-carkeek-blocks-accordion-panel {
+  margin-bottom: var(--ck-accordion-panel-spacing);
+}
+.wp-block-carkeek-blocks-accordion-panel.has-child-selected .ck-accordion-panel, .wp-block-carkeek-blocks-accordion-panel.is-selected .ck-accordion-panel {
+  display: block;
+}
+
+.wp-block-carkeek-blocks-accordion .block-list-appender {
+  position: relative;
+}
+
+.block-editor-block-styles__item-preview .wp-block-carkeek-blocks-accordion.is-style-mini .ck-accordion-button {
+  border: none;
+}
+.block-editor-block-styles__item-preview .ck-accordion-panel {
+  display: none;
+}
+
+/*# sourceMappingURL=index.css.map*/

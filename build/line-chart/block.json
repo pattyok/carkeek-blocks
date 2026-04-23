@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "carkeek-blocks/line-chart",
   "version": "0.1.1",
   "title": "Progress Bar",

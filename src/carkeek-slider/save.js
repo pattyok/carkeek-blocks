@@ -18,28 +18,38 @@
  * @return {WPElement} Element to render.
  */
 export default function ({ attributes } ) {
-	const{ alignSlideContent, autoPlay, autoPlaySpeed, slidesToShow, showDots, transitionType, arrowNavigation, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
+	const{ alignSlideContent, autoPlay, infiniteScroll, autoPlaySpeed, slidesToShow, showDots, transitionType, arrowNavigation, transitionSpeed, sliderType, slidesToScroll, slidesToScrollMobile, slidesToShowMobile } = attributes;
 	const classes = classnames( {
 		[ `slider-${ sliderType }` ]: sliderType,
 		[ `arrows-${ arrowNavigation }` ]: arrowNavigation,
 		[ `align-content-${ alignSlideContent }` ]: alignSlideContent !== 'default',
 	} );
 	const blockProps = useBlockProps.save({ className: classes })
+	let sliderData = {
+		autoplay: autoPlay,
+		speed: autoPlaySpeed,
+		type: sliderType,
+		slides: slidesToShow,
+		slidesmobile: slidesToShowMobile,
+		transition: transitionType,
+		transitionSpd: transitionSpeed,
+		scroll: slidesToScroll,
+		scrollmobile: slidesToScrollMobile,
+		showDots: showDots,
+		arrows: arrowNavigation
+	}
+	if ( !infiniteScroll ) {
+		sliderData.infinite = false;
+	}
+	const dataAttributes = {};
+	Object.entries(sliderData).forEach(([key, value]) => {
+		dataAttributes[`data-${key}`] = value;
+	});
+
 	return (
 		<div {...blockProps}>
-			<div className="ck-carkeek-slider__slide-wrapper"
-			data-autoplay={autoPlay}
-			data-speed={autoPlaySpeed}
-			data-type={sliderType}
-			data-slides={slidesToShow}
-			data-slidesmobile={slidesToShowMobile}
-			data-transition={transitionType}
-			data-transitionspd={transitionSpeed}
-			data-scroll={slidesToScroll}
-			data-scrollmobile={slidesToScrollMobile}
-			data-showdots={showDots}
-			data-arrows={arrowNavigation}>
-			<InnerBlocks.Content />
+			<div className="ck-carkeek-slider__slide-wrapper" {...dataAttributes}>
+				<InnerBlocks.Content />
 			</div>
 		</div>
 	);

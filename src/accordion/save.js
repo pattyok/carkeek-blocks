@@ -23,12 +23,16 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
  * @return {WPElement} Element to render.
  */
 export default function save( {attributes} ) {
-	const{ openMultiple } = attributes;
+	const{ openMultiple, expandIcon } = attributes;
 	let multi = {};
 	if ( openMultiple ) {
 		multi = {'data-multi' : true };
 	}
-	const blockProps = useBlockProps.save();
+	let blockProps = useBlockProps.save();
+	if ( expandIcon ) {
+		blockProps = useBlockProps.save( { className: `has-expand-icon-${expandIcon}` } );
+	}
+
         return (
             <div { ...blockProps } >
                 <div data-aria-accordion data-transition { ...multi }>

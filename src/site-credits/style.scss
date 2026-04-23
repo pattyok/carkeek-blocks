@@ -1,0 +1,13 @@
+.wp-block-carkeek-blocks-site-credits {
+	.gpopover {
+		font-size: 0.875rem;
+		color: var(--wp--preset--color--contrast, #000);
+		& a {
+			color: var(--wp--preset--color--secondary, #3344dd);
+				&:hover {
+					color: var(--wp--preset--color--secondary, #3344dd);
+					text-decoration: underline;
+				}
+		}
+	}
+}

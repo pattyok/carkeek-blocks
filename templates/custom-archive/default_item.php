@@ -20,7 +20,7 @@ if ( ! empty( $focal_point ) ) {
 
 if ( $data->displayFeaturedImage ) {
 	$featured_image = get_the_post_thumbnail( $post->ID, $image_size, array( 'style' => $style ) );
-	if ( empty( $featured_image ) && !empty($data->defaultFeaturedImage)) {
+	if ( empty( $featured_image ) && ! empty( $data->defaultFeaturedImage ) ) {
 		$featured_image = apply_filters( 'ck_custom_archive__featured_image_default', '<img class="ck-image-default" src="' . esc_url( $data->defaultFeaturedImage ) . '" alt="' . esc_attr( $data->defaultAltText ) . '" />', $post->ID, $data );
 	}
 }
@@ -41,8 +41,8 @@ if ( true == $data->displayPostExcerpt ) {
 	}
 	$excerpt = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__excerpt', $excerpt, $post->ID, $data );
 }
-$link_start = '';
-$link_end   = '';
+$link_start       = '';
+$link_end         = '';
 $permalink        = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link', get_permalink(), $post->ID, $data );
 $permalink_target = isset( $data->newWindow ) && true == $data->newWindow ? '_blank' : '_self';
 $permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_target', $permalink_target, $data );
@@ -50,15 +50,13 @@ $permalink_target = apply_filters( 'ck_custom_archive_' . $data->postTypeSelecte
 
 if ( isset( $data->noLink ) && true == $data->noLink || empty( $permalink ) ) {
 	$link_title = get_the_title();
+} elseif ( ! isset( $data->wholeLink ) || false == $data->wholeLink ) {
+
+		$link_title = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
 } else {
-	
-	if ( !isset( $data->wholeLink ) || false == $data->wholeLink ) {
-		$link_title       = wp_sprintf( '<a class="ck-custom-archive-title_link" href="%1s" target="%2s">%3s</a>', $permalink, $permalink_target, get_the_title() );
-	} else {
-		$link_title = get_the_title();
-		$link_start = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '" target="' . esc_attr( $permalink_target ) . '">';
-		$link_end = '</a>';
-	}
+	$link_title = get_the_title();
+	$link_start = '<a class="ck-custom-archive-title_link" href="' . esc_url( $permalink ) . '" target="' . esc_attr( $permalink_target ) . '">';
+	$link_end   = '</a>';
 }
 $link_title = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__link_title', $link_title, $post->ID, $data );
 
@@ -94,16 +92,16 @@ $meta_after  = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '
 $html_before_excerpt = '';
 $html_after_excerpt  = '';
 if ( isset( $data->addlContentBefore ) ) {
-	$sep = !empty($data->addlContentBeforeSep) ? $data->addlContentBeforeSep : '';
-	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected, $sep);
+	$sep                 = ! empty( $data->addlContentBeforeSep ) ? $data->addlContentBeforeSep : '';
+	$html_before_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentBefore, $post->ID, 'before', $data->postTypeSelected, $sep );
 }
 if ( isset( $data->addlContentAfter ) ) {
-	$sep = !empty($data->addlContentAfterSep) ? $data->addlContentAfterSep : '';
-	$html_after_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected, $sep);
+	$sep                = ! empty( $data->addlContentAfterSep ) ? $data->addlContentAfterSep : '';
+	$html_after_excerpt = CarkeekBlocks_Helpers::make_meta_fields( $data->addlContentAfter, $post->ID, 'after', $data->postTypeSelected, $sep );
 }
 
-$item_classes = array( 'ck-columns-item', 'ck-custom-archive-item', 'archive-item-id-' . $post->ID );
-$item_classes = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_item_classes', $item_classes, $data );
+$item_classes      = array( 'ck-columns-item', 'ck-custom-archive-item', 'archive-item-id-' . $post->ID );
+$item_classes      = apply_filters( 'ck_custom_archive_layout__' . $data->postTypeSelected . '_item_classes', $item_classes, $data );
 $item_class_string = implode( ' ', $item_classes );
 ?>
 <div class="<?php echo esc_attr( $item_class_string ); ?>">
@@ -115,15 +113,17 @@ $featured_image_html = '';
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
 
-	if ( false == $data->noLink && false == $data->wholeLink && !empty($permalink)) {
-		$featured_image_html =  sprintf('<a class="ck-custom-archive-image-link %s" aria-hidden="true" tabindex="-1" href="%s" target="%s">%s</a>',
+	if ( false == $data->noLink && false == $data->wholeLink && ! empty( $permalink ) ) {
+		$featured_image_html = sprintf(
+			'<a class="ck-custom-archive-image-link %s" aria-hidden="true" tabindex="-1" href="%s" target="%s">%s</a>',
 			esc_attr( $image_style ),
 			esc_url( $permalink ),
 			esc_attr( $permalink_target ),
 			$featured_image
 		);
 	} else {
-		$featured_image_html = sprintf('<div class="ck-custom-archive-image-link %s">%s</div>',
+		$featured_image_html = sprintf(
+			'<div class="ck-custom-archive-image-link %s">%s</div>',
 			esc_attr( $image_style ),
 			$featured_image
 		);
@@ -131,7 +131,7 @@ if ( ! empty( $featured_image ) ) {
 }
 $featured_image_html = apply_filters( 'ck_custom_archive__featured_image_html', $featured_image_html, $data );
 $featured_image_html = apply_filters( 'ck_custom_archive_' . $data->postTypeSelected . '__featured_image_html', $featured_image_html, $data );
-if ( (isset( $data->featuredImageBelowTitle ) && false == $data->featuredImageBelowTitle) || !isset( $data->featuredImageBelowTitle ) ) {
+if ( ( isset( $data->featuredImageBelowTitle ) && false == $data->featuredImageBelowTitle ) || ! isset( $data->featuredImageBelowTitle ) ) {
 	echo wp_kses_post( $featured_image_html );
 }
 
@@ -146,9 +146,11 @@ if ( (isset( $data->featuredImageBelowTitle ) && false == $data->featuredImageBe
 		<?php echo wp_kses_post( $meta_before ); ?>
 		<?php echo wp_kses_post( $link_title ); ?>
 		<?php echo wp_kses_post( $meta_after ); ?>
-		<?php if ( isset( $data->featuredImageBelowTitle ) && true== $data->featuredImageBelowTitle ) {
+		<?php
+		if ( isset( $data->featuredImageBelowTitle ) && true == $data->featuredImageBelowTitle ) {
 			echo wp_kses_post( $featured_image_html );
-		} ?>
+		}
+		?>
 		<?php
 		// deprecate this in favor of filters.
 		do_action( 'ck_custom_archive_layout__after_title', $data );
@@ -177,9 +179,9 @@ if ( (isset( $data->featuredImageBelowTitle ) && false == $data->featuredImageBe
 			if ( empty( $taxlist ) ) {
 				$taxlist = $data->taxonomySelected;
 			}
-			$taxlist = explode( ',', $taxlist );
+			$taxlist   = explode( ',', $taxlist );
 			$term_list = '';
-			foreach( $taxlist as $tax ) {
+			foreach ( $taxlist as $tax ) {
 				$term_list .= '<div class="ck-custom-archive-term-list">' . get_the_term_list( $post->ID, $tax, '<span class="ck-custom-archive-tax-label">Posted In: </span>', ', ' ) . '</div>';
 			}
 
@@ -199,10 +201,12 @@ if ( (isset( $data->featuredImageBelowTitle ) && false == $data->featuredImageBe
 			echo wp_kses_post( $more_link );
 		}
 		?>
+
 	</div>
 	<?php
 	if ( ! empty( $link_end ) ) {
 		echo wp_kses_post( $link_end );
 	}
 	?>
+
 </div>
