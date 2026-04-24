@@ -328,6 +328,10 @@
       "type": "number",
       "default": 3
     },
+    "listStyle": {
+      "type": "string",
+      "default": "default"
+    },
     "anchor": {
       "type": "string",
       "default": ""

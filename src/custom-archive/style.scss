@@ -109,6 +109,13 @@
 			display: none;
 		}
 	}
+	&.is-ul.no-bullets {
+
+		& .ck-custom-archive__list {
+			list-style: none;
+			padding-left: 0;
+		}
+	}
 }
 
 .ck_pagination {

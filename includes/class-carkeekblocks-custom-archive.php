@@ -898,6 +898,11 @@ class CarkeekBlocks_CustomArchive {
 			$mobile              = isset( $attributes['columnsMobile'] ) ? $attributes['columnsMobile'] : 1;
 			$tablet              = isset( $attributes['columnsTablet'] ) ? $attributes['columnsTablet'] : $attributes['columns'];
 			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
+		} elseif ( 'ul' === $layout ) {
+			$css_classes_outer[] = 'is-ul';
+			if ( isset( $attributes['listStyle'] ) ) {
+				$css_classes_outer[] = $attributes['listStyle'];
+			}
 		}
 
 		if ( isset( $attributes['groupHideParents'] ) && true == $attributes['groupHideParents'] ) {
