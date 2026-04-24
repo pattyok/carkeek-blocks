@@ -87,12 +87,16 @@ class CarkeekBlocks_CustomArchive {
 	 * @param Array   $into     result array to put them in.
 	 * @param integer $parent_id the current parent ID to put them in.
 	 */
-	public static function sort_terms_hierarchically( array &$cats, array &$into, $parent_id = 0 ) {
+	public static function sort_terms_hierarchically( array &$cats, array &$into, $parent_id = 0, $level = 0 ) {
 		foreach ( $cats as $i => $cat ) {
 			if ( ! is_wp_error( $cat ) ) {
-				if ( (int) $cat->parent === (int) $parent_id ) {
-
-					$into[ $cat->term_id ] = $cat;
+				if ( $level == 0 ) {
+					if ( (int) $cat->term_id === (int) $parent_id ) {
+						$into[] = $cat;
+						unset( $cats[ $i ] );
+					}
+				} elseif ( (int) $cat->parent === (int) $parent_id ) {
+					$into[] = $cat;
 					unset( $cats[ $i ] );
 				}
 			}
@@ -100,7 +104,7 @@ class CarkeekBlocks_CustomArchive {
 
 		foreach ( $into as $top_cat ) {
 			$top_cat->children = array();
-			self::sort_terms_hierarchically( $cats, $top_cat->children, $top_cat->term_id );
+			self::sort_terms_hierarchically( $cats, $top_cat->children, $top_cat->term_id, $level + 1 );
 		}
 	}
 
@@ -246,19 +250,14 @@ class CarkeekBlocks_CustomArchive {
 				// get children and parents and merge them.
 				$tax_terms = get_terms( $tax_args );
 
-				// add Parent to the array.
-				if ( true == $attributes['groupHideParents'] ) {
-					$parent = $filter_term;
-				} else {
-					$parent_term = get_term( $filter_term, $group_by );
-					$tax_terms[] = $parent_term;
-					$parent      = $parent_term->term_id;
-				}
+				$parent_term = get_term( $filter_term, $group_by );
+				$tax_terms[] = $parent_term;
+				$parent      = $parent_term->term_id;
 
 				$category_hierarchy = array();
 				self::sort_terms_hierarchically( $tax_terms, $category_hierarchy, $parent );
-				foreach ( $category_hierarchy as $cat_term ) {
-					$post_html .= self::get_posts_per_term( $cat_term, $group_by, $args, $attributes, $template_loader );
+				foreach ( $category_hierarchy as $cat_term => $data ) {
+					$post_html .= self::get_posts_per_term( $data, $group_by, $args, $attributes, $template_loader );
 				}
 			}
 		} else {
