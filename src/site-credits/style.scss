@@ -11,3 +11,20 @@
 		}
 	}
 }
+
+.ck-button-link {
+	padding: 0;
+	background: none;
+	border: none;
+	color: inherit;
+	text-transform: none;
+	cursor: pointer;
+	font-weight: inherit;
+	font-family: var(--wp--preset--font-family--global, inherit);
+	&:hover {
+		background: none;
+		border: none;
+		color: inherit;
+		text-decoration: underline;
+	}
+}

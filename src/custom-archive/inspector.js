@@ -81,6 +81,7 @@ function postsInspector(props) {
 		gridGapRow,
         enableAjaxLoadMore,
         ajaxLoadMoreLabel,
+		listStyle,
         showPublishDate, publishDateLocation, publishDatePrefix, showTerms, taxQueryType, showPagination, learnMoreLinkTitle, showLearnMoreLink, newWindow, addlContentBefore, addlContentAfter, addlContentBeforeSep, addlContentAfterSep
     } = attributes;
 
@@ -450,6 +451,19 @@ function postsInspector(props) {
                             })
                         }
                     />
+					{postLayout == 'ul' &&
+						<SelectControl
+							label={__("List Style", "carkeek-blocks")}
+							value={listStyle}
+							options={[
+								{ label: __("Bullets"), value: "default" },
+								{ label: __("No Bullets"), value: "no-bullets" },
+							]}
+							onChange={value =>
+								setAttributes({ listStyle: value })
+							}
+						/>
+					}
 
                     {postLayout == 'grid' &&
                         <>
