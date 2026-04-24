@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "carkeek-blocks/custom-archive-filter",
   "title": "Custom Post Type Archive Filter",
   "category": "widgets",

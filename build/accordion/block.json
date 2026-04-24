@@ -47,6 +47,10 @@
       "type": "string",
       "default": "h3"
     },
+    "expandIcon": {
+      "type": "string",
+      "default": ""
+    },
     "openMultiple": {
       "type": "boolean",
       "default": true

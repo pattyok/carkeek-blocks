@@ -130,6 +130,92 @@
 
 }
 
+.wp-block-carkeek-blocks-carkeek-slider {
+
+	&.is-style-timeline {
+		::before,
+		::after	 {
+			--slick-arrow-color: #fff;
+			--slick-opacity-default: 1;
+			--slick-arrow-font-size: 36px;
+			--slick-next-character: "\f105";
+		}
+
+		& .ck-carkeek-slider__slide-wrapper {
+			border-top: 3px solid #fff;
+			margin-top: var(--wp--preset--spacing--40);
+		}
+		& .slick-slide {
+			margin-top: 50px;
+			position: relative;
+			&::before {
+				content: "";
+				position: absolute;
+				top: -50px;
+				height: 50px;
+				width: 3px;
+				left: 50%;
+				transform: translateX(-50%);
+				background-color: #fff;
+			}
+
+		}
+		& .slick-next,
+		& .slick-prev {
+			display: flex !important;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			border-radius: 50%;
+			top: -3px !important;
+			height: 40px;
+			width: 40px;
+			&:hover {
+				background-color: var(--slick-arrow-hover-color, #00000080);
+			}
+			&.slick-disabled {
+				opacity: var(--slick-opacity-disabled, 0.25);
+				pointer-events: none;
+			}
+			&::before {
+				line-height: unset;
+				padding-bottom: 3px;
+				display: inline-block;
+			}
+			&.arrow-button-active {
+				&:after {
+					content: '';
+					position: absolute;
+					width: calc(100% * 1.4);
+					height: calc(100% * 1.4);
+					background-color: var(--slick-arrow-hover-color, #00000080);
+					transform: scale3d(1.2,1.2,1);
+					animation: ctl-btn-effect .6s forwards;
+					z-index: -1;
+					border-radius: 50%
+				}
+			}
+		}
+
+
+	}
+}
+
+@keyframes ctl-btn-effect {
+    0% {
+        transform: scale3d(.3,.3,1)
+    }
+
+    25%,50% {
+        opacity: .2
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale3d(1.2,1.2,1)
+    }
+}
+
 @media screen and (min-width: 1024px) {
 
 	.wp-block-carkeek-blocks-carkeek-slider {

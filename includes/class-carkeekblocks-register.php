@@ -82,6 +82,7 @@ class CarkeekBlocks_Block_Register {
 		register_block_type( "$dir/build/search-button" );
 		register_block_type( "$dir/build/member-login-menu" );
 		register_block_type( "$dir/build/image-compare" );
+		register_block_type( "$dir/build/site-credits" );
 		// register_block_type( "$dir/build/custom-archive-filter" );
 
 		/** Dynamic Blocks */

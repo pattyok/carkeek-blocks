@@ -87,11 +87,16 @@ class CarkeekBlocks_CustomArchive {
 	 * @param Array   $into     result array to put them in.
 	 * @param integer $parent_id the current parent ID to put them in.
 	 */
-	public static function sort_terms_hierarchically( array &$cats, array &$into, $parent_id = 0 ) {
+	public static function sort_terms_hierarchically( array &$cats, array &$into, $parent_id = 0, $level = 0 ) {
 		foreach ( $cats as $i => $cat ) {
 			if ( ! is_wp_error( $cat ) ) {
-				if ( $cat->parent === $parent_id ) {
-					$into[ $cat->term_id ] = $cat;
+				if ( $level == 0 ) {
+					if ( (int) $cat->term_id === (int) $parent_id ) {
+						$into[] = $cat;
+						unset( $cats[ $i ] );
+					}
+				} elseif ( (int) $cat->parent === (int) $parent_id ) {
+					$into[] = $cat;
 					unset( $cats[ $i ] );
 				}
 			}
@@ -99,7 +104,7 @@ class CarkeekBlocks_CustomArchive {
 
 		foreach ( $into as $top_cat ) {
 			$top_cat->children = array();
-			self::sort_terms_hierarchically( $cats, $top_cat->children, $top_cat->term_id );
+			self::sort_terms_hierarchically( $cats, $top_cat->children, $top_cat->term_id, $level + 1 );
 		}
 	}
 
@@ -115,6 +120,7 @@ class CarkeekBlocks_CustomArchive {
 	 * @return string HTML of dynamic content.
 	 */
 	public static function get_posts_per_term( $term, $tax, $args, $attributes, $template_loader, $level = 0 ) {
+
 		$term_item    = apply_filters( 'ck_custom_archive_tax_term_item', $term->name, $term, $tax, $args, $attributes, $level );
 		$header_class = 'ck-archive-tax-header level-' . esc_attr( $level );
 		$header_class = apply_filters( 'ck_custom_archive_tax_header_class', $header_class, $term, $tax, $args, $attributes, $level );
@@ -131,8 +137,8 @@ class CarkeekBlocks_CustomArchive {
 			'field'    => 'id',
 			'terms'    => $term->term_id,
 		);
-		if ( ! is_array( $new_args['tax_query'] ) ) {
-			$$new_args['tax_query'] = array();
+		if ( ! isset( $new_args['tax_query'] ) || ! is_array( $new_args['tax_query'] ) ) {
+			$new_args['tax_query'] = array();
 		}
 		$new_args['tax_query'][] = $tax_query;
 
@@ -210,6 +216,7 @@ class CarkeekBlocks_CustomArchive {
 	 * @return string HTML of dynamic content.
 	 */
 	public static function render_custom_posttype_archive_grouped( $args, $attributes, $block_start, $template_loader ) {
+
 		$post_html  = $block_start;
 		$group_by   = $attributes['groupTaxSelected'];
 		$hide_empty = $attributes['groupHideEmpty'];
@@ -220,10 +227,19 @@ class CarkeekBlocks_CustomArchive {
 		);
 
 		if ( is_taxonomy_hierarchical( $group_by ) ) {
-			$filter_terms = array( 0 );
+			$filter_terms = array();
 			// if the groupby taxonomy is the same as the filter we want to only get terms from the $terms selected.
-			if ( $attributes['groupTaxSelected'] == $attributes['taxonomySelected'] ) {
+			if ( $attributes['groupTaxSelected'] === $attributes['taxonomySelected'] ) {
 				$filter_terms = explode( ',', $attributes['taxTermsSelected'] );
+			} else {
+				$filter_terms = get_terms(
+					array(
+						'taxonomy'   => $attributes['groupTaxSelected'],
+						'hide_empty' => true,
+						'parent'     => 0,
+					)
+				);
+				$filter_terms = wp_list_pluck( $filter_terms, 'term_id' );
 			}
 
 			foreach ( $filter_terms as $filter_term ) {
@@ -234,19 +250,14 @@ class CarkeekBlocks_CustomArchive {
 				// get children and parents and merge them.
 				$tax_terms = get_terms( $tax_args );
 
-				// add Parent to the array.
-				if ( true == $attributes['groupHideParents'] ) {
-					$parent = $filter_term;
-				} else {
-					$parent_term = get_term( $filter_term, $group_by );
-					$tax_terms[] = $parent_term;
-				}
+				$parent_term = get_term( $filter_term, $group_by );
+				$tax_terms[] = $parent_term;
+				$parent      = $parent_term->term_id;
+
 				$category_hierarchy = array();
 				self::sort_terms_hierarchically( $tax_terms, $category_hierarchy, $parent );
-
-				foreach ( $category_hierarchy as $cat_term ) {
-					$post_html .= self::get_posts_per_term( $cat_term, $group_by, $args, $attributes, $template_loader );
-
+				foreach ( $category_hierarchy as $cat_term => $data ) {
+					$post_html .= self::get_posts_per_term( $data, $group_by, $args, $attributes, $template_loader );
 				}
 			}
 		} else {
@@ -263,12 +274,14 @@ class CarkeekBlocks_CustomArchive {
 	/**
 	 * Build query args for custom archive.
 	 *
-	 * @param array      $attributes Block attributes.
-	 * @param int        $paged Paged value.
-	 * @param int|null   $offset_override Optional explicit offset.
+	 * @param array    $attributes Block attributes.
+	 * @param int      $paged Paged value.
+	 * @param int|null $offset_override Optional explicit offset.
 	 * @return array
 	 */
 	private static function build_custom_archive_query_args( $attributes, $paged = 1, $offset_override = null ) {
+		global $query;
+
 		$related = isset( $attributes['isRelated'] ) && true == $attributes['isRelated'] ? true : false;
 
 		$args = array(
@@ -293,7 +306,7 @@ class CarkeekBlocks_CustomArchive {
 		}
 
 		if ( 'meta_value' == $attributes['sortBy'] && ! empty( $attributes['sortByMeta'] ) ) {
-			$args['orderby'] = array(
+			$args['orderby']    = array(
 				$attributes['sortBy'] => $attributes['order'],
 				'title'               => $attributes['order'],
 			);
@@ -321,14 +334,14 @@ class CarkeekBlocks_CustomArchive {
 						'terms'    => $tax_term,
 					);
 				}
-				$args['tax_query'] = array();
+				$args['tax_query']   = array();
 				$args['tax_query'][] = array(
 					'relation' => 'AND',
 					$tax_query,
 				);
 
 			} else {
-				$tax_operator = isset( $attributes['taxTermsIncludeExclude'] ) && 'exclude' == $attributes['taxTermsIncludeExclude'] ? 'NOT IN' : 'IN';
+				$tax_operator      = isset( $attributes['taxTermsIncludeExclude'] ) && 'exclude' == $attributes['taxTermsIncludeExclude'] ? 'NOT IN' : 'IN';
 				$args['tax_query'] = array(
 					array(
 						'taxonomy' => $attributes['taxonomySelected'],
@@ -359,7 +372,7 @@ class CarkeekBlocks_CustomArchive {
 					);
 
 				} else {
-					$tax_operator = isset( $attributes['taxTermsIncludeExclude2'] ) && 'exclude' == $attributes['taxTermsIncludeExclude2'] ? 'NOT IN' : 'IN';
+					$tax_operator        = isset( $attributes['taxTermsIncludeExclude2'] ) && 'exclude' == $attributes['taxTermsIncludeExclude2'] ? 'NOT IN' : 'IN';
 					$args['tax_query'][] = array(
 						array(
 							'taxonomy' => $attributes['taxonomySelected2'],
@@ -370,7 +383,6 @@ class CarkeekBlocks_CustomArchive {
 					);
 				}
 			}
-
 		} elseif ( true == $related ) {
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
 				$tax          = $attributes['taxonomySelected'];
@@ -386,7 +398,7 @@ class CarkeekBlocks_CustomArchive {
 						}
 					}
 					$term_ids          = array_map(
-						function( $t ) {
+						function ( $t ) {
 							return $t->term_id;
 						},
 						$my_terms
@@ -714,6 +726,9 @@ class CarkeekBlocks_CustomArchive {
 	 * @return string HTML of dynamic content.
 	 */
 	public static function carkeek_blocks_render_custom_posttype_archive( $attributes ) {
+
+		global $wp_query;
+
 		$ck_blocks_template_loader = new Carkeek_Blocks_Template_Loader();
 		if ( empty( $attributes['postTypeSelected'] ) ) {
 			return;
@@ -740,7 +755,7 @@ class CarkeekBlocks_CustomArchive {
 			'post__not_in'        => array( get_the_ID() ),
 			'ignore_sticky_posts' => true, // without this sticky posts add to the count.
 		);
-		if ( isset( $attributes['postOffset'] ) && 0 !== $attributes['postOffset'] && $attributes['numberOfPosts'] > 0) {
+		if ( isset( $attributes['postOffset'] ) && 0 !== $attributes['postOffset'] && $attributes['numberOfPosts'] > 0 ) {
 			$args['offset'] = $attributes['postOffset'];
 		}
 		if ( $attributes['excludeChildPosts'] ) {
@@ -765,6 +780,15 @@ class CarkeekBlocks_CustomArchive {
 				),
 			);
 		}
+		// if is an archive page we want to make sure we pull in the queried taxonomy term so that it can be used for filtering if needed.
+		if ( is_archive() && ! empty( get_queried_object() ) && isset( get_queried_object()->term_id ) && isset( get_queried_object()->taxonomy ) ) {
+			$queried_term = get_queried_object();
+			if ( empty( $attributes['taxonomySelected'] ) && empty( $attributes['taxTermsSelected'] ) ) {
+				$attributes['taxonomySelected'] = $queried_term->taxonomy;
+				$attributes['taxTermsSelected'] = $queried_term->term_id;
+				$attributes['filterByTaxonomy'] = true;
+			}
+		}
 
 		if ( true === $attributes['filterByTaxonomy'] && ! empty( $attributes['taxonomySelected'] ) && ! empty( $attributes['taxTermsSelected'] ) ) {
 			$tax_terms = explode( ',', $attributes['taxTermsSelected'] );
@@ -777,14 +801,14 @@ class CarkeekBlocks_CustomArchive {
 						'terms'    => $tax_term,
 					);
 				}
-				$args['tax_query'] = array();
+				$args['tax_query']   = array();
 				$args['tax_query'][] = array(
 					'relation' => 'AND',
 					$tax_query,
 				);
 
 			} else {
-				$tax_operator = isset( $attributes['taxTermsIncludeExclude'] ) && 'exclude' == $attributes['taxTermsIncludeExclude'] ? 'NOT IN' : 'IN';
+				$tax_operator      = isset( $attributes['taxTermsIncludeExclude'] ) && 'exclude' == $attributes['taxTermsIncludeExclude'] ? 'NOT IN' : 'IN';
 				$args['tax_query'] = array(
 					array(
 						'taxonomy' => $attributes['taxonomySelected'],
@@ -797,7 +821,7 @@ class CarkeekBlocks_CustomArchive {
 			// Add secondary taxonomy filter.
 			if ( true === $attributes['addAnotherTaxonomy'] && ! empty( $attributes['taxonomySelected2'] ) && ! empty( $attributes['taxTermsSelected2'] ) ) {
 				$tax_terms = explode( ',', $attributes['taxTermsSelected2'] );
-				if ( $attributes['taxQueryTypeCombined'] === 'OR') {
+				if ( $attributes['taxQueryTypeCombined'] === 'OR' ) {
 					$args['tax_query']['relation'] = 'OR';
 				}
 				if ( count( $tax_terms ) > 1 && 'AND' === $attributes['taxQueryType2'] ) {
@@ -815,7 +839,7 @@ class CarkeekBlocks_CustomArchive {
 					);
 
 				} else {
-					$tax_operator = isset( $attributes['taxTermsIncludeExclude2'] ) && 'exclude' == $attributes['taxTermsIncludeExclude2'] ? 'NOT IN' : 'IN';
+					$tax_operator        = isset( $attributes['taxTermsIncludeExclude2'] ) && 'exclude' == $attributes['taxTermsIncludeExclude2'] ? 'NOT IN' : 'IN';
 					$args['tax_query'][] = array(
 						array(
 							'taxonomy' => $attributes['taxonomySelected2'],
@@ -826,7 +850,6 @@ class CarkeekBlocks_CustomArchive {
 					);
 				}
 			}
-
 		} elseif ( true == $related ) {
 			if ( ! empty( $attributes['taxonomySelected'] ) ) {
 				$tax          = $attributes['taxonomySelected'];
@@ -842,7 +865,7 @@ class CarkeekBlocks_CustomArchive {
 						}
 					}
 					$term_ids          = array_map(
-						function( $t ) {
+						function ( $t ) {
 							return $t->term_id;
 						},
 						$my_terms
@@ -897,10 +920,15 @@ class CarkeekBlocks_CustomArchive {
 		}
 
 		$css_classes_outer = apply_filters( 'carkeek_block_custom_post_layout__css_classes_outer', $css_classes_outer, $attributes );
-		$block_start       = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ), 'id' => $block_id ) ) . '">';
+		$block_start       = '<div ' . get_block_wrapper_attributes(
+			array(
+				'class' => implode( ' ', $css_classes_outer ),
+				'id'    => $block_id,
+			)
+		) . '">';
 
 		/** we only include headline and link if the whole block is hidden on empty */
-		$view_more_link = '';
+		$view_more_link      = '';
 		$show_ajax_load_more = isset( $attributes['enableAjaxLoadMore'] )
 			&& true == $attributes['enableAjaxLoadMore'];
 
@@ -941,10 +969,9 @@ class CarkeekBlocks_CustomArchive {
 		 * Also working with the Carkeek block filter
 		*/
 
-		if ( !empty( $attributes['useWithFilter'])) {
-			$args[$attributes['useWithFilter']] = true;
+		if ( ! empty( $attributes['useWithFilter'] ) ) {
+			$args[ $attributes['useWithFilter'] ] = true;
 		}
-
 
 		$args = apply_filters( 'carkeek_block_custom_post_layout__query_args', $args, $attributes );
 		$args = apply_filters( 'carkeek_block_custom_post_layout_' . $post_type . '__query_args', $args, $attributes );
@@ -1028,7 +1055,7 @@ class CarkeekBlocks_CustomArchive {
 
 			if ( 'grid' === $layout ) {
 				$css_classes_list[] = 'ck-columns__wrap';
-				if ( isset($attributes['setGridGap']) && true == $attributes['setGridGap'] ) {
+				if ( isset( $attributes['setGridGap'] ) && true == $attributes['setGridGap'] ) {
 					$inline_styles = 'style="--ck-column-gap-vert: var(--wp--preset--spacing--' . $attributes['gridGapRow'] . '0); --ck-column-gap: var(--wp--preset--spacing--' . $attributes['gridGapColumn'] . '0);"';
 				}
 			}
@@ -1037,7 +1064,7 @@ class CarkeekBlocks_CustomArchive {
 			if ( 'ul' == $layout ) {
 				$posts .= '<ul class="' . implode( ' ', $css_classes_list ) . '" ' . $inline_styles . '>';
 			} else {
-				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '" ' . $inline_styles .  '>';
+				$posts .= '<div class="' . implode( ' ', $css_classes_list ) . '" ' . $inline_styles . '>';
 			}
 			while ( $query->have_posts() ) {
 				$query->the_post();
@@ -1060,8 +1087,8 @@ class CarkeekBlocks_CustomArchive {
 						'current'   => max( 1, get_query_var( 'paged' ) ),
 						'total'     => $query->max_num_pages,
 						'prev_next' => true,
-						'prev_text'          => __( '&lsaquo; Prev' ),
-						'next_text'          => __( 'Next &rsaquo;' ),
+						'prev_text' => __( '&lsaquo; Prev' ),
+						'next_text' => __( 'Next &rsaquo;' ),
 						'type'      => 'list',
 					)
 				);
@@ -1073,12 +1100,12 @@ class CarkeekBlocks_CustomArchive {
 				$initial_count = (int) $attributes['numberOfPosts'];
 				$has_more      = $query->found_posts > $initial_count;
 				if ( $has_more ) {
-					$load_more_attrs                    = $attributes;
+					$load_more_attrs                   = $attributes;
 					$load_more_attrs['showPagination'] = false;
-					$load_more_label                    = isset( $attributes['ajaxLoadMoreLabel'] ) && ! empty( $attributes['ajaxLoadMoreLabel'] ) ? $attributes['ajaxLoadMoreLabel'] : __( 'Load More', 'carkeek-blocks' );
-					$loading_label                      = __( 'Loading...', 'carkeek-blocks' );
-					$error_label                        = __( 'Unable to load more posts. Please try again.', 'carkeek-blocks' );
-					$posts                             .= '<div class="ck-custom-archive__buttons ck-custom-archive__load-more-wrap"><button type="button" class="button js-ck-custom-archive-load-more" data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" data-nonce="' . esc_attr( wp_create_nonce( 'ckb_custom_archive_load_more' ) ) . '" data-current-page="1" data-default-label="' . esc_attr( $load_more_label ) . '" data-loading-label="' . esc_attr( $loading_label ) . '" data-error-label="' . esc_attr( $error_label ) . '" data-attributes="' . esc_attr( wp_json_encode( $load_more_attrs ) ) . '">' . esc_html( $load_more_label ) . '</button><div class="ck-custom-archive__load-more-status js-ck-custom-archive-load-more-status" aria-live="polite"></div></div>';
+					$load_more_label                   = isset( $attributes['ajaxLoadMoreLabel'] ) && ! empty( $attributes['ajaxLoadMoreLabel'] ) ? $attributes['ajaxLoadMoreLabel'] : __( 'Load More', 'carkeek-blocks' );
+					$loading_label                     = __( 'Loading...', 'carkeek-blocks' );
+					$error_label                       = __( 'Unable to load more posts. Please try again.', 'carkeek-blocks' );
+					$posts                            .= '<div class="ck-custom-archive__buttons ck-custom-archive__load-more-wrap"><button type="button" class="button js-ck-custom-archive-load-more" data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" data-nonce="' . esc_attr( wp_create_nonce( 'ckb_custom_archive_load_more' ) ) . '" data-current-page="1" data-default-label="' . esc_attr( $load_more_label ) . '" data-loading-label="' . esc_attr( $loading_label ) . '" data-error-label="' . esc_attr( $error_label ) . '" data-attributes="' . esc_attr( wp_json_encode( $load_more_attrs ) ) . '">' . esc_html( $load_more_label ) . '</button><div class="ck-custom-archive__load-more-status js-ck-custom-archive-load-more-status" aria-live="polite"></div></div>';
 				}
 			}
 
@@ -1086,13 +1113,11 @@ class CarkeekBlocks_CustomArchive {
 			$posts .= '</div>';
 			wp_reset_postdata();
 			return $posts;
-		} else {
-			if ( false === $attributes['hideIfEmpty'] ) {
+		} elseif ( false === $attributes['hideIfEmpty'] ) {
 				$block_content = '<div class="wp-block-carkeek-blocks-custom-archive __list empty">' . $attributes['emptyMessage'] . '</div>';
 				return $block_start . $block_content . '</div>';
-			} else {
-				return;
-			}
+		} else {
+			return;
 		}
 	}
 
@@ -1140,7 +1165,7 @@ class CarkeekBlocks_CustomArchive {
 					'type'    => 'DATETIME',
 
 				);
-			$meta_query_count ++;
+			++$meta_query_count;
 		} else {
 			$args['order'] = $attributes['sortOrder'];
 			if ( true == $attributes['onlyPastEvents'] ) {
@@ -1152,7 +1177,7 @@ class CarkeekBlocks_CustomArchive {
 						'type'    => 'DATETIME',
 
 					);
-				$meta_query_count ++;
+				++$meta_query_count;
 			}
 		}
 
@@ -1194,7 +1219,7 @@ class CarkeekBlocks_CustomArchive {
 			if ( ! isset( $args['meta_query'] ) ) {
 				$args['meta_query'] = array();
 			}
-			$meta_query_count++;
+			++$meta_query_count;
 			$args['meta_query'][] = $venue_args;
 		}
 
@@ -1208,7 +1233,7 @@ class CarkeekBlocks_CustomArchive {
 				$args['meta_query'] = array();
 			}
 			$args['meta_query'][] = $featured_args;
-			$meta_query_count++;
+			++$meta_query_count;
 		}
 		// if prioritizeRelated, we first search by related, then by the original args.
 		if ( true == $attributes['prioritizeRelated'] ) {
@@ -1321,7 +1346,12 @@ class CarkeekBlocks_CustomArchive {
 		if ( isset( $attributes['anchor'] ) && ! empty( $attributes['anchor'] ) ) {
 			$block_id = $attributes['anchor'];
 		}
-		$block_start = '<div ' . get_block_wrapper_attributes( array( 'class' => implode( ' ', $css_classes_outer ), 'id' => $block_id ) ) . '">';
+		$block_start = '<div ' . get_block_wrapper_attributes(
+			array(
+				'class' => implode( ' ', $css_classes_outer ),
+				'id'    => $block_id,
+			)
+		) . '">';
 
 		if ( $query->have_posts() ) {
 			$posts           .= $block_start;
@@ -1383,7 +1413,7 @@ class CarkeekBlocks_CustomArchive {
 				$error_label                       = __( 'Unable to load more events. Please try again.', 'carkeek-blocks' );
 				$load_more_attrs                   = $attributes;
 				$load_more_attrs['showPagination'] = false;
-				$posts .= '<div class="ck-custom-archive__buttons ck-events-archive__load-more-wrap">'
+				$posts                            .= '<div class="ck-custom-archive__buttons ck-events-archive__load-more-wrap">'
 					. '<button type="button" class="button js-ck-events-archive-load-more"'
 					. ' data-ajax-url="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '"'
 					. ' data-nonce="' . esc_attr( wp_create_nonce( 'ckb_events_archive_load_more' ) ) . '"'
@@ -1400,16 +1430,13 @@ class CarkeekBlocks_CustomArchive {
 			$posts .= '</div>';
 			wp_reset_postdata();
 			return $posts;
-		} else {
-			if ( false === $attributes['hideIfEmpty'] ) {
+		} elseif ( false === $attributes['hideIfEmpty'] ) {
 				$block_content = '<div class="wp-block-carkeek-blocks-custom-archive __list empty">' . $attributes['emptyMessage'] . '</div>';
 				return $block_start . $block_content . '</div>';
-			} else {
-				return;
-			}
+		} else {
+			return;
 		}
 	}
-
 }
 
 CarkeekBlocks_CustomArchive::register();
