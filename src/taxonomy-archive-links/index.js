@@ -1,4 +1,5 @@
 import "./style.scss";
+import "./editor.scss";
 
 import edit from "./edit";
 import icons from './icons';

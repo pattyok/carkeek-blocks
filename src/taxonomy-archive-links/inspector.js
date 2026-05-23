@@ -155,6 +155,7 @@ function postsInspector( props ){
 						{ label: __("Comma (,)"), value: "comma"},
 						{ label: __("Bullet (&#8226;)"), value: "bullet"},
 						{ label: __("Pipe (|)"), value: "pipe"},
+						{ label: __("Slash (/)"), value: "slash"},
 					]}
 					value={separator}
 				/>

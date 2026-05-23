@@ -9,6 +9,7 @@
     "version": "1.0.0",
     "textdomain": "carkeek-blocks",
 	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
 	"render": "file:./render.php",
     "attributes": {
@@ -85,6 +86,6 @@
 		}
     },
     "supports": {
-        "align": ["wide", "full", "left", "right", "center"]
+        "align": ["wide", "full", "left", "right", "center", "color", "fonts"]
     }
   }
