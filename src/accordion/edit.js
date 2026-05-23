@@ -54,7 +54,9 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		});
 	}
 
-	const blockProps = useBlockProps();
+	const style = 'has-expand-icon-' + attributes.expandIcon;
+
+	const blockProps = useBlockProps({ className: style });
 	// Update the child block's attributes
 
 	return (

@@ -8,7 +8,7 @@ import jQuery from 'jquery';
             let titleAdded = false;
             let galleryTitle = '';
 			let loading = false;
-            $('[data-fancybox^="gallery-"]').fancybox({
+            $('[data-fancybox="gbn-gallery"]').fancybox({
                 thumbs : {
                 autoStart : true
                 },
