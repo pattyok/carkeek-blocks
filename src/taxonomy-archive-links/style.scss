@@ -77,7 +77,7 @@
 
 .wp-block-carkeek-blocks-taxonomy-terms ul.tile-list {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(1, 1fr);
 	gap: var(--ck-blocks-tax-link-gap);
 
 	& li {
@@ -136,5 +136,16 @@
 		&:hover .tile-hover {
 			top: 0;
 		}
+	}
+}
+
+@media (min-width: 600px) {
+	.wp-block-carkeek-blocks-taxonomy-terms ul.tile-list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (min-width: 1024px) {
+	.wp-block-carkeek-blocks-taxonomy-terms ul.tile-list {
+		grid-template-columns: repeat(3, 1fr);
 	}
 }
