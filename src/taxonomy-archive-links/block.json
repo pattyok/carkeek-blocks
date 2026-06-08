@@ -6,7 +6,7 @@
     "category": "widgets",
     "description": "Place taxonomy terms list on a page",
     "keywords": [ "taxonomy", "terms", "archive" ],
-    "version": "1.0.0",
+    "version": "1.0.01",
     "textdomain": "carkeek-blocks",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
