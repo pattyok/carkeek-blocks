@@ -38,6 +38,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"hierarchical": {
+			"type": "boolean",
+			"default": false
+		},
         "className": {
             "type": "string"
         },

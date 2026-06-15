@@ -72,6 +72,13 @@
 				}
 			}
 		}
+		&.hierarchical-list {
+			li.parent-term {
+				&:after {
+					content: '\203A';
+				}
+			}
+		}
 	}
 }
 
