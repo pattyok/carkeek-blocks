@@ -30,7 +30,8 @@ function postsInspector( props ){
 		archiveFacet,
 		tileImageField,
 		tileImageStyle,
-		excludeChildTerms
+		excludeChildTerms,
+		hierarchical,
 
           } = attributes;
 
@@ -120,6 +121,15 @@ function postsInspector( props ){
                         setAttributes({ excludeChildTerms: value })
                     }
                 />
+				{! excludeChildTerms &&
+				<ToggleControl
+                    label="Display as Hierarchical list (parents/children)"
+                    checked={ hierarchical }
+                    onChange={value =>
+                        setAttributes({ hierarchical: value })
+                    }
+                />
+				}
             </PanelBody>
 			<PanelBody title={__("Layout Style", "carkeek-blocks")}>
 			<TextControl
