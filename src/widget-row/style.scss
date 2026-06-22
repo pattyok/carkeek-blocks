@@ -1,38 +1,52 @@
 .wp-block-carkeek-blocks-widget-row {
 	&[class*=is-style-border-]{
 		--ck-border-width: 1px;
-		& .ck-columns__wrap {
-			gap: var(--ck-column-gap-vert) 0;
-		}
-		&.ck-columns-layout-grid {
-			& .ck-columns__wrap {
-				gap: var(--ck-column-gap-vert) 0;
-			}
-		}
+		--ck-border-style: solid;
+		--ck-border-color: currentColor;
 
 		& .ck-columns__wrap > * {
-			border: 0;
-			border-right: var(--ck-border-width) solid;
-			padding: calc(var(--ck-column-gap)/2);
+			position: relative;
+			/* Add a pseudo-element for the right border */
+			&:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: calc((var((--ck-column-gap))/2) * -1);
+				width: 0;
+				height: 100%;
+				border-right: var(--ck-border-width) var(--ck-border-style) var(--ck-border-color);
+			}
+			/* Add a pseudo-element for the bottom border */
+			&:before {
+				content: "";
+				position: absolute;
+				bottom: calc((var((--ck-column-gap-vert))/2) * -1);
+				left: 0;
+				width: 100%;
+				height: 0;
+				border-bottom: var(--ck-border-width) var(--ck-border-style) var(--ck-border-color);
+			}
 			&:last-child {
-				border: none;
+				&:before {
+					display: none;
+				}
 			}
 		}
 
 	}
 	&.is-style-border-solid {
 		& .ck-columns__wrap > * {
-			border-style: solid;
+			--ck-border-style: solid;
 		}
 	}
 	&.is-style-border-dashed {
 		& .ck-columns__wrap > * {
-			border-style: dashed;
+			--ck-border-style: dashed;
 		}
 	}
 	&.is-style-border-dotted {
 		& .ck-columns__wrap > * {
-			border-style: dotted;
+			--ck-border-style: dotted;
 		}
 	}
 
@@ -46,17 +60,9 @@
 			&.ck-columns {
 					&.has-1-columns-mobile {
 						& .ck-columns__wrap  {
-							gap: 0;
 							& > * {
-								border-right: none;
-								border-bottom-width: var(--ck-border-width);
-								padding-left: 0;
-								padding-right: 0;
-								&:first-child {
-									padding-top:  0;
-								}
-								&:last-child {
-									border-bottom: none;
+								&:after {
+									display: none;
 								}
 							}
 						}
@@ -65,13 +71,10 @@
 					&.has-2-columns-mobile {
 
 						& .ck-columns__wrap > * {
-							margin-right: 0;
 							&:nth-child(2n) {
-								border: none;
-								padding-right: 0;
-							}
-							&:nth-child(2n + 1) {
-								padding-left: 0;
+								&::after {
+									display: none;
+								}
 							}
 						}
 					}
@@ -79,40 +82,34 @@
 					&.has-3-columns-mobile {
 
 						& .ck-columns__wrap > * {
-							margin-right: 0;
+
 							&:nth-child(3n) {
-								border: none;
-								padding-right: 0;
+								&::after {
+									display: none;
+								}
 							}
-							&:nth-child(3n + 1) {
-								padding-left: 0;
-							}
+
 						}
 					}
 
 					&.has-4-columns-mobile {
 
 						& .ck-columns__wrap > * {
-							margin-right: 0;
+
 							&:nth-child(4n) {
-								border: none;
-								padding-right: 0;
-							}
-							&:nth-child(4n + 1) {
-								padding-left: 0;
+								&::after {
+									display: none;
+								}
 							}
 						}
 					}
 
 					&.has-5-columns-mobile {
 						& .ck-columns__wrap > * {
-							margin-right: 0;
 							&:nth-child(5n) {
-								border: none;
-								padding-right: 0;
-							}
-							&:nth-child(5n + 1) {
-								padding-left: 0;
+								&::after {
+									display: none;
+								}
 							}
 						}
 					}
@@ -120,13 +117,10 @@
 					&.has-6-columns-mobile {
 
 						& .ck-columns__wrap > * {
-							margin-right: 0;
 							&:nth-child(6n) {
-								border: none;
-								padding-right: 0;
-							}
-							&:nth-child(6n + 1) {
-								padding-left: 0;
+								&::after {
+									display: none;
+								}
 							}
 						}
 					}
@@ -143,12 +137,9 @@
 
 				&.has-1-columns-tablet {
 					& .ck-columns__wrap  {
-						gap: 0;
 						& > * {
-							border-right: none;
-							border-bottom: var(--ck-border-width) solid;
-							&:last-child {
-								border-bottom: none;
+							&::after {
+								display: none;
 							}
 						}
 					}
@@ -158,13 +149,15 @@
 				&.has-2-columns-tablet {
 
 					& .ck-columns__wrap > * {
-
-						&:nth-child(2n) {
-							border: none;
-							padding-right: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
 						}
-						&:nth-child(2n + 1) {
-							padding-left: 0;
+						&:nth-child(2n) {
+							&::after {
+								display: none;
+							}
 						}
 
 					}
@@ -173,13 +166,21 @@
 				&.has-3-columns-tablet {
 
 					& .ck-columns__wrap > * {
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
 
 						&:nth-child(3n) {
-							border: none;
-							padding-right: 0;
-						}
-						&:nth-child(3n + 1) {
-							padding-left: 0;
+							&::after {
+								display: none;
+							}
 						}
 
 					}
@@ -190,11 +191,24 @@
 					& .ck-columns__wrap > * {
 
 						&:nth-child(4n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(4n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(4) {
+							&::before {
+								display: none;
+							}
 						}
 					}
 				}
@@ -204,11 +218,29 @@
 					& .ck-columns__wrap > * {
 
 						&:nth-child(5n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(5n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(4) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(5) {
+							&::before {
+								display: none;
+							}
 						}
 
 					}
@@ -219,12 +251,36 @@
 					& .ck-columns__wrap > * {
 
 						&:nth-child(6n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(6n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
 						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(4) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(5) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(6) {
+							&::before {
+								display: none;
+							}
+						}
+
 
 					}
 				}
@@ -239,23 +295,14 @@
 	.wp-block-carkeek-blocks-widget-row {
 		&[class*=is-style-border-]{
 			&.ck-columns {
-				& .ck-columns__wrap > * {
-					&:first-child {
-						padding-left: 0;
-					}
-					&:last-child {
-						padding-right: 0;
-					}
-				}
+
 
 				&.has-1-columns {
 					& .ck-columns__wrap  {
-						gap: 0;
+
 						& > * {
-							border-right: none;
-							border-bottom: var(--ck-border-width) solid;
-							&:last-child {
-								border-bottom: none;
+							&::after {
+								display: none;
 							}
 						}
 					}
@@ -266,12 +313,16 @@
 
 					& .ck-columns__wrap > * {
 						&:nth-child(2n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(2n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
 						}
+
 					}
 				}
 
@@ -279,11 +330,19 @@
 
 					& .ck-columns__wrap > * {
 						&:nth-child(3n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(3n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
 						}
 					}
 				}
@@ -293,11 +352,24 @@
 					& .ck-columns__wrap > * {
 
 						&:nth-child(4n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(4n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(4) {
+							&::before {
+								display: none;
+							}
 						}
 					}
 				}
@@ -306,11 +378,29 @@
 
 					& .ck-columns__wrap > * {
 						&:nth-child(5n) {
-							border: none;
-							padding-right: 0;
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(5n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(4) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(5) {
+							&::before {
+								display: none;
+							}
 						}
 					}
 				}
@@ -319,12 +409,35 @@
 				&.has-6-columns {
 
 					& .ck-columns__wrap > * {
-						&:nth-child(5n) {
-							border: none;
-							padding-right: 0;
+						&:nth-child(6n) {
+							&::after {
+								display: none;
+							}
 						}
-						&:nth-child(5n + 1) {
-							padding-left: 0;
+						&:nth-last-child(2) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(3) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(4) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(5) {
+							&::before {
+								display: none;
+							}
+						}
+						&:nth-last-child(6) {
+							&::before {
+								display: none;
+							}
 						}
 					}
 				}
