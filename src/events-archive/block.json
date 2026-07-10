@@ -172,6 +172,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"useWithFilter": {
+            "type": "string",
+            "default": ""
+        },
 		"style": {
             "type": "object",
             "default": {
