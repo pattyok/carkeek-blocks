@@ -1161,6 +1161,12 @@ class CarkeekBlocks_CustomArchive {
 			);
 		}
 
+
+		if ( ! empty( $attributes['useWithFilter'] ) ) {
+			$args[ $attributes['useWithFilter'] ] = true;
+			$args[ 'post_type'] = array( $post_type, 'x' ); // Including fake post type makes it work with FacetWP.
+		}
+
 		if ( true !== $attributes['includePastEvents'] ) {
 			$args['meta_query'][] =
 				array(
@@ -1311,7 +1317,6 @@ class CarkeekBlocks_CustomArchive {
 				$query->posts = array_merge( $query->posts, $query3->posts );
 			}
 		} else {
-
 			$args  = apply_filters( 'carkeek_block_events_layout_query_args', $args, $attributes );
 			$query = new WP_Query( $args );
 

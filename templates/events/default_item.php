@@ -122,7 +122,7 @@ if ( true == $data->displayPostExcerpt ) {
 
 
 ?>
-<div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( $post->name ); ?>">
+<div class="ck-columns-item ck-custom-archive-item <?php echo esc_attr( sanitize_title( $post->post_title ) ); ?>" id="post-<?php echo esc_attr( $post->ID ); ?>">
 <?php
 if ( ! empty( $featured_image ) ) {
 	$image_style = isset( $data->imageOrientation ) ? 'layout-' . $data->imageOrientation : 'layout-landscape';
@@ -135,6 +135,7 @@ if ( ! empty( $featured_image ) ) {
 	<div class="ck-custom-archive__content-wrap">
 		<?php do_action( 'ck_events_archive_layout__before_title', $data ); ?>
 		<?php if ( false == $data->hideTitle ) { ?>
+		<?php echo $post->ID; ?>
 		<a class="ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
 		<?php } ?>
 		<?php do_action( 'ck_events_archive_layout__after_title', $data ); ?>

@@ -7,7 +7,8 @@ import {
     RadioControl,
     SelectControl,
     TextareaControl,
-    TextControl
+    TextControl,
+
 } from "@wordpress/components";
 
 
@@ -57,6 +58,7 @@ function postsInspector(props) {
         prioritizeRelated,
         enableAjaxLoadMore,
         ajaxLoadMoreLabel,
+		useWithFilter,
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
@@ -443,6 +445,17 @@ function postsInspector(props) {
                     help={__("If selected and placed on an event page, we will find events with similar tags and categories first. This is an intensize database search so only use if the standard filters are not getting what you want.", "carkeek-blocks")}
                     onChange={(value) => setAttributes({ prioritizeRelated: value })}
                 />
+				<RadioControl
+					label={__("Use with Filter")}
+					selected={useWithFilter}
+					options={[
+						{ label: 'None', value: '' },
+						{ label: 'FacetWP', value: 'facetwp' },
+					]}
+					onChange={value =>
+						setAttributes({ useWithFilter: value })
+					}
+				/>
             </InspectorAdvancedControls>
         </>
     );
