@@ -11,10 +11,26 @@
 		 * allowing object-fit + object-position (focal point) to work correctly.
 		 */
 		function updateContainerWidth( container ) {
+			var width = container.getBoundingClientRect().width;
+			if ( ! width ) {
+				width = container.offsetWidth;
+			}
+
+			if ( ! width ) {
+				return false;
+			}
+
 			container.style.setProperty(
 				'--ck-ic-width',
-				container.offsetWidth + 'px'
+				Math.round( width ) + 'px'
 			);
+
+			return true;
+		}
+
+		function refreshContainerLayout( container ) {
+			if ( ! updateContainerWidth( container ) ) return;
+			updateLabels( container );
 		}
 
 		/**
@@ -156,10 +172,21 @@
 		containers.forEach( function ( container ) {
 			applySliderColor( container );
 			applyDividerStyles( container );
-			updateContainerWidth( container );
 			setupDrag( container );
-			updateLabels( container );
+			refreshContainerLayout( container );
 		} );
+
+		if ( typeof ResizeObserver !== 'undefined' ) {
+			var containerResizeObserver = new ResizeObserver( function ( entries ) {
+				entries.forEach( function ( entry ) {
+					refreshContainerLayout( entry.target );
+				} );
+			} );
+
+			containers.forEach( function ( container ) {
+				containerResizeObserver.observe( container );
+			} );
+		}
 
 		// Throttled resize handler
 		var resizePending = false;
@@ -168,12 +195,21 @@
 			resizePending = true;
 			requestAnimationFrame( function () {
 				containers.forEach( function ( container ) {
-					updateContainerWidth( container );
-					updateLabels( container );
+					refreshContainerLayout( container );
 				} );
 				resizePending = false;
 			} );
 		} );
+
+		if ( typeof ResizeObserver === 'undefined' ) {
+			[ 'transitionend', 'animationend' ].forEach( function ( eventName ) {
+				document.addEventListener( eventName, function () {
+					containers.forEach( function ( container ) {
+						refreshContainerLayout( container );
+					} );
+				} );
+			} );
+		}
 	}
 
 	if ( document.readyState === 'loading' ) {
