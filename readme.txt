@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 4.0.08 =
+* Release 4.0.08  - 08/06/26
+	* Fix to image compare block
 = 4.0.05 =
 * Release 4.0.05  - 06/22/26
 	* Fix to borders on the widget row

@@ -58,7 +58,7 @@ function postsInspector(props) {
         prioritizeRelated,
         enableAjaxLoadMore,
         ajaxLoadMoreLabel,
-		useWithFilter,
+		useWithFilter
     } = attributes;
 
     //Handling these as individual attributes until I have time to figure out arrays.
@@ -257,12 +257,13 @@ function postsInspector(props) {
                     />
                 </>
             )}
-            <ToggleControl
+			<ToggleControl
                 label={__("Include Hidden Events")}
                 checked={includeHiddenEvents}
                 help={__("Include Events that have 'Hide from Event Listings' checked")}
                 onChange={(value) => setAttributes({ includeHiddenEvents: value })}
             />
+
         </>
     );
 
