@@ -16,8 +16,8 @@ if ( $creditsPopupOverride ) {
 	<span class="site-info">&copy; <?php echo esc_attr( gmdate( 'Y' ) ); ?> <?php echo wp_kses_post( $attributes['contentAfter'] ); ?></span>
 	<?php } ?>
 	<?php if ( $attributes['showCredits'] ) { ?>
-		<button class="ck-button-link info-popover ck-credits" data-popover="site-credit-pop"><?php echo esc_html( $attributes['creditsLinkLabel'] ); ?></button>
-		<div class="gpopover no-list" id="site-credit-pop">
+		<button class="ck-button-link info-popover ck-credits" aria-controls="site-credit-pop"><?php echo esc_html( $attributes['creditsLinkLabel'] ); ?></button>
+		<div class="popover js-popover js-tab-focus" role="dialog" id="site-credit-pop">
 			<ul class="no-list">
 				<?php echo wp_kses_post( $creditsPopupContent ); ?>
 			</ul>
