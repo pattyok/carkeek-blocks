@@ -1,3 +1,14 @@
+/* component */
+:root {
+  --popover-width: 250px;
+  --popover-control-gap: 4px;
+  --popover-viewport-gap: 20px;
+  --popover-transition-duration: 0.2s;
+  --popover-padding: 10px;
+  --popover-border-radius: 4px;
+}
+
+
 .wp-block-carkeek-blocks-site-credits {
 	.gpopover {
 		font-size: 0.875rem;
@@ -10,6 +21,43 @@
 				}
 		}
 	}
+	.popover {
+		background-color: var(--wp--preset--color--background, #fff);
+		font-size: 0.875rem;
+		color: var(--wp--preset--color--contrast, #000);
+		border: 1px solid var(--wp--preset--color--contrast, #000);
+		border-radius: var(--popover-border-radius);
+		padding: var(--popover-padding);
+		position: fixed;
+		width: var(--popover-width);
+		z-index: 5;
+		margin-top: var(--popover-control-gap);
+		margin-bottom: var(--popover-control-gap);
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		visibility: hidden;
+		opacity: 0;
+		transition: visibility 0s var(--popover-transition-duration), opacity var(--popover-transition-duration);
+
+		& ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		& a {
+			color: var(--wp--preset--color--secondary, #3344dd);
+				&:hover {
+					color: var(--wp--preset--color--secondary, #3344dd);
+					text-decoration: underline;
+				}
+		}
+	}
+
+		.popover--is-visible {
+		visibility: visible;
+		opacity: 1;
+		transition: visibility 0s, opacity var(--popover-transition-duration);
+		}
 }
 
 .ck-button-link {
