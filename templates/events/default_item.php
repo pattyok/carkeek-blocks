@@ -135,7 +135,6 @@ if ( ! empty( $featured_image ) ) {
 	<div class="ck-custom-archive__content-wrap">
 		<?php do_action( 'ck_events_archive_layout__before_title', $data ); ?>
 		<?php if ( false == $data->hideTitle ) { ?>
-		<?php echo $post->ID; ?>
 		<a class="ck-custom-archive-title_link" href="<?php echo esc_url( $permalink ); ?>"><?php the_title(); ?></a>
 		<?php } ?>
 		<?php do_action( 'ck_events_archive_layout__after_title', $data ); ?>
