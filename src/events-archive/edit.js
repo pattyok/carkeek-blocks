@@ -2,7 +2,7 @@ import classnames from "classnames";
 import icons from './icons';
 import PostsInspector from './inspector';
 import ServerSideRender from "@wordpress/server-side-render";
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { ToolbarGroup, ToolbarButton, Disabled } from '@wordpress/components';
 import { withSelect } from "@wordpress/data";
 import {  useBlockProps,  BlockControls } from "@wordpress/block-editor";
 
@@ -43,11 +43,12 @@ function customArchiveEdit( props ) {
                         "is-list": attributes.postLayout === "list",
                     }) }
             >
-                <ServerSideRender
+                <Disabled>
+				<ServerSideRender
                     block={name}
                     attributes={props.attributes}
                 />
-
+				</Disabled>
             </div>
         </>
     );

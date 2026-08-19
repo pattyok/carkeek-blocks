@@ -215,7 +215,7 @@ function postsInspector( props ){
 						})
 					}
 					options={[
-						{ label: __("WordPress"), value: "wordpress"},
+						{ label: __("WordPress"), value: "wp"},
 						{ label: __("FacetWP"), value: "facetwp"},
 					]}
 					value={archiveType}
