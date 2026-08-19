@@ -90,21 +90,21 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		$term_link_url  = '';
 		$term_link_text = $term->name;
 		if ( true == $attributes['linkToCategory'] ) {
-			if ( 'WordPress' == $attributes['archiveType'] ) {
-				$term_link_url = get_term_link( $term );
-			} elseif ( 'facetwp' == $attributes['archiveType'] ) {
+			if ( 'facetwp' == $attributes['archiveType'] ) {
 				$term_link_url = add_query_arg(
 					array(
 						$attributes['archiveFacet'] => $term->slug,
 					),
 					$attributes['archivePage']
 				);
+			} else {
+				$term_link_url = get_term_link( $term );
 			}
 		}
 		$term_content = '';
 		$term_icon    = '';
 		$tile_hover   = '';
-		$layout	   = $attributes['displayAs'];
+		$layout       = $attributes['displayAs'];
 		if ( $attributes['displayAs'] == 'tile' ) {
 			$img_field = $attributes['tileImageField'];
 			if ( ! empty( $img_field ) ) {
@@ -125,14 +125,11 @@ if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		}
 		if ( empty( $term_link_url ) ) {
 			$term_content .= $term_link_text;
-		} else {
-			if ( $attributes['displayAs'] == 'tile' ) {
+		} elseif ( $attributes['displayAs'] == 'tile' ) {
 				$term_content .= '<a href="' . esc_url( $term_link_url ) . '"></a>' . $term_icon . $term_link_text . $tile_hover;
 
-			} else {
-				$term_content .= $term_icon . '<a href="' . esc_url( $term_link_url ) . '">'  . $term_link_text . '</a>';
-			}
-
+		} else {
+			$term_content .= $term_icon . '<a href="' . esc_url( $term_link_url ) . '">' . $term_link_text . '</a>';
 		}
 		$term_class = $term->parent == 0 ? 'parent-term' : 'child-term';
 

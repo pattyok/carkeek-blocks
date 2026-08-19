@@ -6,6 +6,7 @@ import { withSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 import {
     Placeholder,
+	Disabled
 } from "@wordpress/components";
 import {  useBlockProps } from "@wordpress/block-editor";
 
@@ -40,11 +41,13 @@ function customArchiveEdit( props ) {
 
         <div { ...blockProps } >
             <PostsInspector { ...props } />
-
+			<Disabled>
             <ServerSideRender
                 block={name}
                 attributes={props.attributes}
             />
+			</Disabled>
+
 
 
         </div>

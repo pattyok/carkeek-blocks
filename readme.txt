@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 4.0.11 =
+* Release 4.0.11  - 08/19/26
+	* Wrapping Serverside Renders in Disabled component
 = 4.0.09 =
 * Release 4.0.08  - 08/11/26
 	* Fix to site credits block
