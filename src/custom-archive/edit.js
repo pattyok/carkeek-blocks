@@ -1,10 +1,10 @@
 import icons from './icons';
-
+import { useEffect } from "@wordpress/element";
 import PostsInspector from './inspector';
-import ServerSideRender from "@wordpress/server-side-render";
+import { ServerSideRender } from "@wordpress/server-side-render";
 import { ToolbarGroup, ToolbarButton, Disabled } from '@wordpress/components';
 
-import { withSelect } from "@wordpress/data";
+import { withSelect, useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 import {
     Placeholder,
@@ -25,9 +25,20 @@ function customArchiveEdit( props ) {
         postTypeSelected,
         blockId,
     } = attributes;
-    if ( ! blockId ) {
-        setAttributes( { blockId: clientId } );
+   // Check if this ID is used elsewhere in the editor
+	const existingBlock = useSelect( ( select ) => {
+		const blocks = select( 'core/block-editor' ).getBlocks();
+		// logic to check if blockId matches another block's attribute
+		return blocks.some( block => block.clientId !== clientId && block.attributes.blockId === blockId );
+	}, [ blockId ] );
+
+	useEffect( () => {
+    if ( ! blockId || existingBlock ) {
+        setAttributes( { blockId: 'id-' + Math.random().toString(36).substr(2, 9) } );
     }
+}, [ blockId, existingBlock ] );
+
+
     const blockProps = useBlockProps();
 
     if (!postTypeSelected) {

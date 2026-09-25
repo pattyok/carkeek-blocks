@@ -465,7 +465,7 @@ function postsInspector(props) {
 						/>
 					}
 
-                    {postLayout == 'grid' &&
+                    {(postLayout == 'grid' || postLayout == 'ul') &&
                         <>
                             <RangeControl
                                 label={__("Number of Columns", "carkeek-blocks")}
@@ -634,7 +634,7 @@ function postsInspector(props) {
                         }
                     </PanelBody>
                 }
-				{postLayout !== 'ul' &&
+
                 <PanelBody title={__("Item Style", "carkeek-blocks")} initialOpen={false}>
                     <ToggleControl
                         label={__("Use Heading tag for Titles")}
@@ -663,28 +663,30 @@ function postsInspector(props) {
 						}
 					/>
 					}
-					<ToggleControl
-						label={__("Link Entire Item")}
-						checked={wholeLink}
-						onChange={value =>
-							setAttributes({ wholeLink: value })
-						}
-					/>
-                    <ToggleControl
-                        label={__("Show Taxonomy Terms")}
-                        checked={showTerms}
-                        onChange={value =>
-                            setAttributes({ showTerms: value })
-                        }
-                    />
-					{showTerms && (
-						<SelectControl
-							label={__("Select Taxonomy to Show", "carkeek-blocks")}
-							onChange={(taxes) => setAttributes({ showTermsTax: taxes.join(",") })}
-							options={taxOptions}
-							value={showTermsTax?.split(',')}
-							multiple
+					{postLayout !== 'ul' &&
+						<>
+						<ToggleControl
+							label={__("Link Entire Item")}
+							checked={wholeLink}
+							onChange={value =>
+								setAttributes({ wholeLink: value })
+							}
 						/>
+						<ToggleControl
+							label={__("Show Taxonomy Terms")}
+							checked={showTerms}
+							onChange={value =>
+								setAttributes({ showTerms: value })
+							}
+						/>
+						{showTerms && (
+							<SelectControl
+								label={__("Select Taxonomy to Show", "carkeek-blocks")}
+								onChange={(taxes) => setAttributes({ showTermsTax: taxes.join(",") })}
+								options={taxOptions}
+								value={showTermsTax?.split(',')}
+								multiple
+							/>
 
 					)}
 
@@ -743,6 +745,7 @@ function postsInspector(props) {
                                     { label: __("Portrait 4:3"), value: "portrait-43" },
                                     { label: __("Square 1:1"), value: "square" },
                                     { label: __("Circle 1:1"), value: "circle" },
+									{ label: __("No Crop"), value: "no-crop" },
                                 ]}
                                 value={imageOrientation}
                             />
@@ -828,9 +831,13 @@ function postsInspector(props) {
 								}
 							/>
 						</>
-                    }
+
+							}
+							</>
+					}
+
                 </PanelBody>
-				}
+
                 <PanelBody title={__("Responsive Layout", "carkeek-blocks")} initialOpen={false}>
                     {postLayout == 'grid' &&
                         <>

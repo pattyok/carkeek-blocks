@@ -54,6 +54,15 @@
 			object-fit: cover;
 			object-position: 50% 50%;
 		}
+		&.layout-no-crop {
+			--ck-archive-image-ratio: auto;
+			&::after {
+				content: none;
+			}
+			& img {
+				position: relative;
+			}
+		}
 
 	}
 
@@ -116,6 +125,8 @@
 			padding-left: 0;
 		}
 	}
+
+
 }
 
 .ck_pagination {
@@ -184,6 +195,15 @@
 					flex: 1 1 67%;
 					text-align: left;
 					align-items: flex-start;
+				}
+			}
+		}
+
+		&.is-ul {
+			& .ck-custom-archive__list {
+				column-count: var(--ck-columns, 1);
+				& li {
+					break-inside: avoid;
 				}
 			}
 		}
