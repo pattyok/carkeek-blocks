@@ -434,12 +434,14 @@ class CarkeekBlocks_CustomArchive {
 		}
 		$template = apply_filters( 'carkeek_block_custom_post_layout__template', $template, $attributes );
 
-		if ( isset( $attributes['openAsModal'] ) && true == $attributes['openAsModal'] ) {
+		if ( isset( $attributes['openAsModal'] ) && true == $attributes['openAsModal'] && $layout != 'ul' ) {
 			$modal = 'custom-archive/modal_item_v2';
 
 			if ( true == $attributes['wholeLink'] ) {
 				$modal = 'custom-archive/modal_item_v2_linked';
 			}
+
+
 			ob_start();
 			$template_loader
 				->set_template_data( $attributes )
@@ -886,6 +888,7 @@ class CarkeekBlocks_CustomArchive {
 		$block_class    = 'carkeek-archive';
 		$inner_el_class = 'ck-custom-archive';
 		$align          = isset( $attributes['align'] ) ? $attributes['align'] : '';
+		$style           = '';
 
 		$css_classes_outer = array(
 			$block_class,
@@ -900,6 +903,7 @@ class CarkeekBlocks_CustomArchive {
 			$css_classes_outer[] = 'has-' . $mobile . '-columns-mobile has-' . $tablet . '-columns-tablet';
 		} elseif ( 'ul' === $layout ) {
 			$css_classes_outer[] = 'is-ul';
+			$style .= '--ck-columns: ' . $attributes['columns'] . ';';
 			if ( isset( $attributes['listStyle'] ) ) {
 				$css_classes_outer[] = $attributes['listStyle'];
 			}
@@ -929,8 +933,9 @@ class CarkeekBlocks_CustomArchive {
 			array(
 				'class' => implode( ' ', $css_classes_outer ),
 				'id'    => $block_id,
+
 			)
-		) . '">';
+		) . ' style="' . esc_attr( $style ) . '">';
 
 		/** we only include headline and link if the whole block is hidden on empty */
 		$view_more_link      = '';
