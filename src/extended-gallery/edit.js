@@ -32,6 +32,7 @@ function ExtendedGalleryEdit( props ) {
         viewLimit,
         mobileScroll,
         autoPlay,
+		showPlayButton,
         slidesToScroll,
         slidesToScrollMobile,
         slidesToScrollTablet,
@@ -276,6 +277,7 @@ function ExtendedGalleryEdit( props ) {
                                 }
                             />
                             {autoPlay &&
+							<>
                             <RangeControl
                                 label={__("Time on each Slide (in ms)", "carkeek-blocks")}
                                 value={autoPlaySpeed}
@@ -285,6 +287,15 @@ function ExtendedGalleryEdit( props ) {
                                 min={1000}
                                 max={10000}
                             />
+							<ToggleControl
+							  label="Show Play Button"
+							  help={ "Show a play button to control the slideshow manually. Recommended when auto play is enabled." }
+							  checked={ showPlayButton }
+							  onChange={value =>
+                                    setAttributes({ showPlayButton: value })
+                                }
+								/>
+							</>
                             }
 						<RadioControl
 							label="Transition Type"

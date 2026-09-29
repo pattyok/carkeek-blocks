@@ -179,6 +179,7 @@ ul.ck-blocks-gallery-grid {
 		padding-left: 10px;
 	}
 
+
 	&.fixed-images-square {
 		--gallery-image-ratio: 1;
 	}
@@ -235,6 +236,45 @@ ul.ck-blocks-gallery-grid {
 			}
 		}
 	}
+
+
+}
+.wp-block-carkeek-blocks-extended-gallery .slick-play {
+
+		position: absolute;
+		display: block;
+		bottom: 20px;
+		left: 10px;
+		z-index: 200;
+		padding: 6px 14px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		color: #fff;
+		background-color: rgba(250, 250, 250, 0.25);
+
+		&:after {
+			background-color: rgba(0, 0, 0, 0.5);
+			content: '';
+			display: block;
+			height: 22px;
+			width: 22px;
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: contain;
+			mask-image: url(svg/pause-icon.svg);
+		}
+		&.paused:after {
+			mask-image: url(svg/play-icon.svg);
+		}
+
+		&:hover,
+		&:focus {
+			background-color: rgba(250, 250, 250, 0.50);
+			&:after {
+				background-color: rgba(0, 0, 0, 0.75);
+			}
+		}
 
 
 }
@@ -508,3 +548,98 @@ ul.ck-blocks-gallery-grid.slider-carousel {
 	}
 }
 
+
+/*
+ * Slow pan over each slide, starting once the fade has landed.
+ *
+ * The animation hangs off .is-panning, added by the block's script on
+ * afterChange (and once on init for the first slide) — not off .slick-active,
+ * which slick removes from the outgoing slide while it is still fading out.
+ * .pan-down / .pan-up are assigned there too, so slick's clones don't throw
+ * the alternating direction off the way :nth-child() does.
+ *
+ * The pan itself animates `transform`, not `object-position`: img is
+ * rendered taller than the frame (133.3%, i.e. 4/3) and overflow: hidden on
+ * figure clips it, so sliding it with translateY is a compositor-only
+ * transform — no layout or paint on every frame the way object-position
+ * needs. 25% is exactly the spare quarter of that 4/3 height, so
+ * translateY(-25%) moves the image from top-aligned to bottom-aligned.
+ *
+ * .is-style-pan is the class that triggers this pan animation. It is manually added to the gallery block - no block editor setting controls it automatically.
+ */
+
+.wp-block-carkeek-blocks-extended-gallery.is-style-pan .ck-blocks-gallery-grid.slider-carousel {
+	--gallery-image-ratio: 2.2;
+	--pan-duration: 8s;
+	--pan-delay: 0s;
+
+	& .ck-blocks-gallery-grid-item {
+		& figure {
+			aspect-ratio: 2.2;
+			min-height: 320px;
+			max-height: 680px;
+			overflow: hidden;
+		}
+		img {
+			aspect-ratio: auto;
+			display: block;
+			width: 100%;
+			height: calc(400% / 3);
+			object-fit: cover;
+		}
+	}
+
+	/* Resting state is where each pan begins, so a slide is already framed
+	   correctly while it fades in and before .is-panning arrives. */
+	& .slick-slide img {
+		transform: translateY(0);
+	}
+	& .slick-slide.pan-up img {
+		transform: translateY(-25%);
+	}
+
+	& .slick-slide.is-panning img {
+		animation-name: pan-animation;
+		animation-duration: var(--pan-duration);
+		animation-delay: var(--pan-delay);
+		animation-timing-function: linear;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+		will-change: transform;
+	}
+	& .slick-slide.pan-up.is-panning img {
+		animation-name: pan-animation-up;
+	}
+
+	/* .slick-paused is added to this same element (the slider ul) by the
+	   pause/play button handler in script.js — freeze the pan in place
+	   rather than letting it keep running while the slideshow itself is
+	   stopped. Pausing keeps the animation's current position; toggling
+	   the class back off resumes it from there. */
+	&.slick-paused .slick-slide.is-panning img {
+		animation-play-state: paused;
+	}
+}
+
+@keyframes pan-animation {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-25%);
+	}
+}
+@keyframes pan-animation-up {
+	0% {
+		transform: translateY(-25%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-carkeek-blocks-extended-gallery.is-style-pan .slick-slide.is-panning img {
+		animation: none;
+	}
+}

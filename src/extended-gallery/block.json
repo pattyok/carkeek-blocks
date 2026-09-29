@@ -191,6 +191,10 @@
 			"type": "boolean",
 			"default": true
 		},
+		"showPlayButton": {
+			"type": "boolean",
+			"default": false
+		},
 		"slidesToShow": {
 			"type": "number",
 			"default": 3

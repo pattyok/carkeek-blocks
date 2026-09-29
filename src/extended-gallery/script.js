@@ -69,6 +69,62 @@ import jQuery from "jquery";
                     maxHeight: maxHeight + 'px'
                 });
             }
+            const $slider = $(this);
+
+            // Pan treatment (.is-style-pan): the pan is driven by our own
+            // .is-panning class rather than .slick-active, because slick strips
+            // .slick-active from the outgoing slide the moment the fade starts,
+            // which would cancel the animation mid-fade, and never adds it to
+            // the first slide (it is already there), so nothing would trigger.
+            if ($slider.closest(".wp-block-carkeek-blocks-extended-gallery").hasClass("is-style-pan")) {
+                // Clones carry indexes outside 0..slideCount-1, so normalise.
+                const logicalIndex = function(el, count) {
+                    const raw = parseInt(el.getAttribute("data-slick-index"), 10);
+                    return ((raw % count) + count) % count;
+                };
+
+                const slidesFor = function(target, count) {
+                    return $slider.find(".slick-slide").filter(function() {
+                        return logicalIndex(this, count) === target;
+                    });
+                };
+
+                const startPan = function(target, count) {
+                    slidesFor(target, count)
+                        .removeClass("is-panning")
+                        .each(function() {
+                            // Force a reflow between the remove and the add so
+                            // the keyframes restart when a slide comes back
+                            // round. No paint happens in between, so no flash.
+                            void this.offsetWidth;
+                        })
+                        .addClass("is-panning");
+                };
+
+                // Dropping the class parks the slide back at the start of its
+                // pan. Doing that to the incoming slide before the fade begins
+                // — while it is still at opacity 0 — means it fades in already
+                // framed correctly, instead of showing where its last pan ended
+                // and then jumping when the new pan starts. The outgoing slide
+                // keeps its class so it holds its framing all the way out.
+                $slider.on("beforeChange", function(e, slick, current, next) {
+                    slidesFor(next, slick.slideCount).removeClass("is-panning");
+                });
+
+                $slider.on("init", function(e, slick) {
+                    $slider.find(".slick-slide").each(function() {
+                        $(this).addClass(
+                            logicalIndex(this, slick.slideCount) % 2 === 0 ? "pan-down" : "pan-up"
+                        );
+                    });
+                    startPan(slick.currentSlide, slick.slideCount);
+                });
+
+                $slider.on("afterChange", function(e, slick, currentSlide) {
+                    startPan(currentSlide, slick.slideCount);
+                });
+            }
+
             $(this).on("init", function(e, slick) {
                 // we remove the data-fancybox attribute from the cloned slides,
                 // and add a data-trigger attribute with the same value,
@@ -87,7 +143,34 @@ import jQuery from "jquery";
                     $slide.attr("data-trigger", trigger);
                     $slide.removeAttr("data-fancybox");
                   });
+
               }).slick(options);
+            if (true == autoPlay) {
+                const $pauseButton = $slider.next(".slick-play");
+
+                $pauseButton.on("click", function() {
+					console.log("Pause button clicked");
+                    const isPaused = $slider.hasClass("slick-paused");
+
+                    if (isPaused) {
+                        $slider.slick("slickPlay");
+                        $slider.removeClass("slick-paused");
+                        $pauseButton
+                            .removeClass("paused")
+                            .attr("aria-label", "Pause slideshow");
+                    } else {
+                        $slider.slick("slickPause");
+                        $slider.addClass("slick-paused");
+                        $pauseButton
+                            .addClass("paused")
+                            .attr("aria-label", "Play slideshow");
+                    }
+                });
+            }
+			$slider.on("afterChange", function(event, slick, currentSlide) {
+				console.log(currentSlide);
+			});
+
         });
 
     });

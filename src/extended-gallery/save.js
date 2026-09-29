@@ -33,6 +33,7 @@ function ExtendedGallerySave ({ attributes }) {
         slidesToShowMobile,
         slidesToShowTablet,
         autoPlaySpeed,
+		showPlayButton,
         transitionSpeed,
 		transitionType,
         showOverlay,
@@ -224,6 +225,7 @@ function ExtendedGallerySave ({ attributes }) {
                 }
                 ) }
               </ul>
+			  { showPlayButton && <button role="button" className="slick-play ck-blocks-gallery-play-button" aria-label="Pause slideshow"></button>}
         </div>
     )
 }
