@@ -197,7 +197,7 @@ function PageHeaderSettings( props ) {
 
 const applyWithSelect = withSelect( ( select )=> {
     const { getEditedPostAttribute } = select( 'core/editor' );
-    const { getMedia, getPostType } = select( 'core' );
+    const { getEntityRecord, getPostType } = select( 'core' );
     const { getSettings } = select( 'core/block-editor' );
     const settings = getSettings();
     const themeColors = settings.colors || [];
@@ -216,7 +216,7 @@ const applyWithSelect = withSelect( ( select )=> {
         featuredImageFocalPoint = getEditedPostAttribute( 'meta' )[ '_carkeekblocks_featured_image_focal_point' ];
 
         featuredImageId = getEditedPostAttribute( 'featured_media' );
-        featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
+        featuredMedia = featuredImageId ? getEntityRecord( 'postType', 'attachment', featuredImageId ) : null;
 
 
         //ckBlockVars are stored in site options and passed via wp_add_inline_script

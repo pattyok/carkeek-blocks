@@ -17,7 +17,7 @@
 		if ( isset( $attributes['blockId'] ) ) {
 			$id = 'id="block-' . esc_attr( $attributes['blockId'] ) . '"';
 		}
-		$focal_point = $attributes['focalPoint'];
+		$focal_point = isset( $attributes['focalPoint'] ) ? $attributes['focalPoint'] : array();
 		if ( empty( $focal_point ) ) {
 			global $post;
 			// If not set in the block attributes, try to get it from the post meta.

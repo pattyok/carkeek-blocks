@@ -1,3 +1,5 @@
+@use '../shared/editor/appender';
+
 .editor-styles-wrapper {
 
 	& .ck-columns {
@@ -7,6 +9,8 @@
 		}
 	}
 }
+
+
 
 .wp-block-carkeek-blocks-widget-row {
 	&[class*=is-style-border-]{

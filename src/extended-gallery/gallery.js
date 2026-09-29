@@ -59,6 +59,7 @@ export const Gallery = ( props ) => {
 		colSpans,
 		limitView,
 		viewLimit,
+		showOverlay,
 	} = attributes;
 
 	const [imageSelected, setImageSelected] = useState(null);
@@ -352,6 +353,7 @@ export const Gallery = ( props ) => {
 						index + 1,
 						images.length
 					);
+					const showInnerBlocks = showOverlay && index === 0;
 
 					const itemStyle = classnames({
                         'ck-blocks-gallery-grid-item': true,
@@ -414,6 +416,7 @@ export const Gallery = ( props ) => {
 								setSpans={ setSpans }
 								colSpans={ colSpans }
 								rowSpans={ rowSpans }
+								showInnerBlocks={ showInnerBlocks }
 							/>
 				}
 						</li>
@@ -468,12 +471,10 @@ export const Gallery = ( props ) => {
 
 //export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
 export default withSelect( ( select ) => {
-	const { getMedia } = select( 'core' );
 	const { getSettings } = select( 'core/block-editor' );
 	const { imageSizes } = getSettings();
 
 	return {
-		imageSizes,
-		getMedia,
+		imageSizes
 	};
 } ) (Gallery);

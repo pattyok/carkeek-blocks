@@ -14,7 +14,7 @@ import {
     __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { RichText, MediaPlaceholder, InspectorControls, URLInput } from '@wordpress/block-editor';
+import { RichText, MediaPlaceholder, InspectorControls, URLInput, InnerBlocks } from '@wordpress/block-editor';
 import { isBlobURL } from '@wordpress/blob';
 import icons from "./icons";
 
@@ -61,7 +61,8 @@ export const GalleryImage = ( props ) => {
 		imageIndex,
 		colSpans,
 		rowSpans,
-		setSpans
+		setSpans,
+		showInnerBlocks,
 	} = props;
 
 	const [isEditing, setIsEditing] = useState( false );
@@ -228,6 +229,17 @@ export const GalleryImage = ( props ) => {
 					/>
 				) }
 
+			{ showInnerBlocks &&
+					<InnerBlocks
+						template={[
+							[ 'core/group', {}, [
+								[ 'core/paragraph', {}, [] ],
+							]
+						]]}
+					/>
+				}
+
+
 			<ToggleGroupControl className="carkeek-edit__inline-menu carkeek-edit is-left">
 				<Button
 					icon={ icons.chevronLeft }
@@ -283,6 +295,8 @@ export const GalleryImage = ( props ) => {
 			</ToggleGroupControl>
 			</>
 			}
+
+
 			{ !isEditing && (( showCaptions ) || ( isSelected && linkImages == 'lightbox')) && (
 
 				<RichText
