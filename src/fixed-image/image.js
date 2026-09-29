@@ -83,7 +83,7 @@ export default function Image( {
 	const prevUrl = usePrevious( url );
 	const { image, multiImageSelection } = useSelect(
 		( select ) => {
-			const { getMedia } = select( 'core' );
+			const { getEntityRecord } = select( 'core' );
 			const {
 				getMultiSelectedBlockClientIds,
 				getBlockName,
@@ -95,7 +95,7 @@ export default function Image( {
 			return {
 				block: getSelectedBlock(),
 				currentId: getSelectedBlockClientId(),
-				image: id && isSelected ? getMedia( id ) : null,
+				image: id && isSelected ? getEntityRecord( 'postType', 'attachment', id ) : null,
 				multiImageSelection:
 					multiSelectedClientIds.length &&
 					multiSelectedClientIds.every(

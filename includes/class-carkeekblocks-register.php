@@ -225,18 +225,10 @@ class CarkeekBlocks_Block_Register {
 
 	/** Load Block Editor specific styles */
 	public function carkeek_blocks_enqueue_block_editor_assets() {
-		/** Shared css for editor only */
-		$dir        = plugin_dir_path( __DIR__ );
-		$shared_css = 'build/shared/index.css';
-		wp_enqueue_style(
-			'carkeek-blocks-shared-editor',
-			plugins_url( $shared_css, __DIR__ ),
-			array(),
-			filemtime( "$dir/$shared_css" )
-		);
+
 		// solves the wp-editor on the widgets screen error.
 		if ( 'widgets' !== get_current_screen()->id ) {
-
+			$dir = plugin_dir_path( __DIR__ );
 			/** Assets for the Editor plugins */
 			$plugins = 'build/plugins/';
 			wp_enqueue_script(

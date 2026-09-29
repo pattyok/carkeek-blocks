@@ -359,7 +359,7 @@ export const Gallery = ( props ) => {
 
 
 export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
-		const { getMedia } = select( 'core' );
+		const { getEntityRecord } = select( 'core' );
 		const { getSettings } = select( 'core/block-editor' );
 		const { imageSizes } = getSettings();
 
@@ -371,7 +371,7 @@ export default withSelect( ( select, { attributes: { ids }, isSelected } ) => {
 						if ( ! id ) {
 							return currentResizedImages;
 						}
-						const image = getMedia( id );
+						const image = getEntityRecord( 'postType', 'attachment', id );
 						const sizes = reduce(
 							imageSizes,
 							( currentSizes, size ) => {

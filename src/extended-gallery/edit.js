@@ -2,8 +2,7 @@
 import {
     useBlockProps,
     InspectorControls,
-    InspectorAdvancedControls,
-    InnerBlocks
+    InspectorAdvancedControls
 } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import { PanelBody, CheckboxControl, RadioControl, RangeControl, TextControl, ToggleControl, SelectControl } from "@wordpress/components";
@@ -381,15 +380,7 @@ function ExtendedGalleryEdit( props ) {
                     }
                 />
             </InspectorAdvancedControls>
-            { showOverlay &&
-                <InnerBlocks
-                    template={[
-                        [ 'core/group', {}, [
-                            [ 'core/paragraph', {}, [] ],
-                        ]
-                    ]]}
-                />
-            }
+
             <Gallery
                 { ...props }
             />

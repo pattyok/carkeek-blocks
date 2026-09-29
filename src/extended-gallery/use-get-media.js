@@ -14,9 +14,9 @@
              if ( imageIds.length === 0 ) {
                  return [ ...currentImageMedia ];
              }
-             const getMedia = select( coreStore ).getMedia;
+             const getMedia = select( coreStore ).getEntityRecord;
              const newImageMedia = imageIds.map( ( img ) => {
-                 return getMedia( img );
+                 return getMedia( 'postType', 'attachment', img );
              } );
 
              if ( newImageMedia.some( ( img ) => ! img ) ) {

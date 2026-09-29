@@ -102,7 +102,7 @@ function Edit( props ) {
                         </PanelBody>
                     </InspectorControls>
 					{ url ? (
-                    {img}
+					img
 					) : (
 						<div className="wp-block empty-block">
 							<div className="empty-block__icon">{icons.featuredimage}</div>
@@ -119,12 +119,12 @@ function Edit( props ) {
 export default withSelect(( select ) => {
 
 	const { getEditedPostAttribute } = select( 'core/editor' );
-	const { getMedia } = select( 'core' );
+	const { getEntityRecord } = select( 'core' );
 	const featuredImageId = getEditedPostAttribute( 'featured_media' );
 	const { getSettings } = select( 'core/block-editor' );
 	const { imageSizes } = getSettings();
 
-	const featuredMedia = featuredImageId ? getMedia(featuredImageId) : null;
+	const featuredMedia = featuredImageId ? getEntityRecord( 'postType', 'attachment', featuredImageId ) : null;
 	return {
 		featuredMedia,
 		imageSizes

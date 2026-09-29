@@ -1,3 +1,5 @@
+@use '../shared/editor/appender';
+
 .wp-block-carkeek-blocks-extended-gallery {
 
 	& ul.ck-blocks-gallery-grid.mobile-scroll,
@@ -13,6 +15,7 @@
 	}
 
 	& .blocks-gallery-item {
+		position: relative;
 
 		& > figure {
 			display: flex;
@@ -23,8 +26,9 @@
 		& .ck-gallery-custom-link {
 			border: 1px solid #ccc;
 		}
-	}
 
+	}
+	&.has-child-selected,
 	&.is-selected {
 
 		& .ck-blocks-gallery-hidden {
@@ -89,8 +93,7 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: auto;
-		aspect-ratio: 4/3;
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -104,6 +107,7 @@
 	display: none;
 	position: absolute;
 	top: 10px;
+	z-index: 200;
 	&.is-left {
 		left: 10px;
 	}
@@ -132,6 +136,8 @@
 	}
 	& .components-button {
 		height: 41px;
+		position: relative;
+		z-index: 200;
 		&:disabled,
 		&[aria-disabled=true] {
 			background-color: #ececec;
