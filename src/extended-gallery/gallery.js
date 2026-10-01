@@ -2,7 +2,7 @@
 /**
  * External dependencies
  */
-import { filter, map, isEmpty } from 'lodash';
+import { filter, map, isEmpty, find, get, parseInt } from 'lodash';
 import classnames from 'classnames';
 /**
  * WordPress dependencies
@@ -94,6 +94,40 @@ export const Gallery = ( props ) => {
 	}
 
 	const imageData = useGetMedia( ids );
+
+	// Backfill customLink from the attachment's ck_photo_credit_link meta
+	// once it's available, without overwriting an already-set customLink.
+	useEffect( () => {
+		if ( ! imageData || imageData.length === 0 ) {
+			return;
+		}
+
+		const needsUpdate = images.some( ( image ) => {
+			if ( image.customLink ) {
+				return false;
+			}
+			const theImage = find( imageData, { id: parseInt( image.id ) } );
+			return !! get( theImage, [ 'meta', 'ck_photo_credit_link' ] );
+		} );
+
+		if ( ! needsUpdate ) {
+			return;
+		}
+
+		setAttributes( {
+			images: images.map( ( image ) => {
+				if ( image.customLink ) {
+					return image;
+				}
+				const theImage = find( imageData, { id: parseInt( image.id ) } );
+				const metaLink = get( theImage, [ 'meta', 'ck_photo_credit_link' ] );
+				if ( ! metaLink ) {
+					return image;
+				}
+				return { ...image, customLink: metaLink };
+			} ),
+		} );
+	}, [ imageData ] );
 
 
 	const isGallery = displayAs == 'gallery';

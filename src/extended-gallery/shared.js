@@ -19,7 +19,7 @@ export const pickRelevantMediaFiles = ( image, thumbSize, lightSize, oldImages )
 		imageProps.caption = get( image, [ 'caption', 'raw' ] ) || get( image, [ 'caption' ] ) || undefined;
 	}
 
-	imageProps.customLink = get( oldImage, [ 'customLink' ] ) || undefined;
+	imageProps.customLink = get( oldImage, [ 'customLink' ] ) || get( image, [ 'meta', 'ck_photo_credit_link' ] ) || undefined;
 	imageProps.focalPointX = get( oldImage, [ 'focalPointX' ] ) || undefined;
 	imageProps.focalPointY = get( oldImage, [ 'focalPointY' ] ) || undefined;
 	imageProps.linkTarget = get( oldImage, [ 'linkTarget' ] ) || undefined;
@@ -48,7 +48,7 @@ export const pickRelevantMediaFilesUpdate = ( image, thumbSize, lightSize, image
 	imageProps.alt = get( theImage, [ 'alt_text' ] ) || get( theImage, [ 'alt' ] ) || undefined;
 	imageProps.caption = image.caption || get( theImage, [ 'caption', 'raw' ] ) || get( theImage, [ 'caption' ] ) || undefined;
 	imageProps.url = theImage.source_url || image.url;
-	imageProps.customLink = image.customLink;
+	imageProps.customLink = image.customLink || get( theImage, [ 'meta', 'ck_photo_credit_link' ] ) || undefined;
 	imageProps.focalPointX = image.focalPointX;
 	imageProps.focalPointY = image.focalPointY;
 	imageProps.linkTarget = image.linkTarget;

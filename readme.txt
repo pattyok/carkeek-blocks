@@ -44,6 +44,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 4.0.15 =
+* Release 4.0.12 - 4.0.14 - 10/01/26
+	* Adding support for link field in media library - housed in photo credit plugin
+	* Some updates to custom archive to better support simple list views.
 = 4.0.11 =
 * Release 4.0.11  - 08/19/26
 	* Wrapping Serverside Renders in Disabled component

@@ -52,7 +52,7 @@ export const GalleryImage = ( props ) => {
 		containImages,
 		imageHeight,
 		imageWidth,
-		'aria-label': ariaLabel,
+		ariaLabel,
 		onDeselect,
 		inlineEdit,
 		lightSize,
@@ -87,7 +87,7 @@ export const GalleryImage = ( props ) => {
 			return;
 		}
 
-		let mediaAttributes = pickRelevantMediaFiles( media, lightSize, thumbSize );
+		let mediaAttributes = pickRelevantMediaFiles( media, thumbSize, lightSize );
 
 		// If the current image is temporary but an alt text was meanwhile
 		// written by the user, make sure the text is not overwritten.
@@ -102,9 +102,7 @@ export const GalleryImage = ( props ) => {
 		if ( caption && ! get( mediaAttributes, [ 'caption' ] ) ) {
 			mediaAttributes = omit( mediaAttributes, [ 'caption' ] );
 		}
-		setAttributes( {
-			mediaAttributes,
-		} );
+		setAttributes( mediaAttributes );
 
 		setIsEditing( false );
 	}
