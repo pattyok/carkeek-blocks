@@ -88,7 +88,6 @@ export const GalleryImage = ( props ) => {
 		}
 
 		let mediaAttributes = pickRelevantMediaFiles( media, thumbSize, lightSize );
-		console.log( mediaAttributes );
 
 		// If the current image is temporary but an alt text was meanwhile
 		// written by the user, make sure the text is not overwritten.

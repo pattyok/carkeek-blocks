@@ -222,7 +222,6 @@ export const Gallery = ( props ) => {
 
 
     function onSelectImages( newImages ) {
-		console.log( 'onSelectImages called with:', newImages );
 		const oldImages = [ ...images ];
         setAttributes( {
 			images: newImages.map( ( image ) => pickRelevantMediaFiles( image, thumbSize, lightSize, oldImages ) ),
